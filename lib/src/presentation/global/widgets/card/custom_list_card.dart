@@ -99,15 +99,17 @@ class CustomListCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                if (content != null) const SizedBox(height: 8.0),
                 if (content != null)
-                  SizedBox(
-                    width: double.infinity,
-                    child: Wrap(
-                      spacing: 8.0,
-                      runSpacing: 8.8,
-                      alignment: WrapAlignment.end,
-                      children: content!,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.8,
+                        alignment: WrapAlignment.end,
+                        children: content!,
+                      ),
                     ),
                   ),
               ],
