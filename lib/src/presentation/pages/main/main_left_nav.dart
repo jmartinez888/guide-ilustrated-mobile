@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 
-class MainPage extends StatelessWidget {
+class MainLeftNav extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  const MainPage({
+  const MainLeftNav({
     Key? key,
     required this.navigationShell,
   }) : super(key: key);

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/presentation/pages/bardcoding/bardcoding_page.dart';
-import 'package:species/src/presentation/pages/biological_data/biological_data_page.dart';
-import 'package:species/src/presentation/pages/how_to_deposit/how_to_deposit_page.dart';
-import 'package:species/src/presentation/pages/indigenous_community/indigenous_community_page.dart';
-import 'package:species/src/presentation/pages/main/main_page.dart';
-import 'package:species/src/presentation/pages/maps/maps_page.dart';
-import 'package:species/src/presentation/pages/profile/profile_page.dart';
-import 'package:species/src/presentation/pages/scientific_resources/scientific_resources_page.dart';
-import 'package:species/src/presentation/pages/specialists/specialists_page.dart';
-import 'package:species/src/presentation/pages/species/species_page.dart';
-import 'package:species/src/presentation/pages/staff/staff_page.dart';
-import 'package:species/src/presentation/pages/viewfinder/viewfinder_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/lists/lists_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/main_species.dart';
+import 'package:species/src/presentation/pages/main/main_left_nav.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/bardcoding/bardcoding_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/biological_data/biological_data_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/how_to_deposit/how_to_deposit_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/indigenous_community_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/maps/maps_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/profile/profile_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/scientific_resources/scientific_resources_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/specialists/specialists_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/viewfinder/viewfinder_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 final parentNavigatorKey = GlobalKey<NavigatorState>();
@@ -22,7 +26,7 @@ final appRouter = GoRouter(
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
-          MainPage(navigationShell: navigationShell),
+          MainLeftNav(navigationShell: navigationShell),
       branches: [
         StatefulShellBranch(
           routes: [
@@ -35,10 +39,47 @@ final appRouter = GoRouter(
         ),
         StatefulShellBranch(
           routes: [
-            GoRoute(
-              path: Routes.species,
-              name: Routes.species,
-              builder: (_, __) => const SpeciesPage(),
+            StatefulShellRoute.indexedStack(
+              builder: (context, state, navigationShell) =>
+                  MainSpecies(navigationShell: navigationShell),
+              branches: [
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: Routes.species,
+                      name: Routes.species,
+                      builder: (_, __) => const SpeciesPage(),
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: Routes.generalSearch,
+                      name: Routes.generalSearch,
+                      builder: (_, __) => const SearchPage(),
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: Routes.favorites,
+                      name: Routes.favorites,
+                      builder: (_, __) => const FavoritesPage(),
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: [
+                    GoRoute(
+                      path: Routes.lists,
+                      name: Routes.lists,
+                      builder: (_, __) => const ListsPage(),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
