@@ -5,6 +5,8 @@ class SpeciesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('This is a example of SpeciesPage'));
+    return const Center(
+      child: Text('SpeciesPage'),
+    );
   }
 }
