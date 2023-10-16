@@ -11,6 +11,7 @@ class Routes {
       static const String register = 'register';
       static const String forgotPassword = 'forgot-password';
       static const String specieDetails = 'specie-details';
+      static const String imageDetails = 'image-details';
     
 
   static const String indigenousCommunity = '/indigenous-community';
@@ -24,6 +25,5 @@ class Routes {
   static const String staff = '/staff';
 
   static const String auth = '/auth';
-  static const String imageDetail = 'image-detail';
   static const String login = 'login';
 }

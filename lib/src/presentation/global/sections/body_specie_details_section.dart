@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class BodySpecieDetailsSection extends StatelessWidget {
   const BodySpecieDetailsSection({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class BodySpecieDetailsSection extends StatelessWidget {
             leftChild: Stack(
               children: [
                 CustomImageContainer(
+                  onTap: () => context.pushNamed(Routes.imageDetails),
                   imageUrl:
                       'https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2022%2F04%2Fsam-raimi-spider-man-4-tobey-maguire-possibility-marvel-studio-info-1.jpg?cbr=1&q=90',
                   heightImage:
@@ -101,14 +105,10 @@ class BodySpecieDetailsSection extends StatelessWidget {
               )
             ],
           ),
-          Positioned(
+          const Positioned(
             left: 56.0,
             top: 8.0,
-            child: CustomIconButton(
-              tooltip: 'Atrás',
-              icon: Icons.arrow_back_ios_rounded,
-              onPressed: () => Navigator.maybePop(context),
-            ),
+            child: CustomBackButton(),
           ),
         ],
       ),
