@@ -1,8 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -166,7 +167,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         const SizedBox(height: 16.0),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => context.pushNamed(Routes.register),
                           child: const Text('Si eres nuevo regístrate aquí'),
                         ),
                       ],

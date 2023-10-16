@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/pages/auth/sign_in/sign_in_page.dart';
+import 'package:species/src/presentation/pages/auth/sign_up/sign_up_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/lists/lists_page.dart';
@@ -58,6 +59,13 @@ final appRouter = GoRouter(
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, __) => const SignInPage(),
                         ),
+                        GoRoute(
+                          path: Routes.register,
+                          name: Routes.register,
+                          parentNavigatorKey: parentNavigatorKey,
+                          builder: (_, __) => const SignUpPage(),
+                        ),
+                        
                       ],
                     ),
                   ],

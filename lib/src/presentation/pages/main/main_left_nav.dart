@@ -138,19 +138,20 @@ class MainLeftNav extends StatelessWidget {
         children: _buildNavigationDrawerItems(context),
       ),
       body: SafeArea(
-          child: Stack(
-        children: [
-          navigationShell,
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-            child: CustomIconButton(
-              tooltip: 'Menú',
-              icon: Icons.menu_rounded,
-              onPressed: () => scaffoldKey.currentState?.openDrawer(),
+        child: Stack(
+          children: [
+            navigationShell,
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+              child: CustomIconButton(
+                tooltip: 'Menú',
+                icon: Icons.menu_rounded,
+                onPressed: () => scaffoldKey.currentState?.openDrawer(),
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
