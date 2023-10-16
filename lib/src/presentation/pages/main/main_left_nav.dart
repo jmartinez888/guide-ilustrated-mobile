@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
+import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 
 class MainLeftNav extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -98,9 +99,7 @@ class MainLeftNav extends StatelessWidget {
     scaffoldKey.currentState?.openEndDrawer();
   }
 
-  List<Widget> _buildNavigationDrawerItems(
-    BuildContext context
-  ) {
+  List<Widget> _buildNavigationDrawerItems(BuildContext context) {
     List<Widget> items = [];
 
     for (var section in _pageData) {
@@ -108,9 +107,12 @@ class MainLeftNav extends StatelessWidget {
       final colorScheme = Theme.of(context).colorScheme;
       items.add(Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Text(section['title'], style: textTheme.titleMedium?.copyWith(
-          color: colorScheme.primary,
-        ),),
+        child: Text(
+          section['title'],
+          style: textTheme.titleMedium?.copyWith(
+            color: colorScheme.primary,
+          ),
+        ),
       ));
 
       for (var content in section['content']) {
@@ -135,10 +137,20 @@ class MainLeftNav extends StatelessWidget {
         onDestinationSelected: (index) => _goBranch(index, scaffoldKey),
         children: _buildNavigationDrawerItems(context),
       ),
-      appBar: AppBar(
-        title: const Text('Este es un AppBar'),
-      ),
-      body: navigationShell,
+      body: SafeArea(
+          child: Stack(
+        children: [
+          navigationShell,
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+            child: CustomIconButton(
+              tooltip: 'Menú',
+              icon: Icons.menu_rounded,
+              onPressed: () => scaffoldKey.currentState?.openDrawer(),
+            ),
+          ),
+        ],
+      )),
     );
   }
 }

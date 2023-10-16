@@ -6,6 +6,8 @@ class Routes {
     static const String generalSearch = '/specie-search';
     static const String favorites = '/favorites';
     static const String lists = '/lists';
+
+      static const String signIn = 'sign-in';
     
 
   static const String indigenousCommunity = '/indigenous-community';
