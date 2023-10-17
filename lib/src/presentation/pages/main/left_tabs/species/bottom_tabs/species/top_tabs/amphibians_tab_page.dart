@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/sections/species_tab_page.dart';
 
-class AmphibiansTabPage extends StatefulWidget {
+class AmphibiansTabPage extends StatelessWidget {
   const AmphibiansTabPage({super.key});
 
   @override
-  State<AmphibiansTabPage> createState() => _AmphibiansTabPageState();
-}
-
-class _AmphibiansTabPageState extends State<AmphibiansTabPage>
-    with AutomaticKeepAliveClientMixin<AmphibiansTabPage> {
-  @override
-  bool get wantKeepAlive => true;
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return const Center(child: Text('AmphibiansTabPage'));
-  }
+  Widget build(BuildContext context) => const SpeciesTabPageSection(type: 4);
 }

@@ -107,18 +107,20 @@ class _SpeciesPageState extends State<SpeciesPage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: _pageData.length,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              height: 56.0,
-              padding: const EdgeInsets.only(left: 56.0),
-              child: Text('Especies',
-                  style: Theme.of(context).textTheme.titleLarge),
-            ),
-            TabBar(
+      length: _pageData.length,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            height: 56.0,
+            padding: const EdgeInsets.only(left: 56.0),
+            child:
+                Text('Especies', style: Theme.of(context).textTheme.titleLarge),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: TabBar(
               controller: _tabController,
               splashBorderRadius: BorderRadius.circular(16.0),
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -128,14 +130,16 @@ class _SpeciesPageState extends State<SpeciesPage>
               onTap: (index) => setState(() => _tabController.index = index),
               tabs: _tabs,
             ),
-            Expanded(
-              child: TabBarView(
-                physics: const BouncingScrollPhysics(),
-                controller: _tabController,
-                children: _pages,
-              ),
+          ),
+          Expanded(
+            child: TabBarView(
+              physics: const BouncingScrollPhysics(),
+              controller: _tabController,
+              children: _pages,
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

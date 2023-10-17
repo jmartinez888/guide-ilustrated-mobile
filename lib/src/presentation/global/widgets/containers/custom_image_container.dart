@@ -3,25 +3,28 @@ import 'package:flutter/material.dart';
 
 class CustomImageContainer extends StatelessWidget {
   final String imageUrl;
+  final Object? tag;
   final double? heightImage;
   final double? width;
   final BorderRadiusGeometry? borderRadius;
   final bool fitImage;
+  final Color? mainColor;
   final void Function()? onTap;
   const CustomImageContainer({
     Key? key,
     required this.imageUrl,
+    this.tag,
     this.heightImage,
     this.width,
     this.borderRadius,
     this.fitImage = false,
+    this.mainColor,
     this.onTap,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-  final borderRadius = BorderRadius.circular(16.0);
+    final borderRadius = BorderRadius.circular(16.0);
     return InkWell(
       onTap: onTap,
       borderRadius: borderRadius,
@@ -29,26 +32,34 @@ class CustomImageContainer extends StatelessWidget {
         borderRadius: borderRadius,
         child: imageUrl.startsWith('http')
             ? SizedBox(
-                height: heightImage,
+                height: fitImage == true && heightImage != null
+                    ? heightImage
+                    : null,
                 width: width,
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  width: double.infinity,
-                  fit: fitImage == true ? BoxFit.none : BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      SizedBox(
-                    height: heightImage,
-                    width: width,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                          value: downloadProgress.progress),
+                child: Hero(
+                  tag: tag ?? '',
+                  transitionOnUserGestures: true,
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    width: double.infinity,
+                    fit: fitImage == true ? BoxFit.none : BoxFit.cover,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => SizedBox(
+                      height: heightImage,
+                      width: width,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: mainColor,
+                        ),
+                      ),
                     ),
-                  ),
-                  errorWidget: (context, url, error) => SizedBox(
-                    height: heightImage,
-                    width: width,
-                    child: const Center(
-                        child: Icon(Icons.image_not_supported_outlined)),
+                    errorWidget: (context, url, error) => SizedBox(
+                      height: heightImage,
+                      width: width,
+                      child: const Center(
+                          child: Icon(Icons.image_not_supported_outlined)),
+                    ),
                   ),
                 ),
               )

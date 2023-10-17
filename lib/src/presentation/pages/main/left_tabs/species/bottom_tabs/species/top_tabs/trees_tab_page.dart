@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/sections/species_tab_page.dart';
 
-class TreesTabPage extends StatefulWidget {
+class TreesTabPage extends StatelessWidget {
   const TreesTabPage({super.key});
 
   @override
-  State<TreesTabPage> createState() => _TreesTabPageState();
-}
-
-class _TreesTabPageState extends State<TreesTabPage>
-    with AutomaticKeepAliveClientMixin<TreesTabPage> {
-  @override
-  bool get wantKeepAlive => true;
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return const Center(child: Text('TreesTabPage'));
-  }
+  Widget build(BuildContext context) => const SpeciesTabPageSection(type: 7);
 }
