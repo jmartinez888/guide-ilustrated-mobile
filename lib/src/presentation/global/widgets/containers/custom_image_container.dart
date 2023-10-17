@@ -32,17 +32,16 @@ class CustomImageContainer extends StatelessWidget {
         borderRadius: borderRadius,
         child: imageUrl.startsWith('http')
             ? SizedBox(
-                height: fitImage == true && heightImage != null
-                    ? heightImage
-                    : null,
+                height: heightImage,
                 width: width,
                 child: Hero(
                   tag: tag ?? '',
                   transitionOnUserGestures: true,
                   child: CachedNetworkImage(
+                    height: heightImage,
                     imageUrl: imageUrl,
                     width: double.infinity,
-                    fit: fitImage == true ? BoxFit.none : BoxFit.cover,
+                    fit: fitImage ? BoxFit.cover : BoxFit.contain,
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => SizedBox(
                       height: heightImage,
