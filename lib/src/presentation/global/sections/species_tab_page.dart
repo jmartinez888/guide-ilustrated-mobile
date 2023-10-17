@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
-import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
+import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/responsives/max_extend.dart';
@@ -29,7 +28,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
 
-  final SpecieRepository specieRepository = SpecieSpeciesIIapRepositoryImple();
+  final SpecieRepository specieRepository = SpecieSpeciesIIapRepositoryImpl();
 
   @override
   void initState() {
@@ -50,33 +49,10 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     super.dispose();
   }
 
-  Color getPrincipalColor(int type) {
-    switch (type) {
-      case 1:
-        return CustomColors.bird;
-      case 2:
-        return CustomColors.mammal;
-      case 3:
-        return CustomColors.reptile;
-      case 4:
-        return CustomColors.reptile;
-      case 5:
-        return CustomColors.fish;
-      case 6:
-        return CustomColors.insect;
-      case 7:
-        return CustomColors.tree;
-      case 8:
-        return CustomColors.palm;
-      default:
-        return CustomColors.primary;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final mainColor = getPrincipalColor(widget.type);
+    final mainColor = getMainColorByInt(widget.type);
     return RefreshIndicator(
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
       child: MaxExtend(
@@ -100,12 +76,14 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
             animateTransitions: true,
             transitionDuration: const Duration(milliseconds: 400),
             itemBuilder: (context, item, index) => CustomGridCard(
-              onTap: () => context.pushNamed(Routes.specieDetails),
+              onTap: () => context.pushNamed(
+                Routes.specieDetails,
+                pathParameters: {'id': item.id.toString()},
+              ),
               principalColor: mainColor,
               image: CustomImageContainer(
                 tag: item.id,
                 imageUrl: item.images.first,
-                heightImage: 256.0,
                 mainColor: mainColor,
               ),
               title: item.name,

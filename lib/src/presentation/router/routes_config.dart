@@ -58,9 +58,12 @@ final appRouter = GoRouter(
                       builder: (_, __) => const SpeciesPage(),
                       routes: [
                         GoRoute(
-                          path: Routes.specieDetails,
+                          path: '${Routes.specieDetails}/:id',
                           name: Routes.specieDetails,
-                          builder: (_, __) => const SpecieDetailsPage(),
+                          builder: (_, state) {
+                            final id = state.pathParameters['id'];
+                            return SpecieDetailsPage(id: id.toString());
+                          },
                         ),
                         GoRoute(
                           path: Routes.imageDetails,
