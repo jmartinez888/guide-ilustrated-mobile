@@ -50,6 +50,7 @@ dependencies:
   just_audio: ^0.9.35
   just_audio_cache: ^0.1.2
   audio_video_progress_bar: ^2.0.1
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:
