@@ -8,6 +8,7 @@ import 'package:species/src/presentation/global/widgets/custom_back_button.dart'
 import 'package:species/src/presentation/global/widgets/multimedia/custom_audio_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BodySpecieDetailsSection extends StatelessWidget {
   final Specie? specie;
@@ -66,7 +67,7 @@ class BodySpecieDetailsSection extends StatelessWidget {
                               icon: Icons.share,
                               iconColor: Colors.white,
                               backgroundColor: mainColor,
-                              onPressed: () {},
+                              onPressed: () => Share.share('¿Qué te parece esta espcie amazónica? https://amazonia.iiap.gob.pe/species/specie-details/${specie!.id}'),
                             ),
                             CustomIconButton(
                               tooltip: 'Favorito',
