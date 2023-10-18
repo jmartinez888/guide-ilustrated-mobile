@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
@@ -21,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
       _passwordController = TextEditingController(),
       _repeatPasswordController = TextEditingController();
 
-  final AuthRepository authIiap = AuthIiapRepositoryImpl();
+  final AuthRepository authRepository = AuthIiapRepositoryImpl();
 
   bool _hidePassword = true;
   bool validateInInput = false;
@@ -111,9 +110,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                   onChanged: (value) => setState(() {}),
                   validator: (value) => repeatPasswordValidator(
                       _repeatPasswordController.text, _passwordController.text),
-                  inputFormatters: [
-                    withoutSpaces,
-                  ],
+                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.visiblePassword,
                 ),
                 const SizedBox(height: 16.0),
@@ -152,9 +149,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                   ),
                   onChanged: (value) => setState(() {}),
                   validator: passwordValidator,
-                  inputFormatters: [
-                    withoutSpaces,
-                  ],
+                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.visiblePassword,
                 ),
                 const SizedBox(height: 16.0),
@@ -178,9 +173,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                   ),
                   onChanged: (value) => setState(() {}),
                   validator: emailValidator,
-                  inputFormatters: [
-                    withoutSpaces,
-                  ],
+                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.emailAddress,
                 ),
               ],
@@ -212,7 +205,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      final userCredential = await authIiap.signUp(
+      final userCredential = await authRepository.signUp(
         email: email,
         password: password,
       );
@@ -220,11 +213,10 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
       userCredential.when(
         (left) => customSnackBar(context: context, title: left, large: true),
         (right) async {
-          final emailVerification = await authIiap.sendVerificationEmail();
+          final emailVerification = await authRepository.sendVerificationEmail();
 
           emailVerification.when(
-            (left) =>
-                customSnackBar(context: context, title: left),
+            (left) => customSnackBar(context: context, title: left),
             (right) => showModalBottomSheet(
               context: context,
               builder: (context) => CustomBottomSheet(

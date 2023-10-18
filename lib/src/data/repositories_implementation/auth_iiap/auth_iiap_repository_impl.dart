@@ -6,8 +6,10 @@ class AuthIiapRepositoryImpl extends AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<Either<String, UserCredential>> signUp(
-      {required String email, required String password}) async {
+  Future<Either<String, UserCredential>> signUp({
+    required String email,
+    required String password,
+  }) async {
     try {
       final value = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email.replaceAll(' ', ''),
@@ -27,9 +29,9 @@ class AuthIiapRepositoryImpl extends AuthRepository {
       } else if (e.code == 'network-request-failed') {
         return Either.left(
             'No se pudo conectar con el servidor, por favor, verifica tu conexión a internet e inténtalo de nuevo');
-      }
-       else {
-        return Either.left('Este usuario ya existe, consulta tu correo o toca en el botón "Ingresa aquí"');
+      } else {
+        return Either.left(
+            'Este usuario ya existe, consulta tu correo o toca en el botón "Ingresa aquí"');
       }
     }
   }
@@ -43,9 +45,46 @@ class AuthIiapRepositoryImpl extends AuthRepository {
         return Either.right(
             'Se ha enviado a su correo un mensaje de verficiación, toque el mensaje para validar su correo');
       }
-      return Either.left('El usuario ya está verificado');
+      return Either.right('El usuario ya está verificado');
     } catch (e) {
       return Either.left('Algo salió mal');
+    }
+  }
+
+  @override
+  Future<Either<String, UserCredential>> signIn({
+    required String email,
+    required password,
+  }) async {
+    try {
+      final value = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email.replaceAll(' ', ''),
+        password: password.replaceAll(' ', ''),
+      );
+      return Either.right(value);
+    } on FirebaseAuthException catch (e) {
+      late String text;
+      switch (e.code) {
+        case 'user-not-found':
+          text = 'Este correo no está registrado';
+          break;
+        case 'wrong-password':
+          Either.left('Contraseña incorrecta');
+          break;
+        case 'unusual activity':
+          text =
+              'Hemos bloquedo todas las solicitudes de este dispositivo debido a una actividad inusual. El acceso a esta cuenta ha sido deshabilitado temporalmente debido a demasiados intentos fallidos de iniciar sesión. Por favor, intenta más tarde';
+
+          break;
+        case 'network-request-failed':
+          text =
+              'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet e inténtalo de nuevo';
+          break;
+        default:
+          text = 'Error inesperado';
+          break;
+      }
+      return Either.left(text);
     }
   }
 }
