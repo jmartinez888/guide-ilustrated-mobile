@@ -8,4 +8,9 @@ abstract class AuthRepository {
   });
 
   Future<Either<String, String>> sendVerificationEmail();
+
+  Future<Either<String, UserCredential>> signIn({
+    required String email,
+    required password,
+  });
 }
