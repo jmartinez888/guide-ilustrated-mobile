@@ -20,6 +20,7 @@ import 'package:species/src/presentation/pages/main/left_tabs/scientific_resourc
 import 'package:species/src/presentation/pages/main/left_tabs/specialists/specialists_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/viewfinder/viewfinder_page.dart';
+import 'package:species/src/presentation/pages/pdf_preview.dart/pdf_preview_page.dart';
 import 'package:species/src/presentation/pages/specie_details/specie_details_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -88,6 +89,15 @@ final appRouter = GoRouter(
                           name: Routes.forgotPassword,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, __) => const ForgotPasswordPage(),
+                        ),
+                        GoRoute(
+                          path: '${Routes.pdfPreview}/:specie',
+                          name: Routes.pdfPreview,
+                          parentNavigatorKey: parentNavigatorKey,
+                          builder: (_, state) {
+                            final specie = state.pathParameters['specie'];
+                            return PdfPreviewPage(specie: specie.toString());
+                          },
                         ),
                       ],
                     ),

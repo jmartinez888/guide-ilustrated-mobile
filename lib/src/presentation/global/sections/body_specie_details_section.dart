@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:go_router/go_router.dart';
@@ -53,9 +55,8 @@ class BodySpecieDetailsSection extends StatelessWidget {
                             : double.infinity,
                       ),
                       ActionsForSpecieDetails(
-                        id: specie!.id.toString(),
-                        imageUrl: specie!.images.first,
-                        soundUrl: specie!.sound,
+                        context: context,
+                        specie: specie!,
                         mainColor: mainColor,
                       ),
                     ],
@@ -124,16 +125,14 @@ class BodySpecieDetailsSection extends StatelessWidget {
 }
 
 class ActionsForSpecieDetails extends StatefulWidget {
+  final BuildContext context;
   final Color mainColor;
-  final String id;
-  final String imageUrl;
-  final String soundUrl;
+  final Specie specie;
   const ActionsForSpecieDetails({
     Key? key,
+    required this.context,
     required this.mainColor,
-    required this.id,
-    required this.imageUrl,
-    required this.soundUrl,
+    required this.specie,
   }) : super(key: key);
 
   @override
@@ -162,36 +161,52 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
                   width: 40.0,
                   child: CircularProgressIndicator(),
                 ),
-              PopupMenuButton(
-                tooltip: 'Descargar',
-                offset: const Offset(0, 48.0),
-                padding: const EdgeInsets.all(0.0),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    value: 0,
-                    child: _simpleList(icon: Icons.picture_as_pdf_rounded, text: 'Generar PDF'),
-                    onTap: () {},
-                  ),
-                  PopupMenuItem(
-                    value: 1,
-                    child: _simpleList(icon: Icons.image_rounded, text: 'Descargar Imagen'),
-                    onTap: () => download(
-                        context: context, urlDownload: widget.imageUrl),
-                  ),
-                  if (widget.soundUrl.isNotEmpty)
+              SizedBox(
+                height: 40.0,
+                width: 40.0,
+                child: PopupMenuButton(
+                  tooltip: 'Descargar',
+                  offset: const Offset(0, 48.0),
+                  padding: const EdgeInsets.all(0.0),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 0,
+                      child: _simpleList(
+                          icon: Icons.picture_as_pdf_rounded,
+                          text: 'Generar PDF'),
+                      onTap: () => context.pushNamed(
+                        Routes.pdfPreview,
+                        pathParameters: {
+                          'specie': jsonEncode(widget.specie.toJson()),
+                        },
+                      ),
+                    ),
                     PopupMenuItem(
                       value: 1,
-                      child: _simpleList(icon: Icons.music_note_rounded, text: 'Descargar Imagen'),
+                      child: _simpleList(
+                          icon: Icons.image_rounded, text: 'Descargar Imagen'),
                       onTap: () => download(
-                          context: context, urlDownload: widget.soundUrl),
+                          context: widget.context,
+                          urlDownload: widget.specie.images.first),
                     ),
-                ],
-                icon: CircleAvatar(
-                  backgroundColor: widget.mainColor,
-                  child:
-                      const Icon(Icons.download_rounded, color: Colors.white),
+                    if (widget.specie.sound.isNotEmpty)
+                      PopupMenuItem(
+                        value: 1,
+                        child: _simpleList(
+                            icon: Icons.music_note_rounded,
+                            text: 'Descargar Audio'),
+                        onTap: () => download(
+                            context: widget.context,
+                            urlDownload: widget.specie.sound),
+                      ),
+                  ],
+                  icon: CircleAvatar(
+                    backgroundColor: widget.mainColor,
+                    child:
+                        const Icon(Icons.download_rounded, color: Colors.white),
+                  ),
+                  surfaceTintColor: Colors.transparent,
                 ),
-                surfaceTintColor: Colors.transparent,
               ),
             ],
           ),
@@ -201,7 +216,7 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
             iconColor: Colors.white,
             backgroundColor: widget.mainColor,
             onPressed: () => Share.share(
-                '¿Qué te parece esta espcie amazónica? https://amazonia.iiap.gob.pe/species/specie-details/${widget.id}'),
+                '¿Qué te parece esta espcie amazónica? https://amazonia.iiap.gob.pe/species/specie-details/${widget.specie.id}'),
           ),
           CustomIconButton(
             tooltip: 'Favorito',
@@ -218,12 +233,16 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
   Widget _simpleList({
     required IconData icon,
     required String text,
-  }) => Row(children: [
-    Icon(icon),
-    Padding(padding: const EdgeInsets.only(left: 8.0,),
-    child: Expanded(child: Text(text)),
-    ),
-  ],);
+  }) =>
+      Row(
+        children: [
+          Icon(icon),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(text),
+          ),
+        ],
+      );
 
   Future<void> download({
     required BuildContext context,
@@ -239,16 +258,16 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
           url: urlDownload,
           onDownloadError: (error) => customSnackBar(
             title: 'Algo salió mal',
-            context: context,
+            context: widget.context,
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
-          onDownloadCompleted: (val) {
+          onDownloadCompleted: (progress) {
+            setState(() => _progress = null);
             customSnackBar(
               title: 'Descarga finalizada',
-              context: context,
+              context: widget.context,
               backgroundColor: widget.mainColor,
             );
-            setState(() => _progress = null);
           },
           onProgress: (name, progress) => setState(() => _progress = progress),
         );

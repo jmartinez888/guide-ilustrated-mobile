@@ -12,6 +12,7 @@ class Routes {
       static const String forgotPassword = 'forgot-password';
       static const String specieDetails = 'specie-details';
       static const String imageDetails = 'image-details';
+      static const String pdfPreview = 'pdf';
     
 
   static const String indigenousCommunity = '/indigenous-community';
