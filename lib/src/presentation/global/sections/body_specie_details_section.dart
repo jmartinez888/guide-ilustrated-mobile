@@ -162,36 +162,46 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
                   width: 40.0,
                   child: CircularProgressIndicator(),
                 ),
-              PopupMenuButton(
-                tooltip: 'Descargar',
-                offset: const Offset(0, 48.0),
-                padding: const EdgeInsets.all(0.0),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    value: 0,
-                    child: _simpleList(icon: Icons.picture_as_pdf_rounded, text: 'Generar PDF'),
-                    onTap: () {},
-                  ),
-                  PopupMenuItem(
-                    value: 1,
-                    child: _simpleList(icon: Icons.image_rounded, text: 'Descargar Imagen'),
-                    onTap: () => download(
-                        context: context, urlDownload: widget.imageUrl),
-                  ),
-                  if (widget.soundUrl.isNotEmpty)
+              SizedBox(
+                height: 40.0,
+                width: 40.0,
+                child: PopupMenuButton(
+                  tooltip: 'Descargar',
+                  offset: const Offset(0, 48.0),
+                  padding: const EdgeInsets.all(0.0),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 0,
+                      child: _simpleList(
+                          icon: Icons.picture_as_pdf_rounded,
+                          text: 'Generar PDF'),
+                      onTap: () {},
+                    ),
                     PopupMenuItem(
                       value: 1,
-                      child: _simpleList(icon: Icons.music_note_rounded, text: 'Descargar Imagen'),
+                      child: _simpleList(
+                          icon: Icons.image_rounded, text: 'Descargar Imagen'),
                       onTap: () => download(
-                          context: context, urlDownload: widget.soundUrl),
+                          context: context, urlDownload: widget.imageUrl),
                     ),
-                ],
-                icon: CircleAvatar(
-                  backgroundColor: widget.mainColor,
-                  child:
-                      const Icon(Icons.download_rounded, color: Colors.white),
+                    if (widget.soundUrl.isNotEmpty)
+                      PopupMenuItem(
+                        value: 1,
+                        child: _simpleList(
+                            icon: Icons.music_note_rounded,
+                            text: 'Descargar Imagen'),
+                        onTap: () => download(
+                            context: context, urlDownload: widget.soundUrl),
+                      ),
+                      
+                  ],
+                  icon: CircleAvatar(
+                    backgroundColor: widget.mainColor,
+                    child:
+                        const Icon(Icons.download_rounded, color: Colors.white),
+                  ),
+                  surfaceTintColor: Colors.transparent,
                 ),
-                surfaceTintColor: Colors.transparent,
               ),
             ],
           ),
@@ -218,12 +228,18 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
   Widget _simpleList({
     required IconData icon,
     required String text,
-  }) => Row(children: [
-    Icon(icon),
-    Padding(padding: const EdgeInsets.only(left: 8.0,),
-    child: Expanded(child: Text(text)),
-    ),
-  ],);
+  }) =>
+      Row(
+        children: [
+          Icon(icon),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 8.0,
+            ),
+            child: Text(text),
+          ),
+        ],
+      );
 
   Future<void> download({
     required BuildContext context,
