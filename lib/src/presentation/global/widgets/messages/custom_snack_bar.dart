@@ -4,6 +4,7 @@ ScaffoldMessengerState customSnackBar({
   required BuildContext context,
   required String title,
   Color? backgroundColor,
+  bool large = false,
 }) =>
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
@@ -16,7 +17,7 @@ ScaffoldMessengerState customSnackBar({
               topRight: Radius.circular(16.0),
             ),
           ),
-          duration: const Duration(milliseconds: 2500),
+          duration:  Duration(milliseconds: large == false ? 2500 : 7500),
           content: Text(
             title,
             style: const TextStyle(color: Colors.white),

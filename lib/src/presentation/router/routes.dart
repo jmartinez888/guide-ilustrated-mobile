@@ -8,7 +8,7 @@ class Routes {
     static const String lists = '/lists';
 
       static const String signIn = 'sign-in';
-      static const String register = 'register';
+      static const String signUp = 'sign-up';
       static const String forgotPassword = 'forgot-password';
       static const String specieDetails = 'specie-details';
       static const String imageDetails = 'image-details';
@@ -25,6 +25,4 @@ class Routes {
   static const String howToDeposit = '/how-to-deposit';
   static const String staff = '/staff';
 
-  static const String auth = '/auth';
-  static const String login = 'login';
 }

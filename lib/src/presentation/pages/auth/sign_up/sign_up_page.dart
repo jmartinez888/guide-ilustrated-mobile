@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
+import 'package:species/src/presentation/global/mixins/form_mixin.dart';
+import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
+import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -9,11 +15,13 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends State<SignUpPage> with FormMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController(),
       _passwordController = TextEditingController(),
       _repeatPasswordController = TextEditingController();
+
+  final AuthRepository authIiap = AuthIiapRepositoryImpl();
 
   bool _hidePassword = true;
   bool validateInInput = false;
@@ -50,7 +58,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const SizedBox(height: 16.0),
                 FilledButton.icon(
-                  onPressed: () {},
+                  onPressed: enabled
+                      ? () {
+                          enabled = false;
+                          setState(() {});
+                          _validateCredentials();
+                        }
+                      : null,
                   icon: enabled
                       ? const Icon(Icons.navigate_next_rounded)
                       : const SizedBox(
@@ -95,6 +109,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   onChanged: (value) => setState(() {}),
+                  validator: (value) => repeatPasswordValidator(
+                      _repeatPasswordController.text, _passwordController.text),
+                  inputFormatters: [
+                    withoutSpaces,
+                  ],
                   keyboardType: TextInputType.visiblePassword,
                 ),
                 const SizedBox(height: 16.0),
@@ -132,6 +151,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   onChanged: (value) => setState(() {}),
+                  validator: passwordValidator,
+                  inputFormatters: [
+                    withoutSpaces,
+                  ],
                   keyboardType: TextInputType.visiblePassword,
                 ),
                 const SizedBox(height: 16.0),
@@ -154,6 +177,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         : null,
                   ),
                   onChanged: (value) => setState(() {}),
+                  validator: emailValidator,
+                  inputFormatters: [
+                    withoutSpaces,
+                  ],
                   keyboardType: TextInputType.emailAddress,
                 ),
               ],
@@ -162,5 +189,58 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  void _validateCredentials() async {
+    enabled = false;
+    setState(() {});
+
+    if (validateInInput == false) {
+      validateInInput = true;
+      enabled = true;
+      setState(() {});
+    } else if (validateInInput) {
+      validateInInput = false;
+      enabled = true;
+      setState(() {});
+    }
+    if (_formKey.currentState!.validate()) {
+      validateInInput = false;
+      enabled = false;
+      setState(() {});
+
+      final email = _emailController.text;
+      final password = _passwordController.text;
+
+      final userCredential = await authIiap.signUp(
+        email: email,
+        password: password,
+      );
+
+      userCredential.when(
+        (left) => customSnackBar(context: context, title: left, large: true),
+        (right) async {
+          final emailVerification = await authIiap.sendVerificationEmail();
+
+          emailVerification.when(
+            (left) =>
+                customSnackBar(context: context, title: left),
+            (right) => showModalBottomSheet(
+              context: context,
+              builder: (context) => CustomBottomSheet(
+                title: 'Te enviamos un correo!',
+                body: [Text(right)],
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () => Navigator.maybePop(context),
+                  child: const Icon(Icons.check_rounded),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
+    enabled = true;
+    setState(() {});
   }
 }
