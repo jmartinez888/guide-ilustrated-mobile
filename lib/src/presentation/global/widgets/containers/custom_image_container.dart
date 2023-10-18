@@ -47,9 +47,12 @@ class CustomImageContainer extends StatelessWidget {
                       height: heightImage,
                       width: width,
                       child: Center(
-                        child: CircularProgressIndicator(
-                          value: downloadProgress.progress,
-                          color: mainColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: CircularProgressIndicator(
+                            value: downloadProgress.progress,
+                            color: mainColor,
+                          ),
                         ),
                       ),
                     ),
