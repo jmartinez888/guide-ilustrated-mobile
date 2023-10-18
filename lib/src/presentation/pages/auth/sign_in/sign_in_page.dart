@@ -167,7 +167,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         const SizedBox(height: 16.0),
                         TextButton(
-                          onPressed: () => context.pushNamed(Routes.register),
+                          onPressed: () => context.pushNamed(Routes.signUp),
                           child: const Text('Si eres nuevo regístrate aquí'),
                         ),
                       ],

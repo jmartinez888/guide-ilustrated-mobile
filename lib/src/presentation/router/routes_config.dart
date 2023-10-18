@@ -79,8 +79,8 @@ final appRouter = GoRouter(
                           builder: (_, __) => const SignInPage(),
                         ),
                         GoRoute(
-                          path: Routes.register,
-                          name: Routes.register,
+                          path: Routes.signUp,
+                          name: Routes.signUp,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, __) => const SignUpPage(),
                         ),
