@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -13,6 +15,8 @@ import 'package:pdf/widgets.dart' as pw;
 
 class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
   final baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
+  final firebaseInstance = FirebaseFirestore.instance.collection('users');
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Future<void> getSpecies({
@@ -54,6 +58,51 @@ class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
     final specieDetail = SpecieSpeciesIiap.fromJson(jsonDecode(response.body));
     final Specie specie = SpecieMapper.speciesIiapToEntity(specieDetail);
     return specie;
+  }
+
+  @override
+  Stream<List<Specie>> getFavoriteSpecies() {
+    try {
+      final querySnapshot =
+          firebaseInstance.doc(_auth.currentUser?.uid).collection('favorites').orderBy('name').snapshots();
+
+      return querySnapshot.map((snapshot) {
+        final List<Specie> species = [];
+
+        for (var doc in snapshot.docs) {
+          final data = doc.data();
+          final specie = Specie.fromJson(data);
+          species.add(specie);
+        }
+        return species;
+      });
+    } catch (e) {
+      throw 'Ha ocurrido un error al obtener las especies';
+    }
+  }
+
+  @override
+  Future<void> saveSpecieFavorite({
+    required String userId,
+    required Specie specie,
+  }) async {
+    final docUser = firebaseInstance.doc(userId);
+    final getUser = await docUser.get();
+    final json = specie.toJson();
+    await getUser.reference
+        .collection('favorites')
+        .doc(specie.id.toString())
+        .set(json);
+  }
+  
+  @override
+  Future<void> deleteSpecieFavorite({
+    required String userId,
+    required int idSpecie,
+  }) async {
+    final docUser = firebaseInstance.doc(userId);
+    final getUser = await docUser.get();
+    getUser.reference.collection('favorites').doc(idSpecie.toString()).delete();
   }
 
    @override

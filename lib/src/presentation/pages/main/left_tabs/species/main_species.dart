@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/widgets/navigations/custom_bottom_nav_bar.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
-class MainSpecies extends StatelessWidget {
+class MainSpecies extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
 
   const MainSpecies({
@@ -39,15 +42,23 @@ class MainSpecies extends StatelessWidget {
       )
       .toList();
 
-  void _goBranch(int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+  void _goBranch(int index, BuildContext context, WidgetRef ref,
+      FirebaseAuth firebaseAuthInstance) {
+    if ((index == 2 || index == 3) &&
+        (firebaseAuthInstance.currentUser == null ||
+            !firebaseAuthInstance.currentUser!.emailVerified)) {
+      context.pushNamed(Routes.signIn);
+    } else {
+      navigationShell.goBranch(
+        index,
+        initialLocation: index == navigationShell.currentIndex,
+      );
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final firebaseAuthInstance = FirebaseAuth.instance;
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -57,8 +68,13 @@ class MainSpecies extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: CustomBottomNavBar(
-            onDestinationSelected: _goBranch,
             selectedIndex: navigationShell.currentIndex,
+            onDestinationSelected: (index) => _goBranch(
+              index,
+              context,
+              ref,
+              firebaseAuthInstance,
+            ),
             destinations: _navigationDestinations,
           ),
         ),

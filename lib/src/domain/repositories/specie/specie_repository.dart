@@ -13,6 +13,18 @@ abstract class SpecieRepository {
 
   Future<Specie> getSpecieId(String id);
 
+  Stream<List<Specie>> getFavoriteSpecies();
+
+  Future<void> saveSpecieFavorite({
+    required String userId,
+    required Specie specie,
+  });
+
+  Future<void> deleteSpecieFavorite({
+    required String userId,
+    required int idSpecie,
+  });
+
   Future<Uint8List> makePdf({
     required Specie specie,
     required String pathIcon,

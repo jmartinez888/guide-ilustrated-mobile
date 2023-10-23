@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/domain/entities/user.dart';
 import 'package:species/src/domain/repositories/user/user_repository.dart';
 
@@ -28,30 +27,6 @@ class UserIiapRepositoryImpl extends UserRepository {
     final json = user.toJson();
 
     await docUser.set(json);
-  }
-
-  @override
-  Future<void> saveFavorite({
-    required String userId,
-    required Specie specie,
-  }) async {
-    final docUser = firebaseInstance.doc(userId);
-    final getUser = await docUser.get();
-    final json = specie.toJson();
-    await getUser.reference
-        .collection('favorites')
-        .doc(specie.id.toString())
-        .set(json);
-  }
-  
-  @override
-  Future<void> deleteFavorite({
-    required String userId,
-    required int idSpecie,
-  }) async {
-    final docUser = firebaseInstance.doc(userId);
-    final getUser = await docUser.get();
-    getUser.reference.collection('favorites').doc(idSpecie.toString()).delete();
   }
 
 }

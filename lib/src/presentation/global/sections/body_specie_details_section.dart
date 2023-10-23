@@ -6,9 +6,8 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
+import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
-import 'package:species/src/domain/repositories/user/user_repository.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
@@ -158,7 +157,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
   }
 
   final firebaseInstance = FirebaseAuth.instance;
-  final userRepository = UserIiapRepositoryImpl();
+  final specieRepository = SpecieSpeciesIIapRepositoryImpl();
 
   @override
   Widget build(BuildContext context) {
@@ -262,10 +261,10 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                     context.pushNamed(Routes.signIn);
                   } else {
                     isFavorite
-                        ? userRepository.deleteFavorite(
+                        ? specieRepository.deleteSpecieFavorite(
                             userId: firebaseInstance.currentUser!.uid,
                             idSpecie: widget.specie.id)
-                        : userRepository.saveFavorite(
+                        : specieRepository.saveSpecieFavorite(
                             userId: firebaseInstance.currentUser!.uid,
                             specie: widget.specie,
                           );
