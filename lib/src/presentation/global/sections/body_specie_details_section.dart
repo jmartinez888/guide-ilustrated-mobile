@@ -48,7 +48,10 @@ class BodySpecieDetailsSection extends StatelessWidget {
                       CustomImageContainer(
                         tag: specie!.id,
                         mainColor: mainColor,
-                        onTap: () => context.pushNamed(Routes.imageDetails),
+                        onTap: () => context.pushNamed(
+                          Routes.imageDetails,
+                          pathParameters: {'id': specie!.id.toString()},
+                        ),
                         imageUrl: specie!.images.first,
                         heightImage: size.height > size.width + 32.0
                             ? 384.0
