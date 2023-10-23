@@ -24,6 +24,6 @@ class _SpecieDetailsPageState extends ConsumerState<SpecieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final specie = ref.watch(specieDetailsProvider)[widget.id];
-    return BodySpecieDetailsSection(specie: specie);
+    return specie == null ? const Center(child: CircularProgressIndicator()) : BodySpecieDetailsSection(specie: specie);
   }
 }
