@@ -18,12 +18,12 @@ class _SpecieDetailsPageState extends ConsumerState<SpecieDetailsPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(specieDetailProvider.notifier).loadSpecie(widget.id);
+    ref.read(specieDetailsProvider.notifier).loadSpecie(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    final specie = ref.watch(specieDetailProvider)[widget.id];
+    final specie = ref.watch(specieDetailsProvider)[widget.id];
     return BodySpecieDetailsSection(specie: specie);
   }
 }

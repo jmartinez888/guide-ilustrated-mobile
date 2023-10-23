@@ -67,10 +67,13 @@ final appRouter = GoRouter(
                           },
                         ),
                         GoRoute(
-                          path: Routes.imageDetails,
+                          path: '${Routes.imageDetails}/:id',
                           name: Routes.imageDetails,
                           parentNavigatorKey: parentNavigatorKey,
-                          builder: (_, __) => const ImageDetails(),
+                          builder: (_, state) {
+                            final id = state.pathParameters['id'];
+                            return ImageDetailsPage(id: id.toString());
+                          },
                         ),
                         GoRoute(
                           path: Routes.signIn,
