@@ -156,6 +156,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
         .snapshots()
         .map((snapshot) => snapshot.exists);
   }
+
   final firebaseInstance = FirebaseAuth.instance;
   final userRepository = UserIiapRepositoryImpl();
 
@@ -247,7 +248,9 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
               final isFavorite = snapshot.data ?? false;
 
               return CustomIconButton(
-                tooltip: isFavorite ? 'Eliminar en favoritos' : 'Guardar de favoritos',
+                tooltip: isFavorite
+                    ? 'Eliminar en favoritos'
+                    : 'Guardar de favoritos',
                 icon: isFavorite
                     ? Icons.favorite_rounded
                     : Icons.favorite_outline_rounded,
@@ -259,7 +262,9 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                     context.pushNamed(Routes.signIn);
                   } else {
                     isFavorite
-                        ? () => print('Delete')
+                        ? userRepository.deleteFavorite(
+                            userId: firebaseInstance.currentUser!.uid,
+                            idSpecie: widget.specie.id)
                         : userRepository.saveFavorite(
                             userId: firebaseInstance.currentUser!.uid,
                             specie: widget.specie,

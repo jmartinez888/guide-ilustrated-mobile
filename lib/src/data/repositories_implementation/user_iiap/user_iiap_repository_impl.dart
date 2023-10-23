@@ -43,4 +43,15 @@ class UserIiapRepositoryImpl extends UserRepository {
         .doc(specie.id.toString())
         .set(json);
   }
+  
+  @override
+  Future<void> deleteFavorite({
+    required String userId,
+    required int idSpecie,
+  }) async {
+    final docUser = firebaseInstance.doc(userId);
+    final getUser = await docUser.get();
+    getUser.reference.collection('favorites').doc(idSpecie.toString()).delete();
+  }
+
 }
