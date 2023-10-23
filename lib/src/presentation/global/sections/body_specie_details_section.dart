@@ -1,11 +1,14 @@
 import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
+import 'package:species/src/domain/repositories/user/user_repository.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
@@ -16,10 +19,10 @@ import 'package:species/src/presentation/global/widgets/responsives/grid_two_res
 import 'package:species/src/presentation/router/routes.dart';
 
 class BodySpecieDetailsSection extends StatelessWidget {
-  final Specie? specie;
+  final Specie specie;
   const BodySpecieDetailsSection({
     Key? key,
-    this.specie,
+    required this.specie,
   }) : super(key: key);
 
   @override
@@ -31,91 +34,86 @@ class BodySpecieDetailsSection extends StatelessWidget {
     late Color mainColor;
     late Color opaqueColor;
 
-    if (specie != null) {
-      mainOpaqueColor = getMainColorByString(specie!.type);
-      mainColor = mainOpaqueColor['main'];
-      opaqueColor = mainOpaqueColor['opaque'];
-    }
+    mainOpaqueColor = getMainColorByString(specie.type);
+    mainColor = mainOpaqueColor['main'];
+    opaqueColor = mainOpaqueColor['opaque'];
 
     return Scaffold(
       body: Stack(
         children: [
-          specie == null
-              ? const Center(child: CircularProgressIndicator())
-              : GridTwoResponsive(
-                  leftChild: Stack(
-                    children: [
-                      CustomImageContainer(
-                        tag: specie!.id,
-                        mainColor: mainColor,
-                        onTap: () => context.pushNamed(
-                          Routes.imageDetails,
-                          pathParameters: {'id': specie!.id.toString()},
-                        ),
-                        imageUrl: specie!.images.first,
-                        heightImage: size.height > size.width + 32.0
-                            ? 384.0
-                            : double.infinity,
-                      ),
-                      ActionsForSpecieDetails(
-                        context: context,
-                        specie: specie!,
-                        mainColor: mainColor,
-                      ),
-                    ],
+          GridTwoResponsive(
+            leftChild: Stack(
+              children: [
+                CustomImageContainer(
+                  tag: specie.id,
+                  mainColor: mainColor,
+                  onTap: () => context.pushNamed(
+                    Routes.imageDetails,
+                    pathParameters: {'id': specie.id.toString()},
                   ),
-                  rightChildren: [
-                    Text(
-                      specie!.name,
-                      style: textTheme.titleLarge?.copyWith(
-                        color: mainColor,
-                      ),
-                    ),
-                    Text(
-                      specie!.scientificName,
-                      style: textTheme.titleMedium
-                          ?.copyWith(color: colorScheme.onBackground),
-                    ),
-                    if (specie!.sound.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: CustomAudioBar(
-                          audioUrl: specie!.sound,
-                          backgroundColor: mainColor,
-                          progressBarColor: opaqueColor,
-                        ),
-                      ),
-                    if (specie!.authors.isNotEmpty)
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            specie!.authors.join(', '),
-                            style: textTheme.titleMedium
-                                ?.copyWith(color: colorScheme.onSurfaceVariant),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        '${specie!.kingdom} - ${specie!.phylum} - ${specie!.class_} - ${specie!.order} - ${specie!.family}',
-                        style: textTheme.titleMedium
-                            ?.copyWith(color: colorScheme.onSurface),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        specie!.description.replaceAll('\t', ''),
-                        style: textTheme.bodyMedium
-                            ?.copyWith(color: colorScheme.onSurfaceVariant),
-                      ),
-                    )
-                  ],
+                  imageUrl: specie.images.first,
+                  heightImage:
+                      size.height > size.width + 32.0 ? 384.0 : double.infinity,
                 ),
+                _ActionsForSpecieDetails(
+                  context: context,
+                  specie: specie,
+                  mainColor: mainColor,
+                ),
+              ],
+            ),
+            rightChildren: [
+              Text(
+                specie.name,
+                style: textTheme.titleLarge?.copyWith(
+                  color: mainColor,
+                ),
+              ),
+              Text(
+                specie.scientificName,
+                style: textTheme.titleMedium
+                    ?.copyWith(color: colorScheme.onBackground),
+              ),
+              if (specie.sound.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: CustomAudioBar(
+                    audioUrl: specie.sound,
+                    backgroundColor: mainColor,
+                    progressBarColor: opaqueColor,
+                  ),
+                ),
+              if (specie.authors.isNotEmpty)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      specie.authors.join(', '),
+                      style: textTheme.titleMedium
+                          ?.copyWith(color: colorScheme.onSurfaceVariant),
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Text(
+                  '${specie.kingdom} - ${specie.phylum} - ${specie.class_} - ${specie.order} - ${specie.family}',
+                  style: textTheme.titleMedium
+                      ?.copyWith(color: colorScheme.onSurface),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Text(
+                  specie.description.replaceAll('\t', ''),
+                  style: textTheme.bodyMedium
+                      ?.copyWith(color: colorScheme.onSurfaceVariant),
+                ),
+              )
+            ],
+          ),
           const Positioned(
             left: 56.0,
             top: 8.0,
@@ -127,24 +125,39 @@ class BodySpecieDetailsSection extends StatelessWidget {
   }
 }
 
-class ActionsForSpecieDetails extends StatefulWidget {
+class _ActionsForSpecieDetails extends StatefulWidget {
   final BuildContext context;
   final Color mainColor;
   final Specie specie;
-  const ActionsForSpecieDetails({
-    Key? key,
+  const _ActionsForSpecieDetails({
     required this.context,
     required this.mainColor,
     required this.specie,
-  }) : super(key: key);
+  });
 
   @override
-  State<ActionsForSpecieDetails> createState() =>
+  State<_ActionsForSpecieDetails> createState() =>
       _ActionsForSpecieDetailsState();
 }
 
-class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
+class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
   double? _progress;
+
+  late Stream<bool> isFavoriteStream;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavoriteStream = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('favorites')
+        .doc(widget.specie.id.toString())
+        .snapshots()
+        .map((snapshot) => snapshot.exists);
+  }
+  final firebaseInstance = FirebaseAuth.instance;
+  final userRepository = UserIiapRepositoryImpl();
 
   @override
   Widget build(BuildContext context) {
@@ -221,12 +234,40 @@ class _ActionsForSpecieDetailsState extends State<ActionsForSpecieDetails> {
             onPressed: () => Share.share(
                 '¿Qué te parece esta espcie amazónica? https://amazonia.iiap.gob.pe/species/specie-details/${widget.specie.id}'),
           ),
-          CustomIconButton(
-            tooltip: 'Favorito',
-            icon: Icons.favorite,
-            iconColor: Colors.white,
-            backgroundColor: widget.mainColor,
-            onPressed: () {},
+          StreamBuilder<bool>(
+            stream: isFavoriteStream,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SizedBox(
+                  height: 40.0,
+                  width: 40.0,
+                  child: CircularProgressIndicator(color: widget.mainColor),
+                );
+              }
+              final isFavorite = snapshot.data ?? false;
+
+              return CustomIconButton(
+                tooltip: isFavorite ? 'Eliminar en favoritos' : 'Guardar de favoritos',
+                icon: isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_outline_rounded,
+                iconColor: isFavorite ? Colors.white : widget.mainColor,
+                backgroundColor: isFavorite ? widget.mainColor : null,
+                onPressed: () {
+                  if (firebaseInstance.currentUser == null ||
+                      !firebaseInstance.currentUser!.emailVerified) {
+                    context.pushNamed(Routes.signIn);
+                  } else {
+                    isFavorite
+                        ? () => print('Delete')
+                        : userRepository.saveFavorite(
+                            userId: firebaseInstance.currentUser!.uid,
+                            specie: widget.specie,
+                          );
+                  }
+                },
+              );
+            },
           ),
         ],
       ),
