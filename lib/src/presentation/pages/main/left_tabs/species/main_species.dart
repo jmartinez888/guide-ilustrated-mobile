@@ -25,10 +25,6 @@ class MainSpecies extends StatelessWidget {
       'icon_selected': Icons.favorite_rounded,
       'icon_unselected': Icons.favorite_outline,
     },
-    {
-      'label': 'Listas',
-      'icon_selected': Icons.list_rounded,
-    },
   ];
 
   static final List<NavigationDestination> _navigationDestinations = _pageData

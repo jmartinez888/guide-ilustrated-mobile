@@ -13,4 +13,6 @@ abstract class AuthRepository {
     required String email,
     required password,
   });
+
+  Future<Either<String, String>> resetPassword({required String email});
 }

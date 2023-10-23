@@ -6,7 +6,6 @@ import 'package:species/src/presentation/pages/auth/sign_up/sign_up_page.dart';
 import 'package:species/src/presentation/pages/image_details/image_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/lists/lists_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/main_species.dart';
 import 'package:species/src/presentation/pages/main/main_left_nav.dart';
@@ -121,15 +120,6 @@ final appRouter = GoRouter(
                       path: Routes.favorites,
                       name: Routes.favorites,
                       builder: (_, __) => const FavoritesPage(),
-                    ),
-                  ],
-                ),
-                StatefulShellBranch(
-                  routes: [
-                    GoRoute(
-                      path: Routes.lists,
-                      name: Routes.lists,
-                      builder: (_, __) => const ListsPage(),
                     ),
                   ],
                 ),

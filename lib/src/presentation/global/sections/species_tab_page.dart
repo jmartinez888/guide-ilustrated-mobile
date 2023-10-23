@@ -9,7 +9,7 @@ import 'package:species/src/presentation/global/functions/build_multi_grids.dart
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
-import 'package:species/src/presentation/global/widgets/responsives/max_extend.dart';
+import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SpeciesTabPageSection extends StatefulWidget {
@@ -55,7 +55,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     final mainColor = getMainColorByInt(widget.type);
     return RefreshIndicator(
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
-      child: MaxExtend(
+      child: Extend(
         child: PagedMasonryGridView<int, Specie>(
           key: PageStorageKey<int>(widget.type),
           crossAxisSpacing: 8.0,
