@@ -143,9 +143,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               ),
                               onChanged: (value) => setState(() {}),
                               validator: emailValidator,
-                              inputFormatters: [
-                                withoutSpaces,
-                              ],
+                              inputFormatters: [withoutSpaces],
                               keyboardType: TextInputType.emailAddress,
                             ),
                             const SizedBox(height: 16.0),
@@ -184,16 +182,15 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               ),
                               onChanged: (value) => setState(() {}),
                               validator: passwordValidator,
-                              inputFormatters: [
-                                withoutSpaces,
-                              ],
+                              inputFormatters: [withoutSpaces],
                               keyboardType: TextInputType.visiblePassword,
                             ),
                             const SizedBox(height: 16.0),
                             Align(
                               alignment: Alignment.centerRight,
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () =>
+                                    context.pushNamed(Routes.forgotPassword),
                                 child: const Text('¿Olvidaste tu contraseña?'),
                               ),
                             ),

@@ -22,7 +22,7 @@ class CustomBottomNavBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: SizedBox(
-          width: 320.0,
+          width: 284.0,
           child: NavigationBar(
             destinations: destinations,
             selectedIndex: selectedIndex,

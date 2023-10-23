@@ -23,16 +23,17 @@ class AuthIiapRepositoryImpl extends AuthRepository {
             'El correo del usuario no está registrado, regístrese por favor');
       } else if (e.code == 'wrong-password') {
         return Either.left('Contraseña incorrecta');
-      } else if (e.code == 'unusual activity') {
+      } else if (e.code == 'unusual-activity') {
         return Either.left(
-            'Hemos bloquedo todas las solicitudes de este dispositivo debido a una actividad inusual, el acceso a esta cuenta ha sido deshabilitado temporalmente debido a demasiados intentos fallidos de iniciar sesión. Por favor, intenta más tarde');
+            'Hemos bloqueado todas las solicitudes de este dispositivo debido a una actividad inusual. El acceso a esta cuenta ha sido deshabilitado temporalmente debido a demasiados intentos fallidos de iniciar sesión. Por favor, inténtelo más tarde.');
       } else if (e.code == 'network-request-failed') {
         return Either.left(
-            'No se pudo conectar con el servidor, por favor, verifica tu conexión a internet e inténtalo de nuevo');
+            'No se pudo conectar con el servidor, por favor, verifique su conexión a internet e inténtelo de nuevo');
       } else {
-        return Either.left(
-            'Este usuario ya existe, consulta tu correo o toca en el botón "Ingresa aquí"');
+        return Either.left('Ocurrió un error inesperado: ${e.code}');
       }
+    } catch (e) {
+      return Either.left('Error inesperado: $e');
     }
   }
 
@@ -69,7 +70,7 @@ class AuthIiapRepositoryImpl extends AuthRepository {
           text = 'Este correo no está registrado';
           break;
         case 'wrong-password':
-          Either.left('Contraseña incorrecta');
+          text = 'Contraseña incorrecta';
           break;
         case 'unusual activity':
           text =
@@ -80,6 +81,33 @@ class AuthIiapRepositoryImpl extends AuthRepository {
           text =
               'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet e inténtalo de nuevo';
           break;
+        default:
+          text = 'Error inesperado';
+          break;
+      }
+      return Either.left(text);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> resetPassword({required String email}) async {
+    try {
+      _firebaseAuth.sendPasswordResetEmail(
+        email: email.replaceAll(' ', ''),
+      );
+      return Either.right(
+          'Se le ha evnviado un mensaje a su correo electrónico, por favor revíselo y acepte para cambiar su contraseña');
+    } on FirebaseAuthException catch (e) {
+      late String text;
+      switch (e.code) {
+        case 'user-not-found':
+          text = 'Este correo no está registrado';
+          break;
+        case 'network-request-failed':
+          text =
+              'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet e inténtalo de nuevo';
+          break;
+
         default:
           text = 'Error inesperado';
           break;
