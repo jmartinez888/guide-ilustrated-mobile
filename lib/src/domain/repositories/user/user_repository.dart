@@ -10,4 +10,9 @@ abstract class UserRepository {
     required String userId,
     required Specie specie,
   });
+
+  Future<void> deleteFavorite({
+    required String userId,
+    required int idSpecie,
+  });
 }
