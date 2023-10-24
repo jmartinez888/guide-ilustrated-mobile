@@ -1,4 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
@@ -17,11 +20,15 @@ import 'package:species/src/presentation/global/widgets/multimedia/custom_audio_
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
-class BodySpecieDetailsSection extends StatelessWidget {
+class SpecieDetailsSection extends StatelessWidget {
   final Specie specie;
-  const BodySpecieDetailsSection({
+  final String tag;
+  final void Function()? onTapForFullImage;
+  const SpecieDetailsSection({
     Key? key,
     required this.specie,
+    required this.tag,
+    this.onTapForFullImage,
   }) : super(key: key);
 
   @override
@@ -44,12 +51,9 @@ class BodySpecieDetailsSection extends StatelessWidget {
             leftChild: Stack(
               children: [
                 CustomImageContainer(
-                  tag: specie.id,
+                  tag: '${specie.id}$tag',
                   mainColor: mainColor,
-                  onTap: () => context.pushNamed(
-                    Routes.imageDetails,
-                    pathParameters: {'id': specie.id.toString()},
-                  ),
+                  onTap: onTapForFullImage,
                   imageUrl: specie.images.first,
                   heightImage:
                       size.height > size.width + 32.0 ? 384.0 : double.infinity,
