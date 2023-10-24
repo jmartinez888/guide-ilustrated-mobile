@@ -2,13 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:species/src/domain/entities/specie.dart';
+
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
 class ImageDetailsSection extends StatelessWidget {
-  final List<String> images;
+  final Specie specie;
+  final String tag;
   const ImageDetailsSection({
     Key? key,
-    required this.images,
+    required this.specie,
+    required this.tag,
   }) : super(key: key);
 
   @override
@@ -23,10 +27,11 @@ class ImageDetailsSection extends StatelessWidget {
               return PhotoViewGalleryPageOptions(
                 maxScale: PhotoViewComputedScale.covered * 8,
                 minScale: PhotoViewComputedScale.contained,
-                imageProvider: CachedNetworkImageProvider(images[index]),
+                heroAttributes: PhotoViewHeroAttributes(tag: '${specie.id}$tag'),
+                imageProvider: CachedNetworkImageProvider(specie.images[index]),
               );
             },
-            itemCount: images.length,
+            itemCount: specie.images.length,
             loadingBuilder: (context, event) => Center(
               child: CircularProgressIndicator(
                 value: event == null

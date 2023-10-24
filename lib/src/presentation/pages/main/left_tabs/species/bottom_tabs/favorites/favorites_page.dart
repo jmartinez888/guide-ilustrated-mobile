@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -106,7 +110,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
             itemBuilder: (context, index) {
               final specie = species[index];
               return CustomGridCard(
-                onTap: () {},
+                onTap: () => context.pushNamed(
+                  Routes.specieDetailsFavorite,
+                  pathParameters: {'specie': jsonEncode(specie.toJson())},
+                ),
                 image: CustomImageContainer(
                   tag: specie.id,
                   imageUrl: specie.images.first,

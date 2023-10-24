@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/presentation/pages/auth/forgot_password/forgot_password_page.dart';
-import 'package:species/src/presentation/pages/auth/sign_in/sign_in_page.dart';
-import 'package:species/src/presentation/pages/auth/sign_up/sign_up_page.dart';
-import 'package:species/src/presentation/pages/image_details/image_details_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/image_details_favorite/image_details_favorite_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/specie_details_favorite/specie_details_favorite_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/forgot_password/forgot_password_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/sign_in/sign_in_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/sign_up/sign_up_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/image_details/image_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
@@ -19,8 +21,8 @@ import 'package:species/src/presentation/pages/main/left_tabs/scientific_resourc
 import 'package:species/src/presentation/pages/main/left_tabs/specialists/specialists_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/viewfinder/viewfinder_page.dart';
-import 'package:species/src/presentation/pages/pdf_preview.dart/pdf_preview_page.dart';
-import 'package:species/src/presentation/pages/specie_details/specie_details_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/pdf_preview.dart/pdf_preview_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/specie_details/specie_details_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 final parentNavigatorKey = GlobalKey<NavigatorState>();
@@ -120,6 +122,27 @@ final appRouter = GoRouter(
                       path: Routes.favorites,
                       name: Routes.favorites,
                       builder: (_, __) => const FavoritesPage(),
+                      routes: [
+                        GoRoute(
+                          path: '${Routes.specieDetailsFavorite}/:specie',
+                          name: Routes.specieDetailsFavorite,
+                          builder: (_, state) {
+                            final specie = state.pathParameters['specie'];
+                            return SpecieDetailsFavoritePage(
+                                specie: specie.toString());
+                          },
+                        ),
+                        GoRoute(
+                          path: '${Routes.imageDetailsFavorite}/:specie',
+                          name: Routes.imageDetailsFavorite,
+                          parentNavigatorKey: parentNavigatorKey,
+                          builder: (_, state) {
+                            final specie = state.pathParameters['specie'];
+                            return ImageDetailsFavoritePage(
+                                specie: specie.toString());
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),

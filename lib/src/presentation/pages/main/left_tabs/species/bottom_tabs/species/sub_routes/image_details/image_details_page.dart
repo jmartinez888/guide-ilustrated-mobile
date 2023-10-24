@@ -28,7 +28,9 @@ class _ImageDetailsState extends ConsumerState<ImageDetailsPage> {
 
     return specie == null
         ? const Center(child: CircularProgressIndicator())
-        : ImageDetailsSection(images: specie.images);
+        : ImageDetailsSection(
+            tag: 'abc',
+            specie: specie,
+          );
   }
 }
-
