@@ -131,7 +131,8 @@ class _SearchPageState extends State<SearchPage> {
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         title: Text(item.name),
-        subtitle: Text(item.scientificName),
+        subtitle:
+            Text(item.scientificName, style: TextStyle(color: Colors.grey)),
         trailing: IconButton(
           icon: const Icon(
             Icons.chevron_right,
