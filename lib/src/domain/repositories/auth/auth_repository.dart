@@ -14,5 +14,7 @@ abstract class AuthRepository {
     required password,
   });
 
+  Future<void> signOut();
+
   Future<Either<String, String>> resetPassword({required String email});
 }
