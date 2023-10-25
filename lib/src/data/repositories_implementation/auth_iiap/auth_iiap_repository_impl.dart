@@ -90,6 +90,11 @@ class AuthIiapRepositoryImpl extends AuthRepository {
   }
 
   @override
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
+
+  @override
   Future<Either<String, String>> resetPassword({required String email}) async {
     try {
       _firebaseAuth.sendPasswordResetEmail(

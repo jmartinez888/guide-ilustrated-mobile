@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class MainLeftNav extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -91,11 +93,22 @@ class MainLeftNav extends StatelessWidget {
     },
   ];
 
-  void _goBranch(int index, GlobalKey<ScaffoldState> scaffoldKey) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+  void _goBranch({
+    required int index,
+    required GlobalKey<ScaffoldState> scaffoldKey,
+    required BuildContext context,
+    required FirebaseAuth firebaseAuthInstance,
+  }) {
+    if ((index == 0) &&
+        (firebaseAuthInstance.currentUser == null ||
+            !firebaseAuthInstance.currentUser!.emailVerified)) {
+      context.pushNamed(Routes.signIn);
+    } else {
+      navigationShell.goBranch(
+        index,
+        initialLocation: index == navigationShell.currentIndex,
+      );
+    }
     scaffoldKey.currentState?.openEndDrawer();
   }
 
@@ -129,12 +142,18 @@ class MainLeftNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firebaseAuthInstance = FirebaseAuth.instance;
     final scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: scaffoldKey,
       drawer: NavigationDrawer(
         selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: (index) => _goBranch(index, scaffoldKey),
+        onDestinationSelected: (index) => _goBranch(
+          index: index,
+          scaffoldKey: scaffoldKey,
+          context: context,
+          firebaseAuthInstance: firebaseAuthInstance,
+        ),
         children: _buildNavigationDrawerItems(context),
       ),
       body: SafeArea(

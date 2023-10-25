@@ -44,7 +44,7 @@ class MainSpecies extends ConsumerWidget {
 
   void _goBranch(int index, BuildContext context, WidgetRef ref,
       FirebaseAuth firebaseAuthInstance) {
-    if ((index == 2 || index == 3) &&
+    if ((index == 2) &&
         (firebaseAuthInstance.currentUser == null ||
             !firebaseAuthInstance.currentUser!.emailVerified)) {
       context.pushNamed(Routes.signIn);
