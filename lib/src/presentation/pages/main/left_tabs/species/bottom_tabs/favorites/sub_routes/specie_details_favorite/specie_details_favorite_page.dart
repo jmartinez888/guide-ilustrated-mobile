@@ -33,7 +33,7 @@ class _SpecieDetailsFavoritePageState extends State<SpecieDetailsFavoritePage> {
       tag: '123',
       specie: specie,
       onTapForFullImage: () => context.pushNamed(
-        Routes.imageDetailsFavorite,
+        Routes.specieImageFavorite,
         pathParameters: {'specie': jsonEncode(specie.toJson())},
       ),
     );

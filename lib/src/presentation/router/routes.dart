@@ -6,14 +6,13 @@ class Routes {
       static const String signIn = 'sign-in';
       static const String signUp = 'sign-up';
       static const String forgotPassword = 'forgot-password';
-      static const String specieDetails = 'specie-details';
-      static const String imageDetails = 'image-details';
-      static const String pdfPreview = 'pdf';
-    static const String generalSearch = '/specie-search';
-    static const String favorites = '/favorites';
-      static const String specieDetailsFavorite = 'specie-details-favorite';
-      static const String imageDetailsFavorite = 'image-details-favorite';
-    static const String lists = '/lists';
+      static const String specieDetails = 'details';
+      static const String specieImage = 'image';
+      static const String speciePdfPreview = 'pdf';
+    static const String specieSearch = '/search';
+    static const String specieFavorites = '/favorites';
+      static const String specieDetailsFavorite = 'details-favorite';
+      static const String specieImageFavorite = 'image-favorite';
 
     
 

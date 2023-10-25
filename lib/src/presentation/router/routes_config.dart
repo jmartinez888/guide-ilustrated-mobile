@@ -68,8 +68,8 @@ final appRouter = GoRouter(
                           },
                         ),
                         GoRoute(
-                          path: '${Routes.imageDetails}/:id',
-                          name: Routes.imageDetails,
+                          path: '${Routes.specieImage}/:id',
+                          name: Routes.specieImage,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, state) {
                             final id = state.pathParameters['id'];
@@ -95,8 +95,8 @@ final appRouter = GoRouter(
                           builder: (_, __) => const ForgotPasswordPage(),
                         ),
                         GoRoute(
-                          path: '${Routes.pdfPreview}/:specie',
-                          name: Routes.pdfPreview,
+                          path: '${Routes.speciePdfPreview}/:specie',
+                          name: Routes.speciePdfPreview,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, state) {
                             final specie = state.pathParameters['specie'];
@@ -110,8 +110,8 @@ final appRouter = GoRouter(
                 StatefulShellBranch(
                   routes: [
                     GoRoute(
-                      path: Routes.generalSearch,
-                      name: Routes.generalSearch,
+                      path: Routes.specieSearch,
+                      name: Routes.specieSearch,
                       builder: (_, __) => const SearchPage(),
                     ),
                   ],
@@ -119,8 +119,8 @@ final appRouter = GoRouter(
                 StatefulShellBranch(
                   routes: [
                     GoRoute(
-                      path: Routes.favorites,
-                      name: Routes.favorites,
+                      path: Routes.specieFavorites,
+                      name: Routes.specieFavorites,
                       builder: (_, __) => const FavoritesPage(),
                       routes: [
                         GoRoute(
@@ -133,8 +133,8 @@ final appRouter = GoRouter(
                           },
                         ),
                         GoRoute(
-                          path: '${Routes.imageDetailsFavorite}/:specie',
-                          name: Routes.imageDetailsFavorite,
+                          path: '${Routes.specieImageFavorite}/:specie',
+                          name: Routes.specieImageFavorite,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, state) {
                             final specie = state.pathParameters['specie'];

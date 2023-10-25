@@ -195,7 +195,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                           icon: Icons.picture_as_pdf_rounded,
                           text: 'Generar PDF'),
                       onTap: () => context.pushNamed(
-                        Routes.pdfPreview,
+                        Routes.speciePdfPreview,
                         pathParameters: {
                           'specie': jsonEncode(widget.specie.toJson()),
                         },

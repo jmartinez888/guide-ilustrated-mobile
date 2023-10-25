@@ -7,6 +7,10 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/data/models/species_iiap/response_species_iiap.dart';
 import 'package:species/src/data/models/species_iiap/specie_species_iiap.dart';
+import 'package:species/src/domain/either.dart';
+import 'package:species/src/domain/entities/class.dart';
+import 'package:species/src/domain/entities/family.dart';
+import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:pdf/pdf.dart';
@@ -507,6 +511,57 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
       }
     } catch (e) {
       pagingController.error = e;
+    }
+  }
+
+  @override
+  Future<Either<String, List<Class>>> getClasses() async {
+    try {
+      final response = await get(Uri.parse('$baseUrl/classes'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseList = json.decode(response.body);
+        List<Class> classList =
+            responseList.map((item) => Class.fromMap(item)).toList();
+        return Either.right(classList);
+      } else {
+        return Either.left('Error en la solicitud');
+      }
+    } catch (e) {
+      return Either.left('Error en la solicitud: $e');
+    }
+  }
+
+  @override
+  Future<Either<String, List<OrdeC>>> getOrders() async {
+    try {
+      final response = await get(Uri.parse('$baseUrl/orders'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseList = json.decode(response.body);
+        List<OrdeC> orderList =
+            responseList.map((item) => OrdeC.fromMap(item)).toList();
+        return Either.right(orderList);
+      } else {
+        return Either.left('Error en la solicitud');
+      }
+    } catch (e) {
+      return Either.left('Error en la solicitud: $e');
+    }
+  }
+
+  @override
+  Future<Either<String, List<Family>>> getFamilies() async {
+    try {
+      final response = await get(Uri.parse('$baseUrl/orders'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseList = json.decode(response.body);
+        List<Family> orderList =
+            responseList.map((item) => Family.fromMap(item)).toList();
+        return Either.right(orderList);
+      } else {
+        return Either.left('Error en la solicitud');
+      }
+    } catch (e) {
+      return Either.left('Error en la solicitud: $e');
     }
   }
 }

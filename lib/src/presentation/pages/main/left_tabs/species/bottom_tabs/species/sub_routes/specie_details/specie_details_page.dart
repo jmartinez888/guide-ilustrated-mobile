@@ -32,7 +32,7 @@ class _SpecieDetailsPageState extends ConsumerState<SpecieDetailsPage> {
             tag: 'abc',
             specie: specie,
             onTapForFullImage: () => context.pushNamed(
-              Routes.imageDetails,
+              Routes.specieImage,
               pathParameters: {'id': specie.id.toString()},
             ),
           );
