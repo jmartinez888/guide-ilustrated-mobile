@@ -30,4 +30,14 @@ abstract class SpecieRepository {
     required String pathIcon,
     required Color mainColor,
   });
+
+  Future<void> filterSpecies({
+    String query = '',
+    String family = '',
+    String order = '',
+    String class_ = '',
+    required int pageKey,
+    required int numberOfPostsPerRequest,
+    required PagingController pagingController,
+  });
 }

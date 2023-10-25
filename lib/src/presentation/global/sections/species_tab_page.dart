@@ -28,7 +28,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
 
-  final SpecieRepository specieRepository = SpecieSpeciesIIapRepositoryImpl();
+  final SpecieRepository specieRepository = SpecieSpeciesIiapRepositoryImpl();
 
   @override
   void initState() {

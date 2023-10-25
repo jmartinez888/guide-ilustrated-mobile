@@ -161,7 +161,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
   }
 
   final firebaseInstance = FirebaseAuth.instance;
-  final specieRepository = SpecieSpeciesIIapRepositoryImpl();
+  final specieRepository = SpecieSpeciesIiapRepositoryImpl();
 
   @override
   Widget build(BuildContext context) {

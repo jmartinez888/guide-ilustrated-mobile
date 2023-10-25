@@ -22,7 +22,7 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
   late Specie specie;
   late Color mainColor;
   late String pathIcon;
-  final SpecieRepository userIiap = SpecieSpeciesIIapRepositoryImpl();
+  final SpecieRepository userIiap = SpecieSpeciesIiapRepositoryImpl();
 
   @override
   void initState() {

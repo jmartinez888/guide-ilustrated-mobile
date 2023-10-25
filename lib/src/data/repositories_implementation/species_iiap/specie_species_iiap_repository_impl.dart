@@ -13,7 +13,7 @@ import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
+class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
   final baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
   final firebaseInstance = FirebaseFirestore.instance.collection('users');
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -63,8 +63,11 @@ class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
   @override
   Stream<List<Specie>> getFavoriteSpecies() {
     try {
-      final querySnapshot =
-          firebaseInstance.doc(_auth.currentUser?.uid).collection('favorites').orderBy('name').snapshots();
+      final querySnapshot = firebaseInstance
+          .doc(_auth.currentUser?.uid)
+          .collection('favorites')
+          .orderBy('name')
+          .snapshots();
 
       return querySnapshot.map((snapshot) {
         final List<Specie> species = [];
@@ -94,7 +97,7 @@ class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
         .doc(specie.id.toString())
         .set(json);
   }
-  
+
   @override
   Future<void> deleteSpecieFavorite({
     required String userId,
@@ -105,18 +108,16 @@ class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
     getUser.reference.collection('favorites').doc(idSpecie.toString()).delete();
   }
 
-   @override
+  @override
   Future<Uint8List> makePdf({
     required Specie specie,
-  required String pathIcon,
-  required Color mainColor,
+    required String pathIcon,
+    required Color mainColor,
   }) async {
     final pdf = pw.Document();
     final specieImage = await networkImage(specie.images.first);
     final logoImage = pw.MemoryImage(
-      (await rootBundle.load('assets/images/logo.png'))
-          .buffer
-          .asUint8List(),
+      (await rootBundle.load('assets/images/logo.png')).buffer.asUint8List(),
     );
     final logoMinam = pw.MemoryImage(
       (await rootBundle.load('assets/images/logo_minam.png'))
@@ -130,7 +131,6 @@ class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
     );
     final logoSpain = pw.MemoryImage(
       (await rootBundle.load('assets/images/logo_spain.png'))
-     
           .buffer
           .asUint8List(),
     );
@@ -461,5 +461,52 @@ class SpecieSpeciesIIapRepositoryImpl implements SpecieRepository {
       ),
     );
     return pdf.save();
+  }
+
+  @override
+  Future<void> filterSpecies({
+    String query = '',
+    String family = '',
+    String order = '',
+    String class_ = '',
+    required int pageKey,
+    required int numberOfPostsPerRequest,
+    required PagingController pagingController,
+  }) async {
+    try {
+      final response = await post(
+        Uri.parse('$baseUrl/species/filter'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "page": pageKey,
+          "pageSize": numberOfPostsPerRequest,
+          "taxonomyId": "",
+          "classId": class_,
+          "orderId": order,
+          "familyId": family,
+          "conservationStatus": "",
+          "search": query
+        }),
+      );
+
+      final responseList =
+          ResponseSpeciesIiap.fromJson(jsonDecode(response.body));
+
+      List<Specie> postList = responseList.species
+          .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
+          .map((speciesIiap) => SpecieMapper.speciesIiapToEntity(speciesIiap))
+          .toList();
+
+      final isLatPage = postList.length < numberOfPostsPerRequest;
+
+      if (isLatPage) {
+        pagingController.appendLastPage(postList);
+      } else {
+        final nextPageKey = pageKey + 1;
+        pagingController.appendPage(postList, nextPageKey);
+      }
+    } catch (e) {
+      pagingController.error = e;
+    }
   }
 }
