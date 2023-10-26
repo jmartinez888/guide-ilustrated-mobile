@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
+import 'package:species/src/domain/entities/class.dart';
+import 'package:species/src/domain/entities/family.dart';
+import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_expansion_tile.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
-import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SearchPage extends StatefulWidget {
@@ -23,6 +25,10 @@ class _SearchPageState extends State<SearchPage> {
   final specieRepository = SpecieSpeciesIiapRepositoryImpl();
   final searchController = TextEditingController();
 
+  int? selectedClass;
+  int? selectedOrder;
+  int? selectedFamily;
+
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) {
@@ -31,6 +37,9 @@ class _SearchPageState extends State<SearchPage> {
         pageKey: pageKey,
         pagingController: _pagingController,
         query: searchController.text,
+        class_: selectedClass,
+        order: selectedOrder,
+        family: selectedFamily,
       );
     });
     super.initState();
@@ -80,35 +89,136 @@ class _SearchPageState extends State<SearchPage> {
         Expanded(
           child: RefreshIndicator(
             onRefresh: () => Future.sync(() => _pagingController.refresh()),
-            child: Extend(
-              min: true,
-              child: PagedListView<int, Specie>(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
-                pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<Specie>(
-                  newPageProgressIndicatorBuilder: (_) =>
-                      const LinearProgressIndicator(),
-                  animateTransitions: true,
-                  transitionDuration: const Duration(milliseconds: 400),
-                  itemBuilder: (context, item, index) => ListTile(
-                    onTap: () => context.pushNamed(
-                      Routes.specieDetails,
-                      pathParameters: {'id': item.id.toString()},
+            child: Stack(
+              children: [
+                PagedListView<int, Specie>(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<Specie>(
+                    newPageProgressIndicatorBuilder: (_) =>
+                        const LinearProgressIndicator(),
+                    animateTransitions: true,
+                    transitionDuration: const Duration(milliseconds: 400),
+                    itemBuilder: (context, item, index) => ListTile(
+                      onTap: () => context.pushNamed(
+                        Routes.specieDetails,
+                        pathParameters: {'id': item.id.toString()},
+                      ),
+                      leading: CustomImageContainer(
+                        tag: '${item.id}zzz',
+                        imageUrl: item.images.first,
+                        heightImage: 56.0,
+                        width: 56.0,
+                        fitImage: true,
+                      ),
+                      title: Text(item.name),
+                      subtitle: Text(item.scientificName),
+                      trailing: const Icon(Icons.arrow_forward_ios_rounded),
                     ),
-                    leading: CustomImageContainer(
-                      tag: '${item.id}zzz',
-                      imageUrl: item.images.first,
-                      heightImage: 56.0,
-                      width: 56.0,
-                      fitImage: true,
-                    ),
-                    title: Text(item.name),
-                    subtitle: Text(item.scientificName),
-                    trailing: const Icon(Icons.arrow_forward_ios_rounded),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomExpansionTile(
+                    title: 'Búsqueda taxonómica',
+                    content: Column(
+                      children: [
+                        FutureBuilder<List<Class>>(
+                          future: specieRepository.getClasses(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Class>> snapshot) {
+                            if (snapshot.data == null) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return DropdownButton(
+                                hint: const Text('Selecciona una clase'),
+                                value:
+                                    selectedClass, // Agrega el valor seleccionado
+                                items: snapshot.data?.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.id,
+                                    child: Text(item.name),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedClass =
+                                        value; // Actualiza el valor seleccionado
+                                    _pagingController.refresh();
+                                  });
+                                },
+                              );
+                            }
+                          },
+                        ),
+                        FutureBuilder<List<OrderClass>>(
+                          future: specieRepository.getOrders(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<OrderClass>> snapshot) {
+                            if (snapshot.data == null) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return DropdownButton(
+                                hint: const Text('Selecciona una familia'),
+                                value:
+                                    selectedFamily, // Agrega el valor seleccionado
+                                items: snapshot.data?.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.id,
+                                    child: Text(item.name),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedFamily =
+                                        value; // Actualiza el valor seleccionado
+                                    _pagingController.refresh();
+                                  });
+                                },
+                              );
+                            }
+                          },
+                        ),
+                        FutureBuilder<List<Family>>(
+                          future: specieRepository.getFamilies(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Family>> snapshot) {
+                            if (snapshot.data == null) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return DropdownButton(
+                                hint: const Text('Selecciona una familia'),
+                                value:
+                                    selectedFamily, // Agrega el valor seleccionado
+                                items: snapshot.data?.map((item) {
+                                  return DropdownMenuItem(
+                                    value: item.id,
+                                    child: Text(item.name),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedFamily =
+                                        value; // Actualiza el valor seleccionado
+                                    _pagingController.refresh();
+                                  });
+                                },
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

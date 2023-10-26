@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-class OrdeC {
+class OrderClass {
   final int id;
   final String name;
-  OrdeC({
+  OrderClass({
     required this.id,
     required this.name,
   });
@@ -15,8 +15,8 @@ class OrdeC {
     };
   }
 
-  factory OrdeC.fromMap(Map<String, dynamic> map) {
-    return OrdeC(
+  factory OrderClass.fromMap(Map<String, dynamic> map) {
+    return OrderClass(
       id: map['id_orden'] as int,
       name: map['vc_nombre'] as String,
     );
@@ -24,6 +24,6 @@ class OrdeC {
 
   String toJson() => json.encode(toMap());
 
-  factory OrdeC.fromJson(String source) =>
-      OrdeC.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory OrderClass.fromJson(String source) =>
+      OrderClass.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/src/material/dropdown.dart';
+
 class Either<Left, Right> {
   final Left? _left;
   final Right? _right;
@@ -25,4 +27,6 @@ class Either<Left, Right> {
       return right(_right as Right);
     }
   }
+
+  map(DropdownMenuItem Function(dynamic item) param0) {}
 }

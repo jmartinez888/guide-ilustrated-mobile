@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/entities/class.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
@@ -37,15 +36,15 @@ abstract class SpecieRepository {
 
   Future<void> filterSpecies({
     String query = '',
-    String family = '',
-    String order = '',
-    String class_ = '',
+    int? family,
+    int? order,
+    int? class_,
     required int pageKey,
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
   });
 
-  Future<Either<String, List<Class>>> getClasses();
-  Future<Either<String, List<OrdeC>>> getOrders(); 
-  Future<Either<String, List<Family>>> getFamilies();
+  Future< List<Class>> getClasses();
+  Future<List<OrderClass>> getOrders(); 
+  Future<List<Family>> getFamilies();
 }
