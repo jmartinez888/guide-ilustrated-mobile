@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/widgets/navigations/custom_bottom_nav_bar.dart';
-import 'package:species/src/presentation/router/routes.dart';
 
 class MainSpecies extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
@@ -42,18 +41,12 @@ class MainSpecies extends ConsumerWidget {
       )
       .toList();
 
-  void _goBranch(int index, BuildContext context, WidgetRef ref,
-      FirebaseAuth firebaseAuthInstance) {
-    if ((index == 2) &&
-        (firebaseAuthInstance.currentUser == null ||
-            !firebaseAuthInstance.currentUser!.emailVerified)) {
-      context.pushNamed(Routes.signIn);
-    } else {
-      navigationShell.goBranch(
-        index,
-        initialLocation: index == navigationShell.currentIndex,
-      );
-    }
+  void _goBranch(
+      int index, BuildContext context, FirebaseAuth firebaseAuthInstance) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
   }
 
   @override
@@ -72,7 +65,6 @@ class MainSpecies extends ConsumerWidget {
             onDestinationSelected: (index) => _goBranch(
               index,
               context,
-              ref,
               firebaseAuthInstance,
             ),
             destinations: _navigationDestinations,
