@@ -28,7 +28,7 @@ import 'package:species/src/presentation/router/routes.dart';
 
 final parentNavigatorKey = GlobalKey<NavigatorState>();
 final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
-final isAuthenticated = FirebaseAuth.instance.currentUser != null;
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final appRouter = GoRouter(
   initialLocation: Routes.species,
@@ -42,10 +42,13 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               redirect: (context, state) {
-                if (isAuthenticated) {
+                if (_firebaseAuth.currentUser != null) {
                   return null;
                 }
-                return '${Routes.species}/${Routes.signIn}';
+                if (_firebaseAuth.currentUser == null) {
+                  return '${Routes.species}/${Routes.signIn}';
+                }
+                return null;
               },
               path: Routes.profile,
               name: Routes.profile,
@@ -86,8 +89,11 @@ final appRouter = GoRouter(
                         ),
                         GoRoute(
                           redirect: (context, state) {
-                            if (isAuthenticated) {
+                            if (_firebaseAuth.currentUser != null) {
                               return Routes.species;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signIn}';
                             }
                             return null;
                           },
@@ -98,8 +104,11 @@ final appRouter = GoRouter(
                         ),
                         GoRoute(
                           redirect: (context, state) {
-                            if (isAuthenticated) {
+                            if (_firebaseAuth.currentUser != null) {
                               return Routes.species;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signUp}';
                             }
                             return null;
                           },
@@ -109,6 +118,15 @@ final appRouter = GoRouter(
                           builder: (_, __) => const SignUpPage(),
                         ),
                         GoRoute(
+                          redirect: (context, state) {
+                            if (_firebaseAuth.currentUser != null) {
+                              return null;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signIn}';
+                            }
+                            return null;
+                          },
                           path: Routes.forgotPassword,
                           name: Routes.forgotPassword,
                           parentNavigatorKey: parentNavigatorKey,
@@ -140,10 +158,13 @@ final appRouter = GoRouter(
                   routes: [
                     GoRoute(
                       redirect: (context, state) {
-                        if (isAuthenticated) {
+                        if (_firebaseAuth.currentUser != null) {
                           return null;
                         }
-                        return '${Routes.species}/${Routes.signIn}';
+                        if (_firebaseAuth.currentUser == null) {
+                          return '${Routes.species}/${Routes.signIn}';
+                        }
+                        return null;
                       },
                       path: Routes.favorites,
                       name: Routes.favorites,
