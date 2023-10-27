@@ -21,7 +21,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   TextEditingController searchController = TextEditingController();
   List<Specie> customers = [];
   String searchText = '';
-  final specieRepository = SpecieSpeciesIIapRepositoryImpl();
+  final specieRepository = SpecieSpeciesIiapRepositoryImpl();
   bool switchSearch = false;
   FocusNode searchFocusNode = FocusNode();
 
