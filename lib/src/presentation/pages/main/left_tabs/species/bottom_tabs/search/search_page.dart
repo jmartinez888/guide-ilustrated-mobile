@@ -6,7 +6,6 @@ import 'package:species/src/domain/entities/class.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
-import 'package:species/src/presentation/global/widgets/card/custom_expansion_tile.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -113,16 +112,18 @@ class _SearchPageState extends State<SearchPage> {
                         fitImage: true,
                       ),
                       title: Text(item.name),
-                      subtitle: Text(item.scientificName),
+                      subtitle: Text(item.class_),
                       trailing: const Icon(Icons.arrow_forward_ios_rounded),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CustomExpansionTile(
-                    title: 'Búsqueda taxonómica',
-                    content: Column(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 8.0,
                       children: [
                         FutureBuilder<List<Class>>(
                           future: specieRepository.getClasses(),
@@ -134,6 +135,13 @@ class _SearchPageState extends State<SearchPage> {
                               );
                             } else {
                               return DropdownButton(
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
                                 hint: const Text('Selecciona una clase'),
                                 value:
                                     selectedClass, // Agrega el valor seleccionado
@@ -144,76 +152,89 @@ class _SearchPageState extends State<SearchPage> {
                                   );
                                 }).toList(),
                                 onChanged: (value) {
-                                  setState(() {
-                                    selectedClass =
-                                        value; // Actualiza el valor seleccionado
-                                    _pagingController.refresh();
-                                  });
+                                  if (value != null) {
+                                    setState(() {
+                                      selectedClass =
+                                          value; // Actualiza el valor seleccionado
+                                      selectedOrder = null;
+                                      selectedFamily = null;
+                                      _pagingController.refresh();
+                                    });
+                                  }
                                 },
                               );
                             }
                           },
                         ),
-                        FutureBuilder<List<OrderClass>>(
-                          future: specieRepository.getOrders(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<OrderClass>> snapshot) {
-                            if (snapshot.data == null) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return DropdownButton(
-                                hint: const Text('Selecciona una familia'),
-                                value:
-                                    selectedFamily, // Agrega el valor seleccionado
-                                items: snapshot.data?.map((item) {
-                                  return DropdownMenuItem(
-                                    value: item.id,
-                                    child: Text(item.name),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedFamily =
-                                        value; // Actualiza el valor seleccionado
-                                    _pagingController.refresh();
-                                  });
-                                },
-                              );
-                            }
-                          },
-                        ),
-                        FutureBuilder<List<Family>>(
-                          future: specieRepository.getFamilies(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Family>> snapshot) {
-                            if (snapshot.data == null) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return DropdownButton(
-                                hint: const Text('Selecciona una familia'),
-                                value:
-                                    selectedFamily, // Agrega el valor seleccionado
-                                items: snapshot.data?.map((item) {
-                                  return DropdownMenuItem(
-                                    value: item.id,
-                                    child: Text(item.name),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedFamily =
-                                        value; // Actualiza el valor seleccionado
-                                    _pagingController.refresh();
-                                  });
-                                },
-                              );
-                            }
-                          },
-                        ),
+                        if (selectedClass != null)
+                          FutureBuilder<List<OrderClass>>(
+                            future: specieRepository
+                                .getOrdersByClassId(selectedClass!),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<OrderClass>> snapshot) {
+                              if (snapshot.data == null) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                return DropdownButton(
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .color,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  hint: const Text('Selecciona una orden'),
+                                  value:
+                                      selectedOrder, // Agrega el valor seleccionado
+                                  items: snapshot.data?.map((item) {
+                                    return DropdownMenuItem(
+                                      value: item.id,
+                                      child: Text(item.name),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedOrder =
+                                          value; // Actualiza el valor seleccionado
+                                      _pagingController.refresh();
+                                    });
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                        // FutureBuilder<List<Family>>(
+                        //   future: specieRepository.getFamilies(),
+                        //   builder: (BuildContext context,
+                        //       AsyncSnapshot<List<Family>> snapshot) {
+                        //     if (snapshot.data == null) {
+                        //       return const Center(
+                        //         child: CircularProgressIndicator(),
+                        //       );
+                        //     } else {
+                        //       return DropdownButton(
+                        //         hint: const Text('Selecciona una familia'),
+                        //         value:
+                        //             selectedFamily, // Agrega el valor seleccionado
+                        //         items: snapshot.data?.map((item) {
+                        //           return DropdownMenuItem(
+                        //             value: item.id,
+                        //             child: Text(item.name),
+                        //           );
+                        //         }).toList(),
+                        //         onChanged: (value) {
+                        //           setState(() {
+                        //             selectedFamily =
+                        //                 value; // Actualiza el valor seleccionado
+                        //             _pagingController.refresh();
+                        //           });
+                        //         },
+                        //       );
+                        //     }
+                        //   },
+                        // ),
                       ],
                     ),
                   ),

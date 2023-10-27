@@ -14,7 +14,6 @@ import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
-import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/multimedia/custom_audio_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
@@ -45,83 +44,74 @@ class SpecieDetailsSection extends StatelessWidget {
     opaqueColor = mainOpaqueColor['opaque'];
 
     return Scaffold(
-      body: Stack(
-        children: [
-          GridTwoResponsive(
-            leftChild: Stack(
-              children: [
-                CustomImageContainer(
-                  tag: '${specie.id}$tag',
-                  mainColor: mainColor,
-                  onTap: onTapForFullImage,
-                  imageUrl: specie.images.first,
-                  heightImage:
-                      size.height > size.width + 32.0 ? 384.0 : double.infinity,
-                ),
-                _ActionsForSpecieDetails(
-                  context: context,
-                  specie: specie,
-                  mainColor: mainColor,
-                ),
-              ],
+      body: GridTwoResponsive(
+        leftChild: Stack(
+          children: [
+            CustomImageContainer(
+              tag: '${specie.id}$tag',
+              mainColor: mainColor,
+              onTap: onTapForFullImage,
+              imageUrl: specie.images.first,
+              heightImage:
+                  size.height > size.width + 32.0 ? 384.0 : double.infinity,
             ),
-            rightChildren: [
-              Text(
-                specie.name,
-                style: textTheme.titleLarge?.copyWith(
-                  color: mainColor,
-                ),
+            _ActionsForSpecieDetails(
+              context: context,
+              specie: specie,
+              mainColor: mainColor,
+            ),
+          ],
+        ),
+        rightChildren: [
+          Text(
+            specie.name,
+            style: textTheme.titleLarge?.copyWith(
+              color: mainColor,
+            ),
+          ),
+          Text(
+            specie.scientificName,
+            style: textTheme.titleMedium
+                ?.copyWith(color: colorScheme.onBackground),
+          ),
+          if (specie.sound.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: CustomAudioBar(
+                audioUrl: specie.sound,
+                backgroundColor: mainColor,
+                progressBarColor: opaqueColor,
               ),
-              Text(
-                specie.scientificName,
-                style: textTheme.titleMedium
-                    ?.copyWith(color: colorScheme.onBackground),
-              ),
-              if (specie.sound.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: CustomAudioBar(
-                    audioUrl: specie.sound,
-                    backgroundColor: mainColor,
-                    progressBarColor: opaqueColor,
-                  ),
-                ),
-              if (specie.authors.isNotEmpty)
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      specie.authors.join(', '),
-                      style: textTheme.titleMedium
-                          ?.copyWith(color: colorScheme.onSurfaceVariant),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+            ),
+          if (specie.authors.isNotEmpty)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  '${specie.kingdom} - ${specie.phylum} - ${specie.class_} - ${specie.order} - ${specie.family}',
+                  specie.authors.join(', '),
                   style: textTheme.titleMedium
-                      ?.copyWith(color: colorScheme.onSurface),
+                      ?.copyWith(color: colorScheme.onSurfaceVariant),
+                  textAlign: TextAlign.end,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  specie.description.replaceAll('\t', ''),
-                  style: textTheme.bodyMedium
-                      ?.copyWith(color: colorScheme.onSurfaceVariant),
-                ),
-              )
-            ],
+            ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Text(
+              '${specie.kingdom} - ${specie.phylum} - ${specie.class_} - ${specie.order} - ${specie.family}',
+              style:
+                  textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
+            ),
           ),
-          const Positioned(
-            left: 56.0,
-            top: 8.0,
-            child: CustomBackButton(),
-          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Text(
+              specie.description.replaceAll('\t', ''),
+              style: textTheme.bodyMedium
+                  ?.copyWith(color: colorScheme.onSurfaceVariant),
+            ),
+          )
         ],
       ),
     );

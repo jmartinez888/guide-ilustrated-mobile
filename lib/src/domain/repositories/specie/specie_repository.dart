@@ -44,7 +44,7 @@ abstract class SpecieRepository {
     required PagingController pagingController,
   });
 
-  Future< List<Class>> getClasses();
-  Future<List<OrderClass>> getOrders(); 
+  Future<List<Class>> getClasses();
+  Future<List<OrderClass>> getOrdersByClassId(int familyId);
   Future<List<Family>> getFamilies();
 }

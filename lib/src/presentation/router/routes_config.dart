@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/image_details_favorite/image_details_favorite_page.dart';
@@ -27,6 +28,7 @@ import 'package:species/src/presentation/router/routes.dart';
 
 final parentNavigatorKey = GlobalKey<NavigatorState>();
 final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final appRouter = GoRouter(
   initialLocation: Routes.species,
@@ -39,6 +41,15 @@ final appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
+              redirect: (context, state) {
+                if (_firebaseAuth.currentUser != null) {
+                  return null;
+                }
+                if (_firebaseAuth.currentUser == null) {
+                  return '${Routes.species}/${Routes.signIn}';
+                }
+                return null;
+              },
               path: Routes.profile,
               name: Routes.profile,
               builder: (_, __) => const ProfilePage(),
@@ -77,18 +88,45 @@ final appRouter = GoRouter(
                           },
                         ),
                         GoRoute(
+                          redirect: (context, state) {
+                            if (_firebaseAuth.currentUser != null) {
+                              return Routes.species;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signIn}';
+                            }
+                            return null;
+                          },
                           path: Routes.signIn,
                           name: Routes.signIn,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, __) => const SignInPage(),
                         ),
                         GoRoute(
+                          redirect: (context, state) {
+                            if (_firebaseAuth.currentUser != null) {
+                              return Routes.species;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signUp}';
+                            }
+                            return null;
+                          },
                           path: Routes.signUp,
                           name: Routes.signUp,
                           parentNavigatorKey: parentNavigatorKey,
                           builder: (_, __) => const SignUpPage(),
                         ),
                         GoRoute(
+                          redirect: (context, state) {
+                            if (_firebaseAuth.currentUser != null) {
+                              return null;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signIn}';
+                            }
+                            return null;
+                          },
                           path: Routes.forgotPassword,
                           name: Routes.forgotPassword,
                           parentNavigatorKey: parentNavigatorKey,
