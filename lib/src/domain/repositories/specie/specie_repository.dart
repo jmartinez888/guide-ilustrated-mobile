@@ -46,5 +46,5 @@ abstract class SpecieRepository {
 
   Future<List<Class>> getClasses();
   Future<List<OrderClass>> getOrdersByClassId(int familyId);
-  Future<List<Family>> getFamilies();
+  Future<List<Family>> getFamilies(int orderId);
 }

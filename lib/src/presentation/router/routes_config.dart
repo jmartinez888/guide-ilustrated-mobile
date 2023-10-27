@@ -118,15 +118,6 @@ final appRouter = GoRouter(
                           builder: (_, __) => const SignUpPage(),
                         ),
                         GoRoute(
-                          redirect: (context, state) {
-                            if (_firebaseAuth.currentUser != null) {
-                              return null;
-                            }
-                            if (_firebaseAuth.currentUser == null) {
-                              return '${Routes.species}/${Routes.signIn}';
-                            }
-                            return null;
-                          },
                           path: Routes.forgotPassword,
                           name: Routes.forgotPassword,
                           parentNavigatorKey: parentNavigatorKey,
@@ -157,11 +148,29 @@ final appRouter = GoRouter(
                 StatefulShellBranch(
                   routes: [
                     GoRoute(
+                      redirect: (context, state) {
+                        if (_firebaseAuth.currentUser != null) {
+                          return null;
+                        }
+                        if (_firebaseAuth.currentUser == null) {
+                          return '${Routes.species}/${Routes.signIn}';
+                        }
+                        return null;
+                      },
                       path: Routes.specieFavorites,
                       name: Routes.specieFavorites,
                       builder: (_, __) => const FavoritesPage(),
                       routes: [
                         GoRoute(
+                          redirect: (context, state) {
+                            if (_firebaseAuth.currentUser != null) {
+                              return null;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signIn}';
+                            }
+                            return null;
+                          },
                           path: '${Routes.specieDetailsFavorite}/:specie',
                           name: Routes.specieDetailsFavorite,
                           builder: (_, state) {
@@ -171,6 +180,15 @@ final appRouter = GoRouter(
                           },
                         ),
                         GoRoute(
+                          redirect: (context, state) {
+                            if (_firebaseAuth.currentUser != null) {
+                              return null;
+                            }
+                            if (_firebaseAuth.currentUser == null) {
+                              return '${Routes.species}/${Routes.signIn}';
+                            }
+                            return null;
+                          },
                           path: '${Routes.specieImageFavorite}/:specie',
                           name: Routes.specieImageFavorite,
                           parentNavigatorKey: parentNavigatorKey,
