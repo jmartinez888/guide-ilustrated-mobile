@@ -17,7 +17,16 @@ class IndigenousCommunityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AppBar(title: const Text('Comunidades Indígenas')),
+        AppBar(
+          title: const Text('Comunidades Indígenas'),
+          actions: [
+            IconButton(
+              onPressed: () => context.pushNamed(Routes.indigenousCommunitySearch),
+              icon: const Icon(Icons.search_rounded),
+            ),
+            const SizedBox(width: 8.0)
+          ],
+        ),
         const Expanded(child: _IndigenousCommunitySection()),
       ],
     );
@@ -88,9 +97,10 @@ class _IndigenousCommunitySectionState
               backgroundColor: colorScheme.primaryContainer,
               principalColor: colorScheme.primary,
               image: CustomImageContainer(
-                tag: item.id,
-                imageUrl: item.image.isNotEmpty ? item.image : 'assets/images/indigenous_community.jpg',
-              ),  
+                imageUrl: item.image.isNotEmpty
+                    ? item.image
+                    : 'assets/images/indigenous_community.jpg',
+              ),
               title: item.name,
               subtitle: item.description,
             ),

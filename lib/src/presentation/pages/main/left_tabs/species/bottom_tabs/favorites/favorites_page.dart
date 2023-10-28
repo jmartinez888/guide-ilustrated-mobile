@@ -115,7 +115,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   pathParameters: {'specie': jsonEncode(specie.toJson())},
                 ),
                 image: CustomImageContainer(
-                  tag: specie.id,
                   imageUrl: specie.images.first,
                 ),
                 title: specie.name,

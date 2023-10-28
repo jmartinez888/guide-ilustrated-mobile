@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 
 class GridTwoResponsive extends StatelessWidget {
   final Widget? leftChild;
   final List<Widget> rightChildren;
+
   const GridTwoResponsive({
     Key? key,
     this.leftChild,
@@ -13,21 +13,19 @@ class GridTwoResponsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Extend(
-      child: size.height > size.width + 32.0
-          ? Column(
-              children: [
-                SizedBox(child: leftChild),
-                Expanded(child: _leftList()),
-              ],
-            )
-          : Row(
-              children: [
-                Expanded(child: SizedBox(child: leftChild)),
-                Expanded(child: _leftList()),
-              ],
-            ),
-    );
+    return size.height > size.width + 32.0
+        ? Column(
+            children: [
+              SizedBox(child: leftChild),
+              Expanded(child: _leftList()),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: SizedBox(child: leftChild)),
+              Expanded(child: _leftList()),
+            ],
+          );
   }
 
   Widget _leftList() => ListView(

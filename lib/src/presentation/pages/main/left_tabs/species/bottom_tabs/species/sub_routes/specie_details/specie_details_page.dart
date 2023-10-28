@@ -27,24 +27,25 @@ class _SpecieDetailsPageState extends ConsumerState<SpecieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final specie = ref.watch(specieDetailsProvider)[widget.id];
-    return Stack(
-      children: [
-        specie == null
-            ? const Center(child: CircularProgressIndicator())
-            : SpecieDetailsSection(
-                tag: 'abc',
-                specie: specie,
-                onTapForFullImage: () => context.pushNamed(
-                  Routes.specieImage,
-                  pathParameters: {'id': specie.id.toString()},
+    return Scaffold(
+      body: Stack(
+        children: [
+          specie == null
+              ? const Center(child: CircularProgressIndicator())
+              : SpecieDetailsSection(
+                  specie: specie,
+                  onTapForFullImage: () => context.pushNamed(
+                    Routes.specieImage,
+                    pathParameters: {'id': specie.id.toString()},
+                  ),
                 ),
-              ),
-        const Positioned(
-          left: 56.0,
-          top: 8.0,
-          child: CustomBackButton(),
-        ),
-      ],
+          const Positioned(
+            left: 56.0,
+            top: 8.0,
+            child: CustomBackButton(),
+          ),
+        ],
+      ),
     );
   }
 }

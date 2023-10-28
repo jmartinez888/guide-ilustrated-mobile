@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/image_details_favorite/image_details_favorite_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/specie_details_favorite/specie_details_favorite_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/forgot_password/forgot_password_page.dart';
@@ -215,6 +216,12 @@ final appRouter = GoRouter(
                     final id = state.pathParameters['id'];
                     return IndigenousCommunityDetailsPage(id: id.toString());
                   },
+                ),
+                GoRoute(
+                  path: Routes.indigenousCommunitySearch,
+                  name: Routes.indigenousCommunitySearch,
+                  parentNavigatorKey: parentNavigatorKey,
+                  builder: (_, __) => const IndigenousCommunitySearchPage(),
                 ),
               ],
             ),
