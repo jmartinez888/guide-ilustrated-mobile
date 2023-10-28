@@ -49,10 +49,16 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     super.dispose();
   }
 
+  late Map<String, dynamic> mainOpaqueColor;
+  late Color mainColor;
+  late Color opaqueColor;
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final mainColor = getMainColorByInt(widget.type);
+    mainOpaqueColor = getMainColorByInt(widget.type);
+    mainColor = mainOpaqueColor['main'];
+    opaqueColor = mainOpaqueColor['opaque'];
     return RefreshIndicator(
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
       child: Extend(
@@ -65,8 +71,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
           pagingController: _pagingController,
           gridDelegateBuilder: (int childCount) {
             return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: buildMultiGrids(width),
-            );
+                crossAxisCount: buildMultiGrids(width));
           },
           builderDelegate: PagedChildBuilderDelegate<Specie>(
             newPageProgressIndicatorBuilder: (_) =>
@@ -81,8 +86,8 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                 pathParameters: {'id': item.id.toString()},
               ),
               principalColor: mainColor,
+              backgroundColor: opaqueColor,
               image: CustomImageContainer(
-                tag: item.id,
                 imageUrl: item.images.first,
                 mainColor: mainColor,
               ),

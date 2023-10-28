@@ -27,7 +27,8 @@ class ImageDetailsSection extends StatelessWidget {
               return PhotoViewGalleryPageOptions(
                 maxScale: PhotoViewComputedScale.covered * 8,
                 minScale: PhotoViewComputedScale.contained,
-                heroAttributes: PhotoViewHeroAttributes(tag: '${specie.id}$tag'),
+                heroAttributes:
+                    PhotoViewHeroAttributes(tag: '${specie.id}$tag'),
                 imageProvider: CachedNetworkImageProvider(specie.images[index]),
               );
             },

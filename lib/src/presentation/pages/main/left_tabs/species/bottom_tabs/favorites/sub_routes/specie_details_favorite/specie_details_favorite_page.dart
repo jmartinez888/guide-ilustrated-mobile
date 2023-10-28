@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/sections/specie_details_section.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SpecieDetailsFavoritePage extends StatefulWidget {
@@ -29,12 +30,24 @@ class _SpecieDetailsFavoritePageState extends State<SpecieDetailsFavoritePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SpecieDetailsSection(
-      tag: '123',
-      specie: specie,
-      onTapForFullImage: () => context.pushNamed(
-        Routes.specieImageFavorite,
-        pathParameters: {'specie': jsonEncode(specie.toJson())},
+    return Scaffold(
+      body: Stack(
+        children: [
+          SpecieDetailsSection(
+            specie: specie,
+            onTapForFullImage: () => context.pushNamed(
+              Routes.specieImageFavorite,
+              pathParameters: {'specie': jsonEncode(specie.toJson())},
+            ),
+          ),
+          const Positioned(
+            top: 8.0,
+            left: 56.0,
+            child: SafeArea(
+              child: CustomBackButton(),
+            ),
+          ),
+        ],
       ),
     );
   }

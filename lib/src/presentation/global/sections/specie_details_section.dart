@@ -20,12 +20,10 @@ import 'package:species/src/presentation/router/routes.dart';
 
 class SpecieDetailsSection extends StatelessWidget {
   final Specie specie;
-  final String tag;
   final void Function()? onTapForFullImage;
   const SpecieDetailsSection({
     Key? key,
     required this.specie,
-    required this.tag,
     this.onTapForFullImage,
   }) : super(key: key);
 
@@ -47,7 +45,6 @@ class SpecieDetailsSection extends StatelessWidget {
         leftChild: Stack(
           children: [
             CustomImageContainer(
-              tag: '${specie.id}$tag',
               mainColor: mainColor,
               onTap: onTapForFullImage,
               imageUrl: specie.images.first,
@@ -88,7 +85,7 @@ class SpecieDetailsSection extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  specie.authors.join(', '),
+                  'Autor: ${specie.authors.join(', ')}',
                   style: textTheme.titleMedium
                       ?.copyWith(color: colorScheme.onSurfaceVariant),
                   textAlign: TextAlign.end,
@@ -98,7 +95,7 @@ class SpecieDetailsSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Text(
-              '${specie.kingdom} - ${specie.phylum} - ${specie.class_} - ${specie.order} - ${specie.family}',
+              'Reino: ${specie.kingdom} - Filo: ${specie.phylum} - Clase: ${specie.class_} - Orden: ${specie.order} - Familia: ${specie.family}',
               style:
                   textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
             ),

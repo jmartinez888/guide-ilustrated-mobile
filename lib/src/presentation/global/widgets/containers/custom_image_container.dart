@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class CustomImageContainer extends StatelessWidget {
   final String imageUrl;
-  final Object? tag;
   final double? heightImage;
   final double? width;
   final BorderRadiusGeometry? borderRadius;
@@ -13,7 +12,6 @@ class CustomImageContainer extends StatelessWidget {
   const CustomImageContainer({
     Key? key,
     required this.imageUrl,
-    this.tag,
     this.heightImage,
     this.width,
     this.borderRadius,
@@ -34,34 +32,30 @@ class CustomImageContainer extends StatelessWidget {
             ? SizedBox(
                 height: heightImage,
                 width: width,
-                child: Hero(
-                  tag: tag ?? '',
-                  transitionOnUserGestures: true,
-                  child: CachedNetworkImage(
+                child: CachedNetworkImage(
+                  height: heightImage,
+                  imageUrl: imageUrl,
+                  width: double.infinity,
+                  fit: fitImage ? BoxFit.cover : BoxFit.contain,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      SizedBox(
                     height: heightImage,
-                    imageUrl: imageUrl,
-                    width: double.infinity,
-                    fit: fitImage ? BoxFit.cover : BoxFit.contain,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => SizedBox(
-                      height: heightImage,
-                      width: width,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                            color: mainColor,
-                          ),
+                    width: width,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CircularProgressIndicator(
+                          value: downloadProgress.progress,
+                          color: mainColor,
                         ),
                       ),
                     ),
-                    errorWidget: (context, url, error) => SizedBox(
-                      height: heightImage,
-                      width: width,
-                      child: const Center(
-                          child: Icon(Icons.image_not_supported_outlined)),
-                    ),
+                  ),
+                  errorWidget: (context, url, error) => SizedBox(
+                    height: heightImage,
+                    width: width,
+                    child: const Center(
+                        child: Icon(Icons.image_not_supported_outlined)),
                   ),
                 ),
               )
