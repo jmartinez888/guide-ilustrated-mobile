@@ -111,13 +111,7 @@ class _SpeciesPageState extends State<SpeciesPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            height: 56.0,
-            padding: const EdgeInsets.only(left: 56.0),
-            child:
-                Text('Especies', style: Theme.of(context).textTheme.titleLarge),
-          ),
+          AppBar(title: const Text('Especies')),
           Align(
             alignment: Alignment.center,
             child: TabBar(

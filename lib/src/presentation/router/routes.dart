@@ -14,7 +14,8 @@ class Routes {
   static const String specieDetailsFavorite = 'details-favorite';
   static const String specieImageFavorite = 'image-favorite';
 
-  static const String indigenousCommunity = '/indigenous-community';
+  static const String indigenousCommunity = '/community';
+  static const String indigenousCommunityDetails = 'community-details';
   static const String bardcoding = '/bardcoding';
   static const String viewfinder = '/viewfinder';
   static const String maps = '/maps';

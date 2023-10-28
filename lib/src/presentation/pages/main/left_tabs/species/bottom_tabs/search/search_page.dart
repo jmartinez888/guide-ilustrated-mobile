@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/class.dart';
-import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
