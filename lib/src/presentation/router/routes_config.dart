@@ -44,13 +44,12 @@ final appRouter = GoRouter(
           routes: [
             GoRoute(
               redirect: (context, state) {
-                if (_firebaseAuth.currentUser != null) {
+                if (_firebaseAuth.currentUser != null &&
+                    _firebaseAuth.currentUser!.emailVerified) {
                   return null;
-                }
-                if (_firebaseAuth.currentUser == null) {
+                } else {
                   return '${Routes.species}/${Routes.signIn}';
                 }
-                return null;
               },
               path: Routes.profile,
               name: Routes.profile,
@@ -91,13 +90,12 @@ final appRouter = GoRouter(
                         ),
                         GoRoute(
                           redirect: (context, state) {
-                            if (_firebaseAuth.currentUser != null) {
+                            if (_firebaseAuth.currentUser != null &&
+                                _firebaseAuth.currentUser!.emailVerified) {
                               return Routes.species;
-                            }
-                            if (_firebaseAuth.currentUser == null) {
+                            } else {
                               return '${Routes.species}/${Routes.signIn}';
                             }
-                            return null;
                           },
                           path: Routes.signIn,
                           name: Routes.signIn,
@@ -106,13 +104,12 @@ final appRouter = GoRouter(
                         ),
                         GoRoute(
                           redirect: (context, state) {
-                            if (_firebaseAuth.currentUser != null) {
+                            if (_firebaseAuth.currentUser != null &&
+                                _firebaseAuth.currentUser!.emailVerified) {
                               return Routes.species;
-                            }
-                            if (_firebaseAuth.currentUser == null) {
+                            } else {
                               return '${Routes.species}/${Routes.signUp}';
                             }
-                            return null;
                           },
                           path: Routes.signUp,
                           name: Routes.signUp,
@@ -151,13 +148,12 @@ final appRouter = GoRouter(
                   routes: [
                     GoRoute(
                       redirect: (context, state) {
-                        if (_firebaseAuth.currentUser != null) {
+                        if (_firebaseAuth.currentUser != null &&
+                            _firebaseAuth.currentUser!.emailVerified) {
                           return null;
-                        }
-                        if (_firebaseAuth.currentUser == null) {
+                        } else {
                           return '${Routes.species}/${Routes.signIn}';
                         }
-                        return null;
                       },
                       path: Routes.specieFavorites,
                       name: Routes.specieFavorites,
@@ -165,13 +161,12 @@ final appRouter = GoRouter(
                       routes: [
                         GoRoute(
                           redirect: (context, state) {
-                            if (_firebaseAuth.currentUser != null) {
+                            if (_firebaseAuth.currentUser != null &&
+                                _firebaseAuth.currentUser!.emailVerified) {
                               return null;
-                            }
-                            if (_firebaseAuth.currentUser == null) {
+                            } else {
                               return '${Routes.species}/${Routes.signIn}';
                             }
-                            return null;
                           },
                           path: '${Routes.specieDetailsFavorite}/:specie',
                           name: Routes.specieDetailsFavorite,
@@ -183,13 +178,12 @@ final appRouter = GoRouter(
                         ),
                         GoRoute(
                           redirect: (context, state) {
-                            if (_firebaseAuth.currentUser != null) {
+                            if (_firebaseAuth.currentUser != null &&
+                                _firebaseAuth.currentUser!.emailVerified) {
                               return null;
-                            }
-                            if (_firebaseAuth.currentUser == null) {
+                            } else {
                               return '${Routes.species}/${Routes.signIn}';
                             }
-                            return null;
                           },
                           path: '${Routes.specieImageFavorite}/:specie',
                           name: Routes.specieImageFavorite,
