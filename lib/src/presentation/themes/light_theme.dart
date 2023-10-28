@@ -30,7 +30,38 @@ class CustomTheme {
       outline: CustomColors.greyContainer,
       onSurfaceVariant: CustomColors.grey,
     ),
-
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(
+        CustomColors.primary,
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
+    )),
+    dropdownMenuTheme: const DropdownMenuThemeData(
+      textStyle: TextStyle(
+        color: CustomColors.primary,
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
+      ),
+      menuStyle: MenuStyle(
+        backgroundColor: MaterialStatePropertyAll(
+          CustomColors.primary,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        ),
+      ),
+    ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: CustomColors.primary,
       foregroundColor: CustomColors.white,

@@ -549,9 +549,10 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
   }
 
   @override
-  Future<List<Family>> getFamilies() async {
+  Future<List<Family>> getFamilies(int orderId) async {
     try {
-      final response = await get(Uri.parse('$baseUrl/families'));
+      final response =
+          await get(Uri.parse('$baseUrl/families/by-order/$orderId'));
       if (response.statusCode == 200) {
         final List<dynamic> responseList = json.decode(response.body);
         List<Family> orderList =
