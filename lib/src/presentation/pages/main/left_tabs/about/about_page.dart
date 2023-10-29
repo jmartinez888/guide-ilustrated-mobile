@@ -43,7 +43,7 @@ class _AboutPageState extends State<AboutPage> {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Bienvenidos a la plataforma web de la guía ilustrada de flora y fauna. Explora la biodiversidad de la región a través de una experiencia interactiva basada en datos actualizados de 2022.',
+                  'Bienvenidos a la plataforma móvil de la Guía Ilustrada de Flora y Fauna de la Amazonía. Adéntrate en la riqueza y diversidad de esta región única a través de una experiencia interactiva basada en datos actualizados hasta el año 2022',
                   textAlign: TextAlign.justify,
                 ),
                 const SizedBox(height: 16),
@@ -55,31 +55,31 @@ class _AboutPageState extends State<AboutPage> {
                   ),
                 ),
                 const Text(
-                  'Destaca la impresionante diversidad de la región, educando y sensibilizando a todas las edades tanto dentro como fuera de la Amazonía debido a su belleza e importancia.',
+                  'Nuestra plataforma es una ventana a la asombrosa biodiversidad amazónica. A través de contenido experto y visualmente impactante, te invitamos a explorar la inigualable belleza de esta región y comprender su importancia crítica para nuestro planeta.',
                   textAlign: TextAlign.justify,
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Nuestro objetivo',
+                  'Nuestro compromiso',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Text(
-                  'Buscamos concienciar sobre la importancia de la biodiversidad y su protección, especialmente en las regiones más pobres y entre las poblaciones vulnerables afectadas por la degradación y el cambio climático.',
+                  'Nos esforzamos por concienciar sobre la inmensa importancia de la biodiversidad y su protección, especialmente en las regiones más vulnerables y entre las poblaciones afectadas por la degradación y el cambio climático.',
                   textAlign: TextAlign.justify,
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Contacta al IIAP',
+                  'Contactanos',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Text(
-                  'Para más información sobre el proyecto, contacta al Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través de su página web: ',
+                  'Para más información sobre el proyecto, contacta al Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través de la página web: ',
                   textAlign: TextAlign.justify,
                 ),
                 TextButton(
@@ -89,8 +89,13 @@ class _AboutPageState extends State<AboutPage> {
                     child: const Text('https://amazonia.iiap.gob.pe/')),
                 const SizedBox(height: 16),
                 const Text(
-                  'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ciiap@iiap.gob.pe',
+                  'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ',
                 ),
+                TextButton(
+                    onPressed: () {
+                      Share.share('ciiap@iiap.gob.pe', subject: 'Contacto');
+                    },
+                    child: const Text('ciiap@iiap.gob.pe')),
                 const SizedBox(height: 16),
                 Wrap(
                   alignment: WrapAlignment.center,
