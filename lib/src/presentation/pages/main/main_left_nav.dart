@@ -36,58 +36,63 @@ class MainLeftNav extends StatelessWidget {
           'label': 'Comunidades Indígenas',
           'icon_selected': CustomIcons.tree,
         },
-        {
-          'label': 'Bardcoding',
-          'icon_selected': Icons.code_rounded,
-        },
+        // {
+        //   'label': 'Bardcoding',
+        //   'icon_selected': Icons.code_rounded,
+        // },
       ],
     },
+    // {
+    //   'title': 'Mapas',
+    //   'content': [
+    //     {
+    //       'label': 'Visor',
+    //       'icon_selected': Icons.location_on_rounded,
+    //       'icon_unselected': Icons.location_on_outlined,
+    //     },
+    //     {
+    //       'label': 'Mapas',
+    //       'icon_selected': Icons.map_rounded,
+    //       'icon_unselected': Icons.map_outlined,
+    //     },
+    //   ],
+    // },
+    // {
+    //   'title': 'Más Información',
+    //   'content': [
+    //     {
+    //       'label': 'Datos Biológicos',
+    //       'icon_selected': Icons.dataset_rounded,
+    //       'icon_unselected': Icons.dataset_outlined,
+    //     },
+    //     {
+    //       'label': 'Recursos Científicos',
+    //       'icon_selected': Icons.science_rounded,
+    //       'icon_unselected': Icons.science_outlined,
+    //     },
+    //     {
+    //       'label': 'Especialistas',
+    //       'icon_selected': Icons.biotech_rounded,
+    //       'icon_unselected': Icons.biotech_outlined,
+    //     },
+    //     {
+    //       'label': '¿Cómo depositar?',
+    //       'icon_selected': Icons.question_mark_rounded,
+    //     },
+    //   ],
+    // },
     {
-      'title': 'Mapas',
-      'content': [
-        {
-          'label': 'Visor',
-          'icon_selected': Icons.location_on_rounded,
-          'icon_unselected': Icons.location_on_outlined,
-        },
-        {
-          'label': 'Mapas',
-          'icon_selected': Icons.map_rounded,
-          'icon_unselected': Icons.map_outlined,
-        },
-      ],
-    },
-    {
-      'title': 'Más Información',
-      'content': [
-        {
-          'label': 'Datos Biológicos',
-          'icon_selected': Icons.dataset_rounded,
-          'icon_unselected': Icons.dataset_outlined,
-        },
-        {
-          'label': 'Recursos Científicos',
-          'icon_selected': Icons.science_rounded,
-          'icon_unselected': Icons.science_outlined,
-        },
-        {
-          'label': 'Especialistas',
-          'icon_selected': Icons.biotech_rounded,
-          'icon_unselected': Icons.biotech_outlined,
-        },
-        {
-          'label': '¿Cómo depositar?',
-          'icon_selected': Icons.question_mark_rounded,
-        },
-      ],
-    },
-    {
-      'title': 'Desarrolladores',
+      'title': 'Acerca de',
       'content': [
         {
           'label': 'Staff',
           'icon_selected': Icons.groups_rounded,
           'icon_unselected': Icons.groups_outlined,
+        },
+        {
+          'label': 'Sobre la guía',
+          'icon_selected': Icons.info_rounded,
+          'icon_unselected': Icons.info_outlined,
         },
       ],
     },
