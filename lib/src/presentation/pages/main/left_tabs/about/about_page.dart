@@ -96,20 +96,35 @@ class _AboutPageState extends State<AboutPage> {
                   alignment: WrapAlignment.center,
                   spacing: 16.0,
                   children: [
-                    Image.asset(
-                      'assets/images/logoIIAP.jpg',
-                      width: 128,
-                      height: 128,
+                    GestureDetector(
+                      onTap: () {
+                        Share.share('https://www.gob.pe/iiap');
+                      },
+                      child: Image.asset(
+                        'assets/images/logoIIAP.jpg',
+                        width: 128,
+                        height: 128,
+                      ),
                     ),
-                    Image.asset(
-                      'assets/images/logo_minam.png',
-                      width: 256,
-                      height: 128,
+                    GestureDetector(
+                      onTap: () {
+                        Share.share('https://www.gob.pe/minam');
+                      },
+                      child: Image.asset(
+                        'assets/images/logo_minam.png',
+                        width: 256,
+                        height: 128,
+                      ),
                     ),
-                    Image.asset(
-                      'assets/images/logo_spain.png',
-                      width: 256,
-                      height: 128,
+                    GestureDetector(
+                      onTap: () {
+                        Share.share('https://www.cooperacionespanola.es/');
+                      },
+                      child: Image.asset(
+                        'assets/images/logo_spain.png',
+                        width: 256,
+                        height: 128,
+                      ),
                     ),
                   ],
                 )
