@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:species/src/presentation/global/sections/indigenous_community_details_section.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/pages/providers/indigenous_community/indigenous_community_provider.dart';
+
 class IndigenousCommunityDetailsPage extends ConsumerStatefulWidget {
   final String id;
   const IndigenousCommunityDetailsPage({
@@ -20,24 +21,27 @@ class _IndigenousCommunityDetailsPagState
   @override
   void initState() {
     super.initState();
-    ref.read(indigenousCommunityDetailProvider.notifier).loadCommunity(widget.id);
+    ref
+        .read(indigenousCommunityDetailProvider.notifier)
+        .loadCommunity(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     final community = ref.watch(indigenousCommunityDetailProvider)[widget.id];
-    return Stack(
-      children: [
-        community == null
-            ? const Center(child: CircularProgressIndicator())
-            : IndigenousCommunityDetailsSection(community: community),
-        const Positioned(
-          left: 56.0,
-          top: 8.0,
-          child: CustomBackButton(),
-        ),
-      ],
+    return Scaffold(
+      body: Stack(
+        children: [
+          community == null
+              ? const Center(child: CircularProgressIndicator())
+              : IndigenousCommunityDetailsSection(community: community),
+          const Positioned(
+            left: 56.0,
+            top: 8.0,
+            child: CustomBackButton(),
+          ),
+        ],
+      ),
     );
   }
 }
-

@@ -33,7 +33,7 @@ class MainLeftNav extends StatelessWidget {
           'icon_selected': CustomIcons.bird,
         },
         {
-          'label': 'Comunidad Indígena',
+          'label': 'Comunidades Indígenas',
           'icon_selected': CustomIcons.tree,
         },
         // {

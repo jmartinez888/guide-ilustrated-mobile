@@ -16,6 +16,7 @@ class Routes {
 
   static const String indigenousCommunity = '/community';
   static const String indigenousCommunityDetails = 'community-details';
+  static const String indigenousCommunitySearch = 'community-search';
   static const String bardcoding = '/bardcoding';
   static const String viewfinder = '/viewfinder';
   static const String maps = '/maps';
