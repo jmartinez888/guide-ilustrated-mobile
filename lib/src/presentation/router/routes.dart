@@ -24,4 +24,5 @@ class Routes {
   static const String specialists = '/specialists';
   static const String howToDeposit = '/how-to-deposit';
   static const String staff = '/staff';
+  static const String about = '/about';
 }
