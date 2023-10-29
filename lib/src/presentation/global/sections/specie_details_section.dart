@@ -222,7 +222,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
             iconColor: Colors.white,
             backgroundColor: widget.mainColor,
             onPressed: () => Share.share(
-                '¿Qué te parece esta espcie amazónica? https://amazonia.iiap.gob.pe/species/specie-details/${widget.specie.id}'),
+                '¿Te ha gustado la información? Compartela para llegar a más personas https://amazonia.iiap.gob.pe/species/specie-details/${widget.specie.id}'),
           ),
           StreamBuilder<bool>(
             stream: isFavoriteStream,
