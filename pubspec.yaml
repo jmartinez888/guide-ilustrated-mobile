@@ -55,6 +55,8 @@ dependencies:
   pdf: ^3.10.4
   printing: ^5.11.0
   flutter_launcher_icons: ^0.13.1
+  flutter_svg: ^2.0.9
+  flutter_animate: ^4.2.0+1
 
 dev_dependencies:
   flutter_test:
@@ -107,6 +109,7 @@ flutter:
     - assets/icons/
     - assets/icons/species/
     - assets/icons/species/images_icons/
+    - assets/svg/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

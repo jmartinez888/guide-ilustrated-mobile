@@ -1,6 +1,7 @@
 class Routes {
   Routes._();
 
+  static const String splash = '/splash';
   static const String profile = '/profile'; //proteted
   static const String species = '/species';
   static const String signIn = 'sign-in'; //proteted

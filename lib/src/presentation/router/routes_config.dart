@@ -27,6 +27,7 @@ import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.d
 // import 'package:species/src/presentation/pages/main/left_tabs/viewfinder/viewfinder_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/pdf_preview.dart/pdf_preview_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/specie_details/specie_details_page.dart';
+import 'package:species/src/presentation/pages/splash/splash_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 final parentNavigatorKey = GlobalKey<NavigatorState>();
@@ -34,9 +35,15 @@ final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final appRouter = GoRouter(
-  initialLocation: Routes.species,
+  initialLocation: Routes.splash,
   navigatorKey: parentNavigatorKey,
   routes: [
+    GoRoute(
+      path: Routes.splash,
+      name: Routes.splash,
+      parentNavigatorKey: parentNavigatorKey,
+      builder: (_, __) => const SplashPage(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
           MainLeftNav(navigationShell: navigationShell),
