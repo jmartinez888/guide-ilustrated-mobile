@@ -16,7 +16,7 @@ class StaffPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(20),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 280,
+            maxCrossAxisExtent: 310,
             childAspectRatio: 3 / 5,
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
@@ -76,14 +76,21 @@ class StaffPage extends StatelessWidget {
             style: TextButton.styleFrom(
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  side: const BorderSide(color: Colors.black)),
+                borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: Colors.black),
+              ),
             ),
             onPressed: () => Share.share(github),
-            icon: Image.asset('assets/icons/github.png', width: 24),
-            label: const Text('Portafolio',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 12)),
+            icon: Image.asset(
+              'assets/icons/github.png',
+              width: 24,
+              height: 24,
+            ),
+            label: const Text(
+              'Portafolio',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black, fontSize: 12),
+            ),
           )
         ],
       ),

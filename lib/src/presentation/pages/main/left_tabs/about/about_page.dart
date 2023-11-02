@@ -23,10 +23,15 @@ class _AboutPageState extends State<AboutPage> {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                Image.asset(
-                  'assets/images/guia.png',
-                  width: 320,
-                  height: 500,
+                GestureDetector(
+                  onTap: () {
+                    Share.share('https://repositorio.iiap.gob.pe/handle/20.500.12921/680');
+                  },
+                  child: Image.asset(
+                    'assets/images/guia.png',
+                    width: 320,
+                    height: 500,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 const Text(
