@@ -3,19 +3,19 @@ class Routes {
 
   static const String profile = '/profile'; //proteted
   static const String species = '/species';
+  static const String specieDetails = 'details';
+  static const String specieImage = 'image';
   static const String signIn = 'sign-in'; //proteted
   static const String signUp = 'sign-up'; //proteted
   static const String forgotPassword = 'forgot-password';
-  static const String specieDetails = 'details';
-  static const String specieImage = 'image';
   static const String speciePdfPreview = 'pdf';
   static const String specieSearch = '/search';
   static const String specieFavorites = '/favorites'; //proteted
   static const String specieDetailsFavorite = 'details-favorite'; //proteted
   static const String specieImageFavorite = 'image-favorite'; //proteted
 
-  static const String indigenousCommunity = '/community';
-  static const String indigenousCommunityDetails = 'community-details';
+  static const String indigenousCommunity = '/';
+  static const String indigenousCommunityDetails = 'community';
   static const String indigenousCommunitySearch = 'community-search';
   static const String bardcoding = '/bardcoding';
   static const String viewfinder = '/viewfinder';
