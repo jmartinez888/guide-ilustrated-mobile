@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Species IIAP',
+      title: 'Guia Ilustrada de Flora y Fauna IIAP',
       debugShowCheckedModeBanner: false,
       theme: CustomTheme.lightTheme,
       routerConfig: appRouter,

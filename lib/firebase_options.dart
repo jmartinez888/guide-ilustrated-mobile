@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -47,31 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBiz-BOX4gIZ-k5QT817AvUQvs94MPncDc',
-    appId: '1:700178322429:web:dffdce82d49bc65b9d3f94',
-    messagingSenderId: '700178322429',
-    projectId: 'species-iiap',
-    authDomain: 'species-iiap.firebaseapp.com',
-    storageBucket: 'species-iiap.appspot.com',
-    measurementId: 'G-ZZGDKD5T8Z',
+    apiKey: 'AIzaSyB9GoDoTiArT8klYjbnPdHCw1ZSXQXWccU',
+    appId: '1:750264368267:web:404d7f29506499be18e88e',
+    messagingSenderId: '750264368267',
+    projectId: 'guiailustrada-75ebe',
+    authDomain: 'guiailustrada-75ebe.firebaseapp.com',
+    storageBucket: 'guiailustrada-75ebe.appspot.com',
+    measurementId: 'G-0Q8FL8H4JL',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAjF9-DuU0-f0-MbOKgbBDcjQ5ofyOS4aE',
-    appId: '1:700178322429:android:45288d9b60d0f71e9d3f94',
-    messagingSenderId: '700178322429',
-    projectId: 'species-iiap',
-    storageBucket: 'species-iiap.appspot.com',
+    apiKey: 'AIzaSyAZvLS-R43_UuA84Qs_eYxVWppvWaP30Pk',
+    appId: '1:750264368267:android:0dc61fea05ad312a18e88e',
+    messagingSenderId: '750264368267',
+    projectId: 'guiailustrada-75ebe',
+    storageBucket: 'guiailustrada-75ebe.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB5agPnSqau0Xxo_49hdsjZkr37sqLPJ68',
-    appId: '1:700178322429:ios:007ecf581acb2cf39d3f94',
-    messagingSenderId: '700178322429',
-    projectId: 'species-iiap',
-    storageBucket: 'species-iiap.appspot.com',
-    androidClientId: '700178322429-643vol5vbaht2amp23iu56ugq0l0nqaf.apps.googleusercontent.com',
-    iosClientId: '700178322429-k230b69odvuu4j57qsnmcji5b7k2ot8h.apps.googleusercontent.com',
-    iosBundleId: 'pe.gob.iiap.species',
+    apiKey: 'AIzaSyBSfiq6CteHwYg5A8tlDySBonHCgCkXxoY',
+    appId: '1:750264368267:ios:194b844d98f06a3b18e88e',
+    messagingSenderId: '750264368267',
+    projectId: 'guiailustrada-75ebe',
+    storageBucket: 'guiailustrada-75ebe.appspot.com',
+    iosBundleId: 'pe.gob.iiap.guiailustrada',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBSfiq6CteHwYg5A8tlDySBonHCgCkXxoY',
+    appId: '1:750264368267:ios:8f7b050a1c54fb9718e88e',
+    messagingSenderId: '750264368267',
+    projectId: 'guiailustrada-75ebe',
+    storageBucket: 'guiailustrada-75ebe.appspot.com',
+    iosBundleId: 'pe.gob.iiap.species.RunnerTests',
   );
 }
