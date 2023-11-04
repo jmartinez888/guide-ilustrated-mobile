@@ -128,7 +128,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
           .asUint8List(),
     );
     final logoIIAP = pw.MemoryImage(
-      (await rootBundle.load('assets/images/logoIIAP.jpg'))
+      (await rootBundle.load('assets/images/logoIIAP.png'))
           .buffer
           .asUint8List(),
     );

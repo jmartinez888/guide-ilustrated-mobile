@@ -111,7 +111,7 @@ class _AboutPageState extends State<AboutPage> {
                         Share.share('https://www.gob.pe/iiap');
                       },
                       child: Image.asset(
-                        'assets/images/logoIIAP.jpg',
+                        'assets/images/logoIIAP.png',
                         width: 128,
                         height: 128,
                       ),
