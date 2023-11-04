@@ -41,10 +41,6 @@ final appRouter = GoRouter(
     GoRoute(
       path: Routes.splash,
       name: Routes.splash,
-<<<<<<< HEAD
-=======
-      parentNavigatorKey: parentNavigatorKey,
->>>>>>> e55a984663180c0684213890b5c90a6c37831e29
       builder: (_, __) => const SplashPage(),
     ),
     StatefulShellRoute.indexedStack(
