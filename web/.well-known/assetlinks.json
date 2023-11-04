@@ -1,9 +1,10 @@
 [{
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
-      "namespace": "android_app",
-      "package_name": "pe.gob.iiap.species",
-      "sha256_cert_fingerprints":
-      ["17:98:75:59:0D:6F:67:15:B5:28:7E:9E:8D:95:D2:23:E8:7F:7C:3A:0F:62:C9:F6:45:FD:7A:61:8B:3F:1C:F7"]
+        "namespace": "android_app",
+        "package_name": "pe.gob.iiap.guiailustrada",
+        "sha256_cert_fingerprints": [
+            "17:98:75:59:0D:6F:67:15:B5:28:7E:9E:8D:95:D2:23:E8:7F:7C:3A:0F:62:C9:F6:45:FD:7A:61:8B:3F:1C:F7"
+        ]
     }
   }]

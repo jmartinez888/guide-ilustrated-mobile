@@ -76,6 +76,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '750264368267',
     projectId: 'guiailustrada-75ebe',
     storageBucket: 'guiailustrada-75ebe.appspot.com',
-    iosBundleId: 'pe.gob.iiap.species.RunnerTests',
+    iosBundleId: 'pe.gob.iiap.guiailustrada.RunnerTests',
   );
 }

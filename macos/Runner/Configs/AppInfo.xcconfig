@@ -8,7 +8,7 @@
 PRODUCT_NAME = species
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = pe.gob.iiap.species
+PRODUCT_BUNDLE_IDENTIFIER = pe.gob.iiap.guiailustrada
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2023 pe.gob.iiap. All rights reserved.
