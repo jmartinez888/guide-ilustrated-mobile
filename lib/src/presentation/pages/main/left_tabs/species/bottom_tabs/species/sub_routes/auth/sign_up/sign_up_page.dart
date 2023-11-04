@@ -19,6 +19,9 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
   final TextEditingController _emailController = TextEditingController(),
       _passwordController = TextEditingController(),
       _repeatPasswordController = TextEditingController();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _repeatPasswordFocusNode = FocusNode();
 
   final AuthRepository authRepository = AuthIiapRepositoryImpl();
 
@@ -31,6 +34,9 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
     _emailController.dispose();
     _passwordController.dispose();
     _repeatPasswordController.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _repeatPasswordFocusNode.dispose();
     super.dispose();
   }
 
@@ -75,6 +81,8 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
+                  focusNode: _repeatPasswordFocusNode,
+                  onTapOutside: (event) => _repeatPasswordFocusNode.unfocus(),
                   controller: _repeatPasswordController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -115,6 +123,8 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
+                  focusNode: _passwordFocusNode,
+                  onTapOutside: (event) => _passwordFocusNode.unfocus(),
                   controller: _passwordController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -154,6 +164,8 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
+                  focusNode: _emailFocusNode,
+                  onTapOutside: (event) => _emailFocusNode.unfocus(),
                   controller: _emailController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -213,7 +225,8 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
       userCredential.when(
         (left) => customSnackBar(context: context, title: left, large: true),
         (right) async {
-          final emailVerification = await authRepository.sendVerificationEmail();
+          final emailVerification =
+              await authRepository.sendVerificationEmail();
 
           emailVerification.when(
             (left) => customSnackBar(context: context, title: left),
@@ -223,7 +236,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                 title: 'Te enviamos un correo!',
                 body: [Text(right)],
                 floatingActionButton: FloatingActionButton(
-                  onPressed: () => Navigator.maybePop(context),
+                  onPressed: () => context.goNamed(Routes.signIn),
                   child: const Icon(Icons.check_rounded),
                 ),
               ),

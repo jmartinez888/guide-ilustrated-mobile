@@ -20,10 +20,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
   bool validateInInput = false;
 
   final authRepository = AuthIiapRepositoryImpl();
+  final FocusNode _emailFocusNode = FocusNode();
 
   @override
   void dispose() {
     _emailController.dispose();
+    _emailFocusNode.dispose();
     super.dispose();
   }
 
@@ -63,6 +65,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
+                  focusNode: _emailFocusNode,
+                  onTapOutside: (event) => _emailFocusNode.unfocus(),
                   controller: _emailController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -86,10 +90,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 16.0),
-                const Text(
-                  'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña',
-                  textAlign: TextAlign.center,
-                ),
+                Text(
+                    'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
           ),

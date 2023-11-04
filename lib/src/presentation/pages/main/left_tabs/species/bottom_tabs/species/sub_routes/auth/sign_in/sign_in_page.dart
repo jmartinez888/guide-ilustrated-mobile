@@ -21,6 +21,8 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _emailController = TextEditingController(),
       _passwordController = TextEditingController();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
   bool _hidePassword = true;
@@ -55,6 +57,8 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
     _emailController.dispose();
     _passwordController.dispose();
     animationTimer.cancel();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 
@@ -124,6 +128,9 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                             ),
                             const SizedBox(height: 32.0),
                             TextFormField(
+                              focusNode: _emailFocusNode,
+                              onTapOutside: (event) =>
+                                  _emailFocusNode.unfocus(),
                               controller: _emailController,
                               enabled: enabled,
                               autovalidateMode: validateInInput
@@ -148,6 +155,9 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                             ),
                             const SizedBox(height: 16.0),
                             TextFormField(
+                              focusNode: _passwordFocusNode,
+                              onTapOutside: (event) =>
+                                  _passwordFocusNode.unfocus(),
                               enabled: enabled,
                               controller: _passwordController,
                               autovalidateMode: validateInInput
