@@ -29,10 +29,8 @@ class StaffPage extends StatelessWidget {
           ),
         )),
         SliverToBoxAdapter(
-            child: Padding(
-          padding: const EdgeInsets.all(16.0),
           child: _subtitleSection(context, 'COMITÉ REVISOR'),
-        )),
+        ),
         SliverToBoxAdapter(
           child: MasonryGridView(
             padding: const EdgeInsets.all(16.0),
@@ -48,7 +46,7 @@ class StaffPage extends StatelessWidget {
                 children: [
                   _reviewerTitle(context, 'Revisión de textos:'),
                   _text(
-                      'Manuel Martín Brañas, IIAP, \nJuan José Bellido Collahuacho, IIAP'),
+                      'Manuel Martín Brañas, IIAP\nJuan José Bellido Collahuacho, IIAP'),
                   _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
                   _text('Giussepe Gagliardi Urrutia, IIAP'),
                 ],
