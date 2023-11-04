@@ -17,7 +17,9 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return GridTwoResponsive(
       leftChild: CustomImageContainer(
-        imageUrl: community.image.isNotEmpty ? community.image : 'assets/images/indigenous_community.jpg',
+        imageUrl: community.image.isNotEmpty
+            ? community.image
+            : 'assets/images/indigenous_community.jpg',
         heightImage: size.height > size.width + 32.0 ? 384.0 : double.infinity,
       ),
       rightChildren: [
@@ -30,8 +32,9 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Text(
-            community.description.replaceAll('\t', ''),
-            style: textTheme.bodyMedium
+            community.description,
+            textAlign: TextAlign.start,
+            style: textTheme.bodyLarge
                 ?.copyWith(color: colorScheme.onSurfaceVariant),
           ),
         )

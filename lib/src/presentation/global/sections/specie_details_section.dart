@@ -103,9 +103,11 @@ class SpecieDetailsSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Text(
-              specie.description.replaceAll('\t', ''),
-              style: textTheme.bodyMedium
-                  ?.copyWith(color: colorScheme.onSurfaceVariant),
+              specie.description,
+              textAlign: TextAlign.start,
+              style: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],
