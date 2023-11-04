@@ -1,43 +1,26 @@
 {
   "project_info": {
-    "project_number": "700178322429",
-    "project_id": "species-iiap",
-    "storage_bucket": "species-iiap.appspot.com"
+    "project_number": "750264368267",
+    "project_id": "guiailustrada-75ebe",
+    "storage_bucket": "guiailustrada-75ebe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:700178322429:android:45288d9b60d0f71e9d3f94",
+        "mobilesdk_app_id": "1:750264368267:android:0dc61fea05ad312a18e88e",
         "android_client_info": {
-          "package_name": "pe.gob.iiap.species"
+          "package_name": "pe.gob.iiap.guiailustrada"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "700178322429-7m52tp25ei01n3fd1kq526gpr5m6funi.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAjF9-DuU0-f0-MbOKgbBDcjQ5ofyOS4aE"
+          "current_key": "AIzaSyAZvLS-R43_UuA84Qs_eYxVWppvWaP30Pk"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "700178322429-7m52tp25ei01n3fd1kq526gpr5m6funi.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "700178322429-0q08irfk92rngmp23id3t5a6gmm730ig.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutterApplication1"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

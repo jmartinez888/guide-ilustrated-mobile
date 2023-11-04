@@ -394,7 +394,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
                 children: [
                   pw.Paragraph(
                     text:
-                        'Visita: https://amazonia.iiap.gob.pe/speciesview/${specie.id}',
+                        'Visita: https://amazonia.iiap.gob.pe/species/${specie.id}',
                     style: pw.TextStyle(color: PdfColor.fromHex('#808080')),
                     margin: pw.EdgeInsets.zero,
                   ),
