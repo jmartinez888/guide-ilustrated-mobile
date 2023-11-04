@@ -65,6 +65,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -118,13 +119,31 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               ),
                             ),
                             Text(
-                              'Species IIAP',
+                              'AMAZONÍA',
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineLarge
                                   ?.copyWith(
+                                    fontSize: size.width * 0.1,
                                     color: colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
                                   ),
+                            ),
+                            Text(
+                              'Guía ilustrada de flora y fauna',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                color: colorScheme.primary,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    offset: const Offset(0.0, 1.0),
+                                    blurRadius: 2.0,
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 32.0),
                             TextFormField(
