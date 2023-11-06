@@ -57,7 +57,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_animate: ^4.2.0+1
   flutter_svg: ^2.0.9
-
+  animated_custom_dropdown: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -134,16 +134,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
-                                  ?.copyWith(
-                                color: colorScheme.primary,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    offset: const Offset(0.0, 1.0),
-                                    blurRadius: 2.0,
-                                  ),
-                                ],
-                              ),
+                                  ?.copyWith(color: colorScheme.primary),
                             ),
                             const SizedBox(height: 32.0),
                             TextFormField(

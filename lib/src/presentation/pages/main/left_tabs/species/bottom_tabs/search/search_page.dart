@@ -1,3 +1,4 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -24,6 +25,8 @@ class _SearchPageState extends State<SearchPage> {
   final specieRepository = SpecieSpeciesIiapRepositoryImpl();
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+
+  String customDropdownHintText = 'Selecciona una clase';
 
   int? selectedClass;
   int? selectedOrder;
@@ -136,41 +139,71 @@ class _SearchPageState extends State<SearchPage> {
                                   child: CircularProgressIndicator(),
                                 );
                               } else {
-                                return DropdownButton(
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .color!
-                                            .withOpacity(0.9),
-                                      ),
-                                  borderRadius: BorderRadius.circular(16.0),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0,
-                                  ),
-                                  hint: const Text('Selecciona una clase'),
-                                  value: selectedClass,
-                                  items: snapshot.data?.map((item) {
-                                    return DropdownMenuItem(
-                                      alignment: Alignment.centerLeft,
-                                      value: item.id,
-                                      child: Text(item.name),
-                                    );
+                                final List<Class> classes = snapshot.data!;
+                                return CustomDropdown<String>.search(
+                                  headerBuilder: (context, selectedItem) =>
+                                      selectedClass == null
+                                          ? const Text('Selecciona una clase')
+                                          : Text(selectedItem),
+                                  searchHintText: 'Buscar clase',
+                                  excludeSelected: false,
+                                  noResultFoundText:
+                                      'No se encontraron resultados',
+                                  hintText: customDropdownHintText,
+                                  items: classes.map((item) {
+                                    return item.name;
                                   }).toList(),
                                   onChanged: (value) {
-                                    if (value != null) {
-                                      setState(() {
-                                        selectedClass = value;
-                                        selectedOrder = null;
-                                        selectedFamily = null;
-                                        _pagingController.refresh();
-                                      });
-                                    }
+                                    final selectedClassId = classes
+                                        .firstWhere(
+                                            (item) => item.name == value)
+                                        .id;
+                                    setState(() {
+                                      selectedClass = selectedClassId;
+                                      selectedOrder = null;
+                                      selectedFamily = null;
+                                      _pagingController.refresh();
+                                      customDropdownHintText =
+                                          'Selecciona una clase';
+                                    });
                                   },
                                 );
+
+                                // DropdownButton(
+                                //   style: Theme.of(context)
+                                //       .textTheme
+                                //       .bodyMedium!
+                                //       .copyWith(
+                                //         color: Theme.of(context)
+                                //             .textTheme
+                                //             .bodyMedium!
+                                //             .color!
+                                //             .withOpacity(0.9),
+                                //       ),
+                                //   borderRadius: BorderRadius.circular(16.0),
+                                //   padding: const EdgeInsets.symmetric(
+                                //     horizontal: 16.0,
+                                //   ),
+                                //   hint: const Text('Selecciona una clase'),
+                                //   value: selectedClass,
+                                //   items: snapshot.data?.map((item) {
+                                //     return DropdownMenuItem(
+                                //       alignment: Alignment.centerLeft,
+                                //       value: item.id,
+                                //       child: Text(item.name),
+                                //     );
+                                //   }).toList(),
+                                //   onChanged: (value) {
+                                //     if (value != null) {
+                                //       setState(() {
+                                //         selectedClass = value;
+                                //         selectedOrder = null;
+                                //         selectedFamily = null;
+                                //         _pagingController.refresh();
+                                //       });
+                                //     }
+                                //   },
+                                // );
                               }
                             },
                           ),
