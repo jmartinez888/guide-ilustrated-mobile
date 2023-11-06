@@ -91,19 +91,25 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               ),
               principalColor: mainColor,
               backgroundColor: opaqueColor,
-              image: CustomImageContainer(
-                imageUrl: item.images.first,
-                mainColor: mainColor,
+              image: Stack(
+                children: [
+                  CustomImageContainer(
+                    imageUrl: item.images.first,
+                    mainColor: mainColor,
+                  ),
+                  Positioned(
+                    bottom: 8.0,
+                    right: 8.0,
+                    child: _FavoriteAction(
+                      context: context,
+                      mainColor: mainColor,
+                      specie: item,
+                    ),
+                  ),
+                ],
               ),
               title: item.name,
               subtitle: item.scientificName,
-              actions: [
-                _FavoriteAction(
-                  context: context,
-                  mainColor: mainColor,
-                  specie: item,
-                ),
-              ],
             ),
           ),
         ),
@@ -143,20 +149,13 @@ class _FavoriteActionState extends State<_FavoriteAction> {
 
   final firebaseInstance = FirebaseAuth.instance;
   final specieRepository = SpecieSpeciesIiapRepositoryImpl();
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       spacing: 8.0,
       children: [
-        CustomIconButton(
-          tooltip: 'Compartir',
-          icon: Icons.share,
-          iconColor: Colors.white,
-          backgroundColor: widget.mainColor,
-          onPressed: () => Share.share(
-              '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}'),
-        ),
         StreamBuilder<bool>(
           stream: isFavoriteStream,
           builder: (context, snapshot) {
@@ -169,30 +168,45 @@ class _FavoriteActionState extends State<_FavoriteAction> {
             }
             final isFavorite = snapshot.data ?? false;
 
-            return CustomIconButton(
-              tooltip:
-                  isFavorite ? 'Eliminar en favoritos' : 'Guardar de favoritos',
-              icon: isFavorite
-                  ? Icons.favorite_rounded
-                  : Icons.favorite_outline_rounded,
-              iconColor: isFavorite ? Colors.white : widget.mainColor,
-              backgroundColor: isFavorite ? widget.mainColor : null,
-              onPressed: () {
-                if (firebaseInstance.currentUser == null ||
-                    !firebaseInstance.currentUser!.emailVerified) {
-                  context.pushNamed(Routes.signIn);
-                } else {
-                  isFavorite
-                      ? specieRepository.deleteSpecieFavorite(
-                          userId: firebaseInstance.currentUser!.uid,
-                          idSpecie: widget.specie.id)
-                      : specieRepository.saveSpecieFavorite(
-                          userId: firebaseInstance.currentUser!.uid,
-                          specie: widget.specie,
-                        );
-                }
-              },
-            );
+            return loading
+                ? Center(
+                    child: SizedBox(
+                      height: 40.0,
+                      width: 40.0,
+                      child: CircularProgressIndicator(color: widget.mainColor),
+                    ),
+                  )
+                : CustomIconButton(
+                    tooltip: isFavorite
+                        ? 'Eliminar en favoritos'
+                        : 'Guardar de favoritos',
+                    icon: isFavorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_outline_rounded,
+                    iconColor: isFavorite ? Colors.white : widget.mainColor,
+                    backgroundColor: isFavorite ? widget.mainColor : null,
+                    onPressed: () async {
+                      if (firebaseInstance.currentUser == null ||
+                          !firebaseInstance.currentUser!.emailVerified) {
+                        context.pushNamed(Routes.signIn);
+                      } else {
+                        setState(() => loading = true);
+                        if (isFavorite) {
+                          specieRepository.deleteSpecieFavorite(
+                              userId: firebaseInstance.currentUser!.uid,
+                              idSpecie: widget.specie.id);
+                        } else {
+                          final specie = await specieRepository
+                              .getSpecieId(widget.specie.id.toString());
+                          specieRepository.saveSpecieFavorite(
+                            userId: firebaseInstance.currentUser!.uid,
+                            specie: specie,
+                          );
+                        }
+                        setState(() => loading = false);
+                      }
+                    },
+                  );
           },
         ),
       ],
