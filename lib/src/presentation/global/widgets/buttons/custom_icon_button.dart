@@ -4,7 +4,7 @@ import 'package:species/src/presentation/global/colors.dart';
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     super.key,
-    this.backgroundColor = CustomColors.whiteOpacity,
+    this.backgroundColor,
     required this.icon,
     this.iconColor,
     required this.onPressed,
@@ -24,7 +24,7 @@ class CustomIconButton extends StatelessWidget {
     return Container(
       height: heightIcon,
       width: heightIcon,
-      decoration: BoxDecoration(color: backgroundColor, shape: BoxShape.circle),
+      decoration: BoxDecoration(color: backgroundColor ?? CustomColors.whiteOpacity, shape: BoxShape.circle),
       child: IconButton(
         tooltip: tooltip,
         onPressed: onPressed,

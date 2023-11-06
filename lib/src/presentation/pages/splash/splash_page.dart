@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
     _timer.cancel();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -54,9 +54,8 @@ class _SplashPageState extends State<SplashPage> {
                     Material(
                       color: const Color(0xFF0086B7),
                       child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 64.0, vertical: 16.0),
-                        titleTextStyle: textTheme.displayLarge?.copyWith(
+                        contentPadding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
+                        titleTextStyle: textTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: colorScheme.onPrimary,
                           shadows: [
@@ -67,7 +66,7 @@ class _SplashPageState extends State<SplashPage> {
                             ),
                           ],
                         ),
-                        subtitleTextStyle: textTheme.headlineMedium?.copyWith(
+                        subtitleTextStyle: textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: colorScheme.onPrimary,
                           shadows: [
@@ -83,7 +82,7 @@ class _SplashPageState extends State<SplashPage> {
                                 .animate()
                                 .slideY(duration: 1000.ms)
                                 .fadeIn(),
-                        subtitle: const Text('Guía ilustrada de\nflora y fauna',
+                        subtitle: const Text('Guía ilustrada de flora y fauna',
                                 textAlign: TextAlign.center)
                             .animate(delay: 800.ms)
                             .slideX(duration: 1000.ms)
@@ -103,8 +102,8 @@ class _SplashPageState extends State<SplashPage> {
                   ],
                 ),
                 Positioned(
-                  top: 256.0,
-                  left: 8.0,
+                  top: 96.0,
+                  left: 16.0,
                   child: Transform.rotate(
                     angle: -0.32,
                     child: const Icon(
@@ -127,7 +126,7 @@ class _SplashPageState extends State<SplashPage> {
                     angle: 0.16,
                     child: const Icon(
                       CustomIcons.mammal,
-                      size: 256.0,
+                      size: 224.0,
                       color: Colors.white70,
                     )
                         .animate()
@@ -140,13 +139,13 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                 ),
                 Positioned(
-                  top: 320.0,
-                  left: 128.0,
+                  top: 288.0,
+                  left: 16.0,
                   child: Transform.rotate(
                     angle: -0.25,
                     child: const Icon(
                       CustomIcons.fish,
-                      size: 128.0,
+                      size: 92.0,
                       color: Colors.white70,
                     )
                         .animate()
@@ -158,7 +157,7 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                 ),
                 Positioned(
-                  top: 352.0,
+                  top: 256.0,
                   right: 8.0,
                   child: Transform.rotate(
                     angle: 0.1,
@@ -194,13 +193,13 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                 ),
                 Positioned(
-                  top: 432.0,
-                  left: 32.0,
+                  top: 272.0,
+                  left: 128.0,
                   child: Transform.rotate(
                     angle: -0.128,
                     child: const Icon(
                       CustomIcons.reptile,
-                      size: 256.0,
+                      size: 240.0,
                       color: Colors.white70,
                     )
                         .animate()
@@ -213,8 +212,8 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                 ),
                 Positioned(
-                  top: 648.0,
-                  left: 64.0,
+                  top: 416.0,
+                  left: 16.0,
                   child: Transform.rotate(
                     angle: -0.128,
                     child: const Icon(
@@ -231,8 +230,8 @@ class _SplashPageState extends State<SplashPage> {
                   ),
                 ),
                 Positioned(
-                  top: 632.0,
-                  right: 32.0,
+                  top: 512.0,
+                  left: 32.0,
                   child: Transform.rotate(
                     angle: -0.1,
                     child: const Icon(
