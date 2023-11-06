@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';

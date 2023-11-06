@@ -294,6 +294,11 @@ class _SearchPageState extends State<SearchPage> {
                     padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate<Specie>(
+                      firstPageErrorIndicatorBuilder: (context) =>
+                          errorIndicator(
+                        error: _pagingController.error,
+                        onTryAgain: () => _pagingController.refresh(),
+                      ),
                       newPageProgressIndicatorBuilder: (_) =>
                           const LinearProgressIndicator(),
                       animateTransitions: true,
@@ -323,4 +328,29 @@ class _SearchPageState extends State<SearchPage> {
       ],
     );
   }
+}
+
+Widget errorIndicator({
+  required Object? error,
+  required VoidCallback onTryAgain,
+}) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/logo.png',
+          height: 150.0,
+          width: 150.0,
+        ),
+        const Text('No se econtraron familias'),
+        const SizedBox(height: 8.0),
+        FilledButton.icon(
+          onPressed: onTryAgain,
+          icon: const Icon(Icons.refresh_rounded),
+          label: const Text('Reintentar'),
+        )
+      ],
+    ),
+  );
 }
