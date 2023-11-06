@@ -187,7 +187,7 @@ class _SearchPageState extends State<SearchPage> {
                                       snapshot.data!;
                                   return CustomDropdown<String>.search(
                                     headerBuilder: (context, selectedItem) {
-                                      return selectedClass == null
+                                      return selectedOrder == null
                                           ? const Text('Selecciona una orden',
                                               style: TextStyle(
                                                   color: Colors.black54,
@@ -233,7 +233,7 @@ class _SearchPageState extends State<SearchPage> {
                                   final List<Family> families = snapshot.data!;
                                   return CustomDropdown<String>.search(
                                     headerBuilder: (context, selectedItem) {
-                                      return selectedClass == null
+                                      return selectedFamily == null
                                           ? const Text('Selecciona una familia',
                                               style: TextStyle(
                                                   color: Colors.black54,
