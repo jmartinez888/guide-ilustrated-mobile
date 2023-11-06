@@ -136,6 +136,11 @@ class _SearchPageState extends State<SearchPage> {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
+                              } else if (snapshot.hasError) {
+                                return const Text('Error al cargar las clases');
+                              } else if (!snapshot.hasData ||
+                                  snapshot.data!.isEmpty) {
+                                return const Text('No se encontraron clases');
                               } else {
                                 final List<Class> classes = snapshot.data!;
                                 return CustomDropdown<String>.search(
@@ -182,6 +187,13 @@ class _SearchPageState extends State<SearchPage> {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
+                                } else if (snapshot.hasError) {
+                                  return const Text(
+                                      'Error al cargar las ordenes');
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return const Text(
+                                      'No se encontraron ordenes');
                                 } else {
                                   final List<OrderClass> orders =
                                       snapshot.data!;
@@ -229,6 +241,13 @@ class _SearchPageState extends State<SearchPage> {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
+                                } else if (snapshot.hasError) {
+                                  return const Text(
+                                      'Error al cargar las familias');
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return const Text(
+                                      'No se encontraron familias');
                                 } else {
                                   final List<Family> families = snapshot.data!;
                                   return CustomDropdown<String>.search(
