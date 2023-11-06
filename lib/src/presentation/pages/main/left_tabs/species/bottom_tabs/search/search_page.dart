@@ -26,8 +26,6 @@ class _SearchPageState extends State<SearchPage> {
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
-  String customDropdownHintText = 'Selecciona una clase';
-
   int? selectedClass;
   int? selectedOrder;
   int? selectedFamily;
@@ -141,18 +139,23 @@ class _SearchPageState extends State<SearchPage> {
                               } else {
                                 final List<Class> classes = snapshot.data!;
                                 return CustomDropdown<String>.search(
-                                  headerBuilder: (context, selectedItem) =>
-                                      selectedClass == null
-                                          ? const Text('Selecciona una clase')
-                                          : Text(selectedItem),
+                                  headerBuilder: (context, selectedItem) {
+                                    return selectedClass == null
+                                        ? const Text('Selecciona una clase',
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 16.0))
+                                        : Text(selectedItem,
+                                            style: const TextStyle(
+                                                fontSize: 16.0));
+                                  },
                                   searchHintText: 'Buscar clase',
+                                  hintText: 'Selecciona una clase',
                                   excludeSelected: false,
                                   noResultFoundText:
                                       'No se encontraron resultados',
-                                  hintText: customDropdownHintText,
-                                  items: classes.map((item) {
-                                    return item.name;
-                                  }).toList(),
+                                  items:
+                                      classes.map((item) => item.name).toList(),
                                   onChanged: (value) {
                                     final selectedClassId = classes
                                         .firstWhere(
@@ -163,47 +166,9 @@ class _SearchPageState extends State<SearchPage> {
                                       selectedOrder = null;
                                       selectedFamily = null;
                                       _pagingController.refresh();
-                                      customDropdownHintText =
-                                          'Selecciona una clase';
                                     });
                                   },
                                 );
-
-                                // DropdownButton(
-                                //   style: Theme.of(context)
-                                //       .textTheme
-                                //       .bodyMedium!
-                                //       .copyWith(
-                                //         color: Theme.of(context)
-                                //             .textTheme
-                                //             .bodyMedium!
-                                //             .color!
-                                //             .withOpacity(0.9),
-                                //       ),
-                                //   borderRadius: BorderRadius.circular(16.0),
-                                //   padding: const EdgeInsets.symmetric(
-                                //     horizontal: 16.0,
-                                //   ),
-                                //   hint: const Text('Selecciona una clase'),
-                                //   value: selectedClass,
-                                //   items: snapshot.data?.map((item) {
-                                //     return DropdownMenuItem(
-                                //       alignment: Alignment.centerLeft,
-                                //       value: item.id,
-                                //       child: Text(item.name),
-                                //     );
-                                //   }).toList(),
-                                //   onChanged: (value) {
-                                //     if (value != null) {
-                                //       setState(() {
-                                //         selectedClass = value;
-                                //         selectedOrder = null;
-                                //         selectedFamily = null;
-                                //         _pagingController.refresh();
-                                //       });
-                                //     }
-                                //   },
-                                // );
                               }
                             },
                           ),
@@ -218,34 +183,34 @@ class _SearchPageState extends State<SearchPage> {
                                     child: CircularProgressIndicator(),
                                   );
                                 } else {
-                                  return DropdownButton(
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .color!
-                                              .withOpacity(0.9),
-                                        ),
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0,
-                                    ),
-                                    hint: const Text('Selecciona una orden'),
-                                    value:
-                                        selectedOrder, // Agrega el valor seleccionado
-                                    items: snapshot.data?.map((item) {
-                                      return DropdownMenuItem(
-                                        value: item.id,
-                                        child: Text(item.name),
-                                      );
-                                    }).toList(),
+                                  final List<OrderClass> orders =
+                                      snapshot.data!;
+                                  return CustomDropdown<String>.search(
+                                    headerBuilder: (context, selectedItem) {
+                                      return selectedClass == null
+                                          ? const Text('Selecciona una orden',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 16.0))
+                                          : Text(selectedItem,
+                                              style: const TextStyle(
+                                                  fontSize: 16.0));
+                                    },
+                                    searchHintText: 'Buscar orden',
+                                    hintText: 'Selecciona una orden',
+                                    excludeSelected: false,
+                                    noResultFoundText:
+                                        'No se encontraron resultados',
+                                    items: orders
+                                        .map((item) => item.name)
+                                        .toList(),
                                     onChanged: (value) {
+                                      final selectedOrderId = orders
+                                          .firstWhere(
+                                              (item) => item.name == value)
+                                          .id;
                                       setState(() {
-                                        selectedOrder =
-                                            value; // Actualiza el valor seleccionado
+                                        selectedOrder = selectedOrderId;
                                         selectedFamily = null;
                                         _pagingController.refresh();
                                       });
@@ -265,34 +230,33 @@ class _SearchPageState extends State<SearchPage> {
                                     child: CircularProgressIndicator(),
                                   );
                                 } else {
-                                  return DropdownButton(
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .color!
-                                              .withOpacity(0.9),
-                                        ),
-                                    borderRadius: BorderRadius.circular(16.0),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0,
-                                    ),
-                                    hint: const Text('Selecciona una familia'),
-                                    value:
-                                        selectedFamily, // Agrega el valor seleccionado
-                                    items: snapshot.data?.map((item) {
-                                      return DropdownMenuItem(
-                                        value: item.id,
-                                        child: Text(item.name),
-                                      );
-                                    }).toList(),
+                                  final List<Family> families = snapshot.data!;
+                                  return CustomDropdown<String>.search(
+                                    headerBuilder: (context, selectedItem) {
+                                      return selectedClass == null
+                                          ? const Text('Selecciona una familia',
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 16.0))
+                                          : Text(selectedItem,
+                                              style: const TextStyle(
+                                                  fontSize: 16.0));
+                                    },
+                                    searchHintText: 'Buscar familia',
+                                    hintText: 'Selecciona una familia',
+                                    excludeSelected: false,
+                                    noResultFoundText:
+                                        'No se encontraron resultados',
+                                    items: families
+                                        .map((item) => item.name)
+                                        .toList(),
                                     onChanged: (value) {
+                                      final selectedFamilyId = families
+                                          .firstWhere(
+                                              (item) => item.name == value)
+                                          .id;
                                       setState(() {
-                                        selectedFamily =
-                                            value; // Actualiza el valor seleccionado
+                                        selectedFamily = selectedFamilyId;
                                         _pagingController.refresh();
                                       });
                                     },
