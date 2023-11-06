@@ -6,7 +6,6 @@ import 'package:species/firebase_options.dart';
 import 'package:species/src/my_app.dart';
 import 'dart:io';
 
-
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -20,6 +19,6 @@ void main() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   }
-  
+
   runApp(const ProviderScope(child: MyApp()));
 }

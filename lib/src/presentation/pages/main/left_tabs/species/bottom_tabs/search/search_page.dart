@@ -23,6 +23,7 @@ class _SearchPageState extends State<SearchPage> {
 
   final specieRepository = SpecieSpeciesIiapRepositoryImpl();
   final searchController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   int? selectedClass;
   int? selectedOrder;
@@ -48,6 +49,7 @@ class _SearchPageState extends State<SearchPage> {
   void dispose() {
     _pagingController.dispose();
     searchController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -58,6 +60,8 @@ class _SearchPageState extends State<SearchPage> {
       children: [
         AppBar(
           title: TextField(
+            focusNode: _focusNode,
+            onTapOutside: (event) => _focusNode.unfocus(),
             controller: searchController,
             decoration: const InputDecoration(
               border: InputBorder.none,

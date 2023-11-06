@@ -21,6 +21,8 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _emailController = TextEditingController(),
       _passwordController = TextEditingController();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
   bool _hidePassword = true;
@@ -55,12 +57,15 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
     _emailController.dispose();
     _passwordController.dispose();
     animationTimer.cancel();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -114,16 +119,37 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               ),
                             ),
                             Text(
-                              'Species IIAP',
+                              'AMAZONÍA',
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineLarge
                                   ?.copyWith(
+                                    fontSize: size.width * 0.1,
                                     color: colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
                                   ),
+                            ),
+                            Text(
+                              'Guía ilustrada de flora y fauna',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                color: colorScheme.primary,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    offset: const Offset(0.0, 1.0),
+                                    blurRadius: 2.0,
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 32.0),
                             TextFormField(
+                              focusNode: _emailFocusNode,
+                              onTapOutside: (event) =>
+                                  _emailFocusNode.unfocus(),
                               controller: _emailController,
                               enabled: enabled,
                               autovalidateMode: validateInInput
@@ -148,6 +174,9 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                             ),
                             const SizedBox(height: 16.0),
                             TextFormField(
+                              focusNode: _passwordFocusNode,
+                              onTapOutside: (event) =>
+                                  _passwordFocusNode.unfocus(),
                               enabled: enabled,
                               controller: _passwordController,
                               autovalidateMode: validateInInput

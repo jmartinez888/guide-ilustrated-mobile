@@ -12,76 +12,129 @@ class StaffPage extends StatelessWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        const SliverAppBar(title: Text('Staff'), pinned: true),
-        SliverPadding(
+        const SliverAppBar(title: Text('Equipo de trabajo'), pinned: true),
+        SliverToBoxAdapter(
+            child: Padding(
           padding: const EdgeInsets.all(16.0),
-          sliver: SliverList.list(
+          child: _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
+        )),
+        SliverToBoxAdapter(
+            child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
             children: [
-              _text(
-                  'COORDINACIÓN EDITORIAL\nManuel Martín Brañas\nJuan José Bellido Collahuacho'),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text('COMITÉ REVISOR'),
+              _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
+              _text('Manuel Martín Brañas\nJuan José Bellido Collahuacho'),
+            ],
+          ),
+        )),
+        SliverToBoxAdapter(
+          child: _subtitleSection(context, 'COMITÉ REVISOR'),
+        ),
+        SliverToBoxAdapter(
+          child: MasonryGridView(
+            padding: const EdgeInsets.all(16.0),
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: buildMultiGrids(width)),
+            children: [
+              SizedBox(
+                  child: Column(
+                children: [
+                  _reviewerTitle(context, 'Revisión de textos:'),
+                  _text(
+                      'Manuel Martín Brañas, IIAP\nJuan José Bellido Collahuacho, IIAP'),
+                  _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
+                  _text('Giussepe Gagliardi Urrutia, IIAP'),
+                ],
+              )),
+              SizedBox(
+                  child: Column(
+                children: [
+                  _reviewerTitle(context, 'Revisión aves:'),
+                  _text('José Álvarez Alonso, MINAM\nJuan Díaz Alván, UCP'),
+                  _reviewerTitle(context, 'Revisión peces:'),
+                  _text(
+                      'Carmen Rosa García Dávila, IIAP\nKevin Morgan Ruíz Tafur, IIAP'),
+                ],
+              )),
+              SizedBox(
+                child: Column(children: [
+                  _reviewerTitle(context, 'Revisión insectos:'),
+                  _text(
+                      'Joel Bardales Vásquez, IIAP\nWalter Leonardo Vásquez Mora, UNAP'),
+                  _reviewerTitle(context, 'Revisión palmeras:'),
+                  _text('Kember Mejía Carhuanca, IIAP'),
+                ]),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'Revisión de textos:\nManuel Martín Brañas, IIAP; Juan José Bellido Collahuacho, IIAP'),
+              SizedBox(
+                child: Column(children: [
+                  _reviewerTitle(context, 'Revisión plantas:'),
+                  _text(
+                      'Nállarett Dávila Cardozo, IIAP\nRicardo Zárate Gómez, IIAP\nElsa Renjifo Salgado, IIAP'),
+                  _reviewerTitle(context, 'Revisión mamíferos:'),
+                  _text('Pedro Pérez Peña, IIAP'),
+                ]),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'Revisión anfibios y reptiles:\nGiussepe Gagliardi Urrutia, IIAP'),
+              SizedBox(
+                child: Column(children: [
+                  _reviewerTitle(context, 'Elaboración de mapas:'),
+                  _text('Juan José Palacios Vega y Lizardo Fachín Malaverri.'),
+                ]),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'Revisión aves:\nJosé Álvarez Alonso, MINAM; Juan Díaz Alván, UCP'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'Revisión peces:\nCarmen Rosa García Dávila, IIAP; Kevin Morgan Ruíz Tafur, IIAP'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'Revisión insectos:\nJoel Bardales Vásquez, IIAP; Walter Leonardo Vásquez Mora, UNAP'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child:
-                    _text('Revisión palmeras:\nKember Mejía Carhuanca, IIAP'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'Revisión plantas:\nNállarett Dávila Cardozo, IIAP; Ricardo Zárate Gómez, IIAP; Elsa Renjifo Salgado, IIAP'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text('Revisión mamíferos:\nPedro Pérez Peña, IIAP'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _text(
-                    'ELABORACIÓN DE MAPAS\nJuan José Palacios Vega y Lizardo Fachín Malaverri'),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: _text(
-                    'ILUSTRACIONES\nJaime Choclote Martínez; Nicolás Farroñay Kanaffo y Javier Vela'),
+              SizedBox(
+                child: Column(children: [
+                  _reviewerTitle(context, 'Ilustraciones:'),
+                  _text(
+                      'Jaime Choclote Martínez; Nicolás Farroñay Kanaffo y Javier Vela.'),
+                ]),
               ),
             ],
           ),
         ),
+
+        // SliverPadding(
+        //   padding: const EdgeInsets.all(16.0),
+        //   sliver: SliverList.list(children: [
+        //     _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
+        //     const SizedBox(height: 16.0),
+        //     _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
+        //     _text('Manuel Martín Brañas\nJuan José Bellido Collahuacho'),
+        //     _subtitleSection(context, 'COMITÉ REVISOR'),
+        //     _reviewerTitle(context, 'Revisión de textos:'),
+        //     _text(
+        //         'Manuel Martín Brañas, IIAP, \nJuan José Bellido Collahuacho, IIAP'),
+        //     _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
+        //     _text('Giussepe Gagliardi Urrutia, IIAP'),
+        //     _reviewerTitle(context, 'Revisión aves:'),
+        //     _text('José Álvarez Alonso, MINAM\nJuan Díaz Alván, UCP'),
+        //     _reviewerTitle(context, 'Revisión peces:'),
+        //     _text(
+        //         'Carmen Rosa García Dávila, IIAP\nKevin Morgan Ruíz Tafur, IIAP'),
+        //     _reviewerTitle(context, 'Revisión insectos:'),
+        //     _text(
+        //         'Joel Bardales Vásquez, IIAP\nWalter Leonardo Vásquez Mora, UNAP'),
+        //     _reviewerTitle(context, 'Revisión palmeras:'),
+        //     _text('Kember Mejía Carhuanca, IIAP'),
+        //     _reviewerTitle(context, 'Revisión plantas:'),
+        //     _text(
+        //         'Nállarett Dávila Cardozo, IIAP\nRicardo Zárate Gómez, IIAP\nElsa Renjifo Salgado, IIAP'),
+        //     _reviewerTitle(context, 'Revisión mamíferos:'),
+        //     _text('Pedro Pérez Peña, IIAP'),
+        //     _reviewerTitle(context, 'Elaboración de mapas:'),
+        //     _text('Juan José Palacios Vega y Lizardo Fachín Malaverri.'),
+        //     _reviewerTitle(context, 'Ilustraciones:'),
+        //     _text(
+        //         'Jaime Choclote Martínez; Nicolás Farroñay Kanaffo y Javier Vela.'),
+        //   ]),
+        // ),
         SliverToBoxAdapter(
             child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('Equipo de desarrollo',
-              style: TextStyle(
-                  fontSize: 26.0,
-                  color: Theme.of(context).colorScheme.primary)),
+          child: _titleSection(context, 'EQUIPO DE DESARROLLO'),
         )),
         SliverToBoxAdapter(
           child: MasonryGridView(
@@ -126,28 +179,50 @@ class StaffPage extends StatelessWidget {
         )
       ],
     );
-    /*  return Column(
-      children: [
-        AppBar(title: const Text('Equipo de desarrollo')),
-        Expanded(
-          child: ListView(
-            
-            
-              
-            ],
-          ),
-        ),
-      ],
+  }
+
+  Text _titleSection(BuildContext context, String title) {
+    return Text(title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).colorScheme.primary));
+  }
+
+  Padding _subtitleSection(BuildContext context, String subtitle) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(subtitle,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).colorScheme.secondary,
+          )),
     );
-   */
+  }
+
+  Text _reviewerTitle(BuildContext context, String title) {
+    return Text(title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w500,
+          color: Theme.of(context).colorScheme.onTertiaryContainer,
+        ));
   }
 
   Widget _text(String text) {
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 24.0,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
@@ -160,12 +235,11 @@ class StaffPage extends StatelessWidget {
     return Material(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: CircleAvatar(
-              radius: 100,
+              radius: 50,
               backgroundImage: image != null ? Image.asset(image).image : null,
               child:
                   image == null ? const Icon(Icons.person, size: 64.0) : null,
@@ -175,22 +249,31 @@ class StaffPage extends StatelessWidget {
             name,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
             ),
           ),
-          const SizedBox(height: 8),
-          TextButton.icon(
-            style: TextButton.styleFrom(
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  side: const BorderSide(color: Colors.black)),
+                borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: Colors.black),
+              ),
             ),
             onPressed: () => Share.share(github),
-            icon: Image.asset('assets/icons/github.png', width: 24),
-            label: const Text('Portafolio',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 12)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/icons/github.png', width: 24),
+                const SizedBox(width: 8),
+                const Text('Portafolio',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12)),
+              ],
+            ),
           )
         ],
       ),
