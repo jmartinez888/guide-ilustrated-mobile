@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
+import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SplashPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   late Timer _timer;
   int time = 4;
 
-  @override
+  /* @override
   void initState() {
     super.initState();
     
@@ -34,223 +35,206 @@ class _SplashPageState extends State<SplashPage> {
   void dispose() {
     _timer.cancel();
     super.dispose();
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFBAD87A),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Material(
-            color: const Color(0xFF8EB63E),
-            child: Stack(
-              children: [
-                Column(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              color: const Color(0xFF8EB63E),
+              margin: const EdgeInsets.all(32.0),
+              child: GridTwoResponsive(
+                leftChild: Stack(
                   children: [
-                    Material(
-                      color: const Color(0xFF0086B7),
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-                        titleTextStyle: textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.onPrimary,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.black.withOpacity(0.625),
-                              offset: const Offset(5.0, 5.0),
+                    Column(
+                      children: [
+                        Material(
+                          color: const Color(0xFF0086B7),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.fromLTRB(
+                                16.0, 16.0, 16.0, 0.0),
+                            titleTextStyle: textTheme.headlineLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onPrimary,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.black.withOpacity(0.625),
+                                  offset: const Offset(5.0, 5.0),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        subtitleTextStyle: textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.onPrimary,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.black.withOpacity(0.625),
-                              offset: const Offset(5.0, 5.0),
+                            subtitleTextStyle: textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onPrimary,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 10.0,
+                                  color: Colors.black.withOpacity(0.625),
+                                  offset: const Offset(5.0, 5.0),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        title:
-                            const Text('AMAZONÍA', textAlign: TextAlign.center)
+                            title: const Text('AMAZONÍA',
+                                    textAlign: TextAlign.center)
                                 .animate()
                                 .slideY(duration: 1000.ms)
                                 .fadeIn(),
-                        subtitle: const Text('Guía ilustrada de flora y fauna',
-                                textAlign: TextAlign.center)
-                            .animate(delay: 800.ms)
-                            .slideX(duration: 1000.ms)
-                            .fadeIn(),
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 500.0,
-                      child: SvgPicture.asset(
-                        'assets/splash/curve.svg',
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                        color: const Color(0xFF0086B7),
-                      ),
+                            subtitle: const Text(
+                                    'Guía ilustrada de flora y fauna',
+                                    textAlign: TextAlign.center)
+                                .animate(delay: 800.ms)
+                                .slideX(duration: 1000.ms)
+                                .fadeIn(),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 110.0,
+                          child: SvgPicture.asset(
+                            'assets/splash/curve.svg',
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Positioned(
-                  top: 96.0,
-                  left: 16.0,
-                  child: Transform.rotate(
-                    angle: -0.32,
-                    child: const Icon(
-                      CustomIcons.bird,
-                      size: 128.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shake(
-                          duration: time.seconds,
-                          hz: 2,
-                        )
-                        .fadeIn(),
+                rightChildren: [
+                  SvgPicture.asset(
+                    'assets/splash/icono_mamifero_blanco.svg',
+                    width: 64.0,
+                    height: 64.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ).animate().fadeIn(
+                        duration: time.seconds,
+                      ),
+                  Align(
+                   alignment: Alignment.topLeft,
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 64.0, left: 80.0),
+                      child: SvgPicture.asset(
+                        'assets/splash/icono_reptil_blanco.svg',
+                        width: 128.0,
+                        height: 128.0,
+                        color: Colors.white.withOpacity(0.5),
+                      ).animate().fadeIn(
+                            duration: time.seconds,
+                          ),
+                    ),
                   ),
-                ),
-                Positioned(
-                  top: 128.0,
-                  right: 64.0,
-                  child: Transform.rotate(
-                    angle: 0.16,
-                    child: const Icon(
-                      CustomIcons.mammal,
-                      size: 224.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shakeY(
-                          duration: time.seconds,
-                          hz: 0.5,
-                          amount: 4.0,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-                Positioned(
-                  top: 288.0,
-                  left: 16.0,
-                  child: Transform.rotate(
-                    angle: -0.25,
-                    child: const Icon(
-                      CustomIcons.fish,
-                      size: 92.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shake(
-                          duration: time.seconds,
-                          hz: 2,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-                Positioned(
-                  top: 256.0,
-                  right: 8.0,
-                  child: Transform.rotate(
-                    angle: 0.1,
-                    child: const Icon(
-                      CustomIcons.insect,
-                      size: 92.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shake(
-                          duration: time.seconds,
-                          hz: 2,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-                Positioned(
-                  top: 448.0,
-                  right: 16.0,
-                  child: Transform.rotate(
-                    angle: 0.1,
-                    child: const Icon(
-                      CustomIcons.palm,
-                      size: 192.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shake(
-                          duration: time.seconds,
-                          hz: 2,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-                Positioned(
-                  top: 272.0,
-                  left: 128.0,
-                  child: Transform.rotate(
-                    angle: -0.128,
-                    child: const Icon(
-                      CustomIcons.reptile,
-                      size: 240.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shakeX(
-                          duration: time.seconds,
-                          hz: 1,
-                          amount: 4.0,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-                Positioned(
-                  top: 416.0,
-                  left: 16.0,
-                  child: Transform.rotate(
-                    angle: -0.128,
-                    child: const Icon(
-                      CustomIcons.tree,
-                      size: 128.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shake(
-                          duration: time.seconds,
-                          hz: 2,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-                Positioned(
-                  top: 512.0,
-                  left: 32.0,
-                  child: Transform.rotate(
-                    angle: -0.1,
-                    child: const Icon(
-                      CustomIcons.amphibian,
-                      size: 192.0,
-                      color: Colors.white70,
-                    )
-                        .animate()
-                        .shakeY(
-                          duration: time.seconds,
-                          hz: 1,
-                          amount: 32.0,
-                        )
-                        .fadeIn(),
-                  ),
-                ),
-              ],
+                  SvgPicture.asset(
+                    'assets/splash/icono_peces_blanco.svg',
+                    width: 128.0,
+                    height: 128.0,
+                    color: Colors.white.withOpacity(0.5),
+                  ).animate().fadeIn(
+                        duration: time.seconds,
+                      ),
+                ],
+              ),
             ),
-          ),
+            Positioned(
+              top: 0.0,
+              left: -16.0,
+              child: Transform.rotate(
+                angle: -0.128,
+                child: SvgPicture.asset(
+                  'assets/splash/icono_hormiga_blanco.svg',
+                  width: 96.0,
+                  height: 96.0,
+                  color: Colors.white.withOpacity(0.5),
+                )
+                    .animate()
+                    .shakeX(
+                      duration: time.seconds,
+                      hz: 1,
+                      amount: 4.0,
+                    )
+                    .fadeIn(),
+              ),
+            ),
+            Positioned(
+              top: 128.0,
+              left: size.height > size.width + 32.0 ? null : 128.0,
+              child: Transform.rotate(
+                angle: -0.128,
+                child: SvgPicture.asset(
+                  'assets/splash/icono_anfibio_blanco.svg',
+                  width: 92.0,
+                  height: 92.0,
+                  color: Colors.white.withOpacity(0.5),
+                )
+                    .animate()
+                    .shakeX(
+                      duration: time.seconds,
+                      hz: 1,
+                      amount: 4.0,
+                    )
+                    .fadeIn(),
+              ),
+            ),
+            Positioned(
+              top: 128.0,
+              right: size.height > size.width + 32.0 ? 24.0 : null,
+              child: Transform.rotate(
+                angle: 0.15,
+                child: SvgPicture.asset(
+                  'assets/splash/icono_aves_blanco.svg',
+                  width: 256.0,
+                  height: 256.0,
+                  color: Colors.white.withOpacity(0.5),
+                )
+                    .animate()
+                    .shakeX(
+                      duration: time.seconds,
+                      hz: 1,
+                      amount: 4.0,
+                    )
+                    .fadeIn(),
+              ),
+            ),
+            Positioned(
+              top: 256.0,
+              left: -16.0,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SvgPicture.asset(
+                  'assets/splash/icono_palmera_blanco.svg',
+                  width: 256.0,
+                  height: 256.0,
+                  color: Colors.white.withOpacity(0.5),
+                ).animate().fadeIn(
+                      duration: time.seconds,
+                    ),
+              ),
+            ),
+            Positioned(
+              top: 384.0,
+              right: -16.0,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SvgPicture.asset(
+                  'assets/splash/icono_arbol_blanco.svg',
+                  width: 256.0,
+                  height: 256.0,
+                  color: Colors.white.withOpacity(0.5),
+                ).animate().fadeIn(
+                      duration: time.seconds,
+                    ),
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Padding(

@@ -13,6 +13,7 @@ class Specie {
   final String family;
   final String type;
   final List<String> authors;
+  final List<String>? statusImage;
 
   Specie({
     required this.id,
@@ -29,6 +30,7 @@ class Specie {
     required this.family,
     required this.type,
     required this.authors,
+    required this.statusImage,
   });
 
   Map<String, dynamic> toJson() => {
@@ -46,6 +48,7 @@ class Specie {
         'family': family,
         'type': type,
         'authors': authors,
+        'vc_imagenes_estado': statusImage,
       };
 
   factory Specie.fromJson(Map<String, dynamic> json) => Specie(
@@ -67,6 +70,9 @@ class Specie {
         type: json['type'],
         authors: (json['authors'] != '' || json['authors'] != null)
             ? List<String>.from(json['authors'].map((x) => x))
+            : [],
+        statusImage: (json['vc_imagenes_estado'] != '' || json['vc_imagenes_estado'] != null)
+            ? List<String>.from(json['vc_imagenes_estado'].map((x) => x))
             : [],
       );
 }

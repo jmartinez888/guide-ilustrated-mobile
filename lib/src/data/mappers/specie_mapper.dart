@@ -17,5 +17,6 @@ class SpecieMapper {
         family: specieIiap.familia,
         type: specieIiap.tipo,
         authors:specieIiap.autores,
+        statusImage: specieIiap.imagenesEstado,
       );
 }

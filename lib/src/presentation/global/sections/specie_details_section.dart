@@ -49,8 +49,27 @@ class SpecieDetailsSection extends StatelessWidget {
               onTap: onTapForFullImage,
               imageUrl: specie.images.first,
               heightImage:
-                  size.height > size.width + 32.0 ? 384.0 : double.infinity,
+                  size.height > size.width + 32.0 ? null : double.infinity,
             ),
+            if (specie.statusImage != null || specie.statusImage!.isNotEmpty)
+              Positioned(
+                left: 8.0,
+                bottom: 8.0,
+                child: Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: [
+                    for (var statusImage in specie.statusImage!)
+                      CustomImageContainer(
+                        borderRadius: BorderRadius.zero,
+                        imageUrl: statusImage,
+                        mainColor: mainColor,
+                        heightImage: 48.0,
+                        width: 48.0,
+                      ),
+                  ],
+                ),
+              ),
             _ActionsForSpecieDetails(
               context: context,
               specie: specie,
