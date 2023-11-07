@@ -96,8 +96,27 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                     imageUrl: item.images.first,
                     mainColor: mainColor,
                   ),
+                  if (item.statusImage != null || item.statusImage!.isNotEmpty)
+                    Positioned(
+                      left: 8.0,
+                      bottom: 8.0,
+                      child: Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: [
+                          for (var statusImage in item.statusImage!)
+                            CustomImageContainer(
+                              borderRadius: BorderRadius.zero,
+                              imageUrl: statusImage,
+                              mainColor: mainColor,
+                              heightImage: 48.0,
+                              width: 48.0,
+                            ),
+                        ],
+                      ),
+                    ),
                   Positioned(
-                    bottom: 8.0,
+                    top: 8.0,
                     right: 8.0,
                     child: _FavoriteAction(
                       context: context,

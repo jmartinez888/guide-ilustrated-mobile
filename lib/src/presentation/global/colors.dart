@@ -53,7 +53,7 @@ class CustomColors {
 
   static const black = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
-  static const whiteOpacity = Color(0xBBFFFFFF);
+  static const whiteOpacity = Color(0xD9FFFFFF);
 
   static const background = Color(0xFFFAFAFA);
 }
