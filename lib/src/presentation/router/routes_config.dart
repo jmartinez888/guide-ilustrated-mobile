@@ -23,7 +23,7 @@ import 'package:species/src/presentation/pages/main/left_tabs/indigenous_communi
 import 'package:species/src/presentation/pages/main/left_tabs/profile/profile_page.dart';
 // import 'package:species/src/presentation/pages/main/left_tabs/scientific_resources/scientific_resources_page.dart';
 // import 'package:species/src/presentation/pages/main/left_tabs/specialists/specialists_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
+// import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
 // import 'package:species/src/presentation/pages/main/left_tabs/viewfinder/viewfinder_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/pdf_preview.dart/pdf_preview_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/specie_details/specie_details_page.dart';
@@ -79,7 +79,7 @@ final appRouter = GoRouter(
                       builder: (_, __) => const SpeciesPage(),
                       routes: [
                         GoRoute(
-                          path: ':id',
+                          path: '${Routes.specieDetails}/:id',
                           name: Routes.specieDetails,
                           builder: (_, state) {
                             final id = state.pathParameters['id'];
@@ -297,15 +297,15 @@ final appRouter = GoRouter(
         //     ),
         //   ],
         // ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: Routes.staff,
-              name: Routes.staff,
-              builder: (_, __) => const StaffPage(),
-            ),
-          ],
-        ),
+        // StatefulShellBranch(
+        //   routes: [
+        //     GoRoute(
+        //       path: Routes.staff,
+        //       name: Routes.staff,
+        //       builder: (_, __) => const StaffPage(),
+        //     ),
+        //   ],
+        // ),
         StatefulShellBranch(
           routes: [
             GoRoute(
