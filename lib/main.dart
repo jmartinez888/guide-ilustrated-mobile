@@ -15,7 +15,7 @@ void main() async {
   if (Platform.isIOS) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
-  } else {
+  } else if (Platform.isAndroid) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   }
