@@ -136,6 +136,11 @@ class _SearchPageState extends State<SearchPage> {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
+                              } else if (snapshot.hasError) {
+                                return const Text('Error al cargar las clases');
+                              } else if (!snapshot.hasData ||
+                                  snapshot.data!.isEmpty) {
+                                return const Text('No se encontraron clases');
                               } else {
                                 final List<Class> classes = snapshot.data!;
                                 return CustomDropdown<String>.search(
@@ -182,6 +187,13 @@ class _SearchPageState extends State<SearchPage> {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
+                                } else if (snapshot.hasError) {
+                                  return const Text(
+                                      'Error al cargar las ordenes');
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return const Text(
+                                      'No se encontraron ordenes');
                                 } else {
                                   final List<OrderClass> orders =
                                       snapshot.data!;
@@ -229,6 +241,13 @@ class _SearchPageState extends State<SearchPage> {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
+                                } else if (snapshot.hasError) {
+                                  return const Text(
+                                      'Error al cargar las familias');
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return const Text(
+                                      'No se encontraron familias');
                                 } else {
                                   final List<Family> families = snapshot.data!;
                                   return CustomDropdown<String>.search(
@@ -275,6 +294,11 @@ class _SearchPageState extends State<SearchPage> {
                     padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate<Specie>(
+                      firstPageErrorIndicatorBuilder: (context) =>
+                          errorIndicator(
+                        error: _pagingController.error,
+                        onTryAgain: () => _pagingController.refresh(),
+                      ),
                       newPageProgressIndicatorBuilder: (_) =>
                           const LinearProgressIndicator(),
                       animateTransitions: true,
@@ -304,4 +328,29 @@ class _SearchPageState extends State<SearchPage> {
       ],
     );
   }
+}
+
+Widget errorIndicator({
+  required Object? error,
+  required VoidCallback onTryAgain,
+}) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/images/logo.png',
+          height: 150.0,
+          width: 150.0,
+        ),
+        const Text('No se econtraron familias'),
+        const SizedBox(height: 8.0),
+        FilledButton.icon(
+          onPressed: onTryAgain,
+          icon: const Icon(Icons.refresh_rounded),
+          label: const Text('Reintentar'),
+        )
+      ],
+    ),
+  );
 }
