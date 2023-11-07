@@ -79,7 +79,7 @@ final appRouter = GoRouter(
                       builder: (_, __) => const SpeciesPage(),
                       routes: [
                         GoRoute(
-                          path: '${Routes.specieDetails}/:id',
+                          path: ':id',
                           name: Routes.specieDetails,
                           builder: (_, state) {
                             final id = state.pathParameters['id'];

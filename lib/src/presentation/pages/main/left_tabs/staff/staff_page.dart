@@ -131,21 +131,21 @@ class StaffPage extends StatelessWidget {
                   github: 'https://github.com/JorgeAntonio'),
               _staffProfile(
                 context,
-                role: 'Desarrollador web',
+                role: 'Desarrollador frontend',
                 name: 'Santos Panaifo José Jefferson',
                 image: 'assets/staff/santos.png',
                 github: 'https://github.com/daylerjeff199906',
               ),
               _staffProfile(
                 context,
-                role: 'Desarrollador web',
+                role: 'Desarrollador frontend',
                 name: 'Danny Dávila Daza',
                 image: 'assets/staff/danny.jpeg',
                 github: 'https://github.com/Danny-da',
               ),
               _staffProfile(
                 context,
-                role: 'Desarrollador web',
+                role: 'Desarrollador frontend',
                 name: 'Josue Franco Soria Ponce',
                 image: 'assets/staff/josue.png',
                 github: 'https://github.com/franquito3',
@@ -153,8 +153,8 @@ class StaffPage extends StatelessWidget {
               _staffProfile(
                 context,
                 role: 'Desarrollador backend',
-                name: 'Frías Mori Piero Eleví',
-                image: 'assets/staff/piero.png',
+                name: 'Piero Eleví Frías Mori',
+                image: 'assets/staff/piero.jpg',
                 github: 'https://github.com/PieroFrias',
               ),
               _staffProfile(
