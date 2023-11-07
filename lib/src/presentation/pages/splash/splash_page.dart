@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -18,10 +17,10 @@ class _SplashPageState extends State<SplashPage> {
   late Timer _timer;
   int time = 4;
 
-  /* @override
+  @override
   void initState() {
     super.initState();
-    
+
     _timer = Timer(Duration(seconds: time), () {
       ejecutarMetodo();
     });
@@ -35,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
   void dispose() {
     _timer.cancel();
     super.dispose();
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +118,7 @@ class _SplashPageState extends State<SplashPage> {
                         duration: time.seconds,
                       ),
                   Align(
-                   alignment: Alignment.topLeft,
-
+                    alignment: Alignment.topLeft,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 64.0, left: 80.0),
                       child: SvgPicture.asset(
