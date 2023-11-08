@@ -1,12 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/utils/upload_image.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class EditProfile extends StatefulWidget {
   final String userId;
@@ -237,11 +239,9 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         );
 
         // Muestra un mensaje de éxito
-        customSnackBar(
-          context: context,
-          title: 'Perfil actualizado',
-          backgroundColor: Colors.green,
-        );
+
+        _successModal(context);
+        //
 
         // Limpiar el formulario
         _nameController.clear();
@@ -266,5 +266,31 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         setState(() {});
       }
     }
+  }
+
+  Future<void> _successModal(BuildContext context) {
+    return showModalBottomSheet<void>(
+      isDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 100,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('Sus datos se han actualizado correctamente',
+                    style: Theme.of(context).textTheme.bodyLarge),
+                FilledButton(
+                  child: const Text('Aceptar'),
+                  onPressed: () => context.goNamed(Routes.profile),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

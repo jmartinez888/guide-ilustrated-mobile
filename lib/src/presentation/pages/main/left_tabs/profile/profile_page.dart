@@ -142,12 +142,17 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                                 ),
                               ),
                         const SizedBox(height: 16.0),
-                        Text(
-                          name + ' ' + lastName,
-                          style:
-                              Theme.of(context).textTheme.titleLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            name + ' ' + lastName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                         const SizedBox(height: 8.0),
                         Row(
