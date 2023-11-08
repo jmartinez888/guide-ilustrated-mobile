@@ -59,7 +59,7 @@ class UserIiapRepositoryImpl extends UserRepository {
 
     final json = user.toJson();
 
-    await docUser.set(json);
+    await docUser.update(json);
   }
 
   @override

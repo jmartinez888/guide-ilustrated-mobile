@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
-import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_list_tile.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -169,12 +167,6 @@ class _ContentProfile extends StatelessWidget {
       child: Column(
         children: [
           CustomListTile(
-            title: 'sasas',
-            leading: Icon(Icons.add),
-            trailing: Icon(Icons.add),
-            onTap: () {},
-          ),
-          ListTile(
             onTap: () => context.pushNamed(
               Routes.forgotPassword,
             ),
@@ -182,14 +174,13 @@ class _ContentProfile extends StatelessWidget {
               Icons.password_outlined,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Cambiar contraseña', fontWeight: FontWeight.w400),
+            title: 'Cambiar contraseña',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
+          CustomListTile(
             onTap: () {
               Share.share(
                   'Descarga la app de IIAP Guía Ilustrada de Flora y Fauna y conoce más sobre las especies de la Amazonía Peruana: https://play.google.com/store/apps/details?id=com.iiap.guiailustrada');
@@ -198,25 +189,13 @@ class _ContentProfile extends StatelessWidget {
               Icons.person_add,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Invitar amigos', fontWeight: FontWeight.w400),
+            title: 'Invitar amigos',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.help_outline,
-              color: Colors.grey,
-            ),
-            title: headerText(texto: 'FAQ', fontWeight: FontWeight.w400),
-            trailing: const Icon(
-              Icons.chevron_right,
-              color: Colors.grey,
-            ),
-          ),
-          ListTile(
+          CustomListTile(
             onTap: () => context.pushNamed(
               Routes.about,
             ),
@@ -224,14 +203,13 @@ class _ContentProfile extends StatelessWidget {
               Icons.work_outlined,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Sobre el proyecto', fontWeight: FontWeight.w400),
+            title: 'Sobre el proyecto',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
+          CustomListTile(
             onTap: () => context.pushNamed(
               Routes.staff,
             ),
@@ -239,21 +217,19 @@ class _ContentProfile extends StatelessWidget {
               Icons.info_outline,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Sobre nosotros', fontWeight: FontWeight.w400),
+            title: 'Sobre nosotros',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
-            leading: const Icon(
+          const CustomListTile(
+            leading: Icon(
               Icons.delete_forever_outlined,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Eliminar cuenta', fontWeight: FontWeight.w400),
-            trailing: const Icon(
+            title: 'Eliminar cuenta',
+            trailing: Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),

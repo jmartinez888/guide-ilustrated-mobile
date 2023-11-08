@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
-import 'package:species/src/domain/repositories/user/user_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
-import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
-import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
 class EditProfile extends StatefulWidget {
   final String userId;
@@ -43,89 +40,100 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AppBar(
-          leading: const SizedBox(),
-          title: const Text('Editar perfil'),
-        ),
-        Expanded(
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              padding: const EdgeInsets.all(16.0),
-              physics: const BouncingScrollPhysics(),
-              children: [
-                const CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/logo.png'),
-                  radius: 100,
-                ),
-                const SizedBox(height: 20.0),
-                Material(
-                  child: TextFormField(
-                    controller: _nameController,
-                    focusNode: _nameFocusNode,
-                    decoration: const InputDecoration(
-                      labelText: 'Nombre',
-                      hintText: 'Ingrese su nombre',
-                      prefixIcon: Icon(Icons.person),
-                    ),
-                    textInputAction: TextInputAction.next,
-                    validator: nameValidator,
-                    onFieldSubmitted: (value) {
-                      _nameFocusNode.unfocus();
-                      FocusScope.of(context).requestFocus(_lastnameFocusNode);
-                    },
+    return Scaffold(
+      appBar: AppBar(
+        leading: const CustomBackButton(),
+        title: const Text('Editar perfil'),
+      ),
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.all(16.0),
+            physics: const BouncingScrollPhysics(),
+            children: [
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/logo.png'),
+                    radius: 100,
                   ),
-                ),
-                const SizedBox(height: 16.0),
-                Material(
-                  child: TextFormField(
-                    controller: _lastnameController,
-                    focusNode: _lastnameFocusNode,
-                    decoration: const InputDecoration(
-                      labelText: 'Apellido',
-                      hintText: 'Ingrese su apellido',
-                      prefixIcon: Icon(Icons.person),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.camera_alt_rounded),
                     ),
-                    textInputAction: TextInputAction.next,
-                    validator: lastNameValidator,
-                    onFieldSubmitted: (value) {
-                      _lastnameFocusNode.unfocus();
-                      FocusScope.of(context).requestFocus(_phoneFocusNode);
-                    },
                   ),
+                ],
+              ),
+              const CircleAvatar(
+                backgroundImage: AssetImage('assets/images/logo.png'),
+                radius: 100,
+              ),
+              const SizedBox(height: 20.0),
+              TextFormField(
+                controller: _nameController,
+                focusNode: _nameFocusNode,
+                onTapOutside: (event) => _nameFocusNode.unfocus(),
+                decoration: const InputDecoration(
+                  labelText: 'Nombre',
+                  hintText: 'Ingrese su nombre',
+                  prefixIcon: Icon(Icons.person),
                 ),
-                const SizedBox(height: 16.0),
-                Material(
-                  child: TextFormField(
-                    controller: _phoneController,
-                    focusNode: _phoneFocusNode,
-                    decoration: const InputDecoration(
-                      labelText: 'Teléfono',
-                      hintText: 'Ingrese su teléfono',
-                      prefixIcon: Icon(Icons.phone),
-                    ),
-                    textInputAction: TextInputAction.done,
-                    validator: phoneValidator,
-                    onFieldSubmitted: (value) {
-                      _phoneFocusNode.unfocus();
-                    },
-                  ),
+                textInputAction: TextInputAction.next,
+                validator: nameValidator,
+                onFieldSubmitted: (value) {
+                  _nameFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(_lastnameFocusNode);
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                controller: _lastnameController,
+                focusNode: _lastnameFocusNode,
+                onTapOutside: (event) => _lastnameFocusNode.unfocus(),
+                decoration: const InputDecoration(
+                  labelText: 'Apellido',
+                  hintText: 'Ingrese su apellido',
+                  prefixIcon: Icon(Icons.person),
                 ),
-                const SizedBox(height: 16.0),
-                FilledButton(
-                  onPressed: () {
-                    _validateCredentials(context: context);
-                  },
-                  child: const Text('Guardar'),
+                textInputAction: TextInputAction.next,
+                validator: lastNameValidator,
+                onFieldSubmitted: (value) {
+                  _lastnameFocusNode.unfocus();
+                  FocusScope.of(context).requestFocus(_phoneFocusNode);
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                controller: _phoneController,
+                focusNode: _phoneFocusNode,
+                onTapOutside: (event) => _phoneFocusNode.unfocus(),
+                decoration: const InputDecoration(
+                  labelText: 'Teléfono',
+                  hintText: 'Ingrese su teléfono',
+                  prefixIcon: Icon(Icons.phone),
                 ),
-                const SizedBox(height: 16.0),
-              ],
-            ),
+                textInputAction: TextInputAction.done,
+                validator: phoneValidator,
+                onFieldSubmitted: (value) {
+                  _phoneFocusNode.unfocus();
+                },
+              ),
+              const SizedBox(height: 16.0),
+              FilledButton(
+                onPressed: () {
+                  _validateCredentials(context: context);
+                },
+                child: const Text('Guardar'),
+              ),
+              const SizedBox(height: 16.0),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 

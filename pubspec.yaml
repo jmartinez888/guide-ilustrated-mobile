@@ -59,6 +59,8 @@ dependencies:
   flutter_svg: ^2.0.9
   animated_custom_dropdown: ^2.0.0
   lottie: ^2.7.0
+  image_picker: ^1.0.4
+  firebase_storage: ^11.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
