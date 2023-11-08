@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
+import 'package:species/src/presentation/global/utils/upload_image.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
 class EditProfile extends StatefulWidget {
@@ -27,6 +31,15 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   bool validateInInput = false;
   bool enabled = true;
 
+  Uint8List? _image;
+
+  void _selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -52,26 +65,33 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
             padding: const EdgeInsets.all(16.0),
             physics: const BouncingScrollPhysics(),
             children: [
-              Stack(
-                children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/logo.png'),
-                    radius: 100,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.camera_alt_rounded),
+              _image != null
+                  ? CircleAvatar(
+                      backgroundImage: MemoryImage(_image!),
+                      radius: 100,
+                    )
+                  : Center(
+                      child: Stack(
+                        children: [
+                          const CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/logo.png'),
+                            radius: 100,
+                          ),
+                          Positioned(
+                            bottom: -10,
+                            right: 10,
+                            child: IconButton(
+                              onPressed: _selectImage,
+                              icon: const Icon(
+                                Icons.add_a_photo,
+                                size: 32,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/logo.png'),
-                radius: 100,
-              ),
               const SizedBox(height: 20.0),
               TextFormField(
                 controller: _nameController,
@@ -125,7 +145,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
               const SizedBox(height: 16.0),
               FilledButton(
                 onPressed: () {
-                  _validateCredentials(context: context);
+                  _saveProfile(context: context);
                 },
                 child: const Text('Guardar'),
               ),
@@ -137,7 +157,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     );
   }
 
-  void _validateCredentials({
+  void _saveProfile({
     required BuildContext context,
   }) async {
     if (_formKey.currentState!.validate()) {
@@ -158,12 +178,13 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         final email = currentUserData['email'] ?? '';
 
         // Llama a la función para actualizar el usuario en Firebase
-        await _userIiapRepositoryImpl.updateUser(
+        await _userIiapRepositoryImpl.saveProfile(
           userId: userId,
           name: name,
           lastName: lastName,
           phone: phone,
-          email: email, // Incluye el campo 'email' en los datos
+          email: email,
+          profilePicture: _image!,
         );
 
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
