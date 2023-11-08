@@ -1,12 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/utils/upload_image.dart';
+import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class EditProfile extends StatefulWidget {
   final String userId;
@@ -237,10 +240,16 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         );
 
         // Muestra un mensaje de éxito
-        customSnackBar(
+        showModalBottomSheet(
           context: context,
-          title: 'Perfil actualizado',
-          backgroundColor: Colors.green,
+          builder: (context) => CustomBottomSheet(
+            title: 'Perfil actualizado con éxito!',
+            body: [Text('Su perfil ha sido actualizado correctamente.')],
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => context.goNamed(Routes.profile),
+              child: const Icon(Icons.check_rounded),
+            ),
+          ),
         );
 
         // Limpiar el formulario
