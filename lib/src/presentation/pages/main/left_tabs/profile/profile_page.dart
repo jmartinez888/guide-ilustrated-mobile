@@ -73,25 +73,25 @@ class __HeaderProfileState extends State<_HeaderProfile> {
       future: getUserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtienen los datos.
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
           final userData = snapshot.data;
           final profilePicture = userData!['profilePicture'] ?? '';
           final name = userData['name'] ?? '';
+          final lastName = userData['lastName'] ?? '';
           final email = userData['email'] ?? '';
-          final profileIncomplete = name.isEmpty ||
-              profilePicture
-                  .isEmpty; // Verifica si el nombre y el email están vacíos.
+          final phone = userData['phone'] ?? '';
+          final profileIncomplete = name.isEmpty || lastName.isEmpty;
+
+          final userId = userData['id'] ?? '';
 
           return Container(
             height: MediaQuery.sizeOf(context).height * 0.4,
             padding: const EdgeInsets.all(30),
             child: Column(
               children: [
-                // ... Tu código existente aquí
-
                 if (profileIncomplete)
                   Column(
                     children: [
@@ -106,8 +106,45 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                         fontWeight: FontWeight.w600,
                       ),
                       FilledButton(
-                        onPressed: () => context.goNamed(Routes.editProfile),
+                        onPressed: () {
+                          context.pushNamed(Routes.editProfile,
+                              pathParameters: {'userId': userId.toString()});
+                        },
                         child: const Text('Completar perfil'),
+                      ),
+                    ],
+                  ),
+                if (!profileIncomplete)
+                  Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(profilePicture),
+                      ),
+                      const SizedBox(height: 8.0),
+                      headerText(
+                        texto: name,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      headerText(
+                        texto: lastName,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      headerText(
+                        texto: phone,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      headerText(
+                        texto: email,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      const SizedBox(height: 8.0),
+                      FilledButton(
+                        onPressed: () {
+                          context.pushNamed(Routes.editProfile,
+                              pathParameters: {'userId': userId.toString()});
+                        },
+                        child: const Text('Editar perfil'),
                       ),
                     ],
                   ),
@@ -118,59 +155,6 @@ class __HeaderProfileState extends State<_HeaderProfile> {
           return const Text('Usuario no encontrado');
         }
       },
-    );
-  }
-}
-
-class _ProfileForm extends StatelessWidget {
-  const _ProfileForm();
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomBottomSheet(
-      body: [
-        const Text(
-          'Completa tu perfil',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 20),
-        const Text(
-          'Para poder usar la aplicación, necesitamos que completes tu perfil.',
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 20),
-        Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Apellido',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Teléfono',
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.maybePop(context),
-        child: const Icon(Icons.check_rounded),
-      ),
     );
   }
 }

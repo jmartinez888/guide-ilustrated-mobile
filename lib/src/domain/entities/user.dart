@@ -7,6 +7,7 @@ class User {
   final String? lastName;
   final String? phone;
   final Timestamp? created;
+  // final String? profilePicture;
 
   User({
     required this.id,
@@ -15,6 +16,7 @@ class User {
     this.lastName,
     this.phone,
     this.created,
+    // this.profilePicture,
   });
 
   Map<String, dynamic> toJson() => {
@@ -24,5 +26,6 @@ class User {
         'lastName': lastName,
         'phone': phone,
         'created': created,
+        // 'profilePicture': profilePicture,
       };
 }

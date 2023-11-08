@@ -167,7 +167,6 @@ class _FavoriteActionState extends State<_FavoriteAction> {
 
   final firebaseInstance = FirebaseAuth.instance;
   final specieRepository = SpecieSpeciesIiapRepositoryImpl();
-  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -186,45 +185,34 @@ class _FavoriteActionState extends State<_FavoriteAction> {
             }
             final isFavorite = snapshot.data ?? false;
 
-            return loading
-                ? Center(
-                    child: SizedBox(
-                      height: 40.0,
-                      width: 40.0,
-                      child: CircularProgressIndicator(color: widget.mainColor),
-                    ),
-                  )
-                : CustomIconButton(
-                    tooltip: isFavorite
-                        ? 'Eliminar en favoritos'
-                        : 'Guardar de favoritos',
-                    icon: isFavorite
-                        ? Icons.favorite_rounded
-                        : Icons.favorite_outline_rounded,
-                    iconColor: isFavorite ? Colors.white : widget.mainColor,
-                    backgroundColor: isFavorite ? widget.mainColor : null,
-                    onPressed: () async {
-                      if (firebaseInstance.currentUser == null ||
-                          !firebaseInstance.currentUser!.emailVerified) {
-                        context.pushNamed(Routes.signIn);
-                      } else {
-                        setState(() => loading = true);
-                        if (isFavorite) {
-                          specieRepository.deleteSpecieFavorite(
-                              userId: firebaseInstance.currentUser!.uid,
-                              idSpecie: widget.specie.id);
-                        } else {
-                          final specie = await specieRepository
-                              .getSpecieId(widget.specie.id.toString());
-                          specieRepository.saveSpecieFavorite(
-                            userId: firebaseInstance.currentUser!.uid,
-                            specie: specie,
-                          );
-                        }
-                        setState(() => loading = false);
-                      }
-                    },
-                  );
+            return CustomIconButton(
+              tooltip:
+                  isFavorite ? 'Eliminar en favoritos' : 'Guardar de favoritos',
+              icon: isFavorite
+                  ? Icons.favorite_rounded
+                  : Icons.favorite_outline_rounded,
+              iconColor: isFavorite ? Colors.white : widget.mainColor,
+              backgroundColor: isFavorite ? widget.mainColor : null,
+              onPressed: () async {
+                if (firebaseInstance.currentUser == null ||
+                    !firebaseInstance.currentUser!.emailVerified) {
+                  context.pushNamed(Routes.signIn);
+                } else {
+                  if (isFavorite) {
+                    specieRepository.deleteSpecieFavorite(
+                        userId: firebaseInstance.currentUser!.uid,
+                        idSpecie: widget.specie.id);
+                  } else {
+                    final specie = await specieRepository
+                        .getSpecieId(widget.specie.id.toString());
+                    specieRepository.saveSpecieFavorite(
+                      userId: firebaseInstance.currentUser!.uid,
+                      specie: specie,
+                    );
+                  }
+                }
+              },
+            );
           },
         ),
       ],
