@@ -118,6 +118,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     return Column(
       children: [
         TextFormField(
+          enabled: enabled,
           controller: _nameController,
           focusNode: _nameFocusNode,
           onTapOutside: (event) => _nameFocusNode.unfocus(),
@@ -135,6 +136,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         ),
         const SizedBox(height: 16.0),
         TextFormField(
+          enabled: enabled,
           controller: _lastnameController,
           focusNode: _lastnameFocusNode,
           onTapOutside: (event) => _lastnameFocusNode.unfocus(),
@@ -152,6 +154,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         ),
         const SizedBox(height: 16.0),
         TextFormField(
+          enabled: enabled,
           controller: _phoneController,
           focusNode: _phoneFocusNode,
           onTapOutside: (event) => _phoneFocusNode.unfocus(),
