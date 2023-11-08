@@ -299,40 +299,49 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
           final user = right.user;
           final id = user?.uid;
           if (id != null) {
-            final emailVerification =
-                await authRepository.sendVerificationEmail();
-            emailVerification.when(
-              (left) => customSnackBar(
-                context: context,
-                title: left,
-                backgroundColor: colorScheme.error,
-                large: true,
-              ),
-              (right) {
-                if (right == 'El usuario ya está verificado') {
-                  userRepository.createUser(
-                    userId: id,
-                    email: email,
-                  );
-                  context.goNamed(Routes.species);
-                } else {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => CustomBottomSheet(
-                      title: 'Primero verifica tu correo electrónico',
-                      body: const [
-                        Text(
-                            'Debes verificar tu correo electrónico para poder ingresar'),
-                      ],
-                      floatingActionButton: FloatingActionButton(
-                        onPressed: () => Navigator.maybePop(context),
-                        child: const Icon(Icons.check_rounded),
+            // Verificar si el usuario ya existe en la base de datos
+            final userData = await userRepository.getUserData(id);
+            if (userData != null) {
+              // El usuario ya existe, inicia sesión y redirige
+              context.goNamed(Routes.species);
+            } else {
+              // El usuario no existe en la base de datos, créalo
+              userRepository.createUser(
+                userId: id,
+                email: email,
+              );
+              // Envía el correo de verificación
+              final emailVerification =
+                  await authRepository.sendVerificationEmail();
+              emailVerification.when(
+                (left) => customSnackBar(
+                  context: context,
+                  title: left,
+                  backgroundColor: colorScheme.error,
+                  large: true,
+                ),
+                (right) {
+                  if (right == 'El usuario ya está verificado') {
+                    context.goNamed(Routes.species);
+                  } else {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => CustomBottomSheet(
+                        title: 'Primero verifica tu correo electrónico',
+                        body: const [
+                          Text(
+                              'Debes verificar tu correo electrónico para poder ingresar'),
+                        ],
+                        floatingActionButton: FloatingActionButton(
+                          onPressed: () => Navigator.maybePop(context),
+                          child: const Icon(Icons.check_rounded),
+                        ),
                       ),
-                    ),
-                  );
-                }
-              },
-            );
+                    );
+                  }
+                },
+              );
+            }
           }
         },
       );

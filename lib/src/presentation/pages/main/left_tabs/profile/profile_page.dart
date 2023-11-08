@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
@@ -136,7 +137,9 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                               )
                             : CircleAvatar(
                                 radius: 100,
-                                backgroundImage: NetworkImage(profilePicture),
+                                backgroundImage: CachedNetworkImageProvider(
+                                  profilePicture,
+                                ),
                               ),
                         const SizedBox(height: 16.0),
                         Text(
@@ -204,6 +207,20 @@ class _ContentProfile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Column(
         children: [
+          CustomListTile(
+            onTap: () => context.pushNamed(
+              Routes.specieFavorites,
+            ),
+            leading: const Icon(
+              Icons.favorite,
+              color: Colors.grey,
+            ),
+            title: 'Mis favoritos',
+            trailing: const Icon(
+              Icons.chevron_right,
+              color: Colors.grey,
+            ),
+          ),
           CustomListTile(
             onTap: () => context.pushNamed(
               Routes.forgotPassword,
