@@ -16,9 +16,9 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   late Timer _timer;
-  int time = 4;
+  int time = 5;
 
-  /* @override
+  @override
   void initState() {
     super.initState();
     
@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
   void dispose() {
     _timer.cancel();
     super.dispose();
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
