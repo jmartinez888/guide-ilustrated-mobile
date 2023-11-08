@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CustomImageContainer extends StatelessWidget {
   final String imageUrl;
   final double? heightImage;
+  final double? heightImageInAnother;
   final double? width;
   final BorderRadius? borderRadius;
   final bool fitImage;
@@ -18,6 +19,7 @@ class CustomImageContainer extends StatelessWidget {
     this.fitImage = false,
     this.mainColor,
     this.onTap,
+    this.heightImageInAnother,
   }) : super(key: key);
 
   @override
@@ -41,7 +43,7 @@ class CustomImageContainer extends StatelessWidget {
                     fit: fitImage ? BoxFit.cover : BoxFit.contain,
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => SizedBox(
-                      height: heightImage,
+                      height: heightImageInAnother,
                       width: width,
                       child: Center(
                         child: Padding(
@@ -54,7 +56,7 @@ class CustomImageContainer extends StatelessWidget {
                       ),
                     ),
                     errorWidget: (context, url, error) => SizedBox(
-                      height: heightImage,
+                      height: heightImageInAnother ?? heightImage,
                       width: width,
                       child: const Center(
                           child: Icon(Icons.image_not_supported_outlined)),

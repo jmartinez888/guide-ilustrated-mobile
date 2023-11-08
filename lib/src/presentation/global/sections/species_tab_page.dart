@@ -92,9 +92,14 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               backgroundColor: opaqueColor,
               image: Stack(
                 children: [
-                  CustomImageContainer(
-                    imageUrl: item.images.first,
-                    mainColor: mainColor,
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 48.0),
+                    color: Colors.white,
+                    child: CustomImageContainer(
+                      imageUrl: item.images.first,
+                      mainColor: mainColor,
+                      heightImageInAnother: 160.0,
+                    ),
                   ),
                   if (item.statusImage != null || item.statusImage!.isNotEmpty)
                     Positioned(
@@ -109,8 +114,8 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                               borderRadius: BorderRadius.zero,
                               imageUrl: statusImage,
                               mainColor: mainColor,
-                              heightImage: 48.0,
-                              width: 48.0,
+                              heightImage: 40.0,
+                              width: 40.0,
                             ),
                         ],
                       ),

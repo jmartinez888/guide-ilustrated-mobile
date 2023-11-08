@@ -117,7 +117,7 @@ class _SpeciesPageState extends State<SpeciesPage>
             child: TabBar(
               controller: _tabController,
               splashBorderRadius: BorderRadius.circular(16.0),
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
               indicatorColor: _tabIndicatorColor[_tabController.index],
               labelColor: _tabIndicatorColor[_tabController.index],
               isScrollable: true,

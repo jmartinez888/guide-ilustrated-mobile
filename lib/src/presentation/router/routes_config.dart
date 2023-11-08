@@ -36,7 +36,7 @@ final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final appRouter = GoRouter(
-  initialLocation: Routes.species,
+  initialLocation: Routes.splash,
   navigatorKey: parentNavigatorKey,
   routes: [
     GoRoute(

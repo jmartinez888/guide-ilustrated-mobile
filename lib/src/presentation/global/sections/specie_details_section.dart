@@ -44,12 +44,16 @@ class SpecieDetailsSection extends StatelessWidget {
       body: GridTwoResponsive(
         leftChild: Stack(
           children: [
-            CustomImageContainer(
-              mainColor: mainColor,
-              onTap: onTapForFullImage,
-              imageUrl: specie.images.first,
-              heightImage:
-                  size.height > size.width + 32.0 ? null : double.infinity,
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 48.0),
+              color: Colors.white,
+              child: CustomImageContainer(
+                mainColor: mainColor,
+                onTap: onTapForFullImage,
+                imageUrl: specie.images.first,
+                heightImage:
+                    size.height > size.width + 32.0 ? 288 : double.infinity,
+              ),
             ),
             if (specie.statusImage != null || specie.statusImage!.isNotEmpty)
               Positioned(
@@ -64,8 +68,8 @@ class SpecieDetailsSection extends StatelessWidget {
                         borderRadius: BorderRadius.zero,
                         imageUrl: statusImage,
                         mainColor: mainColor,
-                        heightImage: 48.0,
-                        width: 48.0,
+                        heightImage: 40.0,
+                        width: 40.0,
                       ),
                   ],
                 ),
@@ -173,7 +177,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 16.0,
+      top: 8.0,
       right: 16.0,
       child: Wrap(
         spacing: 8.0,
