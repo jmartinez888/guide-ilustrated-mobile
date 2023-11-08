@@ -4,7 +4,7 @@ class Routes {
   static const String splash = '/splash';
   static const String profile = '/profile'; //proteted
   static const String species = '/species';
-  static const String specieDetails = 'd';
+  static const String specieDetails = 'specie-details';
   static const String specieImage = 'image';
   static const String signIn = 'sign-in'; //proteted
   static const String signUp = 'sign-up'; //proteted
