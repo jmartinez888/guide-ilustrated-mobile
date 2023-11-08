@@ -11,14 +11,19 @@ void main() async {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
+
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  /* WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isIOS) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
   } else if (Platform.isAndroid) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-  }
+  } */
 
   runApp(const ProviderScope(child: MyApp()));
 }

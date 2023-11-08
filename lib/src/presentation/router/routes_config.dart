@@ -35,7 +35,7 @@ final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
 final appRouter = GoRouter(
-  initialLocation: Routes.splash,
+  initialLocation: Routes.species,
   navigatorKey: parentNavigatorKey,
   routes: [
     GoRoute(
@@ -78,14 +78,6 @@ final appRouter = GoRouter(
                       name: Routes.species,
                       builder: (_, __) => const SpeciesPage(),
                       routes: [
-                        GoRoute(
-                          path: '${Routes.specieDetails}/:id',
-                          name: Routes.specieDetails,
-                          builder: (_, state) {
-                            final id = state.pathParameters['id'];
-                            return SpecieDetailsPage(id: id.toString());
-                          },
-                        ),
                         GoRoute(
                           path: '${Routes.specieImage}/:id',
                           name: Routes.specieImage,
@@ -136,6 +128,14 @@ final appRouter = GoRouter(
                           builder: (_, state) {
                             final specie = state.pathParameters['specie'];
                             return PdfPreviewPage(specie: specie.toString());
+                          },
+                        ),
+                        GoRoute(
+                          path: ':id',
+                          name: Routes.specieDetails,
+                          builder: (_, state) {
+                            final id = state.pathParameters['id'];
+                            return SpecieDetailsPage(id: id.toString());
                           },
                         ),
                       ],
@@ -217,18 +217,18 @@ final appRouter = GoRouter(
               builder: (_, __) => const IndigenousCommunityPage(),
               routes: [
                 GoRoute(
-                  path: '${Routes.indigenousCommunityDetails}/:id',
+                  path: Routes.indigenousCommunitySearch,
+                  name: Routes.indigenousCommunitySearch,
+                  parentNavigatorKey: parentNavigatorKey,
+                  builder: (_, __) => const IndigenousCommunitySearchPage(),
+                ),
+                GoRoute(
+                  path: ':id',
                   name: Routes.indigenousCommunityDetails,
                   builder: (_, state) {
                     final id = state.pathParameters['id'];
                     return IndigenousCommunityDetailsPage(id: id.toString());
                   },
-                ),
-                GoRoute(
-                  path: Routes.indigenousCommunitySearch,
-                  name: Routes.indigenousCommunitySearch,
-                  parentNavigatorKey: parentNavigatorKey,
-                  builder: (_, __) => const IndigenousCommunitySearchPage(),
                 ),
               ],
             ),
