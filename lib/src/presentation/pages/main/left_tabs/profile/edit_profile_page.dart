@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/utils/upload_image.dart';
+import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -35,11 +37,43 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
 
   Uint8List? _image;
 
+  String? _imageUrl; // Variable para almacenar la URL de la imagen
+
   void _selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
       _image = img;
     });
+  }
+
+  void _loadUserData() async {
+    try {
+      final userId = widget.userId;
+      final userData = await _userIiapRepositoryImpl.getUserData(userId);
+
+      _nameController.text = userData['name'] ?? '';
+      _lastnameController.text = userData['lastName'] ?? '';
+      _phoneController.text = userData['phone'] ?? '';
+
+      final profilePicture = userData['profilePicture'];
+      if (profilePicture != null) {
+        setState(() {
+          _imageUrl = profilePicture; // Almacena la URL de la imagen
+        });
+      }
+    } catch (error) {
+      customSnackBar(
+        context: context,
+        title: 'Error al cargar los datos del usuario',
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    _loadUserData();
+    super.initState();
   }
 
   @override
@@ -86,35 +120,97 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
                   backgroundImage: MemoryImage(_image!),
                   radius: 100,
                 )
-              : Column(
-                  children: [
-                    Stack(
+              : _imageUrl != null
+                  ? Stack(
                       children: [
-                        const Icon(
-                          Icons.account_circle_rounded,
-                          color: Colors.grey,
-                          size: 200,
+                        CachedNetworkImage(
+                          imageUrl: _imageUrl!, // Utiliza la URL de la imagen
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          imageBuilder: (context, imageProvider) =>
+                              CircleAvatar(
+                            backgroundImage: imageProvider,
+                            radius: 100,
+                          ),
                         ),
                         Positioned(
                           bottom: 10,
                           right: 10,
-                          child: IconButton(
+                          child: CustomIconButton(
                             onPressed: _selectImage,
-                            icon: const Icon(
-                              Icons.add_a_photo,
-                              size: 32,
-                            ),
+                            icon: Icons.add_a_photo,
                           ),
                         ),
                       ],
+                    )
+                  : Column(
+                      children: [
+                        Stack(
+                          children: [
+                            const Icon(
+                              Icons.account_circle_rounded,
+                              color: Colors.grey,
+                              size: 200,
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              right: 10,
+                              child: CustomIconButton(
+                                onPressed: _selectImage,
+                                icon: Icons.add_a_photo,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Text('Seleccione una imagen de perfil'),
+                      ],
                     ),
-                    const Text('Seleccione una imagen de perfil'),
-                  ],
-                ),
         ],
       ),
     );
   }
+
+  // SizedBox _imagePicker() {
+  //   return SizedBox(
+  //     height: MediaQuery.of(context).size.height * 0.4,
+  //     child: Column(
+  //       children: [
+  //         _image != null
+  //             ? CircleAvatar(
+  //                 backgroundImage: MemoryImage(_image!),
+  //                 radius: 100,
+  //               )
+  //             : Column(
+  //                 children: [
+  //                   Stack(
+  //                     children: [
+  //                       const Icon(
+  //                         Icons.account_circle_rounded,
+  //                         color: Colors.grey,
+  //                         size: 200,
+  //                       ),
+  //                       Positioned(
+  //                         bottom: 10,
+  //                         right: 10,
+  //                         child: IconButton(
+  //                           onPressed: _selectImage,
+  //                           icon: const Icon(
+  //                             Icons.add_a_photo,
+  //                             size: 32,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   const Text('Seleccione una imagen de perfil'),
+  //                 ],
+  //               ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Column _profileForm(BuildContext context) {
     return Column(
