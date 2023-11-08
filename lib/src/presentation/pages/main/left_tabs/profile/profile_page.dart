@@ -14,6 +14,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authRepository = AuthIiapRepositoryImpl();
+
     return Column(
       children: [
         AppBar(
@@ -71,7 +72,9 @@ class __HeaderProfileState extends State<_HeaderProfile> {
       future: getUserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.5,
+              child: const Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
@@ -86,67 +89,102 @@ class __HeaderProfileState extends State<_HeaderProfile> {
           final userId = userData['id'] ?? '';
 
           return Container(
-            height: MediaQuery.sizeOf(context).height * 0.4,
+            height: MediaQuery.sizeOf(context).height * 0.5,
             padding: const EdgeInsets.all(30),
-            child: Column(
-              children: [
-                if (profileIncomplete)
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.account_circle_rounded,
-                        color: Colors.grey[400],
-                        size: 200,
-                      ),
-                      const SizedBox(height: 8.0),
-                      headerText(
-                        texto: email,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      FilledButton(
-                        onPressed: () {
-                          context.pushNamed(Routes.editProfile,
-                              pathParameters: {'userId': userId.toString()});
-                        },
-                        child: const Text('Completar perfil'),
-                      ),
-                    ],
-                  ),
-                if (!profileIncomplete)
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(profilePicture),
-                      ),
-                      const SizedBox(height: 8.0),
-                      headerText(
-                        texto: name,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      headerText(
-                        texto: lastName,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      headerText(
-                        texto: phone,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      headerText(
-                        texto: email,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      const SizedBox(height: 8.0),
-                      FilledButton(
-                        onPressed: () {
-                          context.pushNamed(Routes.editProfile,
-                              pathParameters: {'userId': userId.toString()});
-                        },
-                        child: const Text('Editar perfil'),
-                      ),
-                    ],
-                  ),
-              ],
+            child: Center(
+              child: Column(
+                children: [
+                  if (profileIncomplete)
+                    Column(
+                      children: [
+                        Icon(
+                          Icons.account_circle_rounded,
+                          color: Colors.grey[400],
+                          size: 200,
+                        ),
+                        const SizedBox(height: 16.0),
+                        Text(email,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                        const SizedBox(height: 16.0),
+                        const Text(
+                          'Completa tu perfil para poder acceder a todas las funcionalidades de la aplicación.',
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16.0),
+                        FilledButton(
+                          onPressed: () {
+                            context.pushNamed(Routes.editProfile,
+                                pathParameters: {'userId': userId.toString()});
+                          },
+                          child: const Text('Completar perfil'),
+                        ),
+                      ],
+                    ),
+                  if (!profileIncomplete)
+                    Column(
+                      children: [
+                        profilePicture == ''
+                            ? const Icon(
+                                Icons.account_circle_rounded,
+                                color: Colors.grey,
+                                size: 200,
+                              )
+                            : CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(profilePicture),
+                              ),
+                        const SizedBox(height: 16.0),
+                        Text(
+                          name + ' ' + lastName,
+                          style:
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.phone_iphone),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              phone,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.email),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              email,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).primaryColor.withOpacity(0.1),
+                          ),
+                          onPressed: () {
+                            context.pushNamed(Routes.editProfile,
+                                pathParameters: {'userId': userId.toString()});
+                          },
+                          child: const Text('Editar perfil'),
+                        )
+                      ],
+                    ),
+                ],
+              ),
             ),
           );
         } else {
@@ -238,22 +276,4 @@ class _ContentProfile extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget headerText({
-  String texto = "",
-  Color color = Colors.black,
-  FontWeight fontWeight = FontWeight.bold,
-  double? fontSize,
-  TextAlign textAlign = TextAlign.justify,
-}) {
-  return Text(
-    texto,
-    textAlign: textAlign,
-    style: TextStyle(
-      color: color,
-      fontWeight: fontWeight,
-      fontSize: fontSize,
-    ),
-  );
 }
