@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
-import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_list_tile.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +14,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authRepository = AuthIiapRepositoryImpl();
+
     return Column(
       children: [
         AppBar(
@@ -73,104 +72,125 @@ class __HeaderProfileState extends State<_HeaderProfile> {
       future: getUserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtienen los datos.
+          return SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.5,
+              child: const Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
           final userData = snapshot.data;
           final profilePicture = userData!['profilePicture'] ?? '';
           final name = userData['name'] ?? '';
+          final lastName = userData['lastName'] ?? '';
           final email = userData['email'] ?? '';
-          final profileIncomplete = name.isEmpty ||
-              profilePicture
-                  .isEmpty; // Verifica si el nombre y el email están vacíos.
+          final phone = userData['phone'] ?? '';
+          final profileIncomplete = name.isEmpty || lastName.isEmpty;
+
+          final userId = userData['id'] ?? '';
 
           return Container(
-            height: MediaQuery.sizeOf(context).height * 0.4,
+            height: MediaQuery.sizeOf(context).height * 0.5,
             padding: const EdgeInsets.all(30),
-            child: Column(
-              children: [
-                // ... Tu código existente aquí
-
-                if (profileIncomplete)
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.account_circle_rounded,
-                        color: Colors.grey[400],
-                        size: 200,
-                      ),
-                      const SizedBox(height: 8.0),
-                      headerText(
-                        texto: email,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      FilledButton(
-                        onPressed: () => context.goNamed(Routes.editProfile),
-                        child: const Text('Completar perfil'),
-                      ),
-                    ],
-                  ),
-              ],
+            child: Center(
+              child: Column(
+                children: [
+                  if (profileIncomplete)
+                    Column(
+                      children: [
+                        Icon(
+                          Icons.account_circle_rounded,
+                          color: Colors.grey[400],
+                          size: 200,
+                        ),
+                        const SizedBox(height: 16.0),
+                        Text(email,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                        const SizedBox(height: 16.0),
+                        const Text(
+                          'Completa tu perfil para poder acceder a todas las funcionalidades de la aplicación.',
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16.0),
+                        FilledButton(
+                          onPressed: () {
+                            context.pushNamed(Routes.editProfile,
+                                pathParameters: {'userId': userId.toString()});
+                          },
+                          child: const Text('Completar perfil'),
+                        ),
+                      ],
+                    ),
+                  if (!profileIncomplete)
+                    Column(
+                      children: [
+                        profilePicture == ''
+                            ? const Icon(
+                                Icons.account_circle_rounded,
+                                color: Colors.grey,
+                                size: 200,
+                              )
+                            : CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(profilePicture),
+                              ),
+                        const SizedBox(height: 16.0),
+                        Text(
+                          name + ' ' + lastName,
+                          style:
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.phone_iphone),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              phone,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.email),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              email,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ],
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).primaryColor.withOpacity(0.1),
+                          ),
+                          onPressed: () {
+                            context.pushNamed(Routes.editProfile,
+                                pathParameters: {'userId': userId.toString()});
+                          },
+                          child: const Text('Editar perfil'),
+                        )
+                      ],
+                    ),
+                ],
+              ),
             ),
           );
         } else {
           return const Text('Usuario no encontrado');
         }
       },
-    );
-  }
-}
-
-class _ProfileForm extends StatelessWidget {
-  const _ProfileForm();
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomBottomSheet(
-      body: [
-        const Text(
-          'Completa tu perfil',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 20),
-        const Text(
-          'Para poder usar la aplicación, necesitamos que completes tu perfil.',
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 20),
-        Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Apellido',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Teléfono',
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.maybePop(context),
-        child: const Icon(Icons.check_rounded),
-      ),
     );
   }
 }
@@ -185,12 +205,6 @@ class _ContentProfile extends StatelessWidget {
       child: Column(
         children: [
           CustomListTile(
-            title: 'sasas',
-            leading: Icon(Icons.add),
-            trailing: Icon(Icons.add),
-            onTap: () {},
-          ),
-          ListTile(
             onTap: () => context.pushNamed(
               Routes.forgotPassword,
             ),
@@ -198,14 +212,13 @@ class _ContentProfile extends StatelessWidget {
               Icons.password_outlined,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Cambiar contraseña', fontWeight: FontWeight.w400),
+            title: 'Cambiar contraseña',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
+          CustomListTile(
             onTap: () {
               Share.share(
                   'Descarga la app de IIAP Guía Ilustrada de Flora y Fauna y conoce más sobre las especies de la Amazonía Peruana: https://play.google.com/store/apps/details?id=com.iiap.guiailustrada');
@@ -214,25 +227,13 @@ class _ContentProfile extends StatelessWidget {
               Icons.person_add,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Invitar amigos', fontWeight: FontWeight.w400),
+            title: 'Invitar amigos',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.help_outline,
-              color: Colors.grey,
-            ),
-            title: headerText(texto: 'FAQ', fontWeight: FontWeight.w400),
-            trailing: const Icon(
-              Icons.chevron_right,
-              color: Colors.grey,
-            ),
-          ),
-          ListTile(
+          CustomListTile(
             onTap: () => context.pushNamed(
               Routes.about,
             ),
@@ -240,14 +241,13 @@ class _ContentProfile extends StatelessWidget {
               Icons.work_outlined,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Sobre el proyecto', fontWeight: FontWeight.w400),
+            title: 'Sobre el proyecto',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
+          CustomListTile(
             onTap: () => context.pushNamed(
               Routes.staff,
             ),
@@ -255,21 +255,19 @@ class _ContentProfile extends StatelessWidget {
               Icons.info_outline,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Sobre nosotros', fontWeight: FontWeight.w400),
+            title: 'Sobre nosotros',
             trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
           ),
-          ListTile(
-            leading: const Icon(
+          const CustomListTile(
+            leading: Icon(
               Icons.delete_forever_outlined,
               color: Colors.grey,
             ),
-            title: headerText(
-                texto: 'Eliminar cuenta', fontWeight: FontWeight.w400),
-            trailing: const Icon(
+            title: 'Eliminar cuenta',
+            trailing: Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
@@ -278,22 +276,4 @@ class _ContentProfile extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget headerText({
-  String texto = "",
-  Color color = Colors.black,
-  FontWeight fontWeight = FontWeight.bold,
-  double? fontSize,
-  TextAlign textAlign = TextAlign.justify,
-}) {
-  return Text(
-    texto,
-    textAlign: textAlign,
-    style: TextStyle(
-      color: color,
-      fontWeight: fontWeight,
-      fontSize: fontSize,
-    ),
-  );
 }
