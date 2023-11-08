@@ -64,6 +64,14 @@ final appRouter = GoRouter(
               builder: (_, __) => const ProfilePage(),
               routes: [
                 GoRoute(
+                  redirect: (context, state) {
+                    if (_firebaseAuth.currentUser != null &&
+                        _firebaseAuth.currentUser!.emailVerified) {
+                      return null;
+                    } else {
+                      return '${Routes.species}/${Routes.signIn}';
+                    }
+                  },
                   path: '${Routes.editProfile}/:userId',
                   name: Routes.editProfile,
                   parentNavigatorKey: parentNavigatorKey,
