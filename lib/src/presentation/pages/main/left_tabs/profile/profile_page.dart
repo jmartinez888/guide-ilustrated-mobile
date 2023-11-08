@@ -32,9 +32,10 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(width: 8.0),
           ],
         ),
-        const Expanded(
-          child: Column(
-            children: [
+        Expanded(
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: const [
               _HeaderProfile(),
               _ContentProfile(),
             ],
@@ -74,7 +75,7 @@ class __HeaderProfileState extends State<_HeaderProfile> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.5,
+              height: MediaQuery.sizeOf(context).height * 0.6,
               child: const Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
@@ -89,9 +90,8 @@ class __HeaderProfileState extends State<_HeaderProfile> {
 
           final userId = userData['id'] ?? '';
 
-          return Container(
+          return SizedBox(
             height: MediaQuery.sizeOf(context).height * 0.5,
-            padding: const EdgeInsets.all(30),
             child: Center(
               child: Column(
                 children: [
@@ -103,7 +103,7 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                           color: Colors.grey[400],
                           size: 200,
                         ),
-                        const SizedBox(height: 16.0),
+                        const SizedBox(height: 15.0),
                         Text(email,
                             style: Theme.of(context)
                                 .textTheme
