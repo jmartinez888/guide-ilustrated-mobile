@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/image_details_favorite/image_details_favorite_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/specie_details_favorite/specie_details_favorite_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/forgot_password/forgot_password_page.dart';
@@ -61,6 +62,17 @@ final appRouter = GoRouter(
               path: Routes.profile,
               name: Routes.profile,
               builder: (_, __) => const ProfilePage(),
+              routes: [
+                GoRoute(
+                  path: '${Routes.editProfile}/:userId',
+                  name: Routes.editProfile,
+                  parentNavigatorKey: parentNavigatorKey,
+                  builder: (_, state) {
+                    final userId = state.pathParameters['userId'];
+                    return EditProfile(userId: userId.toString());
+                  },
+                ),
+              ],
             ),
           ],
         ),

@@ -44,4 +44,34 @@ mixin FormMixin<T extends StatefulWidget> on State<T> {
     }
     return null;
   }
+
+  String? nameValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Ingrese su nombre';
+    }
+    if (value.length < 3) {
+      return 'Ingrese al menos 3 caracteres';
+    }
+    return null;
+  }
+
+  String? lastNameValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Ingrese su apellido';
+    }
+    if (value.length < 3) {
+      return 'Ingrese al menos 3 caracteres';
+    }
+    return null;
+  }
+
+  String? phoneValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Ingrese su teléfono';
+    }
+    if (value.length < 9) {
+      return 'Ingrese al menos 9 caracteres';
+    }
+    return null;
+  }
 }
