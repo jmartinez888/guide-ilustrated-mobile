@@ -40,10 +40,12 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   String? _imageUrl; // Variable para almacenar la URL de la imagen
 
   void _selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img;
-    });
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = img;
+      });
+    }
   }
 
   void _loadUserData() async {
