@@ -95,42 +95,6 @@ class StaffPage extends StatelessWidget {
             ],
           ),
         ),
-
-        // SliverPadding(
-        //   padding: const EdgeInsets.all(16.0),
-        //   sliver: SliverList.list(children: [
-        //     _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
-        //     const SizedBox(height: 16.0),
-        //     _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
-        //     _text('Manuel Martín Brañas\nJuan José Bellido Collahuacho'),
-        //     _subtitleSection(context, 'COMITÉ REVISOR'),
-        //     _reviewerTitle(context, 'Revisión de textos:'),
-        //     _text(
-        //         'Manuel Martín Brañas, IIAP, \nJuan José Bellido Collahuacho, IIAP'),
-        //     _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
-        //     _text('Giussepe Gagliardi Urrutia, IIAP'),
-        //     _reviewerTitle(context, 'Revisión aves:'),
-        //     _text('José Álvarez Alonso, MINAM\nJuan Díaz Alván, UCP'),
-        //     _reviewerTitle(context, 'Revisión peces:'),
-        //     _text(
-        //         'Carmen Rosa García Dávila, IIAP\nKevin Morgan Ruíz Tafur, IIAP'),
-        //     _reviewerTitle(context, 'Revisión insectos:'),
-        //     _text(
-        //         'Joel Bardales Vásquez, IIAP\nWalter Leonardo Vásquez Mora, UNAP'),
-        //     _reviewerTitle(context, 'Revisión palmeras:'),
-        //     _text('Kember Mejía Carhuanca, IIAP'),
-        //     _reviewerTitle(context, 'Revisión plantas:'),
-        //     _text(
-        //         'Nállarett Dávila Cardozo, IIAP\nRicardo Zárate Gómez, IIAP\nElsa Renjifo Salgado, IIAP'),
-        //     _reviewerTitle(context, 'Revisión mamíferos:'),
-        //     _text('Pedro Pérez Peña, IIAP'),
-        //     _reviewerTitle(context, 'Elaboración de mapas:'),
-        //     _text('Juan José Palacios Vega y Lizardo Fachín Malaverri.'),
-        //     _reviewerTitle(context, 'Ilustraciones:'),
-        //     _text(
-        //         'Jaime Choclote Martínez; Nicolás Farroñay Kanaffo y Javier Vela.'),
-        //   ]),
-        // ),
         SliverToBoxAdapter(
             child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -147,29 +111,55 @@ class StaffPage extends StatelessWidget {
                 crossAxisCount: buildMultiGrids(width)),
             children: [
               _staffProfile(
-                name: 'Edson Isaias Sánchez Chota',
-                image: 'assets/staff/edson.jpg',
-                github: 'https://github.com/edisaiassan',
-              ),
-              _staffProfile(
-                  name: 'Jorge Antonio Del Aguila Malafaya',
-                  image: 'assets/staff/antonio.jpg',
-                  github: 'https://github.com/JorgeAntonio'),
-              _staffProfile(
+                context,
+                role: 'Líder técnico',
                 name: 'Jhon Charlie Martinez Carranza',
                 image: 'assets/staff/jhon.jpg',
                 github: 'https://github.com/jmartinez888',
               ),
               _staffProfile(
+                context,
+                role: 'Desarrollador móvil',
+                name: 'Edson Isaias Sánchez Chota',
+                image: 'assets/staff/edson.jpg',
+                github: 'https://github.com/edisaiassan',
+              ),
+              _staffProfile(context,
+                  role: 'Desarrollador móvil',
+                  name: 'Jorge Antonio Del Aguila Malafaya',
+                  image: 'assets/staff/antonio.jpg',
+                  github: 'https://github.com/JorgeAntonio'),
+              _staffProfile(
+                context,
+                role: 'Desarrollador frontend',
                 name: 'Santos Panaifo José Jefferson',
                 image: 'assets/staff/santos.png',
                 github: 'https://github.com/daylerjeff199906',
               ),
               _staffProfile(
-                name: 'Frías Mori Piero Eleví',
+                context,
+                role: 'Desarrollador frontend',
+                name: 'Danny Dávila Daza',
+                image: 'assets/staff/danny.jpeg',
+                github: 'https://github.com/Danny-da',
+              ),
+              _staffProfile(
+                context,
+                role: 'Desarrollador frontend',
+                name: 'Josue Franco Soria Ponce',
+                image: 'assets/staff/josue.png',
+                github: 'https://github.com/franquito3',
+              ),
+              _staffProfile(
+                context,
+                role: 'Desarrollador backend',
+                name: 'Piero Eleví Frías Mori',
+                image: 'assets/staff/piero.jpg',
                 github: 'https://github.com/PieroFrias',
               ),
               _staffProfile(
+                context,
+                role: 'Desarrollador backend',
                 name: 'Anthony Scott Ramirez Sias',
                 image: 'assets/staff/scott.png',
                 github: 'https://github.com/Scott-Ramirez',
@@ -227,7 +217,9 @@ class StaffPage extends StatelessWidget {
     );
   }
 
-  Material _staffProfile({
+  Material _staffProfile(
+    BuildContext context, {
+    required String role,
     required String name,
     String? image,
     required String github,
@@ -245,6 +237,7 @@ class StaffPage extends StatelessWidget {
                   image == null ? const Icon(Icons.person, size: 64.0) : null,
             ),
           ),
+          _reviewerTitle(context, role),
           Text(
             name,
             textAlign: TextAlign.center,

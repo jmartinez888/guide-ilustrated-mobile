@@ -21,7 +21,8 @@ class IndigenousCommunityPage extends StatelessWidget {
           title: const Text('Comunidades Indígenas'),
           actions: [
             IconButton(
-              onPressed: () => context.pushNamed(Routes.indigenousCommunitySearch),
+              onPressed: () =>
+                  context.pushNamed(Routes.indigenousCommunitySearch),
               icon: const Icon(Icons.search_rounded),
             ),
             const SizedBox(width: 8.0)
