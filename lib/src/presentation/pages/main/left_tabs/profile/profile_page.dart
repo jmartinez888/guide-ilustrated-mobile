@@ -126,7 +126,7 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                 if (!profileIncomplete) const SizedBox(height: 16.0),
                 Column(
                   children: [
-                    profilePicture == ''
+                    profilePicture.isEmpty
                         ? const Icon(
                             Icons.account_circle_rounded,
                             color: Colors.grey,
@@ -134,7 +134,7 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                           )
                         : CircleAvatar(
                             radius: 100,
-                            backgroundImage: CachedNetworkImageProvider(
+                            backgroundImage: NetworkImage(
                               profilePicture,
                             ),
                           ),

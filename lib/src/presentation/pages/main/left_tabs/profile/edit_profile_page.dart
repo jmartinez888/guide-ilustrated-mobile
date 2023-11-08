@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -125,17 +124,9 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
               : _imageUrl != null
                   ? Stack(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: _imageUrl!, // Utiliza la URL de la imagen
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                          imageBuilder: (context, imageProvider) =>
-                              CircleAvatar(
-                            backgroundImage: imageProvider,
-                            radius: 100,
-                          ),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(_imageUrl!),
+                          radius: 100,
                         ),
                         Positioned(
                           bottom: 10,
