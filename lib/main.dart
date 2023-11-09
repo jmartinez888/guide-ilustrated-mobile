@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:species/firebase_options.dart';
 import 'package:species/src/my_app.dart';
 import 'dart:io';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -19,6 +20,5 @@ void main() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
   }
-
   runApp(const ProviderScope(child: MyApp()));
 }

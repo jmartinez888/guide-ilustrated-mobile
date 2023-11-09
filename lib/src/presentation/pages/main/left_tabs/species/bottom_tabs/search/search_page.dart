@@ -143,7 +143,7 @@ class _SearchPageState extends State<SearchPage> {
                                 return const Text('No se encontraron clases');
                               } else {
                                 final List<Class> classes = snapshot.data!;
-                                return CustomDropdown<String>.search(
+                                return CustomDropdown<String>(
                                   headerBuilder: (context, selectedItem) {
                                     return selectedClass == null
                                         ? const Text('Selecciona una clase',
@@ -197,7 +197,7 @@ class _SearchPageState extends State<SearchPage> {
                                 } else {
                                   final List<OrderClass> orders =
                                       snapshot.data!;
-                                  return CustomDropdown<String>.search(
+                                  return CustomDropdown<String>(
                                     headerBuilder: (context, selectedItem) {
                                       return selectedOrder == null
                                           ? const Text('Selecciona una orden',
@@ -250,7 +250,7 @@ class _SearchPageState extends State<SearchPage> {
                                       'No se encontraron familias');
                                 } else {
                                   final List<Family> families = snapshot.data!;
-                                  return CustomDropdown<String>.search(
+                                  return CustomDropdown<String>(
                                     headerBuilder: (context, selectedItem) {
                                       return selectedFamily == null
                                           ? const Text('Selecciona una familia',
