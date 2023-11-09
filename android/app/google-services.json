@@ -12,7 +12,20 @@
           "package_name": "pe.gob.iiap.guiailustrada"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "750264368267-01scnjo71v00gibupk3ulacbj317ip81.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pe.gob.iiap.guiailustrada",
+            "certificate_hash": "4b46b0202893bb0cdee637b08362c71f19c5db49"
+          }
+        },
+        {
+          "client_id": "750264368267-c5iml6cqjenk710dd7nppps4mks0rf27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAZvLS-R43_UuA84Qs_eYxVWppvWaP30Pk"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750264368267-c5iml6cqjenk710dd7nppps4mks0rf27.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "750264368267-d0e0ijl95fr42vv61s9vu2hp53gbsv15.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "pe.gob.iiap.guiailustrada"
+              }
+            }
+          ]
         }
       }
     }

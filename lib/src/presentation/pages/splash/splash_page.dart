@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-
+    
     _timer = Timer(Duration(seconds: time), () {
       ejecutarMetodo();
     });
@@ -118,7 +118,8 @@ class _SplashPageState extends State<SplashPage> {
                         duration: time.seconds,
                       ),
                   Align(
-                    alignment: Alignment.topLeft,
+                   alignment: Alignment.topLeft,
+
                     child: Padding(
                       padding: const EdgeInsets.only(top: 64.0, left: 80.0),
                       child: SvgPicture.asset(
