@@ -62,7 +62,7 @@ class UserIiapRepositoryImpl extends UserRepository {
     try {
       if (name.isNotEmpty || lastName.isNotEmpty) {
         String imageUrl = await uploadProfilePicture(
-          'ProfileImage',
+          'images/users/$userId/profile',
           userId,
           profilePicture,
         );
