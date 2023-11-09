@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/profile/delete_account.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/image_details_favorite/image_details_favorite_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/specie_details_favorite/specie_details_favorite_page.dart';
@@ -78,6 +79,23 @@ final appRouter = GoRouter(
                   builder: (_, state) {
                     final userId = state.pathParameters['userId'];
                     return EditProfile(userId: userId.toString());
+                  },
+                ),
+                GoRoute(
+                  redirect: (context, state) {
+                    if (_firebaseAuth.currentUser != null &&
+                        _firebaseAuth.currentUser!.emailVerified) {
+                      return null;
+                    } else {
+                      return '${Routes.species}/${Routes.signIn}';
+                    }
+                  },
+                  path: '${Routes.deleteAccount}/:userId',
+                  name: Routes.deleteAccount,
+                  parentNavigatorKey: parentNavigatorKey,
+                  builder: (_, state) {
+                    final userId = state.pathParameters['userId'];
+                    return DeleteAccountPage(userId: userId.toString());
                   },
                 ),
               ],

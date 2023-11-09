@@ -153,18 +153,6 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                               );
                       },
                     ),
-                    // profilePicture.isEmpty
-                    //     ? const Icon(
-                    //         Icons.account_circle_rounded,
-                    //         color: Colors.grey,
-                    //         size: 200,
-                    //       )
-                    //     : CircleAvatar(
-                    //         radius: 100,
-                    //         backgroundImage: NetworkImage(
-                    //           profilePicture,
-                    //         ),
-                    //       ),
                     const SizedBox(height: 16.0),
                     Align(
                       alignment: Alignment.center,
@@ -303,13 +291,17 @@ class _ContentProfile extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          const CustomListTile(
-            leading: Icon(
+          CustomListTile(
+            onTap: () => context.pushNamed(
+              Routes.deleteAccount,
+              pathParameters: {'userId': 'userId'},
+            ),
+            leading: const Icon(
               Icons.delete_forever_outlined,
               color: Colors.grey,
             ),
             title: 'Eliminar cuenta',
-            trailing: Icon(
+            trailing: const Icon(
               Icons.chevron_right,
               color: Colors.grey,
             ),
