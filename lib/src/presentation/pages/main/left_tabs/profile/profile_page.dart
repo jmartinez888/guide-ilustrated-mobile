@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
@@ -69,6 +69,17 @@ class __HeaderProfileState extends State<_HeaderProfile> {
     return {};
   }
 
+  Future<bool> doesImageExist(String imageUrl) async {
+    final storage = FirebaseStorage.instance;
+    try {
+      final ref = storage.refFromURL(imageUrl);
+      await ref.getMetadata();
+      return true; // The image exists
+    } catch (e) {
+      return false; // The image doesn't exist or there was an error
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
@@ -126,18 +137,34 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                 if (!profileIncomplete) const SizedBox(height: 16.0),
                 Column(
                   children: [
-                    profilePicture == ''
-                        ? const Icon(
-                            Icons.account_circle_rounded,
-                            color: Colors.grey,
-                            size: 200,
-                          )
-                        : CircleAvatar(
-                            radius: 100,
-                            backgroundImage: CachedNetworkImageProvider(
-                              profilePicture,
-                            ),
-                          ),
+                    FutureBuilder<bool>(
+                      future: doesImageExist(profilePicture),
+                      builder: (context, imageSnapshot) {
+                        final imageExists = imageSnapshot.data ?? false;
+                        return imageExists
+                            ? CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(profilePicture),
+                              )
+                            : const Icon(
+                                Icons.account_circle_rounded,
+                                color: Colors.grey,
+                                size: 200,
+                              );
+                      },
+                    ),
+                    // profilePicture.isEmpty
+                    //     ? const Icon(
+                    //         Icons.account_circle_rounded,
+                    //         color: Colors.grey,
+                    //         size: 200,
+                    //       )
+                    //     : CircleAvatar(
+                    //         radius: 100,
+                    //         backgroundImage: NetworkImage(
+                    //           profilePicture,
+                    //         ),
+                    //       ),
                     const SizedBox(height: 16.0),
                     Align(
                       alignment: Alignment.center,

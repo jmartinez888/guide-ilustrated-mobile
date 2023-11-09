@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,10 +40,12 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   String? _imageUrl; // Variable para almacenar la URL de la imagen
 
   void _selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img;
-    });
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = img;
+      });
+    }
   }
 
   void _loadUserData() async {
@@ -67,6 +69,17 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         title: 'Error al cargar los datos del usuario',
         backgroundColor: Colors.red,
       );
+    }
+  }
+
+  Future<bool> doesImageExist(String imageUrl) async {
+    final storage = FirebaseStorage.instance;
+    try {
+      final ref = storage.refFromURL(imageUrl);
+      await ref.getMetadata();
+      return true; // The image exists
+    } catch (e) {
+      return false; // The image doesn't exist or there was an error
     }
   }
 
@@ -110,7 +123,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     );
   }
 
-  SizedBox _imagePicker() {
+  _imagePicker() {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
@@ -121,29 +134,45 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
                   radius: 100,
                 )
               : _imageUrl != null
-                  ? Stack(
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: _imageUrl!, // Utiliza la URL de la imagen
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                          imageBuilder: (context, imageProvider) =>
-                              CircleAvatar(
-                            backgroundImage: imageProvider,
-                            radius: 100,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          right: 10,
-                          child: CustomIconButton(
-                            onPressed: _selectImage,
-                            icon: Icons.add_a_photo,
-                          ),
-                        ),
-                      ],
+                  ? FutureBuilder<bool>(
+                      future: doesImageExist(_imageUrl!),
+                      builder: (context, imageSnapshot) {
+                        final imageExists = imageSnapshot.data ?? false;
+                        return imageExists
+                            ? Stack(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(_imageUrl!),
+                                    radius: 100,
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    right: 10,
+                                    child: CustomIconButton(
+                                      onPressed: _selectImage,
+                                      icon: Icons.add_a_photo,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Stack(
+                                children: [
+                                  const Icon(
+                                    Icons.account_circle_rounded,
+                                    color: Colors.grey,
+                                    size: 200,
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    right: 10,
+                                    child: CustomIconButton(
+                                      onPressed: _selectImage,
+                                      icon: Icons.add_a_photo,
+                                    ),
+                                  ),
+                                ],
+                              );
+                      },
                     )
                   : Column(
                       children: [
@@ -171,46 +200,6 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
       ),
     );
   }
-
-  // SizedBox _imagePicker() {
-  //   return SizedBox(
-  //     height: MediaQuery.of(context).size.height * 0.4,
-  //     child: Column(
-  //       children: [
-  //         _image != null
-  //             ? CircleAvatar(
-  //                 backgroundImage: MemoryImage(_image!),
-  //                 radius: 100,
-  //               )
-  //             : Column(
-  //                 children: [
-  //                   Stack(
-  //                     children: [
-  //                       const Icon(
-  //                         Icons.account_circle_rounded,
-  //                         color: Colors.grey,
-  //                         size: 200,
-  //                       ),
-  //                       Positioned(
-  //                         bottom: 10,
-  //                         right: 10,
-  //                         child: IconButton(
-  //                           onPressed: _selectImage,
-  //                           icon: const Icon(
-  //                             Icons.add_a_photo,
-  //                             size: 32,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                   const Text('Seleccione una imagen de perfil'),
-  //                 ],
-  //               ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Column _profileForm(BuildContext context) {
     return Column(
