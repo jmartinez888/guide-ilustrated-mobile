@@ -12,21 +12,13 @@ void main() async {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-
-  WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isIOS) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
-    await FirebaseAppCheck.instance.activate();
   } else if (Platform.isAndroid) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    await FirebaseAppCheck.instance.activate();
   }
-
   runApp(const ProviderScope(child: MyApp()));
 }
