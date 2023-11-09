@@ -289,18 +289,6 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
       final lastName = _lastnameController.text;
       final phone = _phoneController.text;
 
-      if (_image == null) {
-        customSnackBar(
-          context: context,
-          title: 'Seleccione una imagen',
-          backgroundColor: Colors.red,
-        );
-
-        // Habilitar el botón de guardar
-        enabled = true;
-        setState(() {});
-        return;
-      }
       final Map<String, dynamic> arguments =
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       final userId = arguments['userId'] as String;
@@ -313,18 +301,28 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         // Asegúrate de que el campo 'email' no sea nulo
         final email = currentUserData['email'] ?? '';
 
-        // Llama a la función para actualizar el usuario en Firebase
-        await _userIiapRepositoryImpl.saveProfile(
-          userId: userId,
-          name: name,
-          lastName: lastName,
-          phone: phone,
-          email: email,
-          profilePicture: _image!,
-        );
+        if (_image == null) {
+          // Si la imagen es nula, simplemente guarda el perfil sin la imagen
+          await _userIiapRepositoryImpl.saveProfileWithoutImage(
+            userId: userId,
+            name: name,
+            lastName: lastName,
+            phone: phone,
+            email: email,
+          );
+        } else {
+          // Si la imagen no es nula, guarda el perfil con la imagen
+          await _userIiapRepositoryImpl.saveProfile(
+            userId: userId,
+            name: name,
+            lastName: lastName,
+            phone: phone,
+            email: email,
+            profilePicture: _image!,
+          );
+        }
 
         // Muestra un mensaje de éxito
-
         _successModal(context);
         //
 

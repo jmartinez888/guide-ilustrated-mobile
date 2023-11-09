@@ -95,4 +95,43 @@ class UserIiapRepositoryImpl extends UserRepository {
     }
     return response;
   }
+
+  Future<String> saveProfileWithoutImage(
+      {required String userId,
+      required String name,
+      required String lastName,
+      required String phone,
+      required String email}) async {
+    String response = 'Something went wrong';
+
+    try {
+      if (name.isNotEmpty || lastName.isNotEmpty) {
+        final docUser = firebaseInstance.doc(userId);
+        final existingDoc = await docUser.get();
+
+        DateTime now = DateTime.now();
+        final created = existingDoc.exists
+            ? existingDoc.data()!['created']
+            : Timestamp.fromDate(now);
+
+        final user = User(
+          id: userId,
+          name: name,
+          lastName: lastName,
+          phone: phone,
+          created: created,
+          email: existingDoc.data()!['email'],
+        );
+
+        final json = user.toJson();
+
+        await docUser.update(json);
+
+        response = 'Profile updated successfully';
+      }
+    } catch (e) {
+      response = e.toString();
+    }
+    return response;
+  }
 }
