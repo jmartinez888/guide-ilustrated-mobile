@@ -34,8 +34,14 @@ class UserIiapRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> getUserData(String userId) {
-    return firebaseInstance.doc(userId).get().then((doc) => doc.data()!);
+  Future<Map<String, dynamic>> getUserData(String userId) async {
+    final docSnapshot = await firebaseInstance.doc(userId).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.data() as Map<String, dynamic>;
+    } else {
+      return {};
+    }
   }
 
   Future<String> uploadProfilePicture(

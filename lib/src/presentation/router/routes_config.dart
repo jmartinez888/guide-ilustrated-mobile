@@ -87,7 +87,7 @@ final appRouter = GoRouter(
                         _firebaseAuth.currentUser!.emailVerified) {
                       return null;
                     } else {
-                      return '${Routes.species}/${Routes.signIn}';
+                      return Routes.species;
                     }
                   },
                   path: '${Routes.deleteAccount}/:userId',
