@@ -6,7 +6,7 @@ import 'package:species/src/domain/entities/user.dart';
 import 'package:species/src/domain/repositories/user/user_repository.dart';
 
 class UserIiapRepositoryImpl extends UserRepository {
-  final firebaseInstance = FirebaseFirestore.instance.collection('users');
+  final firebaseFirestoreInstance = FirebaseFirestore.instance.collection('users');
   final firebaseStorageInstance = FirebaseStorage.instance;
 
   @override
@@ -14,7 +14,7 @@ class UserIiapRepositoryImpl extends UserRepository {
     required String userId,
     required String email,
   }) async {
-    final docUser = firebaseInstance.doc(userId);
+    final docUser = firebaseFirestoreInstance.doc(userId);
     final existingDoc = await docUser.get();
 
     DateTime now = DateTime.now();
@@ -34,8 +34,14 @@ class UserIiapRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> getUserData(String userId) {
-    return firebaseInstance.doc(userId).get().then((doc) => doc.data()!);
+  Future<Map<String, dynamic>> getUserData(String userId) async {
+    final docSnapshot = await firebaseFirestoreInstance.doc(userId).get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.data() as Map<String, dynamic>;
+    } else {
+      return {};
+    }
   }
 
   Future<String> uploadProfilePicture(
@@ -66,7 +72,7 @@ class UserIiapRepositoryImpl extends UserRepository {
           userId,
           profilePicture,
         );
-        final docUser = firebaseInstance.doc(userId);
+        final docUser = firebaseFirestoreInstance.doc(userId);
         final existingDoc = await docUser.get();
 
         DateTime now = DateTime.now();
@@ -106,7 +112,7 @@ class UserIiapRepositoryImpl extends UserRepository {
 
     try {
       if (name.isNotEmpty || lastName.isNotEmpty) {
-        final docUser = firebaseInstance.doc(userId);
+        final docUser = firebaseFirestoreInstance.doc(userId);
         final existingDoc = await docUser.get();
 
         DateTime now = DateTime.now();

@@ -52,14 +52,16 @@ class MainSpecies extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firebaseAuthInstance = FirebaseAuth.instance;
+    final Size size = MediaQuery.of(context).size;
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
           child: navigationShell,
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
+        Positioned(
+          bottom: 16.0,
+          right: size.height > size.width + 32.0 ? null : 16.0,
           child: CustomBottomNavBar(
             selectedIndex: navigationShell.currentIndex,
             onDestinationSelected: (index) => _goBranch(

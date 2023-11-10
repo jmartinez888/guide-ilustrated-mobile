@@ -4,14 +4,15 @@ import 'package:flutter_animate/flutter_animate.dart';
 class SkeletonConatiner extends StatelessWidget {
   final double? width;
   final double? height;
-  const SkeletonConatiner({super.key, this.width, this.height});
+  final double? borderRadius;
+  const SkeletonConatiner({super.key, this.width, this.height, this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Material(
       color: colorScheme.outline,
-      borderRadius: BorderRadius.circular(16.0),
+      borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
       child: SizedBox(
         width: width,
         height: height,
