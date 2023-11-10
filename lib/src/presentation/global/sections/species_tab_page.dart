@@ -1,18 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lottie/lottie.dart';
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
+import 'package:species/src/presentation/global/sections/grid_loading.dart';
+import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
+import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SpeciesTabPageSection extends StatefulWidget {
@@ -49,6 +54,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   @override
   void dispose() {
     _pagingController.dispose();
+
     super.dispose();
   }
 
@@ -78,9 +84,22 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
           },
           builderDelegate: PagedChildBuilderDelegate<Specie>(
             newPageProgressIndicatorBuilder: (_) =>
-                LinearProgressIndicator(color: mainColor),
-            firstPageProgressIndicatorBuilder: (_) =>
-                CircularProgressIndicator(color: mainColor),
+                const SkeletonConatiner(height: 320.0),
+            firstPageErrorIndicatorBuilder: (context) => MessageException(
+              onPressed: () => Future.sync(() => _pagingController.refresh()),
+              lottie: 'assets/lotties/error_data.json',
+            ),
+            newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+              onTap: () =>
+                  Future.sync(() => _pagingController.retryLastFailedRequest()),
+              title: 'Algo salió mal, inténtalo de nuevo',
+              image: Padding(
+                padding:
+                    const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+                child: Lottie.asset('assets/lotties/error_data.json'),
+              ),
+            ),
+            firstPageProgressIndicatorBuilder: (_) => const GridLoading(),
             animateTransitions: true,
             transitionDuration: const Duration(milliseconds: 400),
             itemBuilder: (context, item, index) => CustomGridCard(

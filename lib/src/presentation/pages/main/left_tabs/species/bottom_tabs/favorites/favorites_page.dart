@@ -6,6 +6,8 @@ import 'package:species/src/data/repositories_implementation/species_iiap/specie
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
+import 'package:species/src/presentation/global/sections/grid_loading.dart';
+import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -81,13 +83,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
           if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
+            return const GridLoading();
           }
           var species = snapshot.data!;
 
           if (species.isEmpty) {
-            return const Center(
-                child: Text('Aún no guardas como favorito a ninguna especie'));
+            return const MessageException(
+              text: 'Aún no hay especies aquí',
+              lottie: 'assets/lotties/without_data.json',
+            );
           }
 
           if (searchText.isNotEmpty) {
