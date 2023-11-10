@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -69,6 +68,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
     return RefreshIndicator(
+      color: mainColor,
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
       child: Extend(
         child: PagedMasonryGridView<int, Specie>(
@@ -88,6 +88,11 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
             firstPageErrorIndicatorBuilder: (context) => MessageException(
               onPressed: () => Future.sync(() => _pagingController.refresh()),
               lottie: 'assets/lotties/error_data.json',
+            ),
+            noItemsFoundIndicatorBuilder: (context) => MessageException(
+              onPressed: () => Future.sync(() => _pagingController.refresh()),
+              text: 'Parece que no hay especies aquí',
+              lottie: 'assets/lotties/without_data.json',
             ),
             newPageErrorIndicatorBuilder: (context) => CustomGridCard(
               onTap: () =>
@@ -135,6 +140,8 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                               mainColor: mainColor,
                               heightImage: 40.0,
                               width: 40.0,
+                              progressIndicatorBuilder: (_, __, ___) =>
+                                  const SizedBox(),
                             ),
                         ],
                       ),
@@ -201,11 +208,7 @@ class _FavoriteActionState extends State<_FavoriteAction> {
           stream: isFavoriteStream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return SizedBox(
-                height: 40.0,
-                width: 40.0,
-                child: CircularProgressIndicator(color: widget.mainColor),
-              );
+              return const SizedBox();
             }
             final isFavorite = snapshot.data ?? false;
 

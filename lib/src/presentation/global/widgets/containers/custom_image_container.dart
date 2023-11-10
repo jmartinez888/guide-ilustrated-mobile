@@ -9,6 +9,8 @@ class CustomImageContainer extends StatelessWidget {
   final BorderRadius? borderRadius;
   final bool fitImage;
   final Color? mainColor;
+  final Widget Function(BuildContext, String, DownloadProgress)?
+      progressIndicatorBuilder;
   final void Function()? onTap;
   const CustomImageContainer({
     Key? key,
@@ -20,6 +22,7 @@ class CustomImageContainer extends StatelessWidget {
     this.mainColor,
     this.onTap,
     this.heightImageInAnother,
+    this.progressIndicatorBuilder,
   }) : super(key: key);
 
   @override
@@ -41,7 +44,7 @@ class CustomImageContainer extends StatelessWidget {
                     imageUrl: imageUrl,
                     width: double.infinity,
                     fit: fitImage ? BoxFit.cover : BoxFit.contain,
-                    progressIndicatorBuilder:
+                    progressIndicatorBuilder: progressIndicatorBuilder ??
                         (context, url, downloadProgress) => SizedBox(
                       height: heightImageInAnother,
                       width: width,
