@@ -23,8 +23,8 @@ class ProfilePage extends StatelessWidget {
           actions: [
             IconButton(
               tooltip: 'Cerrar sesión',
-              onPressed: () {
-                authRepository.signOut();
+              onPressed: () async {
+                await authRepository.signOut();
                 context.goNamed(Routes.species);
               },
               icon: const Icon(Icons.logout_rounded),
