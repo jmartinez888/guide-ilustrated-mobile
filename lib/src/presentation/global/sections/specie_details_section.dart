@@ -7,7 +7,6 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
@@ -95,7 +94,7 @@ class SpecieDetailsSection extends StatelessWidget {
           ),
           if (specie.sound.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(top: 8.0),
               child: CustomAudioBar(
                 audioUrl: specie.sound,
                 backgroundColor: mainColor,

@@ -67,6 +67,9 @@ class AuthIiapRepositoryImpl extends AuthRepository {
     } on FirebaseAuthException catch (e) {
       late String text;
       switch (e.code) {
+        case 'INVALID_LOGIN_CREDENTIALS':
+          text = 'Error al ingresar';
+          break;
         case 'user-not-found':
           text = 'Este correo no está registrado';
           break;
@@ -75,7 +78,7 @@ class AuthIiapRepositoryImpl extends AuthRepository {
           break;
         case 'unusual activity':
           text =
-              'Hemos bloquedo todas las solicitudes de este dispositivo debido a una actividad inusual. El acceso a esta cuenta ha sido deshabilitado temporalmente debido a demasiados intentos fallidos de iniciar sesión. Por favor, intenta más tarde';
+              'El acceso a esta cuenta ha sido deshabilitado temporalmente debido a demasiados intentos fallidos de iniciar sesión. Por favor, intenta más tarde';
 
           break;
         case 'network-request-failed':
