@@ -8,8 +8,8 @@ import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/utils/upload_image.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile/components/image_picker.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile/components/profile_form.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/image_picker.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/profile_form.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/widgets/success_modal.dart';
 
 class EditProfile extends StatefulWidget {
