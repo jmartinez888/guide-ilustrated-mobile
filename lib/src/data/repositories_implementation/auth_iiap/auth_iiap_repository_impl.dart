@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 
@@ -139,6 +140,61 @@ class AuthIiapRepositoryImpl extends AuthRepository {
     return {};
   }
 
+  Future<void> deleteUserFiles() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        // Obtener una referencia al bucket de Firebase Storage
+        final storage = FirebaseStorage.instance;
+        final storageRef = storage.ref();
+
+        // Especificar la ruta dentro de Storage donde se almacenan los archivos del usuario images/users/$userId/profile
+        final userFilesRef = storageRef.child('images/users/${user.uid}');
+
+        // Listar todos los elementos (archivos) en la carpeta del usuario
+        final ListResult result = await userFilesRef.listAll();
+
+        // Eliminar cada archivo en la carpeta del usuario
+        await Future.forEach(result.items, (Reference item) async {
+          await item.delete();
+        });
+
+        // Eliminar la carpeta del usuario
+        await userFilesRef.delete();
+
+        // Continuar con otras operaciones de eliminación (usuarios, datos en Firestore, etc.)
+      } else {
+        throw Exception('El usuario no está autenticado.');
+      }
+    } catch (e) {
+      throw Exception('Error al borrar archivos del usuario: $e');
+    }
+  }
+
+  Future<void> deleteFavoritesSubfolder(String userId) async {
+    try {
+      // Eliminar la subcarpeta 'favorites' asociada al usuario
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('favorites')
+          .get();
+
+      List<DocumentSnapshot> documents = snapshot.docs;
+
+      // Eliminar documentos por lotes
+      WriteBatch batch = FirebaseFirestore.instance.batch();
+      for (var doc in documents) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+    } catch (e) {
+      throw Exception('Error al borrar la subcarpeta de favoritos: $e');
+    }
+  }
+
   Future<void> deleteUserAccount(String password) async {
     try {
       final user = _firebaseAuth.currentUser;
@@ -152,22 +208,11 @@ class AuthIiapRepositoryImpl extends AuthRepository {
 
         await user.reauthenticateWithCredential(credential);
 
-        // Eliminar la subcarpeta de "favoritos" asociada al usuario
-        QuerySnapshot snapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .collection('favorites')
-            .get();
+        // Eliminar la subcarpeta 'favorites' asociada al usuario
+        await deleteFavoritesSubfolder(user.uid);
 
-        List<DocumentSnapshot> documents = snapshot.docs;
-
-        // Eliminar documentos por lotes
-        WriteBatch batch = FirebaseFirestore.instance.batch();
-        for (var doc in documents) {
-          batch.delete(doc.reference);
-        }
-
-        await batch.commit();
+        // Eliminar los archivos del usuario en Firebase Storage
+        await deleteUserFiles();
 
         // Eliminar los datos relacionados con el usuario en Firestore
         await FirebaseFirestore.instance
