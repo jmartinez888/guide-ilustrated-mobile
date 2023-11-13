@@ -86,7 +86,9 @@ class _SearchPageState extends State<SearchPage> {
                     icon: const Icon(Icons.clear_rounded))
                 : IconButton(
                     tooltip: 'Buscar',
-                    onPressed: () {},
+                    onPressed: () {
+                      _focusNode.requestFocus();
+                    },
                     icon: const Icon(Icons.search_rounded)),
             const SizedBox(width: 8.0),
           ],
@@ -316,7 +318,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         title: Text(item.name),
                         subtitle: Text(item.scientificName),
-                        trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                        trailing: const Icon(Icons.chevron_right_rounded),
                       ),
                     ),
                   ),

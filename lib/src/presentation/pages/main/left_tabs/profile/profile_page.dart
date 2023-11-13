@@ -170,9 +170,10 @@ class __HeaderProfileState extends State<_HeaderProfile> {
                       alignment: Alignment.center,
                       child: Text(
                         name + ' ' + lastName,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge!
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
                     const SizedBox(height: 8.0),
@@ -242,7 +243,7 @@ class _ContentProfile extends StatelessWidget {
             ),
             title: 'Mis favoritos',
             trailing: const Icon(
-              Icons.chevron_right,
+              Icons.chevron_right_rounded,
               color: Colors.grey,
             ),
           ),
@@ -256,7 +257,7 @@ class _ContentProfile extends StatelessWidget {
             ),
             title: 'Cambiar contraseña',
             trailing: const Icon(
-              Icons.chevron_right,
+              Icons.chevron_right_rounded,
               color: Colors.grey,
             ),
           ),
@@ -271,7 +272,7 @@ class _ContentProfile extends StatelessWidget {
             ),
             title: 'Invitar amigos',
             trailing: const Icon(
-              Icons.chevron_right,
+              Icons.chevron_right_rounded,
               color: Colors.grey,
             ),
           ),
@@ -285,7 +286,7 @@ class _ContentProfile extends StatelessWidget {
             ),
             title: 'Sobre el proyecto',
             trailing: const Icon(
-              Icons.chevron_right,
+              Icons.chevron_right_rounded,
               color: Colors.grey,
             ),
           ),
@@ -299,7 +300,7 @@ class _ContentProfile extends StatelessWidget {
             ),
             title: 'Sobre nosotros',
             trailing: const Icon(
-              Icons.chevron_right,
+              Icons.chevron_right_rounded,
               color: Colors.grey,
             ),
           ),
@@ -310,7 +311,7 @@ class _ContentProfile extends StatelessWidget {
             ),
             title: 'Eliminar cuenta',
             trailing: Icon(
-              Icons.chevron_right,
+              Icons.chevron_right_rounded,
               color: Colors.grey,
             ),
           ),

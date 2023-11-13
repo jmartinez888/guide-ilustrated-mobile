@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:species/src/presentation/global/icons/custom_icons.dart';
+import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
@@ -16,16 +18,9 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/main_species.dart';
 import 'package:species/src/presentation/pages/main/main_left_nav.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/bardcoding/bardcoding_page.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/biological_data/biological_data_page.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/how_to_deposit/how_to_deposit_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/indigenous_community_page.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/maps/maps_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/profile_page.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/scientific_resources/scientific_resources_page.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/specialists/specialists_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
-// import 'package:species/src/presentation/pages/main/left_tabs/viewfinder/viewfinder_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/pdf_preview.dart/pdf_preview_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/specie_details/specie_details_page.dart';
 import 'package:species/src/presentation/pages/splash/splash_page.dart';
@@ -38,6 +33,15 @@ final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 final appRouter = GoRouter(
   initialLocation: Routes.splash,
   navigatorKey: parentNavigatorKey,
+  errorBuilder: (context, state) => Scaffold(
+    body: MessageException(
+      lottie: 'assets/lotties/error_data.json',
+      text: 'Esta página ya no existe',
+      onPressed: () => context.goNamed(Routes.species),
+      buttonText: 'Volver a Especies',
+      icon: CustomIcons.bird,
+    ),
+  ),
   routes: [
     GoRoute(
       path: Routes.splash,
