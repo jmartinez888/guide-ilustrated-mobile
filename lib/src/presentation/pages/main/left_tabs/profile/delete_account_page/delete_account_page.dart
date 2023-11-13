@@ -104,28 +104,36 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirmar'),
-          content: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                    '¿Estás seguro de que quieres borrar tu cuenta? Ingrese su contraseña para confirmar:'),
-                const SizedBox(height: 8),
-                TextFormField(
-                  enabled: enabled,
-                  focusNode: _passwordFocusNode,
-                  onTapOutside: (event) => _passwordFocusNode.unfocus(),
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Contraseña',
-                    hintText: 'Ingrese su contraseña',
-                  ),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      '¿Estás seguro de que quieres borrar tu cuenta? Ingrese su contraseña para confirmar:',
+                    ),
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      enabled: enabled,
+                      focusNode: _passwordFocusNode,
+                      onTapOutside: (event) => _passwordFocusNode.unfocus(),
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Contraseña',
+                        hintText: 'Ingrese su contraseña',
+                      ),
+                    ),
+                    if (!enabled)
+                      const SizedBox(
+                          height: 16.0, child: CircularProgressIndicator()),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
           actions: [
             FilledButton(
@@ -149,21 +157,42 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       title: 'Ingrese su contraseña',
                       backgroundColor: colorScheme.error,
                     );
+                    setState(() {
+                      enabled = true;
+                    });
                     return;
                   } else {
                     try {
+                      // Mostrar indicador de carga antes de la operación de eliminación
+                      setState(() {
+                        enabled = false;
+                      });
+
+                      // Realizar la operación de eliminación
                       await _deleteUserAccount(password);
+
+                      // Navegar a la pantalla deseada
                       context.goNamed(Routes.species);
+
+                      // Mostrar mensaje de éxito
                       customSnackBar(
                         context: currentContext,
                         title: 'Cuenta eliminada exitosamente',
                       );
                     } catch (e) {
+                      _passwordController.clear();
+                      // Mostrar mensaje de error en caso de fallo
                       customSnackBar(
                         context: currentContext,
                         title: e.toString(),
                         backgroundColor: colorScheme.error,
                       );
+                    } finally {
+                      _passwordController.clear();
+                      // Ocultar indicador de carga después de la operación
+                      setState(() {
+                        enabled = true;
+                      });
                     }
                   }
                 }
