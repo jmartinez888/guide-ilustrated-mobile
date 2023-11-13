@@ -151,7 +151,7 @@ class AuthIiapRepositoryImpl extends AuthRepository {
 
         // Especificar la ruta dentro de Storage donde se almacenan los archivos del usuario images/users/$userId/profile
         final userFilesRef =
-            storageRef.child('images').child('users').child(user.uid);
+            storageRef.child('images/users/${user.uid}/profile/${user.uid}');
 
         // Eliminar la carpeta del usuario
         await userFilesRef.delete();
@@ -203,7 +203,7 @@ class AuthIiapRepositoryImpl extends AuthRepository {
         await deleteFavoritesSubfolder(user.uid);
 
         // Eliminar los archivos del usuario en Firebase Storage
-        //await deleteUserFiles();
+        await deleteUserFiles();
 
         // Eliminar los datos relacionados con el usuario en Firestore
         await FirebaseFirestore.instance
