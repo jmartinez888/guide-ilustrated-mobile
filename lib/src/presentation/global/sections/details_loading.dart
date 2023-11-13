@@ -10,7 +10,7 @@ class DetailsLoading extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return GridTwoResponsive(
       leftChild: SkeletonConatiner(
-        height: size.height > size.width + 32.0 ? 288 : double.infinity,
+        height: size.height > size.width + 32.0 ? 384 : double.infinity,
         width: double.infinity,
       ),
       rightChildren: const [

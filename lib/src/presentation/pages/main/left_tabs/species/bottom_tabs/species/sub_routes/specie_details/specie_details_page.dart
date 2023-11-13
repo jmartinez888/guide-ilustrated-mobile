@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/sections/details_loading.dart';
 import 'package:species/src/presentation/global/sections/specie_details_section.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
-import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
-import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/pages/providers/species/specie_detail_provider.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
