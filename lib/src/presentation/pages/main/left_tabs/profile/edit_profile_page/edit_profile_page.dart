@@ -64,11 +64,13 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         });
       }
     } catch (error) {
-      customSnackBar(
-        context: context,
-        title: 'Error al cargar los datos del usuario',
-        backgroundColor: Colors.red,
-      );
+      if (mounted) {
+        customSnackBar(
+          context: context,
+          title: 'Error al cargar los datos del usuario',
+          backgroundColor: Colors.red,
+        );
+      }
     }
   }
 
@@ -193,7 +195,9 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         }
 
         // Muestra un mensaje de éxito
-        profileSuccessModal(context);
+        if (mounted) {
+          profileSuccessModal(context);
+        }
 
         // Limpiar el formulario
         _nameController.clear();
@@ -207,11 +211,13 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         enabled = true;
         setState(() {});
       } catch (error) {
-        customSnackBar(
-          context: context,
-          title: 'Error al actualizar el perfil',
-          backgroundColor: Colors.red,
-        );
+        if (mounted) {
+          customSnackBar(
+            context: context,
+            title: 'Error al guardar el perfil',
+            backgroundColor: Colors.red,
+          );
+        }
 
         // Habilitar el botón de guardar
         enabled = true;

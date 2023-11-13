@@ -5,9 +5,14 @@ import 'package:species/src/presentation/pages/main/left_tabs/profile/components
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_header.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final authRepository = AuthIiapRepositoryImpl();
@@ -21,7 +26,9 @@ class ProfilePage extends StatelessWidget {
               tooltip: 'Cerrar sesión',
               onPressed: () async {
                 await authRepository.signOut();
-                context.goNamed(Routes.species);
+                if (mounted) {
+                  context.goNamed(Routes.species);
+                }
               },
               icon: const Icon(Icons.logout_rounded),
             ),

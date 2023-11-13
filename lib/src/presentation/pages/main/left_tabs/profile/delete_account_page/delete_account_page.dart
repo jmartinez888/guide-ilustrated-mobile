@@ -172,21 +172,27 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       await _deleteUserAccount(password);
 
                       // Navegar a la pantalla deseada
-                      context.goNamed(Routes.species);
+                      if (mounted) {
+                        context.goNamed(Routes.species);
+                      }
 
                       // Mostrar mensaje de éxito
-                      customSnackBar(
-                        context: currentContext,
-                        title: 'Cuenta eliminada exitosamente',
-                      );
+                      if (mounted) {
+                        customSnackBar(
+                          context: currentContext,
+                          title: 'Cuenta eliminada exitosamente',
+                        );
+                      }
                     } catch (e) {
                       _passwordController.clear();
                       // Mostrar mensaje de error en caso de fallo
-                      customSnackBar(
-                        context: currentContext,
-                        title: e.toString(),
-                        backgroundColor: colorScheme.error,
-                      );
+                      if (mounted) {
+                        customSnackBar(
+                          context: currentContext,
+                          title: e.toString(),
+                          backgroundColor: colorScheme.error,
+                        );
+                      }
                     } finally {
                       _passwordController.clear();
                       // Ocultar indicador de carga después de la operación

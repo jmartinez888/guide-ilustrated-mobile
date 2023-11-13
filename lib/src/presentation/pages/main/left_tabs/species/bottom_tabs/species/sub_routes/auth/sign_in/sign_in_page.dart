@@ -303,30 +303,36 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
             final userData = await userRepository.getUserData(id);
             if (user?.emailVerified == true && userData.isNotEmpty) {
               // El usuario está verificado y existe en la base de datos, inicia sesión y redirige
-              context.goNamed(Routes.species);
+              if (mounted) {
+                context.goNamed(Routes.species);
+              }
             } else if (user?.emailVerified == true) {
               // El usuario está verificado pero no existe en la base de datos, créalo
               userRepository.createUser(
                 userId: id,
                 email: email,
               );
-              context.goNamed(Routes.species);
+              if (mounted) {
+                context.goNamed(Routes.species);
+              }
             } else {
               // El usuario no está verificado
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => CustomBottomSheet(
-                  title: 'Primero verifica tu correo electrónico',
-                  body: const [
-                    Text(
-                        'Debes verificar tu correo electrónico para poder ingresar'),
-                  ],
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: () => Navigator.maybePop(context),
-                    child: const Icon(Icons.check_rounded),
+              if (mounted) {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => CustomBottomSheet(
+                    title: 'Primero verifica tu correo electrónico',
+                    body: const [
+                      Text(
+                          'Debes verificar tu correo electrónico para poder ingresar'),
+                    ],
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () => Navigator.maybePop(context),
+                      child: const Icon(Icons.check_rounded),
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             }
           }
         },
