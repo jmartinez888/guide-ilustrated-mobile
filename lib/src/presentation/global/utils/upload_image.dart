@@ -8,5 +8,5 @@ pickImage(ImageSource source) async {
     return await image.readAsBytes();
   }
 
-  print('No image selected.');
+  return null;
 }

@@ -6,7 +6,8 @@ import 'package:species/src/domain/entities/user.dart';
 import 'package:species/src/domain/repositories/user/user_repository.dart';
 
 class UserIiapRepositoryImpl extends UserRepository {
-  final firebaseFirestoreInstance = FirebaseFirestore.instance.collection('users');
+  final firebaseFirestoreInstance =
+      FirebaseFirestore.instance.collection('users');
   final firebaseStorageInstance = FirebaseStorage.instance;
 
   @override
