@@ -106,25 +106,48 @@ class _SpeciesPageState extends State<SpeciesPage>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final textTheme = Theme.of(context).textTheme;
+    final tabBar = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: TabBar(
+          physics: const BouncingScrollPhysics(),
+          controller: _tabController,
+          splashBorderRadius: BorderRadius.circular(16.0),
+          indicatorColor: _tabIndicatorColor[_tabController.index],
+          labelColor: _tabIndicatorColor[_tabController.index],
+          isScrollable: true,
+          onTap: (index) => setState(() => _tabController.index = index),
+          tabs: _tabs,
+        ),
+      
+    );
     return DefaultTabController(
       length: _pageData.length,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppBar(title: const Text('Especies')),
-          Align(
-            alignment: Alignment.center,
-            child: TabBar(
-              controller: _tabController,
-              splashBorderRadius: BorderRadius.circular(16.0),
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              indicatorColor: _tabIndicatorColor[_tabController.index],
-              labelColor: _tabIndicatorColor[_tabController.index],
-              isScrollable: true,
-              onTap: (index) => setState(() => _tabController.index = index),
-              tabs: _tabs,
+          Container(
+              padding: const EdgeInsets.only(left: 56.0),
+              height: 56.0,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Text(
+                    'Especies',
+                    style: textTheme.titleLarge,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+                  if (size.height < size.width + 32.0) Expanded(child: tabBar),
+                ],
+              )),
+          if (size.height > size.width + 32.0)
+            Align(
+              alignment: Alignment.center,
+              child: tabBar,
             ),
-          ),
           Expanded(
             child: TabBarView(
               physics: const BouncingScrollPhysics(),
