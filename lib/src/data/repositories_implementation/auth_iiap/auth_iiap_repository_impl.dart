@@ -4,7 +4,7 @@ import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 
 class AuthIiapRepositoryImpl extends AuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth get _firebaseAuth => FirebaseAuth.instance;
 
   @override
   Future<Either<String, UserCredential>> signUp({
@@ -144,11 +144,6 @@ class AuthIiapRepositoryImpl extends AuthRepository {
       final user = _firebaseAuth.currentUser;
 
       if (user != null) {
-        // Validar la contraseña antes de reautenticar
-        if (password.isEmpty) {
-          throw Exception('La contraseña no puede estar vacía.');
-        }
-
         // Reautenticar al usuario con la contraseña ingresada
         final credential = EmailAuthProvider.credential(
           email: user.email ?? '',
@@ -156,6 +151,23 @@ class AuthIiapRepositoryImpl extends AuthRepository {
         );
 
         await user.reauthenticateWithCredential(credential);
+
+        // Eliminar la subcarpeta de "favoritos" asociada al usuario
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .collection('favorites')
+            .get();
+
+        List<DocumentSnapshot> documents = snapshot.docs;
+
+        // Eliminar documentos por lotes
+        WriteBatch batch = FirebaseFirestore.instance.batch();
+        for (var doc in documents) {
+          batch.delete(doc.reference);
+        }
+
+        await batch.commit();
 
         // Eliminar los datos relacionados con el usuario en Firestore
         await FirebaseFirestore.instance

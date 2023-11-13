@@ -1,8 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -22,66 +22,66 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   final _passwordFocusNode = FocusNode();
   bool enabled = true;
 
-  // final _getUserInfo = AuthIiapRepositoryImpl().getUserInfo;
-  // final _deleteUserAccount = AuthIiapRepositoryImpl().deleteUserAccount;
+  final _getUserInfo = AuthIiapRepositoryImpl().getUserInfo;
+  final _deleteUserAccount = AuthIiapRepositoryImpl().deleteUserAccount;
 
-  Future<Map<String, dynamic>> getUserData() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-      if (doc.exists) {
-        return doc.data() as Map<String, dynamic>;
-      }
-    }
-    return {};
-  }
+  // Future<Map<String, dynamic>> getUserData() async {
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     final doc = await FirebaseFirestore.instance
+  //         .collection('users')
+  //         .doc(user.uid)
+  //         .get();
+  //     if (doc.exists) {
+  //       return doc.data() as Map<String, dynamic>;
+  //     }
+  //   }
+  //   return {};
+  // }
 
-  FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
+  // FirebaseAuth get firebaseAuth => FirebaseAuth.instance;
 
-  Future<void> _reauthenticateAndDelete() async {
-    try {
-      final user = firebaseAuth.currentUser;
+  // Future<void> _reauthenticateAndDelete() async {
+  //   try {
+  //     final user = firebaseAuth.currentUser;
 
-      // Aquí puedes verificar otros proveedores de autenticación si los tienes
-      // if (user?.providerData.any((provider) => provider.providerId == 'otro_proveedor') ?? false) {
-      // Lógica para reautenticar con otro proveedor si es necesario
-      // }
+  //     // Aquí puedes verificar otros proveedores de autenticación si los tienes
+  //     // if (user?.providerData.any((provider) => provider.providerId == 'otro_proveedor') ?? false) {
+  //     // Lógica para reautenticar con otro proveedor si es necesario
+  //     // }
 
-      // Puedes reautenticar al usuario aquí si es necesario
-      // await user?.reauthenticateWithCredential(credential);
+  //     // Puedes reautenticar al usuario aquí si es necesario
+  //     // await user?.reauthenticateWithCredential(credential);
 
-      // Elimina la cuenta del usuario después de la reautenticación
-      await user?.delete();
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e.message ?? 'Error al borrar la cuenta');
-    } catch (e) {
-      throw Exception('Error al borrar la cuenta $e');
-    }
-  }
+  //     // Elimina la cuenta del usuario después de la reautenticación
+  //     await user?.delete();
+  //   } on FirebaseAuthException catch (e) {
+  //     throw Exception(e.message ?? 'Error al borrar la cuenta');
+  //   } catch (e) {
+  //     throw Exception('Error al borrar la cuenta $e');
+  //   }
+  // }
 
-  Future<void> deleteUserAccount() async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
+  // Future<void> _deleteUserAccount() async {
+  //   try {
+  //     final user = FirebaseAuth.instance.currentUser;
 
-      if (user != null) {
-        // Elimina los datos relacionados con el usuario en Firestore
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .delete();
+  //     if (user != null) {
+  //       // Elimina los datos relacionados con el usuario en Firestore
+  //       await FirebaseFirestore.instance
+  //           .collection('users')
+  //           .doc(user.uid)
+  //           .delete();
 
-        // Borra la cuenta del usuario solo si la reautenticación es exitosa
-        await _reauthenticateAndDelete();
-      }
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e.message ?? 'Error al borrar la cuenta');
-    } catch (e) {
-      throw Exception('Error al borrar la cuenta $e');
-    }
-  }
+  //       // Borra la cuenta del usuario solo si la reautenticación es exitosa
+  //       await _reauthenticateAndDelete();
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     throw Exception(e.message ?? 'Error al borrar la cuenta');
+  //   } catch (e) {
+  //     throw Exception('Error al borrar la cuenta $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         title: const Text('Eliminar cuenta'),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: getUserData(),
+        future: _getUserInfo(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SizedBox(
@@ -212,7 +212,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     return;
                   } else {
                     try {
-                      await deleteUserAccount();
+                      await _deleteUserAccount(password);
                       context.goNamed(Routes.species);
                       customSnackBar(
                         context: currentContext,
