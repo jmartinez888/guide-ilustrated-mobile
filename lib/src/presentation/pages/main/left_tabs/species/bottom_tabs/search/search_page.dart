@@ -29,6 +29,10 @@ class _SearchPageState extends State<SearchPage> {
   int? selectedClass;
   int? selectedOrder;
   int? selectedFamily;
+  int? hasSound;
+  int? conservationStatus;
+  int? taxonomyId;
+  String? orderNameScientific;
 
   @override
   void initState() {
@@ -40,7 +44,11 @@ class _SearchPageState extends State<SearchPage> {
         query: searchController.text.trim(),
         class_: selectedClass,
         order: selectedOrder,
+        hasSound: hasSound,
         family: selectedFamily,
+        orderNameScientific: orderNameScientific,
+        conservationStatus: conservationStatus,
+        taxonomyId: taxonomyId,
       );
     });
     super.initState();
@@ -112,6 +120,10 @@ class _SearchPageState extends State<SearchPage> {
                                 selectedClass = null;
                                 selectedOrder = null;
                                 selectedFamily = null;
+                                hasSound = null;
+                                orderNameScientific = null;
+                                conservationStatus = null;
+                                taxonomyId = null;
                                 _pagingController.refresh();
                               });
                             },
@@ -129,7 +141,65 @@ class _SearchPageState extends State<SearchPage> {
                       child: Wrap(
                         alignment: WrapAlignment.start,
                         spacing: 8.0,
+                        runSpacing: 8.0,
                         children: [
+                          // ASC/DESC filter
+                          Column(
+                            children: [
+                              const Text('Ordenar por nombre científico'),
+                              ToggleButtons(
+                                isSelected: orderNameScientific == null
+                                    ? [false, false]
+                                    : orderNameScientific == 'ASC'
+                                        ? [true, false]
+                                        : [false, true],
+                                onPressed: (index) {
+                                  setState(() {
+                                    orderNameScientific =
+                                        index == 0 ? 'ASC' : 'DESC';
+                                    _pagingController.refresh();
+                                  });
+                                },
+                                children: const [
+                                  Column(
+                                    children: [
+                                      Text('ASC'),
+                                      Icon(Icons.arrow_upward_rounded),
+                                    ],
+                                  ),
+                                  Column(children: [
+                                    Text('DESC'),
+                                    Icon(Icons.arrow_downward_rounded),
+                                  ]),
+                                ],
+                              ),
+                            ],
+                          ),
+
+                          // Add sound filter
+                          Column(
+                            children: [
+                              const Text('Filtrar por sonido'),
+                              ToggleButtons(
+                                isSelected: hasSound == null
+                                    ? [false, false]
+                                    : hasSound == 1
+                                        ? [true, false]
+                                        : [false, true],
+                                onPressed: (index) {
+                                  setState(() {
+                                    hasSound = index == 0 ? 1 : 0;
+                                    _pagingController.refresh();
+                                  });
+                                },
+                                children: const [
+                                  Icon(Icons.volume_up_rounded),
+                                  Icon(Icons.volume_off_rounded),
+                                ],
+                              ),
+                            ],
+                          ),
+
                           FutureBuilder<List<Class>>(
                             future: specieRepository.getClasses(),
                             builder: (BuildContext context,

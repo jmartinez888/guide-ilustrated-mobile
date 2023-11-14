@@ -472,6 +472,10 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     int? family,
     int? order,
     int? class_,
+    String? orderNameScientific = '',
+    int? conservationStatus,
+    int? hasSound,
+    int? taxonomyId,
     required int pageKey,
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
@@ -483,11 +487,13 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
         body: jsonEncode({
           "page": pageKey,
           "pageSize": numberOfPostsPerRequest,
-          "taxonomyId": "",
+          "taxonomyId": taxonomyId,
           "classId": class_,
           "orderId": order,
           "familyId": family,
-          "conservationStatus": "",
+          "conservationStatus": conservationStatus,
+          "hasSound": hasSound,
+          "orderNameScientific": orderNameScientific,
           "search": query
         }),
       );
