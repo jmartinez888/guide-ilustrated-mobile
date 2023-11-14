@@ -143,6 +143,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                                   _emailFocusNode.unfocus(),
                               controller: _emailController,
                               enabled: enabled,
+                              textInputAction: TextInputAction.next,
                               autovalidateMode: validateInInput
                                   ? AutovalidateMode.onUserInteraction
                                   : null,
@@ -169,6 +170,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               onTapOutside: (event) =>
                                   _passwordFocusNode.unfocus(),
                               enabled: enabled,
+                              textInputAction: TextInputAction.done,
                               controller: _passwordController,
                               autovalidateMode: validateInInput
                                   ? AutovalidateMode.onUserInteraction
