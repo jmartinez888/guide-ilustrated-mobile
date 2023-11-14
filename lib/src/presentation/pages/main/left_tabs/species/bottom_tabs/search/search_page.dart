@@ -109,7 +109,9 @@ class _SearchPageState extends State<SearchPage> {
               children: [
                 Column(
                   children: [
-                    if (selectedClass != null)
+                    if (selectedClass != null ||
+                        orderNameScientific != null ||
+                        hasSound != null)
                       Align(
                         alignment: Alignment.topRight,
                         child: SizedBox(
