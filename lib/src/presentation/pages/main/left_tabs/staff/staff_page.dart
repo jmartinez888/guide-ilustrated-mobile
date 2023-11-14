@@ -14,19 +14,13 @@ class StaffPage extends StatelessWidget {
       slivers: [
         const SliverAppBar(title: Text('Equipo de trabajo'), pinned: true),
         SliverToBoxAdapter(
-            child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
-        )),
-        SliverToBoxAdapter(
-            child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
-              _text('Manuel Martín Brañas\nJuan José Bellido Collahuacho'),
-            ],
-          ),
+            child: Column(
+          children: [
+            _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
+            const SizedBox(height: 8.0),
+            _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
+            _text('Manuel Martín Brañas\nJuan José Bellido Collahuacho'),
+          ],
         )),
         SliverToBoxAdapter(
           child: _subtitleSection(context, 'COMITÉ REVISOR'),
@@ -85,21 +79,56 @@ class StaffPage extends StatelessWidget {
                   _text('Juan José Palacios Vega y Lizardo Fachín Malaverri.'),
                 ]),
               ),
-              SizedBox(
-                child: Column(children: [
-                  _reviewerTitle(context, 'Ilustraciones:'),
-                  _text(
-                      'Jaime Choclote Martínez; Nicolás Farroñay Kanaffo y Javier Vela.'),
-                ]),
-              ),
             ],
           ),
         ),
         SliverToBoxAdapter(
-            child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: _titleSection(context, 'EQUIPO DE DESARROLLO'),
-        )),
+          child: Column(
+            children: [
+              _subtitleSection(context, 'ILUSTRACIONES'),
+              const SizedBox(height: 8.0),
+              _text('Jaime Choclote Martínez\n Javier Vela. (palmeras)'),
+            ],
+          ),
+        ),
+        SliverToBoxAdapter(child: _subtitleSection(context, 'SONIDOS')),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: SizedBox(
+              height: 260,
+              width: double.infinity,
+              child: Center(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  children: [
+                    SizedBox(
+                        child: Column(
+                      children: [
+                        _reviewerTitle(context, 'Aves'),
+                        _text(
+                            'Roger Ahlman\n Frank Lambert\n Juan Diaz\n Thomas S. Schulenberg\n Curtis A. Marantz\n Peter H. English\n Ohn V. Moore\n Niels Krabbe\n Olaf Jhan'),
+                      ],
+                    )),
+                    const SizedBox(width: 16.0),
+                    SizedBox(
+                        child: Column(
+                      children: [
+                        _reviewerTitle(context, 'Monos'),
+                        _text('Roberta Aralla'),
+                        _reviewerTitle(context, 'Anfibios'),
+                        _text('José Manuel Padial'),
+                      ],
+                    )),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(
+            child: _titleSection(context, 'EQUIPO DE DESARROLLO')),
         SliverToBoxAdapter(
           child: MasonryGridView(
             padding: const EdgeInsets.all(16.0),
