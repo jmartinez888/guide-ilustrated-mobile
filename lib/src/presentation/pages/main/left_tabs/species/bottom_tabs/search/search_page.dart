@@ -111,7 +111,8 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     if (selectedClass != null ||
                         orderNameScientific != null ||
-                        hasSound != null)
+                        hasSound != null ||
+                        conservationStatus != null)
                       Align(
                         alignment: Alignment.topRight,
                         child: SizedBox(
@@ -145,63 +146,165 @@ class _SearchPageState extends State<SearchPage> {
                         spacing: 8.0,
                         runSpacing: 8.0,
                         children: [
-                          // ASC/DESC filter
-                          Column(
-                            children: [
-                              const Text('Ordenar por nombre científico'),
-                              ToggleButtons(
-                                isSelected: orderNameScientific == null
-                                    ? [false, false]
-                                    : orderNameScientific == 'ASC'
-                                        ? [true, false]
-                                        : [false, true],
-                                onPressed: (index) {
-                                  setState(() {
-                                    orderNameScientific =
-                                        index == 0 ? 'ASC' : 'DESC';
-                                    _pagingController.refresh();
-                                  });
-                                },
-                                children: const [
-                                  Column(
-                                    children: [
-                                      Text('ASC'),
-                                      Icon(Icons.arrow_upward_rounded),
-                                    ],
-                                  ),
-                                  Column(children: [
-                                    Text('DESC'),
-                                    Icon(Icons.arrow_downward_rounded),
-                                  ]),
-                                ],
-                              ),
-                            ],
-                          ),
+                          SizedBox(
+                            height: 80,
+                            width: double.infinity,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                // ASC/DESC filter
+                                Column(
+                                  children: [
+                                    const Text('Ordenar por nombre científico'),
+                                    ToggleButtons(
+                                      isSelected: orderNameScientific == null
+                                          ? [false, false]
+                                          : orderNameScientific == 'ASC'
+                                              ? [true, false]
+                                              : [false, true],
+                                      onPressed: (index) {
+                                        setState(() {
+                                          orderNameScientific =
+                                              index == 0 ? 'ASC' : 'DESC';
+                                          _pagingController.refresh();
+                                        });
+                                      },
+                                      children: const [
+                                        Column(
+                                          children: [
+                                            Text('ASC'),
+                                            Icon(Icons.arrow_upward_rounded),
+                                          ],
+                                        ),
+                                        Column(children: [
+                                          Text('DESC'),
+                                          Icon(Icons.arrow_downward_rounded),
+                                        ]),
+                                      ],
+                                    ),
+                                  ],
+                                ),
 
-                          // Add sound filter
-                          Column(
-                            children: [
-                              const Text('Filtrar por sonido'),
-                              ToggleButtons(
-                                isSelected: hasSound == null
-                                    ? [false, false]
-                                    : hasSound == 1
-                                        ? [true, false]
-                                        : [false, true],
-                                onPressed: (index) {
-                                  setState(() {
-                                    hasSound = index == 0 ? 1 : 0;
-                                    _pagingController.refresh();
-                                  });
-                                },
-                                children: const [
-                                  Icon(Icons.volume_up_rounded),
-                                  Icon(Icons.volume_off_rounded),
-                                ],
-                              ),
-                            ],
-                          ),
+                                // Add sound filter
+                                Column(
+                                  children: [
+                                    const Text('Filtrar por sonido'),
+                                    ToggleButtons(
+                                      isSelected: hasSound == null
+                                          ? [false, false]
+                                          : hasSound == 1
+                                              ? [true, false]
+                                              : [false, true],
+                                      onPressed: (index) {
+                                        setState(() {
+                                          hasSound = index == 0 ? 1 : 0;
+                                          _pagingController.refresh();
+                                        });
+                                      },
+                                      children: const [
+                                        Icon(Icons.volume_up_rounded),
+                                        Icon(Icons.volume_off_rounded),
+                                      ],
+                                    ),
+                                  ],
+                                ),
 
+                                // Add conservation status filter
+                                Column(
+                                  children: [
+                                    const Text(
+                                        'Filtrar por estado de conservación'),
+                                    ToggleButtons(
+                                      isSelected: conservationStatus == null
+                                          ? [false, false, false, false]
+                                          : conservationStatus == 1
+                                              ? [true, false, false, false]
+                                              : conservationStatus == 2
+                                                  ? [false, true, false, false]
+                                                  : conservationStatus == 3
+                                                      ? [
+                                                          false,
+                                                          false,
+                                                          true,
+                                                          false
+                                                        ]
+                                                      : [
+                                                          false,
+                                                          false,
+                                                          false,
+                                                          true
+                                                        ],
+                                      onPressed: (index) {
+                                        setState(() {
+                                          conservationStatus = index == 0
+                                              ? 1
+                                              : index == 1
+                                                  ? 2
+                                                  : index == 2
+                                                      ? 3
+                                                      : 4;
+                                          _pagingController.refresh();
+                                        });
+                                      },
+                                      children: const [
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('En peligro'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('Vulnerable'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('Casi amenazado'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text('Preocupación menor'),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                                // // Add taxonomy filter
+                                // Column(
+                                //   children: [
+                                //     const Text('Filtrar por taxonomía'),
+                                //     ToggleButtons(
+                                //       isSelected: taxonomyId == null
+                                //           ? [false, false, false, false]
+                                //           : taxonomyId == 1
+                                //               ? [true, false, false, false]
+                                //               : taxonomyId == 2
+                                //                   ? [false, true, false, false]
+                                //                   : taxonomyId == 3
+                                //                       ? [false, false, true, false]
+                                //                       : [false, false, false, true],
+                                //       onPressed: (index) {
+                                //         setState(() {
+                                //           taxonomyId = index == 0
+                                //               ? 1
+                                //               : index == 1
+                                //                   ? 2
+                                //                   : index == 2
+                                //                       ? 3
+                                //                       : 4;
+                                //           _pagingController.refresh();
+                                //         });
+                                //       },
+                                //       children: const [
+                                //         Text('Reino'),
+                                //         Text('Filo'),
+                                //         Text('Clase'),
+                                //         Text('Orden'),
+                                //       ],
+                                //     ),
+                                //   ],
+                                // ),
+                              ],
+                            ),
+                          ),
                           FutureBuilder<List<Class>>(
                             future: specieRepository.getClasses(),
                             builder: (BuildContext context,
