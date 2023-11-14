@@ -150,6 +150,7 @@ class _SearchPageState extends State<SearchPage> {
                             height: 80,
                             width: double.infinity,
                             child: ListView(
+                              physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.horizontal,
                               children: [
                                 // ASC/DESC filter
@@ -215,6 +216,9 @@ class _SearchPageState extends State<SearchPage> {
                                     const Text(
                                         'Filtrar por estado de conservación'),
                                     ToggleButtons(
+                                      selectedColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       isSelected: conservationStatus == null
                                           ? [false, false, false, false]
                                           : conservationStatus == 1
