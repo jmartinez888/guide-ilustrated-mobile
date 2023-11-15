@@ -1,4 +1,3 @@
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -8,6 +7,8 @@ import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/filters_options.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/no_result.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SearchPage extends StatefulWidget {
@@ -88,7 +89,8 @@ class _SearchPageState extends State<SearchPage> {
             controller: searchController,
             decoration: const InputDecoration(
               border: InputBorder.none,
-              hintText: 'Búsqueda general',
+              hintText: 'Palometa...',
+              hintStyle: TextStyle(color: Colors.black26, fontSize: 16.0),
             ),
             onChanged: (value) => setState(() {
               searchController.text = value;
@@ -132,7 +134,7 @@ class _SearchPageState extends State<SearchPage> {
                     _pagingController.refresh();
                   },
                 ),
-                icon: const Icon(Icons.clear_rounded),
+                icon: const Icon(Icons.clear_all_rounded),
               ),
             // if (!_isFiltered())
             //   IconButton(
@@ -153,119 +155,126 @@ class _SearchPageState extends State<SearchPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                  height: 50,
+                  padding: const EdgeInsets.only(left: 16.0),
+                  height: 60,
                   width: double.infinity,
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     children: [
                       // ASC/DESC filter
-                      TextButton(
-                        style: TextButton.styleFrom(
+                      Container(
+                        margin: const EdgeInsets.only(right: 4.0),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
                             backgroundColor: orderNameScientific != null
                                 ? Theme.of(context)
                                     .colorScheme
                                     .secondary
                                     .withOpacity(0.3)
-                                : null),
-                        onPressed: () {
-                          _orderByNameScientificDialog(context);
-                        },
-                        child: const Text('Ordenar por nombre científico'),
+                                : null,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            _orderByNameScientificDialog(context);
+                          },
+                          child: Column(
+                            children: [
+                              const Icon(
+                                Icons.sort_by_alpha_rounded,
+                                size: 20.0,
+                              ),
+                              Text(
+                                orderNameScientific == 'ASC'
+                                    ? 'Ascendente'
+                                    : orderNameScientific == 'DESC'
+                                        ? 'Descendente'
+                                        : 'Ordenar',
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
 
                       // Add sound filter
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: hasSound != null
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(0.3)
-                                : null),
-                        onPressed: () {
-                          _filterBySoundDialog(context);
-                        },
-                        child: const Text('Filtrar por sonido'),
+                      _filterOptionButton(
+                        context: context,
+                        onPressed: () => _filterBySoundDialog(context),
+                        filterValue: hasSound,
+                        icon: Icons.volume_up_rounded,
+                        filterName: hasSound == 1
+                            ? 'Con sonido'
+                            : hasSound == 0
+                                ? 'Sin sonido'
+                                : 'Sonido',
                       ),
 
                       // Add conservation status filter
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: conservationStatus != null
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(0.3)
-                                : null),
-                        onPressed: () {
-                          _filterByConservationStatusDialog(context);
-                        },
-                        child: const Text('Filtrar por estado de conservación'),
+                      _filterOptionButton(
+                        context: context,
+                        onPressed: () => _filterByConservationStatusDialog(
+                          context,
+                        ),
+                        filterValue: conservationStatus,
+                        icon: Icons.eco_rounded,
+                        filterName: conservationStatus == 1
+                            ? 'En peligro'
+                            : conservationStatus == 2
+                                ? 'Vulnerable'
+                                : conservationStatus == 3
+                                    ? 'Casi amenazado'
+                                    : conservationStatus == 4
+                                        ? 'Preocupación menor'
+                                        : 'Estado',
                       ),
 
                       // Add taxonomy filter
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: taxonomyId != null
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(0.3)
-                                : null),
-                        onPressed: () {
-                          _filterByTaxonomyDialog(context);
-                        },
-                        child: const Text('Filtrar por taxonomía'),
+                      _filterOptionButton(
+                        context: context,
+                        onPressed: () => _filterByTaxonomyDialog(context),
+                        filterValue: taxonomyId,
+                        icon: Icons.category_rounded,
+                        filterName: taxonomyId == 1
+                            ? 'Taxonomía 1'
+                            : taxonomyId == 2
+                                ? 'Taxonomía 2'
+                                : taxonomyId == 3
+                                    ? 'Taxonomía 3'
+                                    : taxonomyId == 4
+                                        ? 'Taxonomía 4'
+                                        : 'Taxonomía',
                       ),
 
                       // Add class filter
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: selectedClass != null
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .secondary
-                                    .withOpacity(0.3)
-                                : null),
-                        onPressed: () {
-                          _filterByClassDialog(context);
-                        },
-                        child: const Text('Filtro clase'),
+                      _filterOptionButton(
+                        context: context,
+                        onPressed: () => _filterByClassDialog(context),
+                        filterValue: selectedClass,
+                        icon: Icons.class_rounded,
+                        filterName: 'Clase',
                       ),
 
                       // Add order filter
                       if (selectedClass != null)
-                        TextButton(
-                          style: TextButton.styleFrom(
-                              backgroundColor: selectedOrder != null
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .secondary
-                                      .withOpacity(0.3)
-                                  : null),
-                          onPressed: () {
-                            _filterByOrderDialog(context);
-                          },
-                          child: const Text('Filtro orden'),
+                        _filterOptionButton(
+                          context: context,
+                          onPressed: () => _filterByOrderDialog(context),
+                          filterValue: selectedOrder,
+                          icon: Icons.sort_rounded,
+                          filterName: 'Orden',
                         ),
 
                       // Add family filter
                       if (selectedOrder != null)
-                        TextButton(
-                          style: TextButton.styleFrom(
-                              backgroundColor: selectedFamily != null
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .secondary
-                                      .withOpacity(0.3)
-                                  : null),
-                          onPressed: () {
-                            _filterByFamilyDialog(context);
-                          },
-                          child: const Text('Filtro familia'),
-                        )
+                        _filterOptionButton(
+                          context: context,
+                          onPressed: () => _filterByFamilyDialog(context),
+                          filterValue: selectedFamily,
+                          icon: Icons.family_restroom_rounded,
+                          filterName: 'Familia',
+                        ),
                     ],
                   ),
                 ),
@@ -276,7 +285,7 @@ class _SearchPageState extends State<SearchPage> {
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate<Specie>(
                       firstPageErrorIndicatorBuilder: (context) =>
-                          errorIndicator(
+                          ErrorIndicator(
                         error: _pagingController.error,
                         onTryAgain: () => _pagingController.refresh(),
                       ),
@@ -314,49 +323,17 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Ordenar por nombre científico'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile(
-                title: const Text('Ascendente'),
-                value: 'ASC',
-                groupValue: orderNameScientific,
-                onChanged: (value) {
-                  setState(() {
-                    orderNameScientific = value as String;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Descendente'),
-                value: 'DESC',
-                groupValue: orderNameScientific,
-                onChanged: (value) {
-                  setState(() {
-                    orderNameScientific = value as String;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Ninguno'),
-                value: null,
-                groupValue: orderNameScientific,
-                onChanged: (value) {
-                  setState(() {
-                    orderNameScientific = value;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
+        return OrderByNameScientificDialog(
+          orderNameScientific: orderNameScientific,
+          onValueChanged: (value) {
+            setState(() {
+              orderNameScientific = value;
+              _pagingController.refresh();
+            });
+          },
+          onDialogClosed: () {
+            Navigator.pop(context);
+          },
         );
       },
     );
@@ -366,49 +343,17 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Filtrar por sonido'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile(
-                title: const Text('Con sonido'),
-                value: 1,
-                groupValue: hasSound,
-                onChanged: (value) {
-                  setState(() {
-                    hasSound = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Sin sonido'),
-                value: 0,
-                groupValue: hasSound,
-                onChanged: (value) {
-                  setState(() {
-                    hasSound = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Ninguno'),
-                value: null,
-                groupValue: hasSound,
-                onChanged: (value) {
-                  setState(() {
-                    hasSound = value;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
+        return FilterBySoundDialog(
+          hasSound: hasSound,
+          onValueChanged: (value) {
+            setState(() {
+              hasSound = value;
+              _pagingController.refresh();
+            });
+          },
+          onDialogClosed: () {
+            Navigator.pop(context);
+          },
         );
       },
     );
@@ -418,73 +363,17 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Filtrar por estado de conservación'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile(
-                title: const Text('En peligro'),
-                value: 1,
-                groupValue: conservationStatus,
-                onChanged: (value) {
-                  setState(() {
-                    conservationStatus = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Vulnerable'),
-                value: 2,
-                groupValue: conservationStatus,
-                onChanged: (value) {
-                  setState(() {
-                    conservationStatus = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Casi amenazado'),
-                value: 3,
-                groupValue: conservationStatus,
-                onChanged: (value) {
-                  setState(() {
-                    conservationStatus = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Preocupación menor'),
-                value: 4,
-                groupValue: conservationStatus,
-                onChanged: (value) {
-                  setState(() {
-                    conservationStatus = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Ninguno'),
-                value: null,
-                groupValue: conservationStatus,
-                onChanged: (value) {
-                  setState(() {
-                    conservationStatus = value;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
+        return FilterByConservationStatusDialog(
+          conservationStatus: conservationStatus,
+          onValueChanged: (value) {
+            setState(() {
+              conservationStatus = value;
+              _pagingController.refresh();
+            });
+          },
+          onDialogClosed: () {
+            Navigator.pop(context);
+          },
         );
       },
     );
@@ -494,73 +383,17 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Filtrar por taxonomía'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile(
-                title: const Text('Taxonomía 1'),
-                value: 1,
-                groupValue: taxonomyId,
-                onChanged: (value) {
-                  setState(() {
-                    taxonomyId = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Taxonomía 2'),
-                value: 2,
-                groupValue: taxonomyId,
-                onChanged: (value) {
-                  setState(() {
-                    taxonomyId = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Taxonomía 3'),
-                value: 3,
-                groupValue: taxonomyId,
-                onChanged: (value) {
-                  setState(() {
-                    taxonomyId = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Taxonomía 4'),
-                value: 4,
-                groupValue: taxonomyId,
-                onChanged: (value) {
-                  setState(() {
-                    taxonomyId = value as int;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile(
-                title: const Text('Ninguno'),
-                value: null,
-                groupValue: taxonomyId,
-                onChanged: (value) {
-                  setState(() {
-                    taxonomyId = value;
-                    _pagingController.refresh();
-                  });
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
+        return FilterByTaxonomyDialog(
+          taxonomyId: taxonomyId,
+          onValueChanged: (value) {
+            setState(() {
+              taxonomyId = value;
+              _pagingController.refresh();
+            });
+          },
+          onDialogClosed: () {
+            Navigator.pop(context);
+          },
         );
       },
     );
@@ -570,55 +403,36 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Filtro personalizado'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              FutureBuilder<List<Class>>(
-                future: specieRepository.getClasses(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Class>> snapshot) {
-                  if (snapshot.data == null) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('Error al cargar las clases');
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('No se encontraron clases');
-                  } else {
-                    final List<Class> classes = snapshot.data!;
-                    return CustomDropdown<String>(
-                      headerBuilder: (context, selectedItem) {
-                        return selectedClass == null
-                            ? const Text('Selecciona una clase',
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 16.0))
-                            : Text(selectedItem,
-                                style: const TextStyle(fontSize: 16.0));
-                      },
-                      searchHintText: 'Buscar clase',
-                      hintText: 'Selecciona una clase',
-                      excludeSelected: false,
-                      noResultFoundText: 'No se encontraron resultados',
-                      items: classes.map((item) => item.name).toList(),
-                      onChanged: (value) {
-                        final selectedClassId =
-                            classes.firstWhere((item) => item.name == value).id;
-                        setState(() {
-                          selectedClass = selectedClassId;
-                          selectedOrder = null;
-                          selectedFamily = null;
-                          _pagingController.refresh();
-                        });
-                      },
-                    );
-                  }
+        return FutureBuilder<List<Class>>(
+          future: specieRepository.getClasses(),
+          builder: (BuildContext context, AsyncSnapshot<List<Class>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const Text('Error al cargar las clases');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Text('No se encontraron clases');
+            } else {
+              final List<Class> classes = snapshot.data!;
+              return FilterByClassDialog(
+                selectedClass: selectedClass,
+                onClassValueChanged: (value) {
+                  setState(() {
+                    selectedClass = value;
+                    selectedOrder = null;
+                    selectedFamily = null;
+                    _pagingController.refresh();
+                  });
                 },
-              ),
-            ],
-          ),
+                onDialogClosed: () {
+                  Navigator.pop(context);
+                },
+                classes: classes,
+              );
+            }
+          },
         );
       },
     );
@@ -628,54 +442,36 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Filtro orden'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              FutureBuilder<List<OrderClass>>(
-                future: specieRepository.getOrdersByClassId(selectedClass!),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<OrderClass>> snapshot) {
-                  if (snapshot.data == null) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('Error al cargar las clases');
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('No se encontraron clases');
-                  } else {
-                    final List<OrderClass> orders = snapshot.data!;
-                    return CustomDropdown<String>(
-                      headerBuilder: (context, selectedItem) {
-                        return selectedOrder == null
-                            ? const Text('Selecciona una clase',
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 16.0))
-                            : Text(selectedItem,
-                                style: const TextStyle(fontSize: 16.0));
-                      },
-                      searchHintText: 'Buscar clase',
-                      hintText: 'Selecciona una clase',
-                      excludeSelected: false,
-                      noResultFoundText: 'No se encontraron resultados',
-                      items: orders.map((item) => item.name).toList(),
-                      onChanged: (value) {
-                        final selectedOrderId =
-                            orders.firstWhere((item) => item.name == value).id;
-                        setState(() {
-                          selectedOrder = selectedOrderId;
-                          selectedFamily = null;
-                          _pagingController.refresh();
-                        });
-                      },
-                    );
-                  }
+        return FutureBuilder<List<OrderClass>>(
+          future: specieRepository.getOrdersByClassId(selectedClass!),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<OrderClass>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const Text('Error al cargar las clases');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Text('No se encontraron clases');
+            } else {
+              final List<OrderClass> orders = snapshot.data!;
+              return FilterByOrderDialog(
+                selectedOrder: selectedOrder,
+                onOrderValueChanged: (value) {
+                  setState(() {
+                    selectedOrder = value;
+                    selectedFamily = null;
+                    _pagingController.refresh();
+                  });
                 },
-              ),
-            ],
-          ),
+                onDialogClosed: () {
+                  Navigator.pop(context);
+                },
+                orders: orders,
+              );
+            }
+          },
         );
       },
     );
@@ -685,81 +481,69 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Filtro familia'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              FutureBuilder<List<Family>>(
-                future: specieRepository.getFamilies(selectedOrder!),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Family>> snapshot) {
-                  if (snapshot.data == null) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('Error al cargar las clases');
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Text('No se encontraron clases');
-                  } else {
-                    final List<Family> families = snapshot.data!;
-                    return CustomDropdown<String>(
-                      headerBuilder: (context, selectedItem) {
-                        return selectedFamily == null
-                            ? const Text('Selecciona una clase',
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 16.0))
-                            : Text(selectedItem,
-                                style: const TextStyle(fontSize: 16.0));
-                      },
-                      searchHintText: 'Buscar clase',
-                      hintText: 'Selecciona una clase',
-                      excludeSelected: false,
-                      noResultFoundText: 'No se encontraron resultados',
-                      items: families.map((item) => item.name).toList(),
-                      onChanged: (value) {
-                        final selectedFamilyId = families
-                            .firstWhere((item) => item.name == value)
-                            .id;
-                        setState(() {
-                          selectedFamily = selectedFamilyId;
-                          _pagingController.refresh();
-                        });
-                      },
-                    );
-                  }
+        return FutureBuilder<List<Family>>(
+          future: specieRepository.getFamilies(selectedOrder!),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Family>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const Text('Error al cargar las clases');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Text('No se encontraron clases');
+            } else {
+              final List<Family> families = snapshot.data!;
+              return FilterByFamilyDialog(
+                selectedFamily: selectedFamily,
+                onFamilyValueChanged: (value) {
+                  setState(() {
+                    selectedFamily = value;
+                    _pagingController.refresh();
+                  });
                 },
-              ),
-            ],
-          ),
+                onDialogClosed: () {
+                  Navigator.pop(context);
+                },
+                families: families,
+              );
+            }
+          },
         );
       },
     );
   }
 }
 
-Widget errorIndicator({
-  required Object? error,
-  required VoidCallback onTryAgain,
+Container _filterOptionButton({
+  required BuildContext context,
+  required void Function()? onPressed,
+  required int? filterValue,
+  required IconData icon,
+  required String filterName,
 }) {
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          'assets/images/logo.png',
-          height: 150.0,
-          width: 150.0,
+  return Container(
+    margin: const EdgeInsets.only(right: 4.0),
+    child: TextButton(
+      style: TextButton.styleFrom(
+        backgroundColor: filterValue != null
+            ? Theme.of(context).colorScheme.secondary.withOpacity(0.3)
+            : null,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
         ),
-        const Text('No se econtraron familias'),
-        const SizedBox(height: 8.0),
-        FilledButton.icon(
-          onPressed: onTryAgain,
-          icon: const Icon(Icons.refresh_rounded),
-          label: const Text('Reintentar'),
-        )
-      ],
+      ),
+      onPressed: onPressed,
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            size: 20.0,
+          ),
+          Text(filterName),
+        ],
+      ),
     ),
   );
 }
