@@ -154,27 +154,6 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Column _errorIndicator(BuildContext context, {String? text}) {
-    return Column(
-      children: [
-        Lottie.asset(
-          'assets/lotties/without_data.json',
-          width: 256.0,
-          height: 256.0,
-        ),
-        const SizedBox(height: 16.0),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: Text(
-            text ?? 'Parece que no hay especies aquí',
-            style: Theme.of(context).textTheme.titleLarge,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    );
-  }
-
   Container _listFilterOptions(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
     return Container(
@@ -463,9 +442,15 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const Text('Error al cargar las clases');
+              return const ErrorFetchingDropdown(
+                title: 'Error al cargar clases',
+                content: 'Inténtalo de nuevo',
+              );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Text('No se encontraron clases');
+              return const ErrorFetchingDropdown(
+                title: 'No se encontraron clases',
+                content: 'No se encontraron clases. Inténtalo nuevamente.',
+              );
             } else {
               final List<Class> classes = snapshot.data!;
               return FilterByClassDialog(
@@ -503,9 +488,16 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const Text('Error al cargar las clases');
+              return const ErrorFetchingDropdown(
+                title: 'Error al cargar ordenes',
+                content: 'Inténtalo nuevamente.',
+              );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Text('No se encontraron clases');
+              return const ErrorFetchingDropdown(
+                title: 'No se encontraron ordenes',
+                content:
+                    'No se encontraron ordenes en esta clase. Inténtalo con otra clase.',
+              );
             } else {
               final List<OrderClass> orders = snapshot.data!;
               return FilterByOrderDialog(
@@ -542,9 +534,16 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const Text('Error al cargar las clases');
+              return const ErrorFetchingDropdown(
+                title: 'Error al cargar familias',
+                content: 'Inténtalo nuevamente.',
+              );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Text('No se encontraron clases');
+              return const ErrorFetchingDropdown(
+                title: 'No se encontraron familias',
+                content:
+                    'No se encontraron familias en esta orden. Inténtalo con otra orden.',
+              );
             } else {
               final List<Family> families = snapshot.data!;
               return FilterByFamilyDialog(
@@ -566,6 +565,59 @@ class _SearchPageState extends State<SearchPage> {
       },
     );
   }
+}
+
+class ErrorFetchingDropdown extends StatelessWidget {
+  final String title;
+  final String content;
+
+  const ErrorFetchingDropdown({
+    super.key,
+    required this.title,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      content: Text(content),
+      titlePadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+      actionsPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Aceptar'),
+        ),
+      ],
+    );
+  }
+}
+
+Column _errorIndicator(BuildContext context, {String? text}) {
+  return Column(
+    children: [
+      Lottie.asset(
+        'assets/lotties/without_data.json',
+        width: 256.0,
+        height: 256.0,
+      ),
+      const SizedBox(height: 16.0),
+      SizedBox(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Text(
+          text ?? 'Parece que no hay especies aquí',
+          style: Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ],
+  );
 }
 
 Container _filterOptionButton({
