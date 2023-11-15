@@ -265,7 +265,7 @@ class FilterByClassDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtro personalizado'),
+      title: const Text('Filtro por clase'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -327,12 +327,12 @@ class FilterByOrderDialog extends StatelessWidget {
           CustomDropdown<String>(
             headerBuilder: (context, selectedItem) {
               return selectedOrder == null
-                  ? const Text('Selecciona una clase',
+                  ? const Text('Selecciona un orden',
                       style: TextStyle(color: Colors.black54, fontSize: 16.0))
                   : Text(selectedItem, style: const TextStyle(fontSize: 16.0));
             },
-            searchHintText: 'Buscar clase',
-            hintText: 'Selecciona una clase',
+            searchHintText: 'Buscar orden',
+            hintText: 'Selecciona un orden',
             excludeSelected: false,
             noResultFoundText: 'No se encontraron resultados',
             items: orders.map((item) => item.name).toList(),
@@ -382,12 +382,12 @@ class FilterByFamilyDialog extends StatelessWidget {
           CustomDropdown<String>(
             headerBuilder: (context, selectedItem) {
               return selectedFamily == null
-                  ? const Text('Selecciona una clase',
+                  ? const Text('Selecciona una familia',
                       style: TextStyle(color: Colors.black54, fontSize: 16.0))
                   : Text(selectedItem, style: const TextStyle(fontSize: 16.0));
             },
-            searchHintText: 'Buscar clase',
-            hintText: 'Selecciona una clase',
+            searchHintText: 'Buscar familia',
+            hintText: 'Selecciona una familia',
             excludeSelected: false,
             noResultFoundText: 'No se encontraron resultados',
             items: families.map((item) => item.name).toList(),
