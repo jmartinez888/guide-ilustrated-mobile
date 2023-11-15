@@ -414,12 +414,17 @@ class FilterByClassDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 768;
+    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
       child: IntrinsicHeight(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: BoxConstraints(
+            maxWidth: 400,
+            maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -508,12 +513,17 @@ class FilterByOrderDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 768;
+    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
       child: IntrinsicHeight(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: BoxConstraints(
+            maxWidth: 400,
+            maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -602,12 +612,17 @@ class FilterByFamilyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 768;
+    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
       child: IntrinsicHeight(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: BoxConstraints(
+            maxWidth: 400,
+            maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
