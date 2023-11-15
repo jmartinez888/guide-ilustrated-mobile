@@ -62,6 +62,20 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  _isFiltered() {
+    if (selectedClass != null ||
+        selectedOrder != null ||
+        selectedFamily != null ||
+        hasSound != null ||
+        orderNameScientific != null ||
+        conservationStatus != null ||
+        taxonomyId != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -81,7 +95,7 @@ class _SearchPageState extends State<SearchPage> {
               _pagingController.refresh();
             }),
           ),
-          actions: [
+          actions: <Widget>[
             searchController.text.isNotEmpty
                 ? IconButton(
                     tooltip: 'Limpiar',
@@ -99,6 +113,37 @@ class _SearchPageState extends State<SearchPage> {
                     },
                     icon: const Icon(Icons.search_rounded)),
             const SizedBox(width: 8.0),
+            if (_isFiltered())
+              IconButton(
+                style: IconButton.styleFrom(
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                ),
+                tooltip: 'Limpiar filtros',
+                onPressed: () => setState(
+                  () {
+                    selectedClass = null;
+                    selectedOrder = null;
+                    selectedFamily = null;
+                    hasSound = null;
+                    orderNameScientific = null;
+                    conservationStatus = null;
+                    taxonomyId = null;
+                    _pagingController.refresh();
+                  },
+                ),
+                icon: const Icon(Icons.clear_rounded),
+              ),
+            // if (!_isFiltered())
+            //   IconButton(
+            //     tooltip: 'Filtros',
+            //     onPressed: () {
+            //       _focusNode.unfocus();
+            //       _filterByClassDialog(context);
+            //     },
+            //     icon: const Icon(Icons.filter_alt_rounded),
+            //   ),
+            const SizedBox(width: 8.0),
           ],
         ),
         Expanded(
@@ -107,367 +152,122 @@ class _SearchPageState extends State<SearchPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  children: [
-                    if (selectedClass != null ||
-                        orderNameScientific != null ||
-                        hasSound != null ||
-                        conservationStatus != null)
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: SizedBox(
-                          width: 150,
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedClass = null;
-                                selectedOrder = null;
-                                selectedFamily = null;
-                                hasSound = null;
-                                orderNameScientific = null;
-                                conservationStatus = null;
-                                taxonomyId = null;
-                                _pagingController.refresh();
-                              });
-                            },
-                            child: const Row(
-                              children: [
-                                Text('Limpiar filtros'),
-                                Icon(Icons.clear_rounded),
-                              ],
-                            ),
-                          ),
+                Container(
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  height: 50,
+                  width: double.infinity,
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      // ASC/DESC filter
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: orderNameScientific != null
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(0.3)
+                                : null),
+                        onPressed: () {
+                          _orderByNameScientificDialog(context);
+                        },
+                        child: const Text('Ordenar por nombre científico'),
+                      ),
+
+                      // Add sound filter
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: hasSound != null
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(0.3)
+                                : null),
+                        onPressed: () {
+                          _filterBySoundDialog(context);
+                        },
+                        child: const Text('Filtrar por sonido'),
+                      ),
+
+                      // Add conservation status filter
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: conservationStatus != null
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(0.3)
+                                : null),
+                        onPressed: () {
+                          _filterByConservationStatusDialog(context);
+                        },
+                        child: const Text('Filtrar por estado de conservación'),
+                      ),
+
+                      // Add taxonomy filter
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: taxonomyId != null
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(0.3)
+                                : null),
+                        onPressed: () {
+                          _filterByTaxonomyDialog(context);
+                        },
+                        child: const Text('Filtrar por taxonomía'),
+                      ),
+
+                      // Add class filter
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: selectedClass != null
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .secondary
+                                    .withOpacity(0.3)
+                                : null),
+                        onPressed: () {
+                          _filterByClassDialog(context);
+                        },
+                        child: const Text('Filtro clase'),
+                      ),
+
+                      // Add order filter
+                      if (selectedClass != null)
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: selectedOrder != null
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(0.3)
+                                  : null),
+                          onPressed: () {
+                            _filterByOrderDialog(context);
+                          },
+                          child: const Text('Filtro orden'),
                         ),
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: Wrap(
-                        alignment: WrapAlignment.start,
-                        spacing: 8.0,
-                        runSpacing: 8.0,
-                        children: [
-                          SizedBox(
-                            height: 80,
-                            width: double.infinity,
-                            child: ListView(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                // ASC/DESC filter
-                                Column(
-                                  children: [
-                                    const Text('Ordenar por nombre científico'),
-                                    ToggleButtons(
-                                      isSelected: orderNameScientific == null
-                                          ? [false, false]
-                                          : orderNameScientific == 'ASC'
-                                              ? [true, false]
-                                              : [false, true],
-                                      onPressed: (index) {
-                                        setState(() {
-                                          orderNameScientific =
-                                              index == 0 ? 'ASC' : 'DESC';
-                                          _pagingController.refresh();
-                                        });
-                                      },
-                                      children: const [
-                                        Column(
-                                          children: [
-                                            Text('ASC'),
-                                            Icon(Icons.arrow_upward_rounded),
-                                          ],
-                                        ),
-                                        Column(children: [
-                                          Text('DESC'),
-                                          Icon(Icons.arrow_downward_rounded),
-                                        ]),
-                                      ],
-                                    ),
-                                  ],
-                                ),
 
-                                // Add sound filter
-                                Column(
-                                  children: [
-                                    const Text('Filtrar por sonido'),
-                                    ToggleButtons(
-                                      isSelected: hasSound == null
-                                          ? [false, false]
-                                          : hasSound == 1
-                                              ? [true, false]
-                                              : [false, true],
-                                      onPressed: (index) {
-                                        setState(() {
-                                          hasSound = index == 0 ? 1 : 0;
-                                          _pagingController.refresh();
-                                        });
-                                      },
-                                      children: const [
-                                        Icon(Icons.volume_up_rounded),
-                                        Icon(Icons.volume_off_rounded),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-
-                                // Add conservation status filter
-                                Column(
-                                  children: [
-                                    const Text(
-                                        'Filtrar por estado de conservación'),
-                                    ToggleButtons(
-                                      selectedColor: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      isSelected: conservationStatus == null
-                                          ? [false, false, false, false]
-                                          : conservationStatus == 1
-                                              ? [true, false, false, false]
-                                              : conservationStatus == 2
-                                                  ? [false, true, false, false]
-                                                  : conservationStatus == 3
-                                                      ? [
-                                                          false,
-                                                          false,
-                                                          true,
-                                                          false
-                                                        ]
-                                                      : [
-                                                          false,
-                                                          false,
-                                                          false,
-                                                          true
-                                                        ],
-                                      onPressed: (index) {
-                                        setState(() {
-                                          conservationStatus = index == 0
-                                              ? 1
-                                              : index == 1
-                                                  ? 2
-                                                  : index == 2
-                                                      ? 3
-                                                      : 4;
-                                          _pagingController.refresh();
-                                        });
-                                      },
-                                      children: const [
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('En peligro'),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Vulnerable'),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Casi amenazado'),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text('Preocupación menor'),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                                // // Add taxonomy filter
-                                // Column(
-                                //   children: [
-                                //     const Text('Filtrar por taxonomía'),
-                                //     ToggleButtons(
-                                //       isSelected: taxonomyId == null
-                                //           ? [false, false, false, false]
-                                //           : taxonomyId == 1
-                                //               ? [true, false, false, false]
-                                //               : taxonomyId == 2
-                                //                   ? [false, true, false, false]
-                                //                   : taxonomyId == 3
-                                //                       ? [false, false, true, false]
-                                //                       : [false, false, false, true],
-                                //       onPressed: (index) {
-                                //         setState(() {
-                                //           taxonomyId = index == 0
-                                //               ? 1
-                                //               : index == 1
-                                //                   ? 2
-                                //                   : index == 2
-                                //                       ? 3
-                                //                       : 4;
-                                //           _pagingController.refresh();
-                                //         });
-                                //       },
-                                //       children: const [
-                                //         Text('Reino'),
-                                //         Text('Filo'),
-                                //         Text('Clase'),
-                                //         Text('Orden'),
-                                //       ],
-                                //     ),
-                                //   ],
-                                // ),
-                              ],
-                            ),
-                          ),
-                          FutureBuilder<List<Class>>(
-                            future: specieRepository.getClasses(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<List<Class>> snapshot) {
-                              if (snapshot.data == null) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (snapshot.hasError) {
-                                return const Text('Error al cargar las clases');
-                              } else if (!snapshot.hasData ||
-                                  snapshot.data!.isEmpty) {
-                                return const Text('No se encontraron clases');
-                              } else {
-                                final List<Class> classes = snapshot.data!;
-                                return CustomDropdown<String>(
-                                  headerBuilder: (context, selectedItem) {
-                                    return selectedClass == null
-                                        ? const Text('Selecciona una clase',
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 16.0))
-                                        : Text(selectedItem,
-                                            style: const TextStyle(
-                                                fontSize: 16.0));
-                                  },
-                                  searchHintText: 'Buscar clase',
-                                  hintText: 'Selecciona una clase',
-                                  excludeSelected: false,
-                                  noResultFoundText:
-                                      'No se encontraron resultados',
-                                  items:
-                                      classes.map((item) => item.name).toList(),
-                                  onChanged: (value) {
-                                    final selectedClassId = classes
-                                        .firstWhere(
-                                            (item) => item.name == value)
-                                        .id;
-                                    setState(() {
-                                      selectedClass = selectedClassId;
-                                      selectedOrder = null;
-                                      selectedFamily = null;
-                                      _pagingController.refresh();
-                                    });
-                                  },
-                                );
-                              }
-                            },
-                          ),
-                          if (selectedClass != null)
-                            FutureBuilder<List<OrderClass>>(
-                              future: specieRepository
-                                  .getOrdersByClassId(selectedClass!),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<OrderClass>> snapshot) {
-                                if (snapshot.data == null) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return const Text(
-                                      'Error al cargar las ordenes');
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data!.isEmpty) {
-                                  return const Text(
-                                      'No se encontraron ordenes');
-                                } else {
-                                  final List<OrderClass> orders =
-                                      snapshot.data!;
-                                  return CustomDropdown<String>(
-                                    headerBuilder: (context, selectedItem) {
-                                      return selectedOrder == null
-                                          ? const Text('Selecciona una orden',
-                                              style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 16.0))
-                                          : Text(selectedItem,
-                                              style: const TextStyle(
-                                                  fontSize: 16.0));
-                                    },
-                                    searchHintText: 'Buscar orden',
-                                    hintText: 'Selecciona una orden',
-                                    excludeSelected: false,
-                                    noResultFoundText:
-                                        'No se encontraron resultados',
-                                    items: orders
-                                        .map((item) => item.name)
-                                        .toList(),
-                                    onChanged: (value) {
-                                      final selectedOrderId = orders
-                                          .firstWhere(
-                                              (item) => item.name == value)
-                                          .id;
-                                      setState(() {
-                                        selectedOrder = selectedOrderId;
-                                        selectedFamily = null;
-                                        _pagingController.refresh();
-                                      });
-                                    },
-                                  );
-                                }
-                              },
-                            ),
-                          if (selectedOrder != null)
-                            FutureBuilder<List<Family>>(
-                              future:
-                                  specieRepository.getFamilies(selectedOrder!),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<Family>> snapshot) {
-                                if (snapshot.data == null) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return const Text(
-                                      'Error al cargar las familias');
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data!.isEmpty) {
-                                  return const Text(
-                                      'No se encontraron familias');
-                                } else {
-                                  final List<Family> families = snapshot.data!;
-                                  return CustomDropdown<String>(
-                                    headerBuilder: (context, selectedItem) {
-                                      return selectedFamily == null
-                                          ? const Text('Selecciona una familia',
-                                              style: TextStyle(
-                                                  color: Colors.black54,
-                                                  fontSize: 16.0))
-                                          : Text(selectedItem,
-                                              style: const TextStyle(
-                                                  fontSize: 16.0));
-                                    },
-                                    searchHintText: 'Buscar familia',
-                                    hintText: 'Selecciona una familia',
-                                    excludeSelected: false,
-                                    noResultFoundText:
-                                        'No se encontraron resultados',
-                                    items: families
-                                        .map((item) => item.name)
-                                        .toList(),
-                                    onChanged: (value) {
-                                      final selectedFamilyId = families
-                                          .firstWhere(
-                                              (item) => item.name == value)
-                                          .id;
-                                      setState(() {
-                                        selectedFamily = selectedFamilyId;
-                                        _pagingController.refresh();
-                                      });
-                                    },
-                                  );
-                                }
-                              },
-                            ),
-                        ],
-                      ),
-                    )
-                  ],
+                      // Add family filter
+                      if (selectedOrder != null)
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: selectedFamily != null
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .secondary
+                                      .withOpacity(0.3)
+                                  : null),
+                          onPressed: () {
+                            _filterByFamilyDialog(context);
+                          },
+                          child: const Text('Filtro familia'),
+                        )
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: PagedListView<int, Specie>(
@@ -507,6 +307,434 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ],
+    );
+  }
+
+  void _orderByNameScientificDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Ordenar por nombre científico'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile(
+                title: const Text('Ascendente'),
+                value: 'ASC',
+                groupValue: orderNameScientific,
+                onChanged: (value) {
+                  setState(() {
+                    orderNameScientific = value as String;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Descendente'),
+                value: 'DESC',
+                groupValue: orderNameScientific,
+                onChanged: (value) {
+                  setState(() {
+                    orderNameScientific = value as String;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: orderNameScientific,
+                onChanged: (value) {
+                  setState(() {
+                    orderNameScientific = value;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _filterBySoundDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Filtrar por sonido'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile(
+                title: const Text('Con sonido'),
+                value: 1,
+                groupValue: hasSound,
+                onChanged: (value) {
+                  setState(() {
+                    hasSound = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Sin sonido'),
+                value: 0,
+                groupValue: hasSound,
+                onChanged: (value) {
+                  setState(() {
+                    hasSound = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: hasSound,
+                onChanged: (value) {
+                  setState(() {
+                    hasSound = value;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _filterByConservationStatusDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Filtrar por estado de conservación'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile(
+                title: const Text('En peligro'),
+                value: 1,
+                groupValue: conservationStatus,
+                onChanged: (value) {
+                  setState(() {
+                    conservationStatus = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Vulnerable'),
+                value: 2,
+                groupValue: conservationStatus,
+                onChanged: (value) {
+                  setState(() {
+                    conservationStatus = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Casi amenazado'),
+                value: 3,
+                groupValue: conservationStatus,
+                onChanged: (value) {
+                  setState(() {
+                    conservationStatus = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Preocupación menor'),
+                value: 4,
+                groupValue: conservationStatus,
+                onChanged: (value) {
+                  setState(() {
+                    conservationStatus = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: conservationStatus,
+                onChanged: (value) {
+                  setState(() {
+                    conservationStatus = value;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _filterByTaxonomyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Filtrar por taxonomía'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile(
+                title: const Text('Taxonomía 1'),
+                value: 1,
+                groupValue: taxonomyId,
+                onChanged: (value) {
+                  setState(() {
+                    taxonomyId = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Taxonomía 2'),
+                value: 2,
+                groupValue: taxonomyId,
+                onChanged: (value) {
+                  setState(() {
+                    taxonomyId = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Taxonomía 3'),
+                value: 3,
+                groupValue: taxonomyId,
+                onChanged: (value) {
+                  setState(() {
+                    taxonomyId = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Taxonomía 4'),
+                value: 4,
+                groupValue: taxonomyId,
+                onChanged: (value) {
+                  setState(() {
+                    taxonomyId = value as int;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: taxonomyId,
+                onChanged: (value) {
+                  setState(() {
+                    taxonomyId = value;
+                    _pagingController.refresh();
+                  });
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _filterByClassDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Filtro personalizado'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FutureBuilder<List<Class>>(
+                future: specieRepository.getClasses(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Class>> snapshot) {
+                  if (snapshot.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error al cargar las clases');
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Text('No se encontraron clases');
+                  } else {
+                    final List<Class> classes = snapshot.data!;
+                    return CustomDropdown<String>(
+                      headerBuilder: (context, selectedItem) {
+                        return selectedClass == null
+                            ? const Text('Selecciona una clase',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 16.0))
+                            : Text(selectedItem,
+                                style: const TextStyle(fontSize: 16.0));
+                      },
+                      searchHintText: 'Buscar clase',
+                      hintText: 'Selecciona una clase',
+                      excludeSelected: false,
+                      noResultFoundText: 'No se encontraron resultados',
+                      items: classes.map((item) => item.name).toList(),
+                      onChanged: (value) {
+                        final selectedClassId =
+                            classes.firstWhere((item) => item.name == value).id;
+                        setState(() {
+                          selectedClass = selectedClassId;
+                          selectedOrder = null;
+                          selectedFamily = null;
+                          _pagingController.refresh();
+                        });
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _filterByOrderDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Filtro orden'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FutureBuilder<List<OrderClass>>(
+                future: specieRepository.getOrdersByClassId(selectedClass!),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<OrderClass>> snapshot) {
+                  if (snapshot.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error al cargar las clases');
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Text('No se encontraron clases');
+                  } else {
+                    final List<OrderClass> orders = snapshot.data!;
+                    return CustomDropdown<String>(
+                      headerBuilder: (context, selectedItem) {
+                        return selectedOrder == null
+                            ? const Text('Selecciona una clase',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 16.0))
+                            : Text(selectedItem,
+                                style: const TextStyle(fontSize: 16.0));
+                      },
+                      searchHintText: 'Buscar clase',
+                      hintText: 'Selecciona una clase',
+                      excludeSelected: false,
+                      noResultFoundText: 'No se encontraron resultados',
+                      items: orders.map((item) => item.name).toList(),
+                      onChanged: (value) {
+                        final selectedOrderId =
+                            orders.firstWhere((item) => item.name == value).id;
+                        setState(() {
+                          selectedOrder = selectedOrderId;
+                          selectedFamily = null;
+                          _pagingController.refresh();
+                        });
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _filterByFamilyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Filtro familia'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FutureBuilder<List<Family>>(
+                future: specieRepository.getFamilies(selectedOrder!),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Family>> snapshot) {
+                  if (snapshot.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error al cargar las clases');
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Text('No se encontraron clases');
+                  } else {
+                    final List<Family> families = snapshot.data!;
+                    return CustomDropdown<String>(
+                      headerBuilder: (context, selectedItem) {
+                        return selectedFamily == null
+                            ? const Text('Selecciona una clase',
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 16.0))
+                            : Text(selectedItem,
+                                style: const TextStyle(fontSize: 16.0));
+                      },
+                      searchHintText: 'Buscar clase',
+                      hintText: 'Selecciona una clase',
+                      excludeSelected: false,
+                      noResultFoundText: 'No se encontraron resultados',
+                      items: families.map((item) => item.name).toList(),
+                      onChanged: (value) {
+                        final selectedFamilyId = families
+                            .firstWhere((item) => item.name == value)
+                            .id;
+                        setState(() {
+                          selectedFamily = selectedFamilyId;
+                          _pagingController.refresh();
+                        });
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
