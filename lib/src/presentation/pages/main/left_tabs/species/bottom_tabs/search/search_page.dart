@@ -310,7 +310,7 @@ class _SearchPageState extends State<SearchPage> {
                 _pagingController.refresh();
               },
             ),
-        icon: Icons.clear_all_rounded);
+        icon: Icons.filter_list_off_rounded);
   }
 
   TextFormField _searchTextField() {
