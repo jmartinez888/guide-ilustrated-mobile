@@ -196,70 +196,98 @@ class FilterByTaxonomyDialog extends StatelessWidget {
   final Function() onDialogClosed;
 
   const FilterByTaxonomyDialog({
-    super.key,
+    Key? key,
     required this.taxonomyId,
     required this.onValueChanged,
     required this.onDialogClosed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Filtrar por taxonomía',
-          style: Theme.of(context).textTheme.titleMedium),
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-      content: Wrap(
-        children: [
-          RadioListTile(
-            title: const Text('Taxonomía 1'),
-            value: 1,
-            groupValue: taxonomyId,
-            onChanged: (value) {
-              onValueChanged(value as int);
-              onDialogClosed();
-            },
-          ),
-          RadioListTile(
-            title: const Text('Taxonomía 2'),
-            value: 2,
-            groupValue: taxonomyId,
-            onChanged: (value) {
-              onValueChanged(value as int);
-              onDialogClosed();
-            },
-          ),
-          RadioListTile(
-            title: const Text('Taxonomía 3'),
-            value: 3,
-            groupValue: taxonomyId,
-            onChanged: (value) {
-              onValueChanged(value as int);
-              onDialogClosed();
-            },
-          ),
-          RadioListTile(
-            title: const Text('Taxonomía 4'),
-            value: 4,
-            groupValue: taxonomyId,
-            onChanged: (value) {
-              onValueChanged(value as int);
-              onDialogClosed();
-            },
-          ),
-          RadioListTile(
-            title: const Text('Ninguno'),
-            value: null,
-            groupValue: taxonomyId,
-            onChanged: (value) {
-              onValueChanged(value);
-              onDialogClosed();
-            },
-          ),
-        ],
+    final isMobile = MediaQuery.of(context).size.width < 768;
+    return Dialog(
+      shadowColor: Colors.transparent,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        constraints: BoxConstraints(
+          maxWidth: 400,
+          maxHeight: isMobile
+              ? MediaQuery.of(context).size.height * 0.6
+              : MediaQuery.of(context).size.height * 0.7,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Filtrar por taxonomía',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 16.0),
+            ListRadioOptions(
+              taxonomyId: taxonomyId,
+              onValueChanged: onValueChanged,
+              onDialogClosed: onDialogClosed,
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+class ListRadioOptions extends StatelessWidget {
+  final List<TaxonomyOption> taxonomyOptions = [
+    TaxonomyOption('Aves', 1),
+    TaxonomyOption('Mamíferos', 2),
+    TaxonomyOption('Reptiles', 3),
+    TaxonomyOption('Anfibios', 4),
+    TaxonomyOption('Peces', 5),
+    TaxonomyOption('Insectos', 6),
+    TaxonomyOption('Arboles', 7),
+    TaxonomyOption('Palmeras', 8),
+    TaxonomyOption('Ninguno', null),
+  ];
+
+  final int? taxonomyId;
+  final Function(int? p1) onValueChanged;
+  final Function() onDialogClosed;
+
+  ListRadioOptions({
+    Key? key,
+    required this.taxonomyId,
+    required this.onValueChanged,
+    required this.onDialogClosed,
+  }) : super(key: key);
+
+  Widget _buildRadioListTile(TaxonomyOption option) {
+    return RadioListTile(
+      title: Text(option.title),
+      value: option.value,
+      groupValue: taxonomyId,
+      onChanged: (value) {
+        onValueChanged(value);
+        onDialogClosed();
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.5,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: taxonomyOptions.map(_buildRadioListTile).toList(),
+      ),
+    );
+  }
+}
+
+class TaxonomyOption {
+  final String title;
+  final int? value;
+
+  TaxonomyOption(this.title, this.value);
 }
 
 class FilterByClassDialog extends StatelessWidget {

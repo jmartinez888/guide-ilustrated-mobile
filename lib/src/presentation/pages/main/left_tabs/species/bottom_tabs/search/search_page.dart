@@ -239,14 +239,22 @@ class _SearchPageState extends State<SearchPage> {
             filterValue: taxonomyId,
             icon: Icons.category_rounded,
             filterName: taxonomyId == 1
-                ? 'Taxonomía 1'
+                ? 'Aves'
                 : taxonomyId == 2
-                    ? 'Taxonomía 2'
+                    ? 'Mamiferos'
                     : taxonomyId == 3
-                        ? 'Taxonomía 3'
+                        ? 'Reptiles'
                         : taxonomyId == 4
-                            ? 'Taxonomía 4'
-                            : 'Taxonomía',
+                            ? 'Anfibios'
+                            : taxonomyId == 5
+                                ? 'Peces'
+                                : taxonomyId == 6
+                                    ? 'Insectos'
+                                    : taxonomyId == 7
+                                        ? 'Arboles'
+                                        : taxonomyId == 8
+                                            ? 'Palmeras'
+                                            : 'Taxonomía',
           ),
 
           // Add class filter
@@ -412,6 +420,7 @@ class _SearchPageState extends State<SearchPage> {
 
   void _filterByTaxonomyDialog(BuildContext context) {
     showDialog(
+      useSafeArea: true,
       context: context,
       builder: (context) {
         return FilterByTaxonomyDialog(
