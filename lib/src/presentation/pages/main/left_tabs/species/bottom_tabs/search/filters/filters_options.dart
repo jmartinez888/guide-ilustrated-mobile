@@ -17,32 +17,31 @@ class OrderByNameScientificDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile
-              ? MediaQuery.of(context).size.height * 0.3
-              : MediaQuery.of(context).size.height * 0.6,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Ordenar por nombre científico',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            OrderByNameScientificOptions(
-              orderNameScientific: orderNameScientific,
-              onValueChanged: onValueChanged,
-              onDialogClosed: onDialogClosed,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Ordenar por nombre científico',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: OrderByNameScientificOptions(
+                    orderNameScientific: orderNameScientific,
+                    onValueChanged: onValueChanged,
+                    onDialogClosed: onDialogClosed,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -81,15 +80,10 @@ class OrderByNameScientificOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    return SizedBox(
-      height: isMobile
-          ? MediaQuery.of(context).size.height * 0.2
-          : MediaQuery.of(context).size.height * 0.4,
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: orderOptions.map(_buildRadioListTile).toList(),
-      ),
+    return Column(
+      children: [
+        ...orderOptions.map(_buildRadioListTile).toList(),
+      ],
     );
   }
 }
@@ -115,32 +109,32 @@ class FilterBySoundDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile
-              ? MediaQuery.of(context).size.height * 0.3
-              : MediaQuery.of(context).size.height * 0.6,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filtrar por sonido',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            SoundOptions(
-              hasSound: hasSound,
-              onValueChanged: onValueChanged,
-              onDialogClosed: onDialogClosed,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filtrar por sonido',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: SoundOptions(
+                    hasSound: hasSound,
+                    onValueChanged: onValueChanged,
+                    onDialogClosed: onDialogClosed,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -179,15 +173,10 @@ class SoundOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    return SizedBox(
-      height: isMobile
-          ? MediaQuery.of(context).size.height * 0.2
-          : MediaQuery.of(context).size.height * 0.4,
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: soundOptions.map(_buildRadioListTile).toList(),
-      ),
+    return Column(
+      children: [
+        ...soundOptions.map(_buildRadioListTile).toList(),
+      ],
     );
   }
 }
@@ -213,30 +202,41 @@ class FilterByConservationStatusDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filtrar por estado de conservación',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            ConservationStatusOptions(
-              conservationStatus: conservationStatus,
-              onValueChanged: onValueChanged,
-              onDialogClosed: onDialogClosed,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filtrar por estado de conservación',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: ConservationStatusOptions(
+                    conservationStatus: conservationStatus,
+                    onValueChanged: onValueChanged,
+                    onDialogClosed: onDialogClosed,
+                  ),
+                ),
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: conservationStatus,
+                onChanged: (value) {
+                  onValueChanged(value);
+                  onDialogClosed();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -276,26 +276,9 @@ class ConservationStatusOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        SizedBox(
-          height: size.height * 0.4,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children:
-                conservationStatusOptions.map(_buildRadioListTile).toList(),
-          ),
-        ),
-        RadioListTile(
-          title: const Text('Ninguno'),
-          value: null,
-          groupValue: conservationStatus,
-          onChanged: (value) {
-            onValueChanged(value);
-            onDialogClosed();
-          },
-        ),
+        ...conservationStatusOptions.map(_buildRadioListTile).toList(),
       ],
     );
   }
@@ -322,30 +305,41 @@ class FilterByTaxonomyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filtrar por taxonomía',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            TaxonomyRadioOptions(
-              taxonomyId: taxonomyId,
-              onValueChanged: onValueChanged,
-              onDialogClosed: onDialogClosed,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filtrar por taxonomía',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: TaxonomyRadioOptions(
+                    taxonomyId: taxonomyId,
+                    onValueChanged: onValueChanged,
+                    onDialogClosed: onDialogClosed,
+                  ),
+                ),
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: taxonomyId,
+                onChanged: (value) {
+                  onValueChanged(value);
+                  onDialogClosed();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -389,25 +383,9 @@ class TaxonomyRadioOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        SizedBox(
-          height: size.height * 0.4,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: taxonomyOptions.map(_buildRadioListTile).toList(),
-          ),
-        ),
-        RadioListTile(
-          title: const Text('Ninguno'),
-          value: null,
-          groupValue: taxonomyId,
-          onChanged: (value) {
-            onValueChanged(value);
-            onDialogClosed();
-          },
-        ),
+        ...taxonomyOptions.map(_buildRadioListTile).toList(),
       ],
     );
   }
@@ -436,31 +414,42 @@ class FilterByClassDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filtrar por clase',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            ClassOptions(
-              selectedClass: selectedClass,
-              onClassValueChanged: onClassValueChanged,
-              onDialogClosed: onDialogClosed,
-              classes: classes,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filtrar por clase',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: ClassOptions(
+                    selectedClass: selectedClass,
+                    onClassValueChanged: onClassValueChanged,
+                    onDialogClosed: onDialogClosed,
+                    classes: classes,
+                  ),
+                ),
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: selectedClass,
+                onChanged: (value) {
+                  onClassValueChanged(value);
+                  onDialogClosed();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -497,24 +486,7 @@ class ClassOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: ListView(
-            shrinkWrap: true,
-            children: classes
-                .map((classItem) => _buildRadioListTile(classItem))
-                .toList(),
-          ),
-        ),
-        RadioListTile(
-          title: const Text('Ninguno'),
-          value: null,
-          groupValue: selectedClass,
-          onChanged: (value) {
-            onClassValueChanged(value);
-            onDialogClosed();
-          },
-        ),
+        ...classes.map((classItem) => _buildRadioListTile(classItem)).toList(),
       ],
     );
   }
@@ -536,31 +508,42 @@ class FilterByOrderDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filtrar por orden',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            OrderOptions(
-              selectedOrder: selectedOrder,
-              onOrderValueChanged: onOrderValueChanged,
-              onDialogClosed: onDialogClosed,
-              orders: orders,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filtrar por orden',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: OrderOptions(
+                    selectedOrder: selectedOrder,
+                    onOrderValueChanged: onOrderValueChanged,
+                    onDialogClosed: onDialogClosed,
+                    orders: orders,
+                  ),
+                ),
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: selectedOrder,
+                onChanged: (value) {
+                  onOrderValueChanged(value);
+                  onDialogClosed();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -597,24 +580,7 @@ class OrderOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: ListView(
-            shrinkWrap: true,
-            children: orders
-                .map((orderItem) => _buildRadioListTile(orderItem))
-                .toList(),
-          ),
-        ),
-        RadioListTile(
-          title: const Text('Ninguno'),
-          value: null,
-          groupValue: selectedOrder,
-          onChanged: (value) {
-            onOrderValueChanged(value);
-            onDialogClosed();
-          },
-        ),
+        ...orders.map((orderItem) => _buildRadioListTile(orderItem)).toList(),
       ],
     );
   }
@@ -636,31 +602,42 @@ class FilterByFamilyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        constraints: BoxConstraints(
-          maxWidth: 400,
-          maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Filtrar por familia',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 16.0),
-            FamilyOptions(
-              selectedFamily: selectedFamily,
-              onFamilyValueChanged: onFamilyValueChanged,
-              onDialogClosed: onDialogClosed,
-              families: families,
-            ),
-          ],
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Filtrar por familia',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16.0),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: FamilyOptions(
+                    selectedFamily: selectedFamily,
+                    onFamilyValueChanged: onFamilyValueChanged,
+                    onDialogClosed: onDialogClosed,
+                    families: families,
+                  ),
+                ),
+              ),
+              RadioListTile(
+                title: const Text('Ninguno'),
+                value: null,
+                groupValue: selectedFamily,
+                onChanged: (value) {
+                  onFamilyValueChanged(value);
+                  onDialogClosed();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -697,24 +674,9 @@ class FamilyOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: ListView(
-            shrinkWrap: true,
-            children: families
-                .map((familyItem) => _buildRadioListTile(familyItem))
-                .toList(),
-          ),
-        ),
-        RadioListTile(
-          title: const Text('Ninguno'),
-          value: null,
-          groupValue: selectedFamily,
-          onChanged: (value) {
-            onFamilyValueChanged(value);
-            onDialogClosed();
-          },
-        ),
+        ...families
+            .map((familyItem) => _buildRadioListTile(familyItem))
+            .toList(),
       ],
     );
   }
