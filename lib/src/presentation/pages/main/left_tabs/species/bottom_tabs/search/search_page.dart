@@ -139,7 +139,7 @@ class _SearchPageState extends State<SearchPage> {
                       imageUrl: item.images.first,
                       heightImage: 56.0,
                       width: 56.0,
-                      fitImage: true,
+                      fitImage: false,
                     ),
                     title: Text(item.name),
                     subtitle: Text(item.scientificName),
