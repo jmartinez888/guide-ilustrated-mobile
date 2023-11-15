@@ -226,7 +226,7 @@ class _SearchPageState extends State<SearchPage> {
                 : conservationStatus == 2
                     ? 'Vulnerable'
                     : conservationStatus == 3
-                        ? 'Casi amenazado'
+                        ? 'Casí amenazado'
                         : conservationStatus == 4
                             ? 'Preocupación menor'
                             : 'Estado',
