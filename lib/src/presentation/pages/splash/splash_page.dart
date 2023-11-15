@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
   late Timer _timer;
   int time = 5;
 
-  @override
+  /* @override
   void initState() {
     super.initState();
     
@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void ejecutarMetodo() {
     context.goNamed(Routes.species);
-  }
+  } */
 
   @override
   void dispose() {
@@ -44,7 +44,48 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFBAD87A),
       body: SafeArea(
-        child: Stack(
+        child: ListView(
+          children: [
+            Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(32.0, 32.0, 32.0, 0.0),
+                  color: Colors.red,
+                  height: 100,
+                  width: double.infinity,
+                ),
+                Positioned(
+                  left: 8.0,
+                  top: 8.0,
+                  child: Transform.rotate(
+                    angle: -0.128,
+                    child: SvgPicture.asset(
+                      'assets/splash/icono_hormiga_blanco.svg',
+                      width: 64.0,
+                      height: 64.0,
+                      color: Colors.white.withOpacity(0.5),
+                    )
+                        .animate()
+                        .shakeX(
+                          duration: time.seconds,
+                          hz: 1,
+                          amount: 4.0,
+                        )
+                        .fadeIn(),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              color: Colors.blue,
+              height: 100,
+              width: double.infinity,
+            ),
+          ],
+        ),
+      ),
+      /* Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Container(
@@ -235,7 +276,8 @@ class _SplashPageState extends State<SplashPage> {
             ),
           ],
         ),
-      ),
+       */
+
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(32.0, 0.0, 32.0, 32.0),
         child: Wrap(
