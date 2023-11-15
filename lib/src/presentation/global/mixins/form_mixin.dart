@@ -72,6 +72,11 @@ mixin FormMixin<T extends StatefulWidget> on State<T> {
     if (value.length < 9) {
       return 'Ingrese al menos 9 caracteres';
     }
+
+    if (!RegExp(r"^(?:[+0]9)?[0-9]{9}$").hasMatch(value)) {
+      return 'Ingrese un teléfono válido';
+    }
+
     return null;
   }
 }

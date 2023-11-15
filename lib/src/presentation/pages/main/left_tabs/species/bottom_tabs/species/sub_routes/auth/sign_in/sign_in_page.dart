@@ -143,6 +143,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                                   _emailFocusNode.unfocus(),
                               controller: _emailController,
                               enabled: enabled,
+                              textInputAction: TextInputAction.next,
                               autovalidateMode: validateInInput
                                   ? AutovalidateMode.onUserInteraction
                                   : null,
@@ -169,6 +170,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               onTapOutside: (event) =>
                                   _passwordFocusNode.unfocus(),
                               enabled: enabled,
+                              textInputAction: TextInputAction.done,
                               controller: _passwordController,
                               autovalidateMode: validateInInput
                                   ? AutovalidateMode.onUserInteraction
@@ -301,46 +303,38 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
           if (id != null) {
             // Verificar si el usuario ya existe en la base de datos
             final userData = await userRepository.getUserData(id);
-            if (userData != null) {
-              // El usuario ya existe, inicia sesión y redirige
-              context.goNamed(Routes.species);
-            } else {
-              // El usuario no existe en la base de datos, créalo
+            if (user?.emailVerified == true && userData.isNotEmpty) {
+              // El usuario está verificado y existe en la base de datos, inicia sesión y redirige
+              if (mounted) {
+                context.goNamed(Routes.species);
+              }
+            } else if (user?.emailVerified == true) {
+              // El usuario está verificado pero no existe en la base de datos, créalo
               userRepository.createUser(
                 userId: id,
                 email: email,
               );
-              // Envía el correo de verificación
-              final emailVerification =
-                  await authRepository.sendVerificationEmail();
-              emailVerification.when(
-                (left) => customSnackBar(
+              if (mounted) {
+                context.goNamed(Routes.species);
+              }
+            } else {
+              // El usuario no está verificado
+              if (mounted) {
+                showModalBottomSheet(
                   context: context,
-                  title: left,
-                  backgroundColor: colorScheme.error,
-                  large: true,
-                ),
-                (right) {
-                  if (right == 'El usuario ya está verificado') {
-                    context.goNamed(Routes.species);
-                  } else {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => CustomBottomSheet(
-                        title: 'Primero verifica tu correo electrónico',
-                        body: const [
-                          Text(
-                              'Debes verificar tu correo electrónico para poder ingresar'),
-                        ],
-                        floatingActionButton: FloatingActionButton(
-                          onPressed: () => Navigator.maybePop(context),
-                          child: const Icon(Icons.check_rounded),
-                        ),
-                      ),
-                    );
-                  }
-                },
-              );
+                  builder: (context) => CustomBottomSheet(
+                    title: 'Primero verifica tu correo electrónico',
+                    body: const [
+                      Text(
+                          'Debes verificar tu correo electrónico para poder ingresar'),
+                    ],
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () => Navigator.maybePop(context),
+                      child: const Icon(Icons.check_rounded),
+                    ),
+                  ),
+                );
+              }
             }
           }
         },

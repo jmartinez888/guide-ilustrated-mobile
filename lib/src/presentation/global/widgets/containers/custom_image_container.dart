@@ -46,18 +46,18 @@ class CustomImageContainer extends StatelessWidget {
                     fit: fitImage ? BoxFit.cover : BoxFit.contain,
                     progressIndicatorBuilder: progressIndicatorBuilder ??
                         (context, url, downloadProgress) => SizedBox(
-                      height: heightImageInAnother,
-                      width: width,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                            color: mainColor,
-                          ),
-                        ),
-                      ),
-                    ),
+                              height: heightImageInAnother,
+                              width: width,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: CircularProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    color: mainColor,
+                                  ),
+                                ),
+                              ),
+                            ),
                     errorWidget: (context, url, error) => SizedBox(
                       height: heightImageInAnother ?? heightImage,
                       width: width,

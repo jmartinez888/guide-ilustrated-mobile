@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -59,7 +61,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                               width: 24.0,
                               child: CircularProgressIndicator(),
                             ),
-                      label: const Text('Enviar'),
+                      label: enabled
+                          ? const Text('Enviar')
+                          : const Text('Validando...'),
                     );
                   },
                 ),
@@ -93,7 +97,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                 Text(
                     'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleLarge),
+                    style: Theme.of(context).textTheme.titleMedium),
               ],
             ),
           ),
@@ -126,7 +130,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
       final result = await authRepository.resetPassword(email: email);
 
       result.when(
-        (left) => customSnackBar(context: screenContext, title: left),
+        (left) => customSnackBar(
+          context: screenContext,
+          title: left,
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
         (right) => showBottomSheet(
           context: screenContext,
           builder: (screenContext) => CustomBottomSheet(
@@ -135,7 +143,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
               Text(right),
             ],
             floatingActionButton: FloatingActionButton(
-              onPressed: () => Navigator.maybePop(screenContext),
+              onPressed: () {
+                _emailController.clear();
+                final currentRoute = GoRouter.of(context).location;
+
+                if (currentRoute == '/profile/${Routes.forgotPassword}') {
+                  Navigator.of(context).pop();
+                  context.pop();
+                } else {
+                  Navigator.of(context).pop();
+                  context.pushNamed(Routes.signIn);
+                }
+              },
               child: const Icon(Icons.check_rounded),
             ),
           ),

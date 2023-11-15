@@ -1,0 +1,23 @@
+List<String> countryCodes = [
+  'AR',
+  'BO',
+  'CL',
+  'CO',
+  'CR',
+  'CU',
+  'DO',
+  'EC',
+  'SV',
+  'GQ',
+  'GT',
+  'HN',
+  'MX',
+  'NI',
+  'PA',
+  'PY',
+  'PE',
+  'PR',
+  'ES',
+  'UY',
+  'VE'
+];

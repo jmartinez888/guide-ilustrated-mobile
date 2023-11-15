@@ -50,5 +50,3 @@ class _SpecieDetailsPageState extends ConsumerState<SpecieDetailsPage> {
     );
   }
 }
-
-

@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 
 class AuthIiapRepositoryImpl extends AuthRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth get _firebaseAuth => FirebaseAuth.instance;
 
   @override
   Future<Either<String, UserCredential>> signUp({
@@ -121,6 +123,111 @@ class AuthIiapRepositoryImpl extends AuthRepository {
           break;
       }
       return Either.left(text);
+    }
+  }
+
+  Future<Map<String, dynamic>> getUserInfo() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      if (doc.exists) {
+        return doc.data() as Map<String, dynamic>;
+      }
+    }
+    return {};
+  }
+
+  Future<void> deleteUserFiles() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        // Obtener una referencia al bucket de Firebase Storage
+        final storage = FirebaseStorage.instance;
+        final storageRef = storage.ref();
+
+        // Especificar la ruta dentro de Storage donde se almacenan los archivos del usuario images/users/$userId/profile
+        final userFilesRef =
+            storageRef.child('images/users/${user.uid}/profile/${user.uid}');
+
+        // Eliminar la carpeta del usuario
+        await userFilesRef.delete();
+      } else {
+        throw Exception('El usuario no está autenticado.');
+      }
+    } catch (e) {
+      throw Exception('Error al borrar archivos del usuario: $e');
+    }
+  }
+
+  Future<void> deleteFavoritesSubfolder(String userId) async {
+    try {
+      // Eliminar la subcarpeta 'favorites' asociada al usuario
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('favorites')
+          .get();
+
+      List<DocumentSnapshot> documents = snapshot.docs;
+
+      // Eliminar documentos por lotes
+      WriteBatch batch = FirebaseFirestore.instance.batch();
+      for (var doc in documents) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+    } catch (e) {
+      throw Exception('Error al borrar la subcarpeta de favoritos: $e');
+    }
+  }
+
+  Future<void> deleteUserAccount(String password) async {
+    try {
+      final user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        // Reautenticar al usuario con la contraseña ingresada
+        final credential = EmailAuthProvider.credential(
+          email: user.email ?? '',
+          password: password,
+        );
+
+        await user.reauthenticateWithCredential(credential);
+
+        // Eliminar la subcarpeta 'favorites' asociada al usuario
+        await deleteFavoritesSubfolder(user.uid);
+
+        // Eliminar los archivos del usuario en Firebase Storage
+        await deleteUserFiles();
+
+        // Eliminar los datos relacionados con el usuario en Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .delete();
+
+        // Borra la cuenta del usuario solo si la reautenticación es exitosa
+        await user.delete();
+
+        // Cerrar sesión antes de eliminar la cuenta
+        await _firebaseAuth.signOut();
+      } else {
+        throw Exception('El usuario no está autenticado.');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        throw Exception(
+            'Credenciales inválidas. Asegúrate de ingresar la contraseña correcta.');
+      } else {
+        throw Exception('Error al borrar la cuenta: ${e.message}');
+      }
+    } catch (e) {
+      throw Exception('Error al borrar la cuenta: $e');
     }
   }
 }
