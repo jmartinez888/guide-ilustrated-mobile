@@ -6,6 +6,7 @@ class CustomGridCard extends StatelessWidget {
     this.onTap,
     this.title,
     this.subtitle,
+    this.fontStyle,
     this.actions,
     this.backgroundColor,
     this.principalColor,
@@ -16,6 +17,7 @@ class CustomGridCard extends StatelessWidget {
   final String? title;
   final Color? principalColor;
   final String? subtitle;
+  final FontStyle? fontStyle;
   final List<Widget>? actions;
   final Color? backgroundColor;
   final void Function()? onTap;
@@ -59,8 +61,10 @@ class CustomGridCard extends StatelessWidget {
                   if (subtitle != null)
                     Text(
                       subtitle!,
-                      style: textTheme.bodyMedium
-                          ?.copyWith(color: colorScheme.onSurfaceVariant),
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                        fontStyle: fontStyle,
+                      ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

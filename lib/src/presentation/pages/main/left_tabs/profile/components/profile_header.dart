@@ -248,7 +248,7 @@ class _ContentProfile extends StatelessWidget {
                     ),
                     title: 'Mis favoritos',
                     trailing: const Icon(
-                      Icons.chevron_right,
+                      Icons.chevron_right_rounded,
                       color: Colors.grey,
                     ),
                   ),

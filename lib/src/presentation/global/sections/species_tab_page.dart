@@ -31,9 +31,10 @@ class SpeciesTabPageSection extends StatefulWidget {
 }
 
 class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
-  final int numberOfPostsPerRequest = 32;
+  final int numberOfPostsPerRequest = 16;
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
+  bool asc = true;
 
   final SpecieRepository specieRepository = SpecieSpeciesIiapRepositoryImpl();
 
@@ -45,6 +46,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
         pageKey: pageKey,
         type: widget.type,
         pagingController: _pagingController,
+        asc: asc,
       );
     });
     super.initState();
@@ -67,102 +69,141 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     mainOpaqueColor = getMainColorByInt(widget.type);
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
-    return RefreshIndicator(
-      color: mainColor,
-      onRefresh: () => Future.sync(() => _pagingController.refresh()),
-      child: Extend(
-        child: PagedMasonryGridView<int, Specie>(
-          key: PageStorageKey<int>(widget.type),
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
-          pagingController: _pagingController,
-          gridDelegateBuilder: (int childCount) {
-            return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: buildMultiGrids(width));
-          },
-          builderDelegate: PagedChildBuilderDelegate<Specie>(
-            newPageProgressIndicatorBuilder: (_) =>
-                const SkeletonConatiner(height: 320.0),
-            firstPageErrorIndicatorBuilder: (context) => MessageException(
-              onPressed: () => Future.sync(() => _pagingController.refresh()),
-              lottie: 'assets/lotties/error_data.json',
-            ),
-            noItemsFoundIndicatorBuilder: (context) => MessageException(
-              onPressed: () => Future.sync(() => _pagingController.refresh()),
-              text: 'Parece que no hay especies aquí',
-              lottie: 'assets/lotties/without_data.json',
-            ),
-            newPageErrorIndicatorBuilder: (context) => CustomGridCard(
-              onTap: () =>
-                  Future.sync(() => _pagingController.retryLastFailedRequest()),
-              title: 'Algo salió mal, inténtalo de nuevo',
-              image: Padding(
-                padding:
-                    const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-                child: Lottie.asset('assets/lotties/error_data.json'),
-              ),
-            ),
-            firstPageProgressIndicatorBuilder: (_) => const GridLoading(),
-            animateTransitions: true,
-            transitionDuration: const Duration(milliseconds: 400),
-            itemBuilder: (context, item, index) => CustomGridCard(
-              onTap: () => context.pushNamed(
-                Routes.specieDetails,
-                pathParameters: {'id': item.id.toString()},
-              ),
-              principalColor: mainColor,
-              backgroundColor: opaqueColor,
-              image: Stack(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 48.0),
-                    color: Colors.white,
-                    child: CustomImageContainer(
-                      imageUrl: item.images.first,
-                      mainColor: mainColor,
-                      heightImageInAnother: 160.0,
-                    ),
+    final textTheme = Theme.of(context).textTheme;
+    return Stack(
+      children: [
+        RefreshIndicator(
+          color: mainColor,
+          onRefresh: () => Future.sync(() => _pagingController.refresh()),
+          child: Extend(
+            child: PagedMasonryGridView<int, Specie>(
+              key: PageStorageKey<int>(widget.type),
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(16.0, 80.0, 16.0, 100.0),
+              pagingController: _pagingController,
+              gridDelegateBuilder: (int childCount) {
+                return SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: buildMultiGrids(width));
+              },
+              builderDelegate: PagedChildBuilderDelegate<Specie>(
+                newPageProgressIndicatorBuilder: (_) =>
+                    const SkeletonConatiner(height: 320.0),
+                firstPageErrorIndicatorBuilder: (context) => MessageException(
+                  onPressed: () =>
+                      Future.sync(() => _pagingController.refresh()),
+                  lottie: 'assets/lotties/error_data.json',
+                ),
+                noItemsFoundIndicatorBuilder: (context) => MessageException(
+                  onPressed: () =>
+                      Future.sync(() => _pagingController.refresh()),
+                  text: 'Parece que no hay especies aquí',
+                  lottie: 'assets/lotties/without_data.json',
+                ),
+                newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                  onTap: () => Future.sync(
+                      () => _pagingController.retryLastFailedRequest()),
+                  title: 'Algo salió mal, inténtalo de nuevo',
+                  image: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 16.0, left: 16.0, right: 16.0),
+                    child: Lottie.asset('assets/lotties/error_data.json'),
                   ),
-                  if (item.statusImage != null || item.statusImage!.isNotEmpty)
-                    Positioned(
-                      left: 8.0,
-                      bottom: 8.0,
-                      child: Wrap(
-                        spacing: 8.0,
-                        runSpacing: 8.0,
-                        children: [
-                          for (var statusImage in item.statusImage!)
-                            CustomImageContainer(
-                              borderRadius: BorderRadius.zero,
-                              imageUrl: statusImage,
-                              mainColor: mainColor,
-                              heightImage: 40.0,
-                              width: 40.0,
-                              progressIndicatorBuilder: (_, __, ___) =>
-                                  const SizedBox(),
-                            ),
-                        ],
+                ),
+                firstPageProgressIndicatorBuilder: (_) => const GridLoading(),
+                animateTransitions: true,
+                transitionDuration: const Duration(milliseconds: 400),
+                itemBuilder: (context, item, index) => CustomGridCard(
+                  onTap: () => context.pushNamed(
+                    Routes.specieDetails,
+                    pathParameters: {'id': item.id.toString()},
+                  ),
+                  principalColor: mainColor,
+                  backgroundColor: opaqueColor,
+                  image: Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 48.0),
+                        color: Colors.white,
+                        child: CustomImageContainer(
+                          imageUrl: item.images.first,
+                          mainColor: mainColor,
+                          heightImageInAnother: 160.0,
+                        ),
                       ),
-                    ),
-                  Positioned(
-                    top: 8.0,
-                    right: 8.0,
-                    child: _FavoriteAction(
-                      context: context,
-                      mainColor: mainColor,
-                      specie: item,
-                    ),
+                      if (item.statusImage != null ||
+                          item.statusImage!.isNotEmpty)
+                        Positioned(
+                          left: 8.0,
+                          bottom: 8.0,
+                          child: Wrap(
+                            spacing: 8.0,
+                            runSpacing: 8.0,
+                            children: [
+                              for (var statusImage in item.statusImage!)
+                                CustomImageContainer(
+                                  borderRadius: BorderRadius.zero,
+                                  imageUrl: statusImage,
+                                  mainColor: mainColor,
+                                  heightImage: 40.0,
+                                  width: 40.0,
+                                  progressIndicatorBuilder: (_, __, ___) =>
+                                      const SizedBox(),
+                                ),
+                            ],
+                          ),
+                        ),
+                      Positioned(
+                        top: 8.0,
+                        right: 8.0,
+                        child: _FavoriteAction(
+                          context: context,
+                          mainColor: mainColor,
+                          specie: item,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                  title: item.name,
+                  subtitle: item.scientificName,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
-              title: item.name,
-              subtitle: item.scientificName,
             ),
           ),
         ),
-      ),
+        Positioned(
+          right: 16.0,
+          child: Material(
+            color: opaqueColor,
+            borderRadius: BorderRadius.circular(16.0),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runAlignment: WrapAlignment.center,
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [
+                  Text('Ascendente', style: textTheme.labelLarge),
+                  const SizedBox(width: 8.0),
+                  Switch(
+                    activeColor: mainColor,
+                    value: asc,
+                    onChanged: (value) => setState(() {
+                      asc = value;
+                      _pagingController.refresh();
+                    }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -47,7 +47,7 @@ class _IndigenousCommunitySection extends StatefulWidget {
 
 class _IndigenousCommunitySectionState
     extends State<_IndigenousCommunitySection> {
-  final int numberOfPostsPerRequest = 32;
+  final int numberOfPostsPerRequest = 16;
   final PagingController<int, Community> _pagingController =
       PagingController(firstPageKey: 1);
 

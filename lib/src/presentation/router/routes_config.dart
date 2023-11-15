@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/presentation/global/icons/custom_icons.dart';
-import 'package:species/src/presentation/global/sections/message_exception.dart';
+import 'package:species/src/presentation/pages/error/error_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
@@ -34,15 +33,7 @@ final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 final appRouter = GoRouter(
   initialLocation: Routes.splash,
   navigatorKey: parentNavigatorKey,
-  errorBuilder: (context, state) => Scaffold(
-    body: MessageException(
-      lottie: 'assets/lotties/error_data.json',
-      text: 'Esta página ya no existe',
-      onPressed: () => context.goNamed(Routes.species),
-      buttonText: 'Volver a Especies',
-      icon: CustomIcons.bird,
-    ),
-  ),
+  errorBuilder: (context, state) => const ErrorPage(),
   routes: [
     GoRoute(
       path: Routes.splash,

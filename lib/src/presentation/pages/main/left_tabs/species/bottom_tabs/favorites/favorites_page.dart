@@ -123,6 +123,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 ),
                 title: specie.name,
                 subtitle: specie.scientificName,
+                fontStyle: FontStyle.italic,
               );
             },
           );
