@@ -20,7 +20,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final int numberOfPostsPerRequest = 32;
+  final int numberOfPostsPerRequest = 16;
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
 
@@ -142,7 +142,8 @@ class _SearchPageState extends State<SearchPage> {
                       fitImage: false,
                     ),
                     title: Text(item.name),
-                    subtitle: Text(item.scientificName),
+                    subtitle: Text(item.scientificName,
+                        style: const TextStyle(fontStyle: FontStyle.italic)),
                     trailing: const Icon(Icons.chevron_right_rounded),
                   ),
                 ),

@@ -27,10 +27,14 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     required int type,
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
+    bool asc = true,
   }) async {
+
+    String ascValue = asc ? 'ASC' : 'DESC';
+    
     try {
       final response = await get(Uri.parse(
-          '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest'));
+          '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue'));
       final responseList =
           ResponseSpeciesIiap.fromJson(jsonDecode(response.body));
 

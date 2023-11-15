@@ -17,7 +17,7 @@ class IndigenousCommunitySearchPage extends StatefulWidget {
 
 class _IndigenousCommunitySearchPageState
     extends State<IndigenousCommunitySearchPage> {
-  final int numberOfPostsPerRequest = 32;
+  final int numberOfPostsPerRequest = 16;
   final PagingController<int, Community> _pagingController =
       PagingController(firstPageKey: 1);
   final communityRepository = IndigenousCommunityIiaprepositoryImpl();

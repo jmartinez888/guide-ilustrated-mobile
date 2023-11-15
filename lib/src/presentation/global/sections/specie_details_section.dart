@@ -89,7 +89,9 @@ class SpecieDetailsSection extends StatelessWidget {
           Text(
             specie.scientificName,
             style: textTheme.titleMedium
-                ?.copyWith(color: colorScheme.onBackground),
+                ?.copyWith(color: colorScheme.onBackground,
+                fontStyle: FontStyle.italic,
+                ),
           ),
           if (specie.sound.isNotEmpty)
             Padding(
