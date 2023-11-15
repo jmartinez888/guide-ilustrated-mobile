@@ -19,9 +19,13 @@ class OrderByNameScientificDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Ordenar por nombre científico'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text(
+        'Ordenar por nombre científico',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           RadioListTile(
             title: const Text('Ascendente'),
@@ -71,9 +75,13 @@ class FilterBySoundDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtrar por sonido'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text(
+        'Filtrar por sonido',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           RadioListTile(
             title: const Text('Con sonido'),
@@ -123,9 +131,13 @@ class FilterByConservationStatusDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtrar por estado de conservación'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text(
+        'Filtrar por estado de conservación',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           RadioListTile(
             title: const Text('En peligro'),
@@ -193,9 +205,11 @@ class FilterByTaxonomyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtrar por taxonomía'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text('Filtrar por taxonomía',
+          style: Theme.of(context).textTheme.titleMedium),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           RadioListTile(
             title: const Text('Taxonomía 1'),
@@ -265,9 +279,13 @@ class FilterByClassDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtrar por clase'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text(
+        'Filtrar por clase',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           CustomDropdown<String>(
             headerBuilder: (context, selectedItem) {
@@ -320,9 +338,13 @@ class FilterByOrderDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtrar por orden'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text(
+        'Filtrar por orden',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           CustomDropdown<String>(
             headerBuilder: (context, selectedItem) {
@@ -375,9 +397,13 @@ class FilterByFamilyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtrar por familia'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
+      title: Text(
+        'Filtrar por familia',
+        style: Theme.of(context).textTheme.titleMedium,
+      ),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      content: Wrap(
         children: [
           CustomDropdown<String>(
             headerBuilder: (context, selectedItem) {
