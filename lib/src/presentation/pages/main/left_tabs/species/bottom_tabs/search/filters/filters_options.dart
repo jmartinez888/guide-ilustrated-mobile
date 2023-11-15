@@ -265,7 +265,7 @@ class FilterByClassDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtro por clase'),
+      title: const Text('Filtrar por clase'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -320,7 +320,7 @@ class FilterByOrderDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtro orden'),
+      title: const Text('Filtrar por orden'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -375,7 +375,7 @@ class FilterByFamilyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Filtro familia'),
+      title: const Text('Filtrar por familia'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
