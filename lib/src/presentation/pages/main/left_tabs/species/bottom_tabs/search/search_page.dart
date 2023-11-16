@@ -233,7 +233,7 @@ class _SearchPageState extends State<SearchPage> {
                             : 'Estado',
           ),
 
-          // Add taxonomy filter
+          // Add category filter
           _filterOptionButton(
             context: context,
             onPressed: () => _filterByTaxonomyDialog(context),
@@ -255,10 +255,19 @@ class _SearchPageState extends State<SearchPage> {
                                         ? 'Arboles'
                                         : taxonomyId == 8
                                             ? 'Palmeras'
-                                            : 'Taxonomía',
+                                            : 'Categoria',
           ),
 
-          // Add class filter
+          // Add class, order and family filter
+          _filterOptionButton(
+            context: context,
+            onPressed: () => _showMultiFilterDialog(context),
+            filterValue: null,
+            icon: Icons.filter_hdr_rounded,
+            filterName: 'Taxonomía',
+          ),
+
+          // // Add class filter
           _filterOptionButton(
             context: context,
             onPressed: () => _filterByClassDialog(context),
@@ -571,6 +580,56 @@ class _SearchPageState extends State<SearchPage> {
               );
             }
           },
+        );
+      },
+    );
+  }
+
+  void _showMultiFilterDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            constraints: const BoxConstraints(
+              maxWidth: 400,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () => _filterByClassDialog(context),
+                      icon: const Icon(Icons.class_rounded),
+                    ),
+                    if (selectedClass != null)
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () => _filterByOrderDialog(context),
+                            icon: const Icon(Icons.sort_rounded),
+                          ),
+                          const Text('Orden'),
+                        ],
+                      ),
+                    if (selectedOrder != null)
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () => _filterByFamilyDialog(context),
+                            icon: const Icon(Icons.family_restroom_rounded),
+                          ),
+                          const Text('Familia'),
+                        ],
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
