@@ -6,12 +6,12 @@ import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
-import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
+// import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -19,8 +19,8 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> with FormMixin {
   final ScrollController _scrollController = ScrollController();
-  final TextEditingController _emailController = TextEditingController(),
-      _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
@@ -39,12 +39,12 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       animationTimer = Timer(
-        const Duration(milliseconds: 2500),
+        const Duration(milliseconds: 300),
         () {
           _scrollController.animateTo(
             _scrollController.position.maxScrollExtent,
             curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 100),
           );
         },
       );
@@ -66,199 +66,139 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: SizedBox(
-              width: 768.0,
-              child: CustomScrollView(
-                controller: _scrollController,
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: 384.0,
-                    toolbarHeight: 0.0,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: ShaderMask(
-                        shaderCallback: (Rect bounds) => const LinearGradient(
-                          begin: Alignment.center,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            CustomColors.background,
-                          ],
-                        ).createShader(bounds),
-                        blendMode: BlendMode.srcATop,
-                        child: Image.asset(
-                          'assets/images/background.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 16.0,
-                                right: 16.0,
-                                bottom: 16.0,
-                              ),
-                              child: Image.asset(
-                                height: 256.0,
-                                width: 256.0,
-                                'assets/images/logo.png',
-                              ),
-                            ),
-                            Text(
-                              'AMAZONÍA',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineLarge
-                                  ?.copyWith(
-                                    fontSize: size.width * 0.1,
-                                    color: colorScheme.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            Text(
-                              'Guía ilustrada de flora y fauna',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(color: colorScheme.primary),
-                            ),
-                            const SizedBox(height: 32.0),
-                            TextFormField(
-                              focusNode: _emailFocusNode,
-                              onTapOutside: (event) =>
-                                  _emailFocusNode.unfocus(),
-                              controller: _emailController,
-                              enabled: enabled,
-                              textInputAction: TextInputAction.next,
-                              autovalidateMode: validateInInput
-                                  ? AutovalidateMode.onUserInteraction
-                                  : null,
-                              decoration: InputDecoration(
-                                labelText: 'Correo',
-                                prefixIcon: const Icon(Icons.email_outlined),
-                                suffixIcon: _emailController.text.isNotEmpty
-                                    ? IconButton(
-                                        onPressed: () => setState(
-                                            () => _emailController.clear()),
-                                        tooltip: 'Limpiar',
-                                        icon: const Icon(Icons.cancel_outlined),
-                                      )
-                                    : null,
-                              ),
-                              onChanged: (value) => setState(() {}),
-                              validator: emailValidator,
-                              inputFormatters: [withoutSpaces],
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            const SizedBox(height: 16.0),
-                            TextFormField(
-                              focusNode: _passwordFocusNode,
-                              onTapOutside: (event) =>
-                                  _passwordFocusNode.unfocus(),
-                              enabled: enabled,
-                              textInputAction: TextInputAction.done,
-                              controller: _passwordController,
-                              autovalidateMode: validateInInput
-                                  ? AutovalidateMode.onUserInteraction
-                                  : null,
-                              obscureText: _hidePassword,
-                              decoration: InputDecoration(
-                                labelText: 'Contraseña',
-                                prefixIcon: const Icon(Icons.password_rounded),
-                                suffixIcon: Wrap(
-                                  runSpacing: 8.0,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => setState(
-                                          () => _hidePassword = !_hidePassword),
-                                      tooltip: 'Mostrar contraseña',
-                                      icon: Icon(
-                                        _hidePassword
-                                            ? Icons.visibility_outlined
-                                            : Icons.visibility_off_outlined,
-                                      ),
-                                    ),
-                                    if (_passwordController.text.isNotEmpty)
-                                      IconButton(
-                                        onPressed: () => setState(
-                                            () => _passwordController.clear()),
-                                        tooltip: 'Limpiar',
-                                        icon: const Icon(Icons.cancel_outlined),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                              onChanged: (value) => setState(() {}),
-                              validator: passwordValidator,
-                              inputFormatters: [withoutSpaces],
-                              keyboardType: TextInputType.visiblePassword,
-                            ),
-                            const SizedBox(height: 16.0),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                onPressed: () =>
-                                    context.pushNamed(Routes.forgotPassword),
-                                child: const Text('¿Olvidaste tu contraseña?'),
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            SizedBox(
-                              width: double.infinity,
-                              child: FilledButton.icon(
-                                onPressed: enabled
-                                    ? () =>
-                                        _validateCredentials(context: context)
-                                    : null,
-                                icon: enabled
-                                    ? const Icon(Icons.navigate_next)
-                                    : const SizedBox(
-                                        width: 24.0,
-                                        height: 24.0,
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                label: const Text('Ingresar'),
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            TextButton(
-                              onPressed: enabled
-                                  ? () => context.pushNamed(Routes.signUp)
-                                  : null,
-                              child:
-                                  const Text('Si eres nuevo regístrate aquí'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SafeArea(
+    final isMobile = size.width < 600;
+    // final isTablet = size.width < 1200 && size.width >= 600;
+    // Size isDesktop = size.width >= 1200;
+
+    return Scaffold(body: _mobileView(size, isMobile, colorScheme, context));
+  }
+
+  Center _mobileView(Size size, bool isLandscape, ColorScheme colorScheme,
+      BuildContext context) {
+    return Center(
+      child: CustomScrollView(
+        controller: _scrollController,
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          _PortraitAppbar(size: size),
+          SliverFillRemaining(
+            hasScrollBody: false,
             child: Padding(
-              padding: EdgeInsets.only(left: 8.0, top: 8.0),
-              child: CustomBackButton(),
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (!isLandscape)
+                      const _HeaderLogo(height: 0.3, width: 0.8),
+                    const SizedBox(height: 16.0),
+                    _TitleApp(size: size, colorScheme: colorScheme),
+                    _SubtitleApp(colorScheme: colorScheme),
+                    const SizedBox(height: 32.0),
+                    _emailTextFormField(),
+                    const SizedBox(height: 16.0),
+                    _passwordTextFormField(),
+                    const SizedBox(height: 16.0),
+                    const _ForgotButtonLink(),
+                    const SizedBox(height: 16.0),
+                    _loginButton(context),
+                    const SizedBox(height: 16.0),
+                    _RegisterButton(enabled: enabled),
+                    SizedBox(height: size.height * 0.05),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  SizedBox _loginButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: FilledButton.icon(
+        onPressed:
+            enabled ? () => _validateCredentials(context: context) : null,
+        icon: enabled
+            ? const Icon(Icons.navigate_next)
+            : const SizedBox(
+                width: 24.0,
+                height: 24.0,
+                child: CircularProgressIndicator(),
+              ),
+        label: const Text('Ingresar'),
+      ),
+    );
+  }
+
+  TextFormField _passwordTextFormField() {
+    return TextFormField(
+      focusNode: _passwordFocusNode,
+      onTapOutside: (event) => _passwordFocusNode.unfocus(),
+      enabled: enabled,
+      textInputAction: TextInputAction.done,
+      controller: _passwordController,
+      autovalidateMode:
+          validateInInput ? AutovalidateMode.onUserInteraction : null,
+      obscureText: _hidePassword,
+      decoration: InputDecoration(
+        labelText: 'Contraseña',
+        prefixIcon: const Icon(Icons.password_rounded),
+        suffixIcon: Wrap(
+          runSpacing: 8.0,
+          children: [
+            IconButton(
+              onPressed: () => setState(() => _hidePassword = !_hidePassword),
+              tooltip: 'Mostrar contraseña',
+              icon: Icon(
+                _hidePassword
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+              ),
+            ),
+            if (_passwordController.text.isNotEmpty)
+              IconButton(
+                onPressed: () => setState(() => _passwordController.clear()),
+                tooltip: 'Limpiar',
+                icon: const Icon(Icons.cancel_outlined),
+              ),
+          ],
+        ),
+      ),
+      onChanged: (value) => setState(() {}),
+      validator: passwordValidator,
+      inputFormatters: [withoutSpaces],
+      keyboardType: TextInputType.visiblePassword,
+    );
+  }
+
+  TextFormField _emailTextFormField() {
+    return TextFormField(
+      focusNode: _emailFocusNode,
+      onTapOutside: (event) => _emailFocusNode.unfocus(),
+      controller: _emailController,
+      enabled: enabled,
+      textInputAction: TextInputAction.next,
+      autovalidateMode:
+          validateInInput ? AutovalidateMode.onUserInteraction : null,
+      decoration: InputDecoration(
+        labelText: 'Correo',
+        prefixIcon: const Icon(Icons.email_outlined),
+        suffixIcon: _emailController.text.isNotEmpty
+            ? IconButton(
+                onPressed: () => setState(() => _emailController.clear()),
+                tooltip: 'Limpiar',
+                icon: const Icon(Icons.cancel_outlined),
+              )
+            : null,
+      ),
+      onChanged: (value) => setState(() {}),
+      validator: emailValidator,
+      inputFormatters: [withoutSpaces],
+      keyboardType: TextInputType.emailAddress,
     );
   }
 
@@ -301,15 +241,12 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
           final user = right.user;
           final id = user?.uid;
           if (id != null) {
-            // Verificar si el usuario ya existe en la base de datos
             final userData = await userRepository.getUserData(id);
             if (user?.emailVerified == true && userData.isNotEmpty) {
-              // El usuario está verificado y existe en la base de datos, inicia sesión y redirige
               if (mounted) {
                 context.goNamed(Routes.species);
               }
             } else if (user?.emailVerified == true) {
-              // El usuario está verificado pero no existe en la base de datos, créalo
               userRepository.createUser(
                 userId: id,
                 email: email,
@@ -318,7 +255,6 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                 context.goNamed(Routes.species);
               }
             } else {
-              // El usuario no está verificado
               if (mounted) {
                 showModalBottomSheet(
                   context: context,
@@ -342,5 +278,126 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       enabled = true;
       setState(() {});
     }
+  }
+}
+
+// class _desktopView {}
+
+// class _tabletView {}
+
+class _RegisterButton extends StatelessWidget {
+  const _RegisterButton({required this.enabled});
+
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: enabled ? () => context.pushNamed(Routes.signUp) : null,
+      child: const Text('Si eres nuevo regístrate aquí'),
+    );
+  }
+}
+
+class _ForgotButtonLink extends StatelessWidget {
+  const _ForgotButtonLink();
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton(
+        onPressed: () => context.pushNamed(Routes.forgotPassword),
+        child: const Text('¿Olvidaste tu contraseña?'),
+      ),
+    );
+  }
+}
+
+class _SubtitleApp extends StatelessWidget {
+  const _SubtitleApp({required this.colorScheme});
+
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Guía ilustrada de flora y fauna',
+      style: Theme.of(context)
+          .textTheme
+          .headlineSmall
+          ?.copyWith(color: colorScheme.primary),
+    );
+  }
+}
+
+class _TitleApp extends StatelessWidget {
+  const _TitleApp({
+    required this.size,
+    required this.colorScheme,
+  });
+
+  final Size size;
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'AMAZONÍA',
+      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+            fontSize: size.width * 0.1,
+            color: colorScheme.primary,
+            fontWeight: FontWeight.bold,
+          ),
+    );
+  }
+}
+
+class _PortraitAppbar extends StatelessWidget {
+  const _PortraitAppbar({required this.size});
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      expandedHeight: size.height * 0.2,
+      toolbarHeight: 0.0,
+      flexibleSpace: FlexibleSpaceBar(
+        background: ShaderMask(
+          shaderCallback: (Rect bounds) => const LinearGradient(
+            begin: Alignment.center,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              CustomColors.background,
+            ],
+          ).createShader(bounds),
+          blendMode: BlendMode.srcATop,
+          child: Image.asset(
+            'assets/images/background.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _HeaderLogo extends StatelessWidget {
+  const _HeaderLogo({required this.height, required this.width});
+
+  final num height;
+  final num width;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Image.asset(
+      height: size.height * height,
+      width: size.width * width,
+      'assets/images/logo.png',
+      fit: BoxFit.contain,
+    );
   }
 }
