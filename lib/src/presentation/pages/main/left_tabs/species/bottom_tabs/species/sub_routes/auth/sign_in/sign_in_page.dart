@@ -6,7 +6,7 @@ import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
-// import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -64,55 +64,83 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final size = MediaQuery.of(context).size;
-    final isMobile = size.width < 600;
+    // final size = MediaQuery.of(context).size;
+    // final isMobile = size.width < 600;
     // final isTablet = size.width < 1200 && size.width >= 600;
     // Size isDesktop = size.width >= 1200;
 
-    return Scaffold(body: _mobileView(size, isMobile, colorScheme, context));
+    return Scaffold(
+      body: _mobileView(context),
+    );
   }
 
-  Center _mobileView(Size size, bool isLandscape, ColorScheme colorScheme,
-      BuildContext context) {
-    return Center(
-      child: CustomScrollView(
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          _PortraitAppbar(size: size),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (!isLandscape)
-                      const _HeaderLogo(height: 0.3, width: 0.8),
-                    const SizedBox(height: 16.0),
-                    _TitleApp(size: size, colorScheme: colorScheme),
-                    _SubtitleApp(colorScheme: colorScheme),
-                    const SizedBox(height: 32.0),
-                    _emailTextFormField(),
-                    const SizedBox(height: 16.0),
-                    _passwordTextFormField(),
-                    const SizedBox(height: 16.0),
-                    const _ForgotButtonLink(),
-                    const SizedBox(height: 16.0),
-                    _loginButton(context),
-                    const SizedBox(height: 16.0),
-                    _RegisterButton(enabled: enabled),
-                    SizedBox(height: size.height * 0.05),
-                  ],
+  Widget _mobileView(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
+    final isTablet = size.width < 1200 && size.width >= 768;
+    // final isDesktop = size.width >= 1200;
+
+    return Stack(
+      children: [
+        Center(
+          child: CustomScrollView(
+            controller: _scrollController,
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              const _PortraitAppbar(),
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const _HeaderLogo(),
+                      const SizedBox(height: 16.0),
+                      const _TitleApp(),
+                      _SubtitleApp(colorScheme: colorScheme),
+                      const SizedBox(height: 32.0),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: isMobile
+                              ? size.width
+                              : isTablet
+                                  ? size.width * 0.6
+                                  : size.width * 0.4,
+                        ),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              _emailTextFormField(),
+                              const SizedBox(height: 16.0),
+                              _passwordTextFormField(),
+                              const SizedBox(height: 16.0),
+                              const _ForgotButtonLink(),
+                              const SizedBox(height: 16.0),
+                              _loginButton(context),
+                              const SizedBox(height: 16.0),
+                              _RegisterButton(enabled: enabled),
+                              SizedBox(height: size.height * 0.05),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(left: 8.0, top: 8.0),
+            child: CustomBackButton(),
+          ),
+        ),
+      ],
     );
   }
 
@@ -332,20 +360,17 @@ class _SubtitleApp extends StatelessWidget {
 }
 
 class _TitleApp extends StatelessWidget {
-  const _TitleApp({
-    required this.size,
-    required this.colorScheme,
-  });
-
-  final Size size;
-  final ColorScheme colorScheme;
+  const _TitleApp();
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 768;
     return Text(
       'AMAZONÍA',
       style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-            fontSize: size.width * 0.1,
+            fontSize: isMobile ? size.width * 0.1 : size.width * 0.05,
             color: colorScheme.primary,
             fontWeight: FontWeight.bold,
           ),
@@ -354,12 +379,11 @@ class _TitleApp extends StatelessWidget {
 }
 
 class _PortraitAppbar extends StatelessWidget {
-  const _PortraitAppbar({required this.size});
-
-  final Size size;
+  const _PortraitAppbar();
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SliverAppBar(
       expandedHeight: size.height * 0.2,
       toolbarHeight: 0.0,
@@ -385,17 +409,14 @@ class _PortraitAppbar extends StatelessWidget {
 }
 
 class _HeaderLogo extends StatelessWidget {
-  const _HeaderLogo({required this.height, required this.width});
-
-  final num height;
-  final num width;
+  const _HeaderLogo();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Image.asset(
-      height: size.height * height,
-      width: size.width * width,
+      height: size.height * 0.3,
+      width: size.width * 0.8,
       'assets/images/logo.png',
       fit: BoxFit.contain,
     );
