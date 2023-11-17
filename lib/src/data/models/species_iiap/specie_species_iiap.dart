@@ -1,40 +1,41 @@
+import 'package:species/src/domain/entities/author.dart';
+import 'package:species/src/domain/entities/conservations_status.dart';
+import 'package:species/src/domain/entities/taxa.dart';
+import 'package:species/src/domain/entities/taxonomy.dart';
+
 class SpecieSpeciesIiap {
   final int idEspecie;
   final String vcNombre;
   final String vcNombreCientifico;
   final String vcNombreIngles;
-  final dynamic vcSonido;
   final String vcAno;
-  final String vcImagen;
   final String teDescripcion;
-  final String reino;
-  final String filo;
-  final String clase;
-  final String orden;
-  final String familia;
-  final String tipo;
-  final List<String> imagenesEstado;
-  final List<String> autores;
-  final List<String> idAutores;
+  final dynamic vcSonido;
+  final String vcImagen;
+  final Taxa taxa;
+  final List<Taxonomia> taxonomia;
+  final List<EstadosConservacion> estadosConservacion;
+  final List<Author> autores;
+  final dynamic fechaCreacion;
+  final DateTime fechaModificacion;
+  final String estado;
 
   SpecieSpeciesIiap({
     required this.idEspecie,
     required this.vcNombre,
     required this.vcNombreCientifico,
     required this.vcNombreIngles,
-    required this.vcSonido,
     required this.vcAno,
-    required this.vcImagen,
     required this.teDescripcion,
-    required this.reino,
-    required this.filo,
-    required this.clase,
-    required this.orden,
-    required this.familia,
-    required this.tipo,
-    required this.imagenesEstado,
+    required this.vcSonido,
+    required this.vcImagen,
+    required this.taxa,
+    required this.taxonomia,
+    required this.estadosConservacion,
     required this.autores,
-    required this.idAutores,
+    required this.fechaCreacion,
+    required this.fechaModificacion,
+    required this.estado,
   });
 
   factory SpecieSpeciesIiap.fromJson(Map<String, dynamic> json) =>
@@ -42,26 +43,22 @@ class SpecieSpeciesIiap {
         idEspecie: json["id_especie"],
         vcNombre: json["vc_nombre"],
         vcNombreCientifico: json["vc_nombre_cientifico"],
-        vcNombreIngles: json["vc_nombre_ingles"] ?? '',
-        vcSonido: json["vc_sonido"] ?? '',
-        vcAno: json["vc_ano"] ?? '',
-        vcImagen: json["vc_imagen"] ?? '',
-        teDescripcion: json["te_descripcion"] ?? '',
-        reino: json["reino"] ?? '',
-        filo: json["filo"] ?? '',
-        clase: json["clase"] ?? '',
-        orden: json["orden"] ?? '',
-        familia: json["familia"] ?? '',
-        tipo: json["tipo"] ?? '',
-        imagenesEstado: json['vc_imagenes_estado'] != null
-            ? List<String>.from(json["vc_imagenes_estado"].map((x) => x))
-            : [],
-        autores: json['autores'] != null
-            ? List<String>.from(json["autores"].map((x) => x))
-            : [],
-        idAutores: json['id_autores'] != null
-            ? List<String>.from(json["id_autores"].map((x) => x))
-            : [],
+        vcNombreIngles: json["vc_nombre_ingles"],
+        vcAno: json["vc_ano"],
+        teDescripcion: json["te_descripcion"],
+        vcSonido: json["vc_sonido"],
+        vcImagen: json["vc_imagen"],
+        taxa: Taxa.fromJson(json["taxa"]),
+        taxonomia: List<Taxonomia>.from(
+            json["taxonomia"].map((x) => Taxonomia.fromJson(x))),
+        estadosConservacion: List<EstadosConservacion>.from(
+            json["estados_conservacion"]
+                .map((x) => EstadosConservacion.fromJson(x))),
+        autores:
+            List<Author>.from(json["autores"].map((x) => Author.fromJson(x))),
+        fechaCreacion: json["fecha_creacion"],
+        fechaModificacion: DateTime.parse(json["fecha_modificacion"]),
+        estado: json["estado"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -69,18 +66,17 @@ class SpecieSpeciesIiap {
         "vc_nombre": vcNombre,
         "vc_nombre_cientifico": vcNombreCientifico,
         "vc_nombre_ingles": vcNombreIngles,
-        "vc_sonido": vcSonido,
         "vc_ano": vcAno,
-        "vc_imagen": vcImagen,
         "te_descripcion": teDescripcion,
-        "reino": reino,
-        "filo": filo,
-        "clase": clase,
-        "orden": orden,
-        "familia": familia,
-        "tipo": tipo,
-        "vc_imagenes_estado": List<dynamic>.from(imagenesEstado.map((x) => x)),
-        "autores": List<dynamic>.from(autores.map((x) => x)),
-        "id_autores": List<dynamic>.from(idAutores.map((x) => x)),
+        "vc_sonido": vcSonido,
+        "vc_imagen": vcImagen,
+        "taxa": taxa.toJson(),
+        "taxonomia": List<dynamic>.from(taxonomia.map((x) => x.toJson())),
+        "estados_conservacion":
+            List<dynamic>.from(estadosConservacion.map((x) => x.toJson())),
+        "autores": List<dynamic>.from(autores.map((x) => x.toJson())),
+        "fecha_creacion": fechaCreacion,
+        "fecha_modificacion": fechaModificacion.toIso8601String(),
+        "estado": estado,
       };
 }

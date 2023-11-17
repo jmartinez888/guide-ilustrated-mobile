@@ -42,6 +42,4 @@ class ResponseSpeciesIiap {
         "totalPages": totalPages,
         "totalItems": totalItems,
       };
-
-  where(Function(dynamic speciesIiap) param0) {}
 }

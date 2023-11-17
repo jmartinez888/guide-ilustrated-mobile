@@ -33,9 +33,11 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
 
     try {
       final response = await get(Uri.parse(
-          '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue'));
+          '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue/1'));
+      print('🙁🙁${response.body} ${response.statusCode}');
       final responseList =
           ResponseSpeciesIiap.fromJson(jsonDecode(response.body));
+      print('😘${responseList.species}');
 
       List<Specie> postList = responseList.species
           .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)

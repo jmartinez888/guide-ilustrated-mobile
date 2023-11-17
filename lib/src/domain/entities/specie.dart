@@ -1,3 +1,5 @@
+import 'package:species/src/domain/entities/taxonomy.dart';
+
 class Specie {
   final int id;
   final String name;
@@ -15,7 +17,8 @@ class Specie {
   final List<String> authors;
   final List<String>? statusImage;
 
-  Specie({
+  Specie(
+    Taxonomia taxonomia, {
     required this.id,
     required this.name,
     required this.scientificName,
@@ -52,6 +55,7 @@ class Specie {
       };
 
   factory Specie.fromJson(Map<String, dynamic> json) => Specie(
+        Taxonomia.fromJson(json['taxonomia']),
         id: json['id'],
         name: json['name'],
         scientificName: json['scientificName'] ?? '',
@@ -71,7 +75,8 @@ class Specie {
         authors: (json['authors'] != '' || json['authors'] != null)
             ? List<String>.from(json['authors'].map((x) => x))
             : [],
-        statusImage: (json['vc_imagenes_estado'] != '' || json['vc_imagenes_estado'] != null)
+        statusImage: (json['vc_imagenes_estado'] != '' ||
+                json['vc_imagenes_estado'] != null)
             ? List<String>.from(json['vc_imagenes_estado'].map((x) => x))
             : [],
       );
