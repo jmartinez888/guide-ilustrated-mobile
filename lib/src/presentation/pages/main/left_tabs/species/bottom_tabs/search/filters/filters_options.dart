@@ -315,7 +315,7 @@ class FilterByTaxonomyDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por taxonomía',
+                'Filtrar por categoría',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),

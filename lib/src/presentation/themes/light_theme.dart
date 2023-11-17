@@ -35,6 +35,9 @@ class CustomTheme {
       backgroundColor: MaterialStateProperty.all<Color>(
         CustomColors.primary,
       ),
+      foregroundColor: MaterialStateProperty.all<Color>(
+        CustomColors.white,
+      ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),

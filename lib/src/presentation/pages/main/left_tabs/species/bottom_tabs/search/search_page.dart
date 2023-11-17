@@ -158,7 +158,7 @@ class _SearchPageState extends State<SearchPage> {
   Container _listFilterOptions(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
     return Container(
-      padding: EdgeInsets.only(left: isMobile ? 16 : 8),
+      padding: EdgeInsets.only(left: isMobile ? 16 : 8, top: isMobile ? 0 : 10),
       height: 56,
       width: double.infinity,
       child: ListView(
@@ -166,40 +166,36 @@ class _SearchPageState extends State<SearchPage> {
         scrollDirection: Axis.horizontal,
         children: [
           // ASC/DESC filter
-          Container(
-            margin: const EdgeInsets.only(right: 4.0),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                // backgroundColor: orderNameScientific != null
-                //     ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
-                //     : null,
-                foregroundColor: orderNameScientific != null
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              onPressed: () {
-                _orderByNameScientificDialog(context);
-              },
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.sort_by_alpha_rounded,
-                    size: 20.0,
-                  ),
-                  Text(
-                    orderNameScientific == 'ASC'
-                        ? 'Ascendente'
-                        : orderNameScientific == 'DESC'
-                            ? 'Descendente'
-                            : 'Ordenar',
-                  ),
-                ],
-              ),
-            ),
+          _filterOrderOption(context),
+
+          // Add class filter
+          _filterOptionButton(
+            context: context,
+            onPressed: () => _filterByClassDialog(context),
+            filterValue: selectedClass,
+            icon: Icons.class_rounded,
+            filterName: 'Clase',
           ),
+
+          // Add order filter
+          if (selectedClass != null)
+            _filterOptionButton(
+              context: context,
+              onPressed: () => _filterByOrderDialog(context),
+              filterValue: selectedOrder,
+              icon: Icons.sort_rounded,
+              filterName: 'Orden',
+            ),
+
+          // Add family filter
+          if (selectedOrder != null)
+            _filterOptionButton(
+              context: context,
+              onPressed: () => _filterByFamilyDialog(context),
+              filterValue: selectedFamily,
+              icon: Icons.family_restroom_rounded,
+              filterName: 'Familia',
+            ),
 
           // Add sound filter
           _filterOptionButton(
@@ -257,45 +253,44 @@ class _SearchPageState extends State<SearchPage> {
                                             ? 'Palmeras'
                                             : 'Categoria',
           ),
-
-          // Add class, order and family filter
-          _filterOptionButton(
-            context: context,
-            onPressed: () => _showMultiFilterDialog(context),
-            filterValue: null,
-            icon: Icons.filter_hdr_rounded,
-            filterName: 'Taxonomía',
-          ),
-
-          // // Add class filter
-          _filterOptionButton(
-            context: context,
-            onPressed: () => _filterByClassDialog(context),
-            filterValue: selectedClass,
-            icon: Icons.class_rounded,
-            filterName: 'Clase',
-          ),
-
-          // Add order filter
-          if (selectedClass != null)
-            _filterOptionButton(
-              context: context,
-              onPressed: () => _filterByOrderDialog(context),
-              filterValue: selectedOrder,
-              icon: Icons.sort_rounded,
-              filterName: 'Orden',
-            ),
-
-          // Add family filter
-          if (selectedOrder != null)
-            _filterOptionButton(
-              context: context,
-              onPressed: () => _filterByFamilyDialog(context),
-              filterValue: selectedFamily,
-              icon: Icons.family_restroom_rounded,
-              filterName: 'Familia',
-            ),
         ],
+      ),
+    );
+  }
+
+  Container _filterOrderOption(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(right: 4.0),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          // backgroundColor: orderNameScientific != null
+          //     ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+          //     : null,
+          foregroundColor: orderNameScientific != null
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+        onPressed: () {
+          _orderByNameScientificDialog(context);
+        },
+        child: Column(
+          children: [
+            const Icon(
+              Icons.sort_by_alpha_rounded,
+              size: 20.0,
+            ),
+            Text(
+              orderNameScientific == 'ASC'
+                  ? 'Ascendente'
+                  : orderNameScientific == 'DESC'
+                      ? 'Descendente'
+                      : 'Ordenar',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -580,56 +575,6 @@ class _SearchPageState extends State<SearchPage> {
               );
             }
           },
-        );
-      },
-    );
-  }
-
-  void _showMultiFilterDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            constraints: const BoxConstraints(
-              maxWidth: 400,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () => _filterByClassDialog(context),
-                      icon: const Icon(Icons.class_rounded),
-                    ),
-                    if (selectedClass != null)
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () => _filterByOrderDialog(context),
-                            icon: const Icon(Icons.sort_rounded),
-                          ),
-                          const Text('Orden'),
-                        ],
-                      ),
-                    if (selectedOrder != null)
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () => _filterByFamilyDialog(context),
-                            icon: const Icon(Icons.family_restroom_rounded),
-                          ),
-                          const Text('Familia'),
-                        ],
-                      ),
-                  ],
-                ),
-              ],
-            ),
-          ),
         );
       },
     );

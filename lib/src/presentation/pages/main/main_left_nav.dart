@@ -30,11 +30,11 @@ class MainLeftNav extends StatelessWidget {
       'content': [
         {
           'label': 'Especies',
-          'icon_selected': CustomIcons.bird,
+          'icon_selected': CustomIcons.mono,
         },
         {
           'label': 'Comunidades Indígenas',
-          'icon_selected': CustomIcons.tree,
+          'icon_selected': CustomIcons.choza,
         },
         // {
         //   'label': 'Bardcoding',
