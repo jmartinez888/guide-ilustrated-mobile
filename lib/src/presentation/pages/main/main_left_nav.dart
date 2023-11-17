@@ -16,17 +16,17 @@ class MainLeftNav extends StatelessWidget {
 
   static const List<Map<String, dynamic>> _pageData = [
     {
-      'title': 'Perfil',
+      'title': 'Cuenta',
       'content': [
         {
-          'label': 'Usuario',
+          'label': 'Perfil',
           'icon_selected': Icons.account_circle_rounded,
           'icon_unselected': Icons.account_circle_outlined,
         },
       ],
     },
     {
-      'title': 'Principal',
+      'title': 'Contenido',
       'content': [
         {
           'label': 'Especies',

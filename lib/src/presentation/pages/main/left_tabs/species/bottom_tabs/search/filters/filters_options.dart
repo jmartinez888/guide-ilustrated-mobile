@@ -52,7 +52,7 @@ class OrderByNameScientificOptions extends StatelessWidget {
   final List<OrderByNameScientificOption> orderOptions = [
     OrderByNameScientificOption('Ascendente', 'ASC'),
     OrderByNameScientificOption('Descendente', 'DESC'),
-    OrderByNameScientificOption('Ninguno', null),
+    OrderByNameScientificOption('Registro más reciente', null),
   ];
 
   final String? orderNameScientific;

@@ -34,7 +34,8 @@ class _SearchPageState extends State<SearchPage> {
   int? hasSound;
   int? conservationStatus;
   int? taxonomyId;
-  String? orderNameScientific;
+  String? orderByType;
+  String? orderByName;
 
   @override
   void initState() {
@@ -48,9 +49,10 @@ class _SearchPageState extends State<SearchPage> {
         order: selectedOrder,
         hasSound: hasSound,
         family: selectedFamily,
-        orderNameScientific: orderNameScientific,
+        orderType: orderByType,
         conservationStatus: conservationStatus,
         taxonomyId: taxonomyId,
+        orderBy: orderByName,
       );
     });
     super.initState();
@@ -69,7 +71,7 @@ class _SearchPageState extends State<SearchPage> {
         selectedOrder != null ||
         selectedFamily != null ||
         hasSound != null ||
-        orderNameScientific != null ||
+        orderByType != null ||
         conservationStatus != null ||
         taxonomyId != null) {
       return true;
@@ -266,7 +268,7 @@ class _SearchPageState extends State<SearchPage> {
           // backgroundColor: orderNameScientific != null
           //     ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
           //     : null,
-          foregroundColor: orderNameScientific != null
+          foregroundColor: orderByType != null
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
           shape: RoundedRectangleBorder(
@@ -283,9 +285,9 @@ class _SearchPageState extends State<SearchPage> {
               size: 20.0,
             ),
             Text(
-              orderNameScientific == 'ASC'
+              orderByType == 'ASC'
                   ? 'Ascendente'
-                  : orderNameScientific == 'DESC'
+                  : orderByType == 'DESC'
                       ? 'Descendente'
                       : 'Ordenar',
             ),
@@ -317,7 +319,7 @@ class _SearchPageState extends State<SearchPage> {
                 selectedOrder = null;
                 selectedFamily = null;
                 hasSound = null;
-                orderNameScientific = null;
+                orderByType = null;
                 conservationStatus = null;
                 taxonomyId = null;
                 _pagingController.refresh();
@@ -368,10 +370,10 @@ class _SearchPageState extends State<SearchPage> {
       context: context,
       builder: (context) {
         return OrderByNameScientificDialog(
-          orderNameScientific: orderNameScientific,
+          orderNameScientific: orderByType,
           onValueChanged: (value) {
             setState(() {
-              orderNameScientific = value;
+              orderByType = value;
               _pagingController.refresh();
             });
           },

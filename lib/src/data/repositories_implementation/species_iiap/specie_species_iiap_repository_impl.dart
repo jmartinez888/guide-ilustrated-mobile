@@ -29,9 +29,8 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     required PagingController pagingController,
     bool asc = true,
   }) async {
-
     String ascValue = asc ? 'ASC' : 'DESC';
-    
+
     try {
       final response = await get(Uri.parse(
           '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue'));
@@ -476,10 +475,11 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     int? family,
     int? order,
     int? class_,
-    String? orderNameScientific = '',
     int? conservationStatus,
     int? hasSound,
     int? taxonomyId,
+    String? orderBy,
+    String? orderType,
     required int pageKey,
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
@@ -497,8 +497,9 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
           "familyId": family,
           "conservationStatus": conservationStatus,
           "hasSound": hasSound,
-          "orderNameScientific": orderNameScientific,
-          "search": query
+          "search": query,
+          "orderBy": orderBy,
+          "orderType": orderType,
         }),
       );
 
