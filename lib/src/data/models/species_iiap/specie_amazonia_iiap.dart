@@ -3,15 +3,11 @@ class SpecieAmazoniaIIAP {
   final String vcNombre;
   final String vcNombreCientifico;
   final String? vcNombreIngles;
-  final String? vcSonido;
   final String vcAno;
+  final String? vcSonido;
   final String vcImagen;
   final String? teDescripcion;
-  /* final String reino;
-  final String filo;
-  final String clase;
-  final String orden;
-  final String familia; */
+
   final Taxa taxa;
   final List<EstadoConservacion> estadosConservacion;
   final List<Autores>? autores;
@@ -22,15 +18,10 @@ class SpecieAmazoniaIIAP {
     required this.vcNombre,
     required this.vcNombreCientifico,
     required this.vcNombreIngles,
-    this.vcSonido,
     required this.vcAno,
+    required this.vcSonido,
     required this.vcImagen,
     this.teDescripcion,
-    /* required this.reino,
-    required this.filo,
-    required this.clase,
-    required this.orden,
-    required this.familia, */
     required this.taxa,
     required this.estadosConservacion,
     this.autores,
@@ -42,26 +33,19 @@ class SpecieAmazoniaIIAP {
         idEspecie: json["id_especie"],
         vcNombre: json["vc_nombre"],
         vcNombreCientifico: json["vc_nombre_cientifico"],
-        vcNombreIngles: json["vc_nombre_ingles"] ?? '',
+        vcNombreIngles: json["vc_nombre_ingles"],
+        vcAno: json["vc_ano"],
         vcSonido: json["vc_sonido"],
-        vcAno: json["vc_ano"] ?? '',
-        vcImagen: json["vc_imagen"] ?? '',
-        teDescripcion: json["te_descripcion"] ?? '',
-        /* reino: json["reino"] ?? '',
-        filo: json["filo"] ?? '',
-        clase: json["clase"] ?? '',
-        orden: json["orden"] ?? '',
-        familia: json["familia"] ?? '', */
+        vcImagen: json["vc_imagen"],
+        teDescripcion: json["te_descripcion"],
         taxa: Taxa.fromJson(json["taxa"]),
         estadosConservacion: json['estados_conservacion'].isNotEmpty
-            ? List<EstadoConservacion>.from(
-                json["estados_conservacion"]
-                    .map((x) => EstadoConservacion.fromJson(x)))
+            ? List<EstadoConservacion>.from(json["estados_conservacion"]
+                .map((x) => EstadoConservacion.fromJson(x)))
             : [],
-        autores:  json['autores'] != null
+        autores: json['autores'] != null
             ? List<Autores>.from(
-                json["autores"]
-                    .map((x) => Autores.fromJson(x)))
+                json["autores"].map((x) => Autores.fromJson(x)))
             : null,
         idAutores: json['id_autores'] != null
             ? List<String>.from(json["id_autores"].map((x) => x))
@@ -71,26 +55,12 @@ class SpecieAmazoniaIIAP {
   Map<String, dynamic> toJson() => {
         "id_especie": idEspecie,
         "vc_nombre": vcNombre,
-        "vc_nombre_cientifico": vcNombreCientifico,
-        "vc_nombre_ingles": vcNombreIngles,
-        "vc_sonido": vcSonido,
-        "vc_ano": vcAno,
-        "vc_imagen": vcImagen,
-        "te_descripcion": teDescripcion,
-        /* "reino": reino,
-        "filo": filo,
-        "clase": clase,
-        "orden": orden,
-        "familia": familia, */
         "taxa": taxa.toJson(),
-        "estados_conservacion": estadosConservacion
-            .map((estado) => estado
-                .toJson())
-            .toList(),
-        "autores": autores != null ? autores
-            !.map((autor) => autor
-                .toJson())
-            .toList() : [],
+        "estados_conservacion":
+            estadosConservacion.map((estado) => estado.toJson()).toList(),
+        "autores": autores != null
+            ? autores!.map((autor) => autor.toJson()).toList()
+            : [],
         "id_autores": List<String>.from(idAutores),
       };
 }
@@ -163,7 +133,7 @@ class EstadoConservacion {
   factory EstadoConservacion.fromJson(Map<String, dynamic> json) =>
       EstadoConservacion(
         idEstado: json["id_estado"],
-        nombreEstado: json["nombre_estado"],
+        nombreEstado: json["vc_nombre"],
         inicialesEstado: json["iniciales_estado"],
         institucion: json["institucion"],
         imagenEstado: json["imagen_estado"],
@@ -172,7 +142,7 @@ class EstadoConservacion {
 
   Map<String, dynamic> toJson() => {
         "id_estado": idEstado,
-        "nombre_estado": nombreEstado,
+        "vc_nombre": nombreEstado,
         "iniciales_estado": inicialesEstado,
         "institucion": institucion,
         "imagen_estado": imagenEstado,

@@ -33,14 +33,13 @@ class _SpecieDetailsPageState extends ConsumerState<SpecieDetailsPage> {
         children: [
           specie == null
               ? const DetailsLoading()
-              : Text(specie.name)
-              /* SpecieDetailsSection(
+              : SpecieDetailsSection(
                   specie: specie,
                   onTapForFullImage: () => context.pushNamed(
                     Routes.specieImage,
                     pathParameters: {'id': specie.id.toString()},
                   ),
-                ) */,
+                ),
           const Positioned(
             left: 56.0,
             top: 8.0,

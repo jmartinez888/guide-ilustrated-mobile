@@ -35,7 +35,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     try {
       final response = await get(Uri.parse(
           '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue'));
-          print('abc');
+          print('😘${response.body} ${response.statusCode}😘');
       final responseList =
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
 
@@ -44,7 +44,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
           print('😘${responseList.toJson()}🤣');
 
       List<Specie> postList = responseList.species
-          .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
+          //.where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
           .map((speciesIiap) => SpecieMapper.speciesIiapToEntity(speciesIiap))
           .toList();
 
@@ -513,7 +513,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
 
       List<Specie> postList = responseList.species
-          .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
+          //.where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
           .map((speciesIiap) => SpecieMapper.speciesIiapToEntity(speciesIiap))
           .toList();
 
