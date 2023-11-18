@@ -1,7 +1,7 @@
-import 'package:species/src/data/models/species_iiap/specie_species_iiap.dart';
+/* import 'package:species/src/data/models/species_iiap/specie_species_iiap.dart';
 
 class ResponseSpeciesIiap {
-  final List<SpecieSpeciesIiap> species;
+  final List<SpecieAmazoniaIIAP> species;
   final int currentPage;
   final int totalPages;
   final int totalItems;
@@ -14,7 +14,7 @@ class ResponseSpeciesIiap {
   });
 
   ResponseSpeciesIiap copyWith({
-    final List<SpecieSpeciesIiap>? species,
+    final List<SpecieAmazoniaIIAP>? species,
     final int? currentPage,
     final int? totalPages,
     final int? totalItems,
@@ -29,8 +29,8 @@ class ResponseSpeciesIiap {
 
   factory ResponseSpeciesIiap.fromJson(Map<String, dynamic> json) =>
       ResponseSpeciesIiap(
-        species: List<SpecieSpeciesIiap>.from(
-            json["species"].map((x) => SpecieSpeciesIiap.fromJson(x))),
+        species: List<SpecieAmazoniaIIAP>.from(
+            json["species"].map((x) => SpecieAmazoniaIIAP.fromJson(x))),
         currentPage: json["currentPage"],
         totalPages: json["totalPages"],
         totalItems: json["totalItems"],
@@ -45,3 +45,104 @@ class ResponseSpeciesIiap {
 
   where(Function(dynamic speciesIiap) param0) {}
 }
+ */
+
+// To parse this JSON data, do
+//
+//     final responseSpecieAmazoniaIiap = responseSpecieAmazoniaIiapFromJson(jsonString);
+
+import 'package:species/src/data/models/species_iiap/specie_amazonia_iiap.dart';
+
+class ResponseSpecieAmazoniaIIAP {
+  final List<SpecieAmazoniaIIAP> species;
+  final int currentPage;
+  final int totalPages;
+  final int totalItems;
+
+  ResponseSpecieAmazoniaIIAP({
+    required this.species,
+    required this.currentPage,
+    required this.totalPages,
+    required this.totalItems,
+  });
+
+  factory ResponseSpecieAmazoniaIIAP.fromJson(Map<String, dynamic> json) =>
+      ResponseSpecieAmazoniaIIAP(
+        species: List<SpecieAmazoniaIIAP>.from(
+            json["species"].map((x) => SpecieAmazoniaIIAP.fromJson(x))),
+        currentPage: json["currentPage"],
+        totalPages: json["totalPages"],
+        totalItems: json["totalItems"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "species": List<dynamic>.from(species.map((x) => x.toJson())),
+        "currentPage": currentPage,
+        "totalPages": totalPages,
+        "totalItems": totalItems,
+      };
+}
+
+class EstadosConservacion {
+  final int idEstado;
+  final String nombreEstado;
+  final String inicialesEstado;
+  final String institucion;
+  final String imagenEstado;
+  final String estado;
+
+  EstadosConservacion({
+    required this.idEstado,
+    required this.nombreEstado,
+    required this.inicialesEstado,
+    required this.institucion,
+    required this.imagenEstado,
+    required this.estado,
+  });
+
+  factory EstadosConservacion.fromJson(Map<String, dynamic> json) =>
+      EstadosConservacion(
+        idEstado: json["id_estado"],
+        nombreEstado: json["nombre_estado"],
+        inicialesEstado: json["iniciales_estado"],
+        institucion: json["institucion"],
+        imagenEstado: json["imagen_estado"],
+        estado: json["estado"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_estado": idEstado,
+        "nombre_estado": nombreEstado,
+        "iniciales_estado": inicialesEstado,
+        "institucion": institucion,
+        "imagen_estado": imagenEstado,
+        "estado": estado,
+      };
+}
+
+class Taxa {
+  final int idTaxa;
+  final String vcNombre;
+  final String estado;
+
+  Taxa({
+    required this.idTaxa,
+    required this.vcNombre,
+    required this.estado,
+  });
+
+  factory Taxa.fromJson(Map<String, dynamic> json) => Taxa(
+        idTaxa: json["id_taxa"],
+        vcNombre: json["vc_nombre"],
+        estado: json["estado"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_taxa": idTaxa,
+        "vc_nombre": vcNombre,
+        "estado": estado,
+      };
+}
+
+
+

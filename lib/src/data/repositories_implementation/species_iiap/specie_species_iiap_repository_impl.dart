@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/data/models/species_iiap/response_species_iiap.dart';
-import 'package:species/src/data/models/species_iiap/specie_species_iiap.dart';
+import 'package:species/src/data/models/species_iiap/specie_amazonia_iiap.dart';
 import 'package:species/src/domain/entities/class.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
@@ -35,8 +35,13 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     try {
       final response = await get(Uri.parse(
           '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue'));
+          print('abc');
       final responseList =
-          ResponseSpeciesIiap.fromJson(jsonDecode(response.body));
+          ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
+
+          print('😘${responseList}🤣');
+
+          print('😘${responseList.toJson()}🤣');
 
       List<Specie> postList = responseList.species
           .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
@@ -59,10 +64,12 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
   @override
   Future<Specie> getSpecieId(String id) async {
     final response = await get(Uri.parse('$baseUrl/species/$id'));
+    print('🤣😘${response.body}');
+    print('🤣😘${response.statusCode}');
     if (response.statusCode != 200) {
       throw Exception('Specie no existe $id');
     }
-    final specieDetail = SpecieSpeciesIiap.fromJson(jsonDecode(response.body));
+    final specieDetail = SpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
     final Specie specie = SpecieMapper.speciesIiapToEntity(specieDetail);
     return specie;
   }
@@ -503,7 +510,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
       );
 
       final responseList =
-          ResponseSpeciesIiap.fromJson(jsonDecode(response.body));
+          ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
 
       List<Specie> postList = responseList.species
           .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
