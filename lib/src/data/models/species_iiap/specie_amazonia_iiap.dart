@@ -7,8 +7,8 @@ class SpecieAmazoniaIIAP {
   final String? vcSonido;
   final String vcImagen;
   final String? teDescripcion;
-
   final Taxa taxa;
+  final Taxonomia? taxonomia;
   final List<EstadoConservacion> estadosConservacion;
   final List<Autores>? autores;
   final List<String> idAutores;
@@ -21,6 +21,7 @@ class SpecieAmazoniaIIAP {
     required this.vcAno,
     required this.vcSonido,
     required this.vcImagen,
+    this.taxonomia,
     this.teDescripcion,
     required this.taxa,
     required this.estadosConservacion,
@@ -39,6 +40,7 @@ class SpecieAmazoniaIIAP {
         vcImagen: json["vc_imagen"],
         teDescripcion: json["te_descripcion"],
         taxa: Taxa.fromJson(json["taxa"]),
+        taxonomia: json["taxonomia"] != null ? Taxonomia.fromJson(json["taxonomia"]) : null,
         estadosConservacion: json['estados_conservacion'].isNotEmpty
             ? List<EstadoConservacion>.from(json["estados_conservacion"]
                 .map((x) => EstadoConservacion.fromJson(x)))
@@ -62,6 +64,7 @@ class SpecieAmazoniaIIAP {
             ? autores!.map((autor) => autor.toJson()).toList()
             : [],
         "id_autores": List<String>.from(idAutores),
+        "taxonomia": taxonomia != null ? taxonomia!.toJson() : null
       };
 }
 
@@ -110,6 +113,38 @@ class Autores {
         "actualizado": actualizado,
         "imagen_autor": imagenAutor,
         "estado_autor": estadoAutor,
+      };
+}
+
+class Taxonomia {
+  final String reino;
+  final String filo;
+  final String clase;
+  final String orden;
+  final String familia;
+
+  Taxonomia({
+    required this.reino,
+    required this.filo,
+    required this.clase,
+    required this.orden,
+    required this.familia,
+  });
+
+  factory Taxonomia.fromJson(Map<String, dynamic> json) => Taxonomia(
+        reino: json["reino"],
+        filo: json["filo"],
+        clase: json["clase"],
+        orden: json["orden"],
+        familia: json["familia"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "reino": reino,
+        "filo": filo,
+        "clase": clase,
+        "orden": orden,
+        "familia": familia,
       };
 }
 

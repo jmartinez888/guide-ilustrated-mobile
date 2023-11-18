@@ -10,14 +10,16 @@ class SpecieMapper {
         images: (specieIiap.vcImagen != '') ? [specieIiap.vcImagen] : [],
         description: specieIiap.teDescripcion ?? '',
         sound: specieIiap.vcSonido ?? '',
-        kingdom: 'specieIiap.reino',
-        phylum: 'specieIiap.filo',
-        class_: 'specieIiap.clase',
-        order: 'specieIiap.orden',
-        family: 'specieIiap.familia',
-        type: 'specieIiap.tipo.vcNombre',
+        kingdom:
+            specieIiap.taxonomia != null ? specieIiap.taxonomia!.reino : '',
+        phylum: specieIiap.taxonomia != null ? specieIiap.taxonomia!.filo : '',
+        class_: specieIiap.taxonomia != null ? specieIiap.taxonomia!.clase : '',
+        order: specieIiap.taxonomia != null ? specieIiap.taxonomia!.orden : '',
+        family:
+            specieIiap.taxonomia != null ? specieIiap.taxonomia!.familia : '',
+        type: specieIiap.taxa.vcNombre,
         authors: specieIiap.autores != null
-            ? specieIiap.autores!.map((author) => author.vcNombre).toList()
+            ? specieIiap.autores!.map((author) => author. vcNombre).toList()
             : [],
         statusImage: specieIiap.estadosConservacion
             .map((status) => status.imagenEstado)
