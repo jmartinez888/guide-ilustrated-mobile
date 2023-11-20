@@ -83,7 +83,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(16.0, 80.0, 16.0, 100.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 100.0),
               pagingController: _pagingController,
               gridDelegateBuilder: (int childCount) {
                 return SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -177,71 +177,73 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
         ),
         Positioned(
           right: 16.0,
-          child: Material(
-            color: opaqueColor,
-            borderRadius: BorderRadius.circular(16.0),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.center,
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: [
-                  Text(asc ? 'Ascendente' : 'Descendente',
-                      style: textTheme.labelLarge),
-                  const SizedBox(width: 8.0),
-                  ToggleButtons(
-                    fillColor: mainColor,
-                    selectedColor: Colors.white,
-                    borderRadius: BorderRadius.circular(16.0),
-                    isSelected: [asc, !asc],
-                    onPressed: (index) => setState(() {
-                      asc = index == 0;
-                      _pagingController.refresh();
-                    }),
-                    children: const [
-                      Icon(Icons.arrow_upward_rounded),
-                      Icon(Icons.arrow_downward_rounded),
-                    ],
-                  ),
-                  // Switch(
-                  //   activeColor: mainColor,
-                  //   value: asc,
-                  //   onChanged: (value) => setState(() {
-                  //     asc = value;
-                  //     _pagingController.refresh();
-                  //   }),
-                  // ),
-                  Text(orderByName ? 'Nombre común' : 'Nombre cientifico',
-                      style: textTheme.labelLarge),
-                  const SizedBox(width: 8.0),
-                  ToggleButtons(
-                    fillColor: mainColor,
-                    selectedColor: Colors.white,
-                    borderRadius: BorderRadius.circular(16.0),
-                    isSelected: [orderByName, !orderByName],
-                    onPressed: (index) => setState(() {
-                      orderByName = index == 0;
-                      _pagingController.refresh();
-                    }),
-                    children: const [
-                      Icon(Icons.text_fields_rounded),
-                      Icon(Icons.science_rounded),
-                    ],
-                  ),
-                  // Switch(
-                  //   activeColor: mainColor,
-                  //   value: orderByName,
-                  //   onChanged: (value) => setState(() {
-                  //     orderByName = value;
-                  //     _pagingController.refresh();
-                  //   }),
-                  // ),
-                ],
-              ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runAlignment: WrapAlignment.center,
+              spacing: 8.0,
+              // runSpacing: 8.0,
+              children: [
+                // Text(asc ? 'Ascendente' : 'Descendente',
+                //     style: textTheme.labelLarge),
+                // const SizedBox(width: 8.0),
+                ActionChip(
+                  backgroundColor: mainColor,
+                  label: Text(asc ? 'Ascendente' : 'Descendente',
+                      style:
+                          textTheme.labelLarge?.copyWith(color: Colors.white)),
+                  onPressed: () => setState(() {
+                    asc = !asc;
+                    _pagingController.refresh();
+                  }),
+                ),
+
+                // ToggleButtons(
+                //   fillColor: mainColor,
+                //   selectedColor: Colors.white,
+                //   borderRadius: BorderRadius.circular(16.0),
+                //   isSelected: [asc, !asc],
+                //   onPressed: (index) => setState(() {
+                //     asc = index == 0;
+                //     _pagingController.refresh();
+                //   }),
+                //   children: const [
+                //     Icon(Icons.arrow_upward_rounded),
+                //     Icon(Icons.arrow_downward_rounded),
+                //   ],
+                // ),
+                // Text(orderByName ? 'Nombre común' : 'Nombre cientifico',
+                //     style: textTheme.labelLarge),
+                // const SizedBox(width: 8.0),
+                ActionChip(
+                  backgroundColor: mainColor,
+                  label: Text(
+                      orderByName ? 'Nombre común' : 'Nombre cientifico',
+                      style:
+                          textTheme.labelLarge?.copyWith(color: Colors.white)),
+                  onPressed: () => setState(() {
+                    orderByName = !orderByName;
+                    _pagingController.refresh();
+                  }),
+                ),
+
+                // ToggleButtons(
+                //   fillColor: mainColor,
+                //   selectedColor: Colors.white,
+                //   borderRadius: BorderRadius.circular(16.0),
+                //   isSelected: [orderByName, !orderByName],
+                //   onPressed: (index) => setState(() {
+                //     orderByName = index == 0;
+                //     _pagingController.refresh();
+                //   }),
+                //   children: const [
+                //     Icon(Icons.text_fields_rounded),
+                //     Icon(Icons.science_rounded),
+                //   ],
+                // ),
+              ],
             ),
           ),
         ),
