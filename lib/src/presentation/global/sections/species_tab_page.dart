@@ -71,7 +71,6 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     mainOpaqueColor = getMainColorByInt(widget.type);
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
-    final textTheme = Theme.of(context).textTheme;
     return Stack(
       children: [
         RefreshIndicator(
@@ -134,8 +133,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                           heightImageInAnother: 160.0,
                         ),
                       ),
-                      if (item.statusImage != null ||
-                          item.statusImage!.isNotEmpty)
+                      if (item.statusImage.isNotEmpty)
                         Positioned(
                           left: 8.0,
                           bottom: 8.0,
@@ -143,7 +141,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                             spacing: 8.0,
                             runSpacing: 8.0,
                             children: [
-                              for (var statusImage in item.statusImage!)
+                              for (var statusImage in item.statusImage)
                                 CustomImageContainer(
                                   borderRadius: BorderRadius.zero,
                                   imageUrl: statusImage,
