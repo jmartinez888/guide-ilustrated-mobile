@@ -95,7 +95,7 @@ class _IncompleteProfile extends StatelessWidget {
                   )),
           const SizedBox(height: 16.0),
           const Text(
-            'Completa tu perfil para poder acceder a todas las funcionalidades de la aplicación.',
+            'Completa tu perfil para acceder a todas las funcionalidades de la aplicación.',
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16.0),

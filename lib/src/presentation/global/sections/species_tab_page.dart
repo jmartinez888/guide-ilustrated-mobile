@@ -12,6 +12,7 @@ import 'package:species/src/presentation/global/functions/build_multi_grids.dart
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/sections/grid_loading.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
+import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
@@ -312,7 +313,28 @@ class _FavoriteActionState extends State<_FavoriteAction> {
               onPressed: () async {
                 if (firebaseInstance.currentUser == null ||
                     !firebaseInstance.currentUser!.emailVerified) {
-                  context.pushNamed(Routes.signIn);
+                  showBottomSheet(
+                    context: context,
+                    builder: (context) => CustomBottomSheet(
+                      title: 'Inicia sesión para guardar en favoritos',
+                      body: [
+                        const Text(
+                          'Inicia sesión o regístrate para acceder a todas las funcionalidades de la aplicación.',
+                          textAlign: TextAlign.center,
+                        ),
+                        LottieBuilder.asset(
+                          'assets/lotties/login-form.json',
+                          height: 200.0,
+                          fit: BoxFit.cover,
+                        )
+                      ],
+                      floatingActionButton: FloatingActionButton.extended(
+                        onPressed: () => context.pushNamed(Routes.signIn),
+                        label: const Text('Iniciar sesión'),
+                        icon: const Icon(Icons.login_rounded),
+                      ),
+                    ),
+                  );
                 } else {
                   if (isFavorite) {
                     specieRepository.deleteSpecieFavorite(
