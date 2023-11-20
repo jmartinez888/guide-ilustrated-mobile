@@ -28,20 +28,21 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
     bool asc = true,
+    bool orderBy = true,
   }) async {
-
     String ascValue = asc ? 'ASC' : 'DESC';
-    
+    String orderByName = orderBy ? 'vc_nombre' : 'vc_nombre_cientifico';
+
     try {
       final response = await get(Uri.parse(
-          '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$ascValue'));
-          print('😘${response.body} ${response.statusCode}😘');
+          '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$orderByName/$ascValue'));
+      print('😘${response.body} ${response.statusCode}😘');
       final responseList =
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
 
-          print('😘${responseList}🤣');
+      print('😘${responseList}🤣');
 
-          print('😘${responseList.toJson()}🤣');
+      print('😘${responseList.toJson()}🤣');
 
       List<Specie> postList = responseList.species
           //.where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
@@ -479,17 +480,18 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
 
   @override
   Future<void> filterSpecies({
-    String query = '',
-    int? family,
-    int? order,
-    int? class_,
-    String? orderNameScientific = '',
-    int? conservationStatus,
-    int? hasSound,
-    int? taxonomyId,
+    required PagingController pagingController,
     required int pageKey,
     required int numberOfPostsPerRequest,
-    required PagingController pagingController,
+    int? taxonomyId,
+    int? class_,
+    int? order,
+    int? family,
+    int? conservationStatus,
+    int? hasSound,
+    String query = '',
+    String? orderByName = '',
+    String? orderType = '',
   }) async {
     try {
       final response = await post(
@@ -504,18 +506,23 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
           "familyId": family,
           "conservationStatus": conservationStatus,
           "hasSound": hasSound,
-          "orderNameScientific": orderNameScientific,
-          "search": query
+          "search": query,
+          "orderBy": orderByName,
+          "orderType": orderType,
         }),
       );
 
+      print('⭐⭐⭐${response.body}');
+      print('✅✅✅${response.statusCode}');
       final responseList =
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
+      print('❌❌❌${responseList.species}');
 
       List<Specie> postList = responseList.species
-          //.where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
+          .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
           .map((speciesIiap) => SpecieMapper.speciesIiapToEntity(speciesIiap))
           .toList();
+      print('🤡🤡🤡${postList}');
 
       final isLatPage = postList.length < numberOfPostsPerRequest;
 

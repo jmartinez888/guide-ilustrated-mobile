@@ -54,12 +54,11 @@ class Specie {
   factory Specie.fromJson(Map<String, dynamic> json) => Specie(
         id: json['id'],
         name: json['name'],
-        scientificName:  json['scientificName'],
+        scientificName: json['scientificName'],
         year: json['year'],
         images: List<String>.from(json['images'].map((x) => x)),
         description: json['description'],
-        sound:
-            json['sound'],
+        sound: json['sound'],
         kingdom: json['kingdom'],
         phylum: json['phylum'],
         class_: json['class_'],
@@ -67,6 +66,7 @@ class Specie {
         family: json['family'],
         type: json['type'],
         authors: List<String>.from(json['authors'].map((x) => x)),
-        statusImage: List<String>.from(json['vc_imagenes_estado'].map((x) => x)),
+        statusImage:
+            List<String>.from(json['vc_imagenes_estado'].map((x) => x)),
       );
 }

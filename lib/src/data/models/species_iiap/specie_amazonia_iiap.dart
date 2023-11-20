@@ -3,7 +3,7 @@ class SpecieAmazoniaIIAP {
   final String vcNombre;
   final String vcNombreCientifico;
   final String? vcNombreIngles;
-  final String vcAno;
+  final String? vcAno;
   final String? vcSonido;
   final String vcImagen;
   final String? teDescripcion;
@@ -18,7 +18,7 @@ class SpecieAmazoniaIIAP {
     required this.vcNombre,
     required this.vcNombreCientifico,
     required this.vcNombreIngles,
-    required this.vcAno,
+    this.vcAno,
     required this.vcSonido,
     required this.vcImagen,
     this.taxonomia,
@@ -40,7 +40,9 @@ class SpecieAmazoniaIIAP {
         vcImagen: json["vc_imagen"],
         teDescripcion: json["te_descripcion"],
         taxa: Taxa.fromJson(json["taxa"]),
-        taxonomia: json["taxonomia"] != null ? Taxonomia.fromJson(json["taxonomia"]) : null,
+        taxonomia: json["taxonomia"] != null
+            ? Taxonomia.fromJson(json["taxonomia"])
+            : null,
         estadosConservacion: json['estados_conservacion'].isNotEmpty
             ? List<EstadoConservacion>.from(json["estados_conservacion"]
                 .map((x) => EstadoConservacion.fromJson(x)))
@@ -208,7 +210,7 @@ class Taxa {
         "estado": estado,
       };
 }
- 
+
 
 // To parse this JSON data, do
 //

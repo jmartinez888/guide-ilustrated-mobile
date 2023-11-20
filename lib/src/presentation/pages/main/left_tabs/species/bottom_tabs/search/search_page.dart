@@ -34,7 +34,8 @@ class _SearchPageState extends State<SearchPage> {
   int? hasSound;
   int? conservationStatus;
   int? taxonomyId;
-  String? orderNameScientific;
+  String? orderByType;
+  String? orderByName;
 
   @override
   void initState() {
@@ -48,9 +49,10 @@ class _SearchPageState extends State<SearchPage> {
         order: selectedOrder,
         hasSound: hasSound,
         family: selectedFamily,
-        orderNameScientific: orderNameScientific,
+        orderType: orderByType,
         conservationStatus: conservationStatus,
         taxonomyId: taxonomyId,
+        orderByName: orderByName,
       );
     });
     super.initState();
@@ -69,9 +71,10 @@ class _SearchPageState extends State<SearchPage> {
         selectedOrder != null ||
         selectedFamily != null ||
         hasSound != null ||
-        orderNameScientific != null ||
+        orderByType != null ||
         conservationStatus != null ||
-        taxonomyId != null) {
+        taxonomyId != null ||
+        orderByName != null) {
       return true;
     } else {
       return false;
@@ -166,7 +169,38 @@ class _SearchPageState extends State<SearchPage> {
         scrollDirection: Axis.horizontal,
         children: [
           // ASC/DESC filter
-          _filterOrderOption(context),
+          _filterOptionButton(
+            context: context,
+            onPressed: () => _listByAlphabeticOrderDialog(context),
+            icon: Icons.view_list_rounded,
+            filterValue: orderByType == 'ASC'
+                ? 1
+                : orderByType == 'DESC'
+                    ? 2
+                    : null,
+            filterName: orderByType == 'ASC'
+                ? 'A-Z'
+                : orderByType == 'DESC'
+                    ? 'Z-A'
+                    : 'Listar',
+          ),
+
+          // Order by name filter
+          _filterOptionButton(
+            context: context,
+            onPressed: () => _listByNameOrderDialog(context),
+            filterValue: orderByName == 'vc_nombre'
+                ? 1
+                : orderByName == 'vc_nombre_cientifico'
+                    ? 2
+                    : null,
+            icon: Icons.sort_by_alpha_rounded,
+            filterName: orderByName == 'vc_nombre'
+                ? 'Común'
+                : orderByName == 'vc_nombre_cientifico'
+                    ? 'Científico'
+                    : 'Ordenar',
+          ),
 
           // Add class filter
           _filterOptionButton(
@@ -202,7 +236,11 @@ class _SearchPageState extends State<SearchPage> {
             context: context,
             onPressed: () => _filterBySoundDialog(context),
             filterValue: hasSound,
-            icon: Icons.volume_up_rounded,
+            icon: hasSound == 1
+                ? Icons.volume_up_rounded
+                : hasSound == 0
+                    ? Icons.volume_off_rounded
+                    : Icons.volume_up_rounded,
             filterName: hasSound == 1
                 ? 'Con sonido'
                 : hasSound == 0
@@ -258,43 +296,6 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Container _filterOrderOption(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 4.0),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          // backgroundColor: orderNameScientific != null
-          //     ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
-          //     : null,
-          foregroundColor: orderNameScientific != null
-              ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-        ),
-        onPressed: () {
-          _orderByNameScientificDialog(context);
-        },
-        child: Column(
-          children: [
-            const Icon(
-              Icons.sort_by_alpha_rounded,
-              size: 20.0,
-            ),
-            Text(
-              orderNameScientific == 'ASC'
-                  ? 'Ascendente'
-                  : orderNameScientific == 'DESC'
-                      ? 'Descendente'
-                      : 'Ordenar',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   AppBar _appBar(BuildContext context) {
     return AppBar(
       centerTitle: true,
@@ -317,9 +318,10 @@ class _SearchPageState extends State<SearchPage> {
                 selectedOrder = null;
                 selectedFamily = null;
                 hasSound = null;
-                orderNameScientific = null;
+                orderByType = null;
                 conservationStatus = null;
                 taxonomyId = null;
+                orderByName = null;
                 _pagingController.refresh();
               },
             ),
@@ -363,15 +365,35 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  void _orderByNameScientificDialog(BuildContext context) {
+  void _listByAlphabeticOrderDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
-        return OrderByNameScientificDialog(
-          orderNameScientific: orderNameScientific,
+        return ListAlphabeticOrder(
+          orderAscDesc: orderByType,
           onValueChanged: (value) {
             setState(() {
-              orderNameScientific = value;
+              orderByType = value;
+              _pagingController.refresh();
+            });
+          },
+          onDialogClosed: () {
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
+  }
+
+  _listByNameOrderDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ListByNameOrder(
+          orderName: orderByName,
+          onValueChanged: (value) {
+            setState(() {
+              orderByName = value;
               _pagingController.refresh();
             });
           },
@@ -625,7 +647,8 @@ Column _errorIndicator(BuildContext context, {String? text}) {
       SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: Text(
-          text ?? 'Parece que no hay especies aquí',
+          text ??
+              'No se encontraron especies relacionadas a tu búsqueda. Inténtalo de nuevo con otra clase, orden o familia.',
           style: Theme.of(context).textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
@@ -637,7 +660,7 @@ Column _errorIndicator(BuildContext context, {String? text}) {
 Container _filterOptionButton({
   required BuildContext context,
   required void Function()? onPressed,
-  required int? filterValue,
+  int? filterValue,
   required IconData icon,
   required String filterName,
 }) {
@@ -648,9 +671,6 @@ Container _filterOptionButton({
         foregroundColor: filterValue != null
             ? Theme.of(context).colorScheme.primary
             : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-        // backgroundColor: filterValue != null
-        //     ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
-        //     : null,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),

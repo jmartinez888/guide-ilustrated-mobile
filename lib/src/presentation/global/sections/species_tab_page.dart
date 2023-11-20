@@ -35,6 +35,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
   bool asc = true;
+  bool orderByName = true;
 
   final SpecieRepository specieRepository = SpecieSpeciesIiapRepositoryImpl();
 
@@ -47,6 +48,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
         type: widget.type,
         pagingController: _pagingController,
         asc: asc,
+        orderBy: orderByName,
       );
     });
     super.initState();
@@ -188,16 +190,56 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                 spacing: 8.0,
                 runSpacing: 8.0,
                 children: [
-                  Text('Ascendente', style: textTheme.labelLarge),
+                  Text(asc ? 'Ascendente' : 'Descendente',
+                      style: textTheme.labelLarge),
                   const SizedBox(width: 8.0),
-                  Switch(
-                    activeColor: mainColor,
-                    value: asc,
-                    onChanged: (value) => setState(() {
-                      asc = value;
+                  ToggleButtons(
+                    fillColor: mainColor,
+                    selectedColor: Colors.white,
+                    borderRadius: BorderRadius.circular(16.0),
+                    isSelected: [asc, !asc],
+                    onPressed: (index) => setState(() {
+                      asc = index == 0;
                       _pagingController.refresh();
                     }),
+                    children: const [
+                      Icon(Icons.arrow_upward_rounded),
+                      Icon(Icons.arrow_downward_rounded),
+                    ],
                   ),
+                  // Switch(
+                  //   activeColor: mainColor,
+                  //   value: asc,
+                  //   onChanged: (value) => setState(() {
+                  //     asc = value;
+                  //     _pagingController.refresh();
+                  //   }),
+                  // ),
+                  Text(orderByName ? 'Nombre común' : 'Nombre cientifico',
+                      style: textTheme.labelLarge),
+                  const SizedBox(width: 8.0),
+                  ToggleButtons(
+                    fillColor: mainColor,
+                    selectedColor: Colors.white,
+                    borderRadius: BorderRadius.circular(16.0),
+                    isSelected: [orderByName, !orderByName],
+                    onPressed: (index) => setState(() {
+                      orderByName = index == 0;
+                      _pagingController.refresh();
+                    }),
+                    children: const [
+                      Icon(Icons.text_fields_rounded),
+                      Icon(Icons.science_rounded),
+                    ],
+                  ),
+                  // Switch(
+                  //   activeColor: mainColor,
+                  //   value: orderByName,
+                  //   onChanged: (value) => setState(() {
+                  //     orderByName = value;
+                  //     _pagingController.refresh();
+                  //   }),
+                  // ),
                 ],
               ),
             ),

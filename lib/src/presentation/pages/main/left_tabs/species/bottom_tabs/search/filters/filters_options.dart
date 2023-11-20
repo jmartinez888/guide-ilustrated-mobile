@@ -3,14 +3,14 @@ import 'package:species/src/domain/entities/class.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 
-class OrderByNameScientificDialog extends StatelessWidget {
-  final String? orderNameScientific;
+class ListAlphabeticOrder extends StatelessWidget {
+  final String? orderAscDesc;
   final Function(String?) onValueChanged;
   final Function() onDialogClosed;
 
-  const OrderByNameScientificDialog({
+  const ListAlphabeticOrder({
     Key? key,
-    required this.orderNameScientific,
+    required this.orderAscDesc,
     required this.onValueChanged,
     required this.onDialogClosed,
   }) : super(key: key);
@@ -27,14 +27,14 @@ class OrderByNameScientificDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Ordenar por nombre científico',
+                'Listar por orden alfabético',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  child: OrderByNameScientificOptions(
-                    orderNameScientific: orderNameScientific,
+                  child: AlphabeticOrderOptions(
+                    orderNameScientific: orderAscDesc,
                     onValueChanged: onValueChanged,
                     onDialogClosed: onDialogClosed,
                   ),
@@ -48,31 +48,31 @@ class OrderByNameScientificDialog extends StatelessWidget {
   }
 }
 
-class OrderByNameScientificOptions extends StatelessWidget {
-  final List<OrderByNameScientificOption> orderOptions = [
-    OrderByNameScientificOption('Ascendente', 'ASC'),
-    OrderByNameScientificOption('Descendente', 'DESC'),
-    OrderByNameScientificOption('Ninguno', null),
+class AlphabeticOrderOptions extends StatelessWidget {
+  final List<AphabeticOrderOption> orderOptions = [
+    AphabeticOrderOption('A-Z', 'ASC'),
+    AphabeticOrderOption('Z-A', 'DESC'),
+    AphabeticOrderOption('Registro más reciente', null),
   ];
 
   final String? orderNameScientific;
   final Function(String?) onValueChanged;
   final Function() onDialogClosed;
 
-  OrderByNameScientificOptions({
+  AlphabeticOrderOptions({
     Key? key,
     required this.orderNameScientific,
     required this.onValueChanged,
     required this.onDialogClosed,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(OrderByNameScientificOption option) {
+  Widget _buildRadioListTile(AphabeticOrderOption option) {
     return RadioListTile(
       title: Text(option.title),
       value: option.value,
       groupValue: orderNameScientific,
       onChanged: (value) {
-        onValueChanged(value as String);
+        onValueChanged(value);
         onDialogClosed();
       },
     );
@@ -88,11 +88,102 @@ class OrderByNameScientificOptions extends StatelessWidget {
   }
 }
 
-class OrderByNameScientificOption {
+class AphabeticOrderOption {
   final String title;
   final String? value;
 
-  OrderByNameScientificOption(this.title, this.value);
+  AphabeticOrderOption(this.title, this.value);
+}
+
+class ListByNameOrder extends StatelessWidget {
+  final String? orderName;
+  final Function(String?) onValueChanged;
+  final Function() onDialogClosed;
+
+  const ListByNameOrder(
+      {super.key,
+      this.orderName,
+      required this.onValueChanged,
+      required this.onDialogClosed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shadowColor: Colors.transparent,
+      child: IntrinsicHeight(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Ordenar por nombre',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: NameOrderOptions(
+                    orderName: orderName,
+                    onValueChanged: onValueChanged,
+                    onDialogClosed: onDialogClosed,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class NameOrderOptions extends StatelessWidget {
+  final List<NameOrderOption> nameOptions = [
+    NameOrderOption('Nombre común', 'vc_nombre'),
+    NameOrderOption('Nombre científico', 'vc_nombre_cientifico'),
+    NameOrderOption('Registro más reciente', null),
+  ];
+
+  final String? orderName;
+  final Function(String?) onValueChanged;
+  final Function() onDialogClosed;
+
+  NameOrderOptions({
+    Key? key,
+    required this.orderName,
+    required this.onValueChanged,
+    required this.onDialogClosed,
+  }) : super(key: key);
+
+  Widget _buildRadioListTile(NameOrderOption option) {
+    return RadioListTile(
+      title: Text(option.title),
+      value: option.value,
+      groupValue: orderName,
+      onChanged: (value) {
+        onValueChanged(value);
+        onDialogClosed();
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ...nameOptions.map(_buildRadioListTile).toList(),
+      ],
+    );
+  }
+}
+
+class NameOrderOption {
+  final String title;
+  final String? value;
+
+  NameOrderOption(this.title, this.value);
 }
 
 class FilterBySoundDialog extends StatelessWidget {

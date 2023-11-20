@@ -6,7 +6,7 @@ class SpecieMapper {
         id: specieIiap.idEspecie,
         name: specieIiap.vcNombre,
         scientificName: specieIiap.vcNombreCientifico,
-        year: specieIiap.vcAno,
+        year: specieIiap.vcAno ?? '',
         images: (specieIiap.vcImagen != '') ? [specieIiap.vcImagen] : [],
         description: specieIiap.teDescripcion ?? '',
         sound: specieIiap.vcSonido ?? '',
@@ -19,7 +19,7 @@ class SpecieMapper {
             specieIiap.taxonomia != null ? specieIiap.taxonomia!.familia : '',
         type: specieIiap.taxa.vcNombre,
         authors: specieIiap.autores != null
-            ? specieIiap.autores!.map((author) => author. vcNombre).toList()
+            ? specieIiap.autores!.map((author) => author.vcNombre).toList()
             : [],
         statusImage: specieIiap.estadosConservacion
             .map((status) => status.imagenEstado)

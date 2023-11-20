@@ -53,7 +53,7 @@ class SpecieDetailsSection extends StatelessWidget {
                     size.height > size.width + 32.0 ? 288 : double.infinity,
               ),
             ),
-            if (specie.statusImage != null || specie.statusImage!.isNotEmpty)
+            if (specie.statusImage.isNotEmpty)
               Positioned(
                 left: 8.0,
                 bottom: 8.0,
@@ -61,7 +61,7 @@ class SpecieDetailsSection extends StatelessWidget {
                   spacing: 8.0,
                   runSpacing: 8.0,
                   children: [
-                    for (var statusImage in specie.statusImage!)
+                    for (var statusImage in specie.statusImage)
                       CustomImageContainer(
                         borderRadius: BorderRadius.zero,
                         imageUrl: statusImage,
@@ -88,10 +88,10 @@ class SpecieDetailsSection extends StatelessWidget {
           ),
           Text(
             specie.scientificName,
-            style: textTheme.titleMedium
-                ?.copyWith(color: colorScheme.onBackground,
-                fontStyle: FontStyle.italic,
-                ),
+            style: textTheme.titleMedium?.copyWith(
+              color: colorScheme.onBackground,
+              fontStyle: FontStyle.italic,
+            ),
           ),
           if (specie.sound.isNotEmpty)
             Padding(
