@@ -326,6 +326,7 @@ class _FavoriteActionState extends State<_FavoriteAction> {
                           'assets/lotties/login-form.json',
                           height: 200.0,
                           fit: BoxFit.cover,
+                          repeat: false,
                         )
                       ],
                       floatingActionButton: FloatingActionButton.extended(
