@@ -67,9 +67,15 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         children: [
           Text('Información de usuario:', style: title),
           const SizedBox(height: 16.0),
-          Text('Nombre: $name $lastName'),
+          if (name.isEmpty || lastName.isEmpty)
+            const Text('Nombre: No registrado')
+          else
+            Text('Nombre: $name $lastName'),
           Text('Email: $email'),
-          Text('Teléfono: +$phone'),
+          if (phone.isEmpty)
+            const Text('Teléfono:  No registrado')
+          else
+            Text('Teléfono: $phone'),
           const SizedBox(height: 16.0),
           Text(
             'Al borrar tu cuenta, estás de acuerdo con los siguientes términos:',

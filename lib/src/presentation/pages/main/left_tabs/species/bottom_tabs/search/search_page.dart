@@ -208,7 +208,7 @@ class _SearchPageState extends State<SearchPage> {
             onPressed: () => _filterByClassDialog(context),
             filterValue: selectedClass,
             icon: Icons.class_rounded,
-            filterName: 'Clase',
+            filterName: 'Taxonomía',
           ),
 
           // Add order filter

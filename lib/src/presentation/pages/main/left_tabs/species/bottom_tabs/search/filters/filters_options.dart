@@ -234,9 +234,9 @@ class FilterBySoundDialog extends StatelessWidget {
 
 class SoundOptions extends StatelessWidget {
   final List<SoundOption> soundOptions = [
-    SoundOption('Con sonido', 1),
-    SoundOption('Sin sonido', 0),
-    SoundOption('Ninguno', null),
+    SoundOption('Solo con sonido', 1),
+    SoundOption('Solo sin sonido', 0),
+    SoundOption('Todos', null),
   ];
 
   final int? hasSound;
@@ -318,7 +318,7 @@ class FilterByConservationStatusDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Ninguno'),
+                title: const Text('Todos'),
                 value: null,
                 groupValue: conservationStatus,
                 onChanged: (value) {
@@ -421,7 +421,7 @@ class FilterByTaxonomyDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Ninguno'),
+                title: const Text('Todos'),
                 value: null,
                 groupValue: taxonomyId,
                 onChanged: (value) {
@@ -520,7 +520,7 @@ class FilterByClassDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por clase',
+                'Filtrar por taxonomía',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -536,7 +536,7 @@ class FilterByClassDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Ninguno'),
+                title: const Text('Sin preferencia'),
                 value: null,
                 groupValue: selectedClass,
                 onChanged: (value) {
@@ -635,7 +635,7 @@ class FilterByOrderDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Ninguno'),
+                title: const Text('Sin preferencia'),
                 value: null,
                 groupValue: selectedOrder,
                 onChanged: (value) {
@@ -734,7 +734,7 @@ class FilterByFamilyDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Ninguno'),
+                title: const Text('Sin preferencia'),
                 value: null,
                 groupValue: selectedFamily,
                 onChanged: (value) {
