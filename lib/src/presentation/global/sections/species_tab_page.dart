@@ -184,65 +184,38 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               crossAxisAlignment: WrapCrossAlignment.center,
               runAlignment: WrapAlignment.center,
               spacing: 8.0,
-              // runSpacing: 8.0,
+              runSpacing: 8.0,
               children: [
-                // Text(asc ? 'Ascendente' : 'Descendente',
-                //     style: textTheme.labelLarge),
-                // const SizedBox(width: 8.0),
-                ActionChip(
+                _customFilterChip(
+                  context: context,
                   backgroundColor: mainColor,
-                  label: Text(asc ? 'A-Z' : 'Z-A',
-                      style:
-                          textTheme.labelLarge?.copyWith(color: Colors.white)),
-                  onPressed: () => setState(() {
-                    asc = !asc;
+                  orderValue: asc,
+                  selected: asc,
+                  label: asc ? 'A-Z' : 'Z-A',
+                  icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
+                  tooltip: asc ? 'Ordenar de A-Z' : 'Ordenar de Z-A',
+                  onSelected: (value) => setState(() {
+                    asc = value;
                     _pagingController.refresh();
                   }),
                 ),
-
-                // ToggleButtons(
-                //   fillColor: mainColor,
-                //   selectedColor: Colors.white,
-                //   borderRadius: BorderRadius.circular(16.0),
-                //   isSelected: [asc, !asc],
-                //   onPressed: (index) => setState(() {
-                //     asc = index == 0;
-                //     _pagingController.refresh();
-                //   }),
-                //   children: const [
-                //     Icon(Icons.arrow_upward_rounded),
-                //     Icon(Icons.arrow_downward_rounded),
-                //   ],
-                // ),
-                // Text(orderByName ? 'Nombre común' : 'Nombre cientifico',
-                //     style: textTheme.labelLarge),
-                // const SizedBox(width: 8.0),
-                ActionChip(
+                _customFilterChip(
+                  context: context,
                   backgroundColor: mainColor,
-                  label: Text(
-                      orderByName ? 'Nombre común' : 'Nombre cientifico',
-                      style:
-                          textTheme.labelLarge?.copyWith(color: Colors.white)),
-                  onPressed: () => setState(() {
-                    orderByName = !orderByName;
+                  orderValue: orderByName,
+                  selected: orderByName,
+                  label: orderByName ? 'Nombre común' : 'Nombre científico',
+                  icon: orderByName
+                      ? Icons.text_fields_rounded
+                      : Icons.science_rounded,
+                  tooltip: orderByName
+                      ? 'Ordenar por nombre científico'
+                      : 'Ordenar por nombre común',
+                  onSelected: (value) => setState(() {
+                    orderByName = value;
                     _pagingController.refresh();
                   }),
                 ),
-
-                // ToggleButtons(
-                //   fillColor: mainColor,
-                //   selectedColor: Colors.white,
-                //   borderRadius: BorderRadius.circular(16.0),
-                //   isSelected: [orderByName, !orderByName],
-                //   onPressed: (index) => setState(() {
-                //     orderByName = index == 0;
-                //     _pagingController.refresh();
-                //   }),
-                //   children: const [
-                //     Icon(Icons.text_fields_rounded),
-                //     Icon(Icons.science_rounded),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -250,6 +223,39 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
       ],
     );
   }
+}
+
+FilterChip _customFilterChip({
+  required BuildContext context,
+  required Color backgroundColor,
+  required bool orderValue,
+  required Function(bool) onSelected,
+  required bool selected,
+  required String label,
+  required IconData icon,
+  required String tooltip,
+}) {
+  final textTheme = Theme.of(context).textTheme;
+  return FilterChip(
+    side: BorderSide.none,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(24.0),
+      side: BorderSide.none,
+    ),
+    showCheckmark: false,
+    selectedColor:
+        orderValue ? backgroundColor.withOpacity(0.6) : backgroundColor,
+    tooltip: tooltip,
+    avatar: Icon(
+      icon,
+      color: Colors.white,
+    ),
+    backgroundColor: backgroundColor,
+    label:
+        Text(label, style: textTheme.labelLarge?.copyWith(color: Colors.white)),
+    selected: orderValue,
+    onSelected: onSelected,
+  );
 }
 
 class _FavoriteAction extends StatefulWidget {
