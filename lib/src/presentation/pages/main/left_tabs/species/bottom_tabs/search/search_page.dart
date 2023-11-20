@@ -161,7 +161,7 @@ class _SearchPageState extends State<SearchPage> {
   Container _listFilterOptions(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
     return Container(
-      padding: EdgeInsets.only(left: isMobile ? 16 : 8, top: isMobile ? 0 : 10),
+      padding: EdgeInsets.only(top: isMobile ? 0 : 10),
       height: 56,
       width: double.infinity,
       child: ListView(
