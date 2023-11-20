@@ -191,7 +191,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                 // const SizedBox(width: 8.0),
                 ActionChip(
                   backgroundColor: mainColor,
-                  label: Text(asc ? 'Ascendente' : 'Descendente',
+                  label: Text(asc ? 'A-Z' : 'Z-A',
                       style:
                           textTheme.labelLarge?.copyWith(color: Colors.white)),
                   onPressed: () => setState(() {
