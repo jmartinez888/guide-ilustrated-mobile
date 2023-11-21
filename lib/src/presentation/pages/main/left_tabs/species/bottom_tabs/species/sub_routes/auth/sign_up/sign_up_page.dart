@@ -4,6 +4,7 @@ import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -44,6 +45,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const CustomBackButton(),
         title: const Text('Regístrate'),
       ),
       body: Center(

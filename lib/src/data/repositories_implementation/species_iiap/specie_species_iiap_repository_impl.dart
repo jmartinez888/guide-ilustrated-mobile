@@ -36,13 +36,8 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     try {
       final response = await get(Uri.parse(
           '$baseUrl/species/search/type/$type/$pageKey/$numberOfPostsPerRequest/$orderByName/$ascValue'));
-      print('😘${response.body} ${response.statusCode}😘');
       final responseList =
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
-
-      print('😘${responseList}🤣');
-
-      print('😘${responseList.toJson()}🤣');
 
       List<Specie> postList = responseList.species
           //.where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
@@ -65,8 +60,6 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
   @override
   Future<Specie> getSpecieId(String id) async {
     final response = await get(Uri.parse('$baseUrl/species/$id'));
-    print('🤣😘${response.body}');
-    print('🤣😘${response.statusCode}');
     if (response.statusCode != 200) {
       throw Exception('Specie no existe $id');
     }
@@ -512,17 +505,13 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
         }),
       );
 
-      print('⭐⭐⭐${response.body}');
-      print('✅✅✅${response.statusCode}');
       final responseList =
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
-      print('❌❌❌${responseList.species}');
 
       List<Specie> postList = responseList.species
           .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
           .map((speciesIiap) => SpecieMapper.speciesIiapToEntity(speciesIiap))
           .toList();
-      print('🤡🤡🤡${postList}');
 
       final isLatPage = postList.length < numberOfPostsPerRequest;
 

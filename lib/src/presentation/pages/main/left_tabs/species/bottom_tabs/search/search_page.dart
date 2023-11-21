@@ -122,7 +122,9 @@ class _SearchPageState extends State<SearchPage> {
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Specie>(
                   firstPageErrorIndicatorBuilder: (context) {
-                    return _errorIndicator(context);
+                    return _errorIndicator(context,
+                        text:
+                            'Algo salió mal. Al parecer no tienes conexión a internet. Inténtalo de nuevo');
                   },
                   noItemsFoundIndicatorBuilder: (context) {
                     return _errorIndicator(context);

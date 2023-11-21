@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -34,7 +35,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Olvidó su contraseña')),
+      appBar: AppBar(
+        leading: const CustomBackButton(),
+        title: const Text('Olvidó su contraseña'),
+      ),
       body: Center(
         child: Extend(
           min: true,
