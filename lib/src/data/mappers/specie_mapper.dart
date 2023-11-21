@@ -10,13 +10,21 @@ class SpecieMapper {
         images: (specieIiap.vcImagen != '') ? [specieIiap.vcImagen] : [],
         description: specieIiap.teDescripcion ?? '',
         sound: specieIiap.vcSonido ?? '',
-        kingdom:
-            specieIiap.taxonomia != null ? specieIiap.taxonomia!.reino : '',
-        phylum: specieIiap.taxonomia != null ? specieIiap.taxonomia!.filo : '',
-        class_: specieIiap.taxonomia != null ? specieIiap.taxonomia!.clase : '',
-        order: specieIiap.taxonomia != null ? specieIiap.taxonomia!.orden : '',
-        family:
-            specieIiap.taxonomia != null ? specieIiap.taxonomia!.familia : '',
+        kingdom: specieIiap.taxonomia != null
+            ? specieIiap.taxonomia!.reino.vcNombre
+            : '',
+        phylum: specieIiap.taxonomia != null
+            ? specieIiap.taxonomia!.filo.vcNombre
+            : '',
+        class_: specieIiap.taxonomia != null
+            ? specieIiap.taxonomia!.clase.vcNombre
+            : '',
+        order: specieIiap.taxonomia != null
+            ? specieIiap.taxonomia!.orden.vcNombre
+            : '',
+        family: specieIiap.taxonomia != null
+            ? specieIiap.taxonomia!.familia.vcNombre
+            : '',
         type: specieIiap.taxa.vcNombre,
         authors: specieIiap.autores != null
             ? specieIiap.autores!.map((author) => author.vcNombre).toList()

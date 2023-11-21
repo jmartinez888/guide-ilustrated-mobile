@@ -119,11 +119,11 @@ class Autores {
 }
 
 class Taxonomia {
-  final String reino;
-  final String filo;
-  final String clase;
-  final String orden;
-  final String familia;
+  final Reino reino;
+  final Filo filo;
+  final Clase clase;
+  final Orden orden;
+  final Familia familia;
 
   Taxonomia({
     required this.reino,
@@ -134,19 +134,119 @@ class Taxonomia {
   });
 
   factory Taxonomia.fromJson(Map<String, dynamic> json) => Taxonomia(
-        reino: json["reino"],
-        filo: json["filo"],
-        clase: json["clase"],
-        orden: json["orden"],
-        familia: json["familia"],
+        reino: Reino.fromJson(json["reino"]),
+        filo: Filo.fromJson(json["filo"]),
+        clase: Clase.fromJson(json["clase"]),
+        orden: Orden.fromJson(json["orden"]),
+        familia: Familia.fromJson(json["familia"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "reino": reino,
-        "filo": filo,
-        "clase": clase,
-        "orden": orden,
-        "familia": familia,
+        "reino": reino.toJson(),
+        "filo": filo.toJson(),
+        "clase": clase.toJson(),
+        "orden": orden.toJson(),
+        "familia": familia.toJson(),
+      };
+}
+
+class Clase {
+  final int idClase;
+  final String vcNombre;
+
+  Clase({
+    required this.idClase,
+    required this.vcNombre,
+  });
+
+  factory Clase.fromJson(Map<String, dynamic> json) => Clase(
+        idClase: json["id_clase"],
+        vcNombre: json["vc_nombre"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_clase": idClase,
+        "vc_nombre": vcNombre,
+      };
+}
+
+class Familia {
+  final int idFamilia;
+  final String vcNombre;
+
+  Familia({
+    required this.idFamilia,
+    required this.vcNombre,
+  });
+
+  factory Familia.fromJson(Map<String, dynamic> json) => Familia(
+        idFamilia: json["id_familia"],
+        vcNombre: json["vc_nombre"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_familia": idFamilia,
+        "vc_nombre": vcNombre,
+      };
+}
+
+class Filo {
+  final int idFilo;
+  final String vcNombre;
+
+  Filo({
+    required this.idFilo,
+    required this.vcNombre,
+  });
+
+  factory Filo.fromJson(Map<String, dynamic> json) => Filo(
+        idFilo: json["id_filo"],
+        vcNombre: json["vc_nombre"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_filo": idFilo,
+        "vc_nombre": vcNombre,
+      };
+}
+
+class Orden {
+  final int idOrden;
+  final String vcNombre;
+
+  Orden({
+    required this.idOrden,
+    required this.vcNombre,
+  });
+
+  factory Orden.fromJson(Map<String, dynamic> json) => Orden(
+        idOrden: json["id_orden"],
+        vcNombre: json["vc_nombre"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_orden": idOrden,
+        "vc_nombre": vcNombre,
+      };
+}
+
+class Reino {
+  final int idReino;
+  final String vcNombre;
+
+  Reino({
+    required this.idReino,
+    required this.vcNombre,
+  });
+
+  factory Reino.fromJson(Map<String, dynamic> json) => Reino(
+        idReino: json["id_reino"],
+        vcNombre: json["vc_nombre"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id_reino": idReino,
+        "vc_nombre": vcNombre,
       };
 }
 
