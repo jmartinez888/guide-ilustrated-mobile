@@ -122,9 +122,7 @@ class _SearchPageState extends State<SearchPage> {
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Specie>(
                   firstPageErrorIndicatorBuilder: (context) {
-                    return _errorIndicator(context,
-                        text:
-                            'Algo salió mal. Al parecer no tienes conexión a internet. Inténtalo de nuevo');
+                    return _errorIndicator(context);
                   },
                   noItemsFoundIndicatorBuilder: (context) {
                     return _errorIndicator(context);
@@ -346,7 +344,6 @@ class _SearchPageState extends State<SearchPage> {
           borderSide: BorderSide.none,
         ),
         hintText: 'Buscar especie',
-        hintStyle: const TextStyle(color: Colors.black26, fontSize: 16.0),
         prefixIcon: const Icon(Icons.search_rounded),
         suffixIcon: searchController.text.isNotEmpty
             ? IconButton(
