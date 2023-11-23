@@ -187,31 +187,27 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               children: [
                 _customFilterChip(
                   context: context,
-                  backgroundColor: mainColor,
+                  backgroundColor: orderByName ? mainColor : opaqueColor,
+                  labelColor: orderByName ? Colors.white : mainColor,
                   orderValue: asc,
-                  selected: asc,
-                  label: asc ? 'A-Z' : 'Z-A',
+                  label: 'Nombre común',
                   icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
-                  tooltip: asc ? 'Ordenar de A-Z' : 'Ordenar de Z-A',
                   onSelected: (value) => setState(() {
+                    orderByName = true;
                     asc = value;
                     _pagingController.refresh();
                   }),
                 ),
                 _customFilterChip(
                   context: context,
-                  backgroundColor: mainColor,
-                  orderValue: orderByName,
-                  selected: orderByName,
-                  label: orderByName ? 'Nombre común' : 'Nombre científico',
-                  icon: orderByName
-                      ? Icons.text_fields_rounded
-                      : Icons.science_rounded,
-                  tooltip: orderByName
-                      ? 'Ordenar por nombre científico'
-                      : 'Ordenar por nombre común',
+                  backgroundColor: orderByName ? opaqueColor : mainColor,
+                  labelColor: orderByName ? mainColor : Colors.white,
+                  orderValue: asc,
+                  label: 'Nombre científico',
+                  icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
                   onSelected: (value) => setState(() {
-                    orderByName = value;
+                    orderByName = false;
+                    asc = value;
                     _pagingController.refresh();
                   }),
                 ),
@@ -224,36 +220,30 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   }
 }
 
-FilterChip _customFilterChip({
+Widget _customFilterChip({
   required BuildContext context,
   required Color backgroundColor,
+  required Color labelColor,
   required bool orderValue,
   required Function(bool) onSelected,
-  required bool selected,
+  //required bool selected,
   required String label,
-  required IconData icon,
-  required String tooltip,
+  IconData? icon,
+  //required String tooltip,
 }) {
-  final textTheme = Theme.of(context).textTheme;
-  return FilterChip(
-    side: BorderSide.none,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(24.0),
-      side: BorderSide.none,
-    ),
-    showCheckmark: false,
-    selectedColor:
-        orderValue ? backgroundColor.withOpacity(0.6) : backgroundColor,
-    tooltip: tooltip,
-    avatar: Icon(
+  return FilledButton.icon(
+    icon: Icon(
       icon,
-      color: Colors.white,
+      color: labelColor,
     ),
-    backgroundColor: backgroundColor,
-    label:
-        Text(label, style: textTheme.labelLarge?.copyWith(color: Colors.white)),
-    selected: orderValue,
-    onSelected: onSelected,
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+    ),
+    label: Text(
+      label,
+      style: TextStyle(color: labelColor),
+    ),
+    onPressed: () => onSelected(!orderValue),
   );
 }
 

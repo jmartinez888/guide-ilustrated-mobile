@@ -82,9 +82,7 @@ class SpecieDetailsSection extends StatelessWidget {
         rightChildren: [
           Text(
             specie.name,
-            style: textTheme.titleLarge?.copyWith(
-              color: mainColor,
-            ),
+            style: textTheme.titleLarge?.copyWith(color: mainColor),
           ),
           Text(
             specie.scientificName,
