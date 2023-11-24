@@ -12,8 +12,8 @@ abstract class SpecieRepository {
     required int type,
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
-    bool asc = true,
-    bool orderBy = true,
+    bool? asc,
+    bool? orderBy,
   });
 
   Future<Specie> getSpecieId(String id);

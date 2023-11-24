@@ -16,7 +16,6 @@ import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_she
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
-import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -35,8 +34,9 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   final int numberOfPostsPerRequest = 16;
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
-  bool asc = true;
-  bool orderByName = true;
+  bool? asc;
+  bool? orderByName;
+  Set<String> selectedSegments = {'recent'};
 
   final SpecieRepository specieRepository = SpecieSpeciesIiapRepositoryImpl();
 
@@ -72,18 +72,105 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     mainOpaqueColor = getMainColorByInt(widget.type);
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
-    return Stack(
+    return Column(
       children: [
-        RefreshIndicator(
-          color: mainColor,
-          onRefresh: () => Future.sync(() => _pagingController.refresh()),
-          child: Extend(
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+            child: Wrap(
+              spacing: 8.0,
+              runSpacing: 8.0,
+              children: [
+                CustomIconButton(
+                  tooltip: 'Recientes',
+                  icon: Icons.timer_rounded,
+                  backgroundColor: asc != null || orderByName != null
+                      ? opaqueColor
+                      : mainColor,
+                  iconColor: asc != null || orderByName != null
+                      ? mainColor
+                      : Colors.white,
+                  onPressed: () {
+                    if (asc != null || orderByName != null) {
+                      setState(
+                        () {
+                          asc = null;
+                          orderByName = null;
+                          _pagingController.refresh();
+                        },
+                      );
+                    }
+                  },
+                ),
+                FilledButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      orderByName != null && orderByName == true
+                          ? mainColor
+                          : opaqueColor,
+                    ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      orderByName != null && orderByName == true
+                          ? opaqueColor
+                          : mainColor,
+                    ),
+                  ),
+                  icon: orderByName != null && orderByName == true
+                      ? Icon(asc == true
+                          ? Icons.text_rotate_vertical_rounded
+                          : Icons.text_rotate_up_rounded)
+                      : const SizedBox(),
+                  onPressed: () {
+                    setState(() {
+                      asc = asc != null ? !asc! : true;
+                      orderByName = true;
+                      _pagingController.refresh();
+                    });
+                  },
+                  label: const Text('Nombre Común'),
+                ),
+                FilledButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      orderByName != null && orderByName == false
+                          ? mainColor
+                          : opaqueColor,
+                    ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      orderByName != null && orderByName == false
+                          ? opaqueColor
+                          : mainColor,
+                    ),
+                  ),
+                  icon: orderByName != null && orderByName == false
+                      ? Icon(asc == true
+                          ? Icons.text_rotate_vertical_rounded
+                          : Icons.text_rotate_up_rounded)
+                      : const SizedBox(),
+                  onPressed: () {
+                    setState(() {
+                      asc = asc != null ? !asc! : true;
+                      orderByName = false;
+                      _pagingController.refresh();
+                    });
+                  },
+                  label: const Text('Nombre Científico'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          child: RefreshIndicator(
+            color: mainColor,
+            onRefresh: () => Future.sync(() => _pagingController.refresh()),
             child: PagedMasonryGridView<int, Specie>(
               key: PageStorageKey<int>(widget.type),
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 100.0),
+              padding: const EdgeInsets.all(16.0),
               pagingController: _pagingController,
               gridDelegateBuilder: (int childCount) {
                 return SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -174,77 +261,9 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
             ),
           ),
         ),
-        Positioned(
-          right: 16.0,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.center,
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                _customFilterChip(
-                  context: context,
-                  backgroundColor: orderByName ? mainColor : opaqueColor,
-                  labelColor: orderByName ? Colors.white : mainColor,
-                  orderValue: asc,
-                  label: 'Nombre común',
-                  icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
-                  onSelected: (value) => setState(() {
-                    orderByName = true;
-                    asc = value;
-                    _pagingController.refresh();
-                  }),
-                ),
-                _customFilterChip(
-                  context: context,
-                  backgroundColor: orderByName ? opaqueColor : mainColor,
-                  labelColor: orderByName ? mainColor : Colors.white,
-                  orderValue: asc,
-                  label: 'Nombre científico',
-                  icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
-                  onSelected: (value) => setState(() {
-                    orderByName = false;
-                    asc = value;
-                    _pagingController.refresh();
-                  }),
-                ),
-              ],
-            ),
-          ),
-        ),
       ],
     );
   }
-}
-
-Widget _customFilterChip({
-  required BuildContext context,
-  required Color backgroundColor,
-  required Color labelColor,
-  required bool orderValue,
-  required Function(bool) onSelected,
-  //required bool selected,
-  required String label,
-  IconData? icon,
-  //required String tooltip,
-}) {
-  return FilledButton.icon(
-    icon: Icon(
-      icon,
-      color: labelColor,
-    ),
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-    ),
-    label: Text(
-      label,
-      style: TextStyle(color: labelColor),
-    ),
-    onPressed: () => onSelected(!orderValue),
-  );
 }
 
 class _FavoriteAction extends StatefulWidget {
