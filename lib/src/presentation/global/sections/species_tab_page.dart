@@ -74,103 +74,99 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     opaqueColor = mainOpaqueColor['opaque'];
     return Stack(
       children: [
-        Expanded(
-          child: RefreshIndicator(
-            color: mainColor,
-            onRefresh: () => Future.sync(() => _pagingController.refresh()),
-            child: PagedMasonryGridView<int, Specie>(
-              key: PageStorageKey<int>(widget.type),
-              crossAxisSpacing: 8.0,
-              mainAxisSpacing: 8.0,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
-              pagingController: _pagingController,
-              gridDelegateBuilder: (int childCount) {
-                return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: buildMultiGrids(width));
-              },
-              builderDelegate: PagedChildBuilderDelegate<Specie>(
-                newPageProgressIndicatorBuilder: (_) =>
-                    const SkeletonConatiner(height: 320.0),
-                firstPageErrorIndicatorBuilder: (context) => MessageException(
-                  onPressed: () =>
-                      Future.sync(() => _pagingController.refresh()),
-                  lottie: 'assets/lotties/error_data.json',
+        RefreshIndicator(
+          color: mainColor,
+          onRefresh: () => Future.sync(() => _pagingController.refresh()),
+          child: PagedMasonryGridView<int, Specie>(
+            key: PageStorageKey<int>(widget.type),
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
+            pagingController: _pagingController,
+            gridDelegateBuilder: (int childCount) {
+              return SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: buildMultiGrids(width));
+            },
+            builderDelegate: PagedChildBuilderDelegate<Specie>(
+              newPageProgressIndicatorBuilder: (_) =>
+                  const SkeletonConatiner(height: 320.0),
+              firstPageErrorIndicatorBuilder: (context) => MessageException(
+                onPressed: () => Future.sync(() => _pagingController.refresh()),
+                lottie: 'assets/lotties/error_data.json',
+              ),
+              noItemsFoundIndicatorBuilder: (context) => MessageException(
+                onPressed: () => Future.sync(() => _pagingController.refresh()),
+                text: 'Parece que no hay especies aquí',
+                lottie: 'assets/lotties/without_data.json',
+              ),
+              newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                onTap: () => Future.sync(
+                    () => _pagingController.retryLastFailedRequest()),
+                title: 'Algo salió mal, inténtalo de nuevo',
+                image: Padding(
+                  padding:
+                      const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+                  child: Lottie.asset('assets/lotties/error_data.json'),
                 ),
-                noItemsFoundIndicatorBuilder: (context) => MessageException(
-                  onPressed: () =>
-                      Future.sync(() => _pagingController.refresh()),
-                  text: 'Parece que no hay especies aquí',
-                  lottie: 'assets/lotties/without_data.json',
+              ),
+              firstPageProgressIndicatorBuilder: (_) => const Padding(
+                padding: EdgeInsets.only(top: 40.0),
+                child: GridLoading(),
+              ),
+              animateTransitions: true,
+              transitionDuration: const Duration(milliseconds: 400),
+              itemBuilder: (context, item, index) => CustomGridCard(
+                onTap: () => context.pushNamed(
+                  Routes.specieDetails,
+                  pathParameters: {'id': item.id.toString()},
                 ),
-                newPageErrorIndicatorBuilder: (context) => CustomGridCard(
-                  onTap: () => Future.sync(
-                      () => _pagingController.retryLastFailedRequest()),
-                  title: 'Algo salió mal, inténtalo de nuevo',
-                  image: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 16.0, left: 16.0, right: 16.0),
-                    child: Lottie.asset('assets/lotties/error_data.json'),
-                  ),
-                ),
-                firstPageProgressIndicatorBuilder: (_) => const Padding(
-                  padding: EdgeInsets.only(top: 40.0),
-                  child: GridLoading(),
-                ),
-                animateTransitions: true,
-                transitionDuration: const Duration(milliseconds: 400),
-                itemBuilder: (context, item, index) => CustomGridCard(
-                  onTap: () => context.pushNamed(
-                    Routes.specieDetails,
-                    pathParameters: {'id': item.id.toString()},
-                  ),
-                  principalColor: mainColor,
-                  backgroundColor: opaqueColor,
-                  image: Stack(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 48.0),
-                        color: Colors.white,
-                        child: CustomImageContainer(
-                          imageUrl: item.images.first,
-                          mainColor: mainColor,
-                          heightImageInAnother: 160.0,
-                        ),
+                principalColor: mainColor,
+                backgroundColor: opaqueColor,
+                image: Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 48.0),
+                      color: Colors.white,
+                      child: CustomImageContainer(
+                        imageUrl: item.images.first,
+                        mainColor: mainColor,
+                        heightImageInAnother: 160.0,
                       ),
-                      if (item.statusImage.isNotEmpty)
-                        Positioned(
-                          left: 8.0,
-                          bottom: 8.0,
-                          child: Row(
-                            children: [
-                              for (var statusImage in item.statusImage)
-                                CustomImageContainer(
-                                  borderRadius: BorderRadius.zero,
-                                  imageUrl: statusImage,
-                                  mainColor: mainColor,
-                                  heightImage: 40.0,
-                                  width: 40.0,
-                                  progressIndicatorBuilder: (_, __, ___) =>
-                                      const SizedBox(),
-                                ),
-                            ],
-                          ),
-                        ),
+                    ),
+                    if (item.statusImage.isNotEmpty)
                       Positioned(
-                        top: 8.0,
-                        right: 8.0,
-                        child: _FavoriteAction(
-                          context: context,
-                          mainColor: mainColor,
-                          specie: item,
+                        left: 8.0,
+                        bottom: 8.0,
+                        child: Row(
+                          children: [
+                            for (var statusImage in item.statusImage)
+                              CustomImageContainer(
+                                borderRadius: BorderRadius.zero,
+                                imageUrl: statusImage,
+                                mainColor: mainColor,
+                                heightImage: 40.0,
+                                width: 40.0,
+                                progressIndicatorBuilder: (_, __, ___) =>
+                                    const SizedBox(),
+                              ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                  title: item.name,
-                  subtitle: item.scientificName,
-                  fontStyle: FontStyle.italic,
+                    Positioned(
+                      top: 8.0,
+                      right: 8.0,
+                      child: _FavoriteAction(
+                        context: context,
+                        mainColor: mainColor,
+                        specie: item,
+                      ),
+                    ),
+                  ],
                 ),
+                title: item.name,
+                subtitle: item.scientificName,
+                fontStyle: FontStyle.italic,
               ),
             ),
           ),
@@ -242,12 +238,10 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               CustomIconButton(
                 tooltip: 'Recientes',
                 icon: Icons.timer_rounded,
-                backgroundColor: asc != null || orderByName != null
-                    ? opaqueColor
-                    : mainColor,
-                iconColor: asc != null || orderByName != null
-                    ? mainColor
-                    : Colors.white,
+                backgroundColor:
+                    asc != null || orderByName != null ? opaqueColor : mainColor,
+                iconColor:
+                    asc != null || orderByName != null ? mainColor : Colors.white,
                 onPressed: () {
                   if (asc != null || orderByName != null) {
                     setState(
