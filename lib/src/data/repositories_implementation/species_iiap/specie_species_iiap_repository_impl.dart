@@ -27,11 +27,11 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     required int type,
     required int numberOfPostsPerRequest,
     required PagingController pagingController,
-    bool asc = true,
-    bool orderBy = true,
+    bool? asc,
+    bool? orderBy,
   }) async {
-    String ascValue = asc ? 'ASC' : 'DESC';
-    String orderByName = orderBy ? 'vc_nombre' : 'vc_nombre_cientifico';
+    String? ascValue = asc != null ? (asc == true ? 'ASC' : 'DESC') : null;
+    String? orderByName = orderBy != null ? (orderBy == true ? 'vc_nombre' : 'vc_nombre_cientifico') : null;
 
     try {
       final response = await get(Uri.parse(
@@ -40,7 +40,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
           ResponseSpecieAmazoniaIIAP.fromJson(jsonDecode(response.body));
 
       List<Specie> postList = responseList.species
-          //.where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
+          .where((speciesIiap) => speciesIiap.vcImagen.isNotEmpty)
           .map((speciesIiap) => SpecieMapper.speciesIiapToEntity(speciesIiap))
           .toList();
 
@@ -399,7 +399,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
                 children: [
                   pw.Paragraph(
                     text:
-                        'Visita: https://amazonia.iiap.gob.pe/species/${specie.id}',
+                        'Visita: $baseUrl/species/${specie.id}',
                     style: pw.TextStyle(color: PdfColor.fromHex('#808080')),
                     margin: pw.EdgeInsets.zero,
                   ),

@@ -16,7 +16,6 @@ import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_she
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
-import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -35,8 +34,9 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
   final int numberOfPostsPerRequest = 16;
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
-  bool asc = true;
-  bool orderByName = true;
+  bool? asc;
+  bool? orderByName;
+  Set<String> selectedSegments = {'recent'};
 
   final SpecieRepository specieRepository = SpecieSpeciesIiapRepositoryImpl();
 
@@ -74,16 +74,16 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     opaqueColor = mainOpaqueColor['opaque'];
     return Stack(
       children: [
-        RefreshIndicator(
-          color: mainColor,
-          onRefresh: () => Future.sync(() => _pagingController.refresh()),
-          child: Extend(
+        Expanded(
+          child: RefreshIndicator(
+            color: mainColor,
+            onRefresh: () => Future.sync(() => _pagingController.refresh()),
             child: PagedMasonryGridView<int, Specie>(
               key: PageStorageKey<int>(widget.type),
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 100.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
               pagingController: _pagingController,
               gridDelegateBuilder: (int childCount) {
                 return SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -113,7 +113,10 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                     child: Lottie.asset('assets/lotties/error_data.json'),
                   ),
                 ),
-                firstPageProgressIndicatorBuilder: (_) => const GridLoading(),
+                firstPageProgressIndicatorBuilder: (_) => const Padding(
+                  padding: EdgeInsets.only(top: 40.0),
+                  child: GridLoading(),
+                ),
                 animateTransitions: true,
                 transitionDuration: const Duration(milliseconds: 400),
                 itemBuilder: (context, item, index) => CustomGridCard(
@@ -138,9 +141,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                         Positioned(
                           left: 8.0,
                           bottom: 8.0,
-                          child: Wrap(
-                            spacing: 8.0,
-                            runSpacing: 8.0,
+                          child: Row(
                             children: [
                               for (var statusImage in item.statusImage)
                                 CustomImageContainer(
@@ -174,77 +175,97 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
             ),
           ),
         ),
-        Positioned(
-          right: 16.0,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 4.0),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.center,
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                _customFilterChip(
-                  context: context,
-                  backgroundColor: orderByName ? mainColor : opaqueColor,
-                  labelColor: orderByName ? Colors.white : mainColor,
-                  orderValue: asc,
-                  label: 'Nombre común',
-                  icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
-                  onSelected: (value) => setState(() {
-                    orderByName = true;
-                    asc = value;
-                    _pagingController.refresh();
-                  }),
+        SizedBox(
+          height: 48.0,
+          child: ListView(
+            reverse: true,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+            physics: const BouncingScrollPhysics(),
+            children: [
+              FilledButton.icon(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == false
+                        ? mainColor
+                        : opaqueColor,
+                  ),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == false
+                        ? opaqueColor
+                        : mainColor,
+                  ),
                 ),
-                _customFilterChip(
-                  context: context,
-                  backgroundColor: orderByName ? opaqueColor : mainColor,
-                  labelColor: orderByName ? mainColor : Colors.white,
-                  orderValue: asc,
-                  label: 'Nombre científico',
-                  icon: asc ? Icons.arrow_upward_rounded : Icons.arrow_downward,
-                  onSelected: (value) => setState(() {
+                icon: orderByName != null && orderByName == false
+                    ? Icon(asc == true
+                        ? Icons.text_rotate_vertical_rounded
+                        : Icons.text_rotate_up_rounded)
+                    : const SizedBox(),
+                onPressed: () {
+                  setState(() {
+                    asc = asc != null ? !asc! : true;
                     orderByName = false;
-                    asc = value;
                     _pagingController.refresh();
-                  }),
+                  });
+                },
+                label: const Text('Nombre Científico'),
+              ),
+              const SizedBox(width: 8.0),
+              FilledButton.icon(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == true
+                        ? mainColor
+                        : opaqueColor,
+                  ),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == true
+                        ? opaqueColor
+                        : mainColor,
+                  ),
                 ),
-              ],
-            ),
+                icon: orderByName != null && orderByName == true
+                    ? Icon(asc == true
+                        ? Icons.text_rotate_vertical_rounded
+                        : Icons.text_rotate_up_rounded)
+                    : const SizedBox(),
+                onPressed: () {
+                  setState(() {
+                    asc = asc != null ? !asc! : true;
+                    orderByName = true;
+                    _pagingController.refresh();
+                  });
+                },
+                label: const Text('Nombre Común'),
+              ),
+              const SizedBox(width: 8.0),
+              CustomIconButton(
+                tooltip: 'Recientes',
+                icon: Icons.timer_rounded,
+                backgroundColor: asc != null || orderByName != null
+                    ? opaqueColor
+                    : mainColor,
+                iconColor: asc != null || orderByName != null
+                    ? mainColor
+                    : Colors.white,
+                onPressed: () {
+                  if (asc != null || orderByName != null) {
+                    setState(
+                      () {
+                        asc = null;
+                        orderByName = null;
+                        _pagingController.refresh();
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ],
     );
   }
-}
-
-Widget _customFilterChip({
-  required BuildContext context,
-  required Color backgroundColor,
-  required Color labelColor,
-  required bool orderValue,
-  required Function(bool) onSelected,
-  //required bool selected,
-  required String label,
-  IconData? icon,
-  //required String tooltip,
-}) {
-  return FilledButton.icon(
-    icon: Icon(
-      icon,
-      color: labelColor,
-    ),
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-    ),
-    label: Text(
-      label,
-      style: TextStyle(color: labelColor),
-    ),
-    onPressed: () => onSelected(!orderValue),
-  );
 }
 
 class _FavoriteAction extends StatefulWidget {
