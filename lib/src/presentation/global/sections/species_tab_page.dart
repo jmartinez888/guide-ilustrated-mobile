@@ -72,95 +72,8 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
     mainOpaqueColor = getMainColorByInt(widget.type);
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
-    return Column(
+    return Stack(
       children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
-            child: Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                CustomIconButton(
-                  tooltip: 'Recientes',
-                  icon: Icons.timer_rounded,
-                  backgroundColor: asc != null || orderByName != null
-                      ? opaqueColor
-                      : mainColor,
-                  iconColor: asc != null || orderByName != null
-                      ? mainColor
-                      : Colors.white,
-                  onPressed: () {
-                    if (asc != null || orderByName != null) {
-                      setState(
-                        () {
-                          asc = null;
-                          orderByName = null;
-                          _pagingController.refresh();
-                        },
-                      );
-                    }
-                  },
-                ),
-                FilledButton.icon(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      orderByName != null && orderByName == true
-                          ? mainColor
-                          : opaqueColor,
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      orderByName != null && orderByName == true
-                          ? opaqueColor
-                          : mainColor,
-                    ),
-                  ),
-                  icon: orderByName != null && orderByName == true
-                      ? Icon(asc == true
-                          ? Icons.text_rotate_vertical_rounded
-                          : Icons.text_rotate_up_rounded)
-                      : const SizedBox(),
-                  onPressed: () {
-                    setState(() {
-                      asc = asc != null ? !asc! : true;
-                      orderByName = true;
-                      _pagingController.refresh();
-                    });
-                  },
-                  label: const Text('Nombre Común'),
-                ),
-                FilledButton.icon(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      orderByName != null && orderByName == false
-                          ? mainColor
-                          : opaqueColor,
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      orderByName != null && orderByName == false
-                          ? opaqueColor
-                          : mainColor,
-                    ),
-                  ),
-                  icon: orderByName != null && orderByName == false
-                      ? Icon(asc == true
-                          ? Icons.text_rotate_vertical_rounded
-                          : Icons.text_rotate_up_rounded)
-                      : const SizedBox(),
-                  onPressed: () {
-                    setState(() {
-                      asc = asc != null ? !asc! : true;
-                      orderByName = false;
-                      _pagingController.refresh();
-                    });
-                  },
-                  label: const Text('Nombre Científico'),
-                ),
-              ],
-            ),
-          ),
-        ),
         Expanded(
           child: RefreshIndicator(
             color: mainColor,
@@ -170,7 +83,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
               pagingController: _pagingController,
               gridDelegateBuilder: (int childCount) {
                 return SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -200,7 +113,10 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                     child: Lottie.asset('assets/lotties/error_data.json'),
                   ),
                 ),
-                firstPageProgressIndicatorBuilder: (_) => const GridLoading(),
+                firstPageProgressIndicatorBuilder: (_) => const Padding(
+                  padding: EdgeInsets.only(top: 40.0),
+                  child: GridLoading(),
+                ),
                 animateTransitions: true,
                 transitionDuration: const Duration(milliseconds: 400),
                 itemBuilder: (context, item, index) => CustomGridCard(
@@ -225,9 +141,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                         Positioned(
                           left: 8.0,
                           bottom: 8.0,
-                          child: Wrap(
-                            spacing: 8.0,
-                            runSpacing: 8.0,
+                          child: Row(
                             children: [
                               for (var statusImage in item.statusImage)
                                 CustomImageContainer(
@@ -259,6 +173,94 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                 ),
               ),
             ),
+          ),
+        ),
+        SizedBox(
+          height: 48.0,
+          child: ListView(
+            reverse: true,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0),
+            physics: const BouncingScrollPhysics(),
+            children: [
+              FilledButton.icon(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == false
+                        ? mainColor
+                        : opaqueColor,
+                  ),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == false
+                        ? opaqueColor
+                        : mainColor,
+                  ),
+                ),
+                icon: orderByName != null && orderByName == false
+                    ? Icon(asc == true
+                        ? Icons.text_rotate_vertical_rounded
+                        : Icons.text_rotate_up_rounded)
+                    : const SizedBox(),
+                onPressed: () {
+                  setState(() {
+                    asc = asc != null ? !asc! : true;
+                    orderByName = false;
+                    _pagingController.refresh();
+                  });
+                },
+                label: const Text('Nombre Científico'),
+              ),
+              const SizedBox(width: 8.0),
+              FilledButton.icon(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == true
+                        ? mainColor
+                        : opaqueColor,
+                  ),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                    orderByName != null && orderByName == true
+                        ? opaqueColor
+                        : mainColor,
+                  ),
+                ),
+                icon: orderByName != null && orderByName == true
+                    ? Icon(asc == true
+                        ? Icons.text_rotate_vertical_rounded
+                        : Icons.text_rotate_up_rounded)
+                    : const SizedBox(),
+                onPressed: () {
+                  setState(() {
+                    asc = asc != null ? !asc! : true;
+                    orderByName = true;
+                    _pagingController.refresh();
+                  });
+                },
+                label: const Text('Nombre Común'),
+              ),
+              const SizedBox(width: 8.0),
+              CustomIconButton(
+                tooltip: 'Recientes',
+                icon: Icons.timer_rounded,
+                backgroundColor: asc != null || orderByName != null
+                    ? opaqueColor
+                    : mainColor,
+                iconColor: asc != null || orderByName != null
+                    ? mainColor
+                    : Colors.white,
+                onPressed: () {
+                  if (asc != null || orderByName != null) {
+                    setState(
+                      () {
+                        asc = null;
+                        orderByName = null;
+                        _pagingController.refresh();
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ],
