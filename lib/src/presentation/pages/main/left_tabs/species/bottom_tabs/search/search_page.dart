@@ -8,6 +8,7 @@ import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
+import 'package:species/src/domain/entities/taxonomy.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/filters_options.dart';
@@ -258,10 +259,10 @@ class _SearchPageState extends State<SearchPage> {
             filterName: 'Conservación',
           ),
 
-          // Add category filter
+          //Add category filter
           _filterOptionButton(
             context: context,
-            onPressed: () => _filterByTaxonomyDialog(context),
+            onPressed: () => _filterByCategoryDialog(context),
             filterValue: taxonomyId,
             icon: Icons.category_rounded,
             filterName: taxonomyId == 1
@@ -415,21 +416,45 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  void _filterByTaxonomyDialog(BuildContext context) {
+  void _filterByCategoryDialog(BuildContext context) {
     showDialog(
       useSafeArea: true,
       context: context,
       builder: (context) {
-        return FilterByTaxonomyDialog(
-          taxonomyId: taxonomyId,
-          onValueChanged: (value) {
-            setState(() {
-              taxonomyId = value;
-              _pagingController.refresh();
-            });
-          },
-          onDialogClosed: () {
-            Navigator.pop(context);
+        return FutureBuilder<List<Taxonomy>>(
+          future: specieRepository.getTaxonomies(),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Taxonomy>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const ErrorFetchingDropdown(
+                title: 'Error al cargar categorías',
+                content: 'Inténtalo de nuevo',
+              );
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const ErrorFetchingDropdown(
+                title: 'No se encontraron categorías',
+                content: 'No se encontraron categorías. Inténtalo nuevamente.',
+              );
+            } else {
+              final List<Taxonomy> taxonomies = snapshot.data!;
+              return FilterByCategoryDialog(
+                taxonomyId: taxonomyId,
+                onValueChanged: (value) {
+                  setState(() {
+                    taxonomyId = value;
+                    _pagingController.refresh();
+                  });
+                },
+                onDialogClosed: () {
+                  Navigator.pop(context);
+                },
+                taxonomyList: taxonomies,
+              );
+            }
           },
         );
       },

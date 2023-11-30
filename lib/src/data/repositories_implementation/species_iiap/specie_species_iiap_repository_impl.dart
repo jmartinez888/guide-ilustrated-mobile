@@ -12,6 +12,7 @@ import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
+import 'package:species/src/domain/entities/taxonomy.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
@@ -590,6 +591,21 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
         return responseList
             .map((item) => ConservationStatus.fromMap(item))
             .toList();
+      } else {
+        return [];
+      }
+    } catch (e) {
+      throw 'Error en la solicitud: $e';
+    }
+  }
+
+  @override
+  Future<List<Taxonomy>> getTaxonomies() async {
+    try {
+      final response = await get(Uri.parse('$baseUrl/taxonomy'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseList = json.decode(response.body);
+        return responseList.map((item) => Taxonomy.fromMap(item)).toList();
       } else {
         return [];
       }

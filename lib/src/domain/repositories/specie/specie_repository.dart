@@ -6,6 +6,7 @@ import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
+import 'package:species/src/domain/entities/taxonomy.dart';
 
 abstract class SpecieRepository {
   Future<void> getSpecies({
@@ -51,4 +52,5 @@ abstract class SpecieRepository {
   Future<List<OrderClass>> getOrdersByClassId(int familyId);
   Future<List<Family>> getFamilies(int orderId);
   Future<List<ConservationStatus>> getConservationStatus();
+  Future<List<Taxonomy>> getTaxonomies();
 }

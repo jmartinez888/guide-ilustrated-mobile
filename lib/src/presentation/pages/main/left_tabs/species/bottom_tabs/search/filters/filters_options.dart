@@ -3,6 +3,8 @@ import 'package:species/src/domain/entities/class.dart';
 import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
+import 'package:species/src/domain/entities/taxonomy.dart';
+import 'package:species/src/presentation/global/colors.dart';
 
 class ListAlphabeticOrder extends StatelessWidget {
   final String? orderAscDesc;
@@ -392,16 +394,18 @@ class ConservationStatusOptions extends StatelessWidget {
   }
 }
 
-class FilterByTaxonomyDialog extends StatelessWidget {
+class FilterByCategoryDialog extends StatelessWidget {
   final int? taxonomyId;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
+  final List<Taxonomy> taxonomyList;
 
-  const FilterByTaxonomyDialog({
+  const FilterByCategoryDialog({
     Key? key,
     required this.taxonomyId,
     required this.onValueChanged,
     required this.onDialogClosed,
+    required this.taxonomyList,
   }) : super(key: key);
 
   @override
@@ -423,10 +427,11 @@ class FilterByTaxonomyDialog extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  child: TaxonomyRadioOptions(
+                  child: CategoryRadioOptions(
                     taxonomyId: taxonomyId,
                     onValueChanged: onValueChanged,
                     onDialogClosed: onDialogClosed,
+                    taxonomyList: taxonomyList,
                   ),
                 ),
               ),
@@ -447,33 +452,37 @@ class FilterByTaxonomyDialog extends StatelessWidget {
   }
 }
 
-class TaxonomyRadioOptions extends StatelessWidget {
-  final List<TaxonomyOption> taxonomyOptions = [
-    TaxonomyOption('Aves', 1),
-    TaxonomyOption('Mamíferos', 2),
-    TaxonomyOption('Reptiles', 3),
-    TaxonomyOption('Anfibios', 4),
-    TaxonomyOption('Peces', 5),
-    TaxonomyOption('Insectos', 6),
-    TaxonomyOption('Arboles', 7),
-    TaxonomyOption('Palmeras', 8),
-  ];
-
+class CategoryRadioOptions extends StatelessWidget {
   final int? taxonomyId;
-  final Function(int? p1) onValueChanged;
+  final Function(int?) onValueChanged;
   final Function() onDialogClosed;
+  final List<Taxonomy> taxonomyList;
 
-  TaxonomyRadioOptions({
+  const CategoryRadioOptions({
     Key? key,
     required this.taxonomyId,
     required this.onValueChanged,
     required this.onDialogClosed,
+    required this.taxonomyList,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(TaxonomyOption option) {
+  Widget _buildRadioListTile(Taxonomy taxonomyItem) {
     return RadioListTile(
-      title: Text(option.title),
-      value: option.value,
+      title: Row(
+        children: [
+          Image.network(
+            color: taxonomyId == taxonomyItem.idTaxonomia
+                ? CustomColors.primary
+                : CustomColors.grey.withOpacity(0.5),
+            taxonomyItem.vcImagen,
+            width: 30,
+            height: 30,
+          ),
+          const SizedBox(width: 8.0),
+          Text(taxonomyItem.vcNombre),
+        ],
+      ),
+      value: taxonomyItem.idTaxonomia,
       groupValue: taxonomyId,
       onChanged: (value) {
         onValueChanged(value);
@@ -486,17 +495,12 @@ class TaxonomyRadioOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...taxonomyOptions.map(_buildRadioListTile).toList(),
+        ...taxonomyList
+            .map((taxonomyItem) => _buildRadioListTile(taxonomyItem))
+            .toList(),
       ],
     );
   }
-}
-
-class TaxonomyOption {
-  final String title;
-  final int? value;
-
-  TaxonomyOption(this.title, this.value);
 }
 
 class FilterByClassDialog extends StatelessWidget {
