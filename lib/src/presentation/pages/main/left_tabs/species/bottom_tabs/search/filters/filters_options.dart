@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:species/src/domain/entities/class.dart';
+import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 
@@ -280,25 +281,32 @@ class SoundOption {
 }
 
 class FilterByConservationStatusDialog extends StatelessWidget {
-  final int? conservationStatus;
+  final int? selectedConservationStatus;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
+  final List<ConservationStatus> conservationStatusesList;
 
   const FilterByConservationStatusDialog({
     Key? key,
-    required this.conservationStatus,
+    required this.selectedConservationStatus,
     required this.onValueChanged,
     required this.onDialogClosed,
+    required this.conservationStatusesList,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 768;
+    final size = MediaQuery.of(context).size;
     return Dialog(
       shadowColor: Colors.transparent,
       child: IntrinsicHeight(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: BoxConstraints(
+            maxWidth: 400,
+            maxHeight: isMobile ? size.height * 0.6 : size.height * 0.8,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -311,16 +319,17 @@ class FilterByConservationStatusDialog extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: ConservationStatusOptions(
-                    conservationStatus: conservationStatus,
+                    conservationStatus: selectedConservationStatus,
                     onValueChanged: onValueChanged,
                     onDialogClosed: onDialogClosed,
+                    conservationStatuses: conservationStatusesList,
                   ),
                 ),
               ),
               RadioListTile(
                 title: const Text('Todos'),
                 value: null,
-                groupValue: conservationStatus,
+                groupValue: selectedConservationStatus,
                 onChanged: (value) {
                   onValueChanged(value);
                   onDialogClosed();
@@ -335,31 +344,36 @@ class FilterByConservationStatusDialog extends StatelessWidget {
 }
 
 class ConservationStatusOptions extends StatelessWidget {
-  final List<ConservationStatusOption> conservationStatusOptions = [
-    ConservationStatusOption('En peligro', 1),
-    ConservationStatusOption('Vulnerable', 2),
-    ConservationStatusOption('Casi amenazado', 3),
-    ConservationStatusOption('Preocupación menor', 4),
-  ];
-
   final int? conservationStatus;
-  final Function(int? p1) onValueChanged;
+  final Function(int?) onValueChanged;
   final Function() onDialogClosed;
+  final List<ConservationStatus> conservationStatuses;
 
-  ConservationStatusOptions({
+  const ConservationStatusOptions({
     Key? key,
     required this.conservationStatus,
     required this.onValueChanged,
     required this.onDialogClosed,
+    required this.conservationStatuses,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(ConservationStatusOption option) {
+  Widget _buildRadioListTile(ConservationStatus conservationStatusItem) {
     return RadioListTile(
-      title: Text(option.title),
-      value: option.value,
+      title: Row(
+        children: [
+          Image.network(
+            conservationStatusItem.vcImagenEstado,
+            width: 30,
+            height: 30,
+          ),
+          const SizedBox(width: 8.0),
+          Text(conservationStatusItem.vcNombre),
+        ],
+      ),
+      value: conservationStatusItem.idEstConservacion,
       groupValue: conservationStatus,
       onChanged: (value) {
-        onValueChanged(value);
+        onValueChanged(value as int);
         onDialogClosed();
       },
     );
@@ -369,17 +383,13 @@ class ConservationStatusOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...conservationStatusOptions.map(_buildRadioListTile).toList(),
+        ...conservationStatuses
+            .map((conservationStatusItem) =>
+                _buildRadioListTile(conservationStatusItem))
+            .toList(),
       ],
     );
   }
-}
-
-class ConservationStatusOption {
-  final String title;
-  final int? value;
-
-  ConservationStatusOption(this.title, this.value);
 }
 
 class FilterByTaxonomyDialog extends StatelessWidget {

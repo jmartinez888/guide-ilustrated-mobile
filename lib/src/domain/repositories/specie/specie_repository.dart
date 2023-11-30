@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/domain/entities/class.dart';
+import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
@@ -49,4 +50,5 @@ abstract class SpecieRepository {
   Future<List<Class>> getClasses();
   Future<List<OrderClass>> getOrdersByClassId(int familyId);
   Future<List<Family>> getFamilies(int orderId);
+  Future<List<ConservationStatus>> getConservationStatus();
 }

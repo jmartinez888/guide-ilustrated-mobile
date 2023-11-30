@@ -8,6 +8,7 @@ import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/data/models/species_iiap/response_species_iiap.dart';
 import 'package:species/src/data/models/species_iiap/specie_amazonia_iiap.dart';
 import 'package:species/src/domain/entities/class.dart';
+import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
@@ -31,7 +32,9 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
     bool? orderBy,
   }) async {
     String? ascValue = asc != null ? (asc == true ? 'ASC' : 'DESC') : null;
-    String? orderByName = orderBy != null ? (orderBy == true ? 'vc_nombre' : 'vc_nombre_cientifico') : null;
+    String? orderByName = orderBy != null
+        ? (orderBy == true ? 'vc_nombre' : 'vc_nombre_cientifico')
+        : null;
 
     try {
       final response = await get(Uri.parse(
@@ -398,8 +401,7 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
                 crossAxisAlignment: pw.CrossAxisAlignment.center,
                 children: [
                   pw.Paragraph(
-                    text:
-                        'Visita: $baseUrl/species/${specie.id}',
+                    text: 'Visita: $baseUrl/species/${specie.id}',
                     style: pw.TextStyle(color: PdfColor.fromHex('#808080')),
                     margin: pw.EdgeInsets.zero,
                   ),
@@ -571,6 +573,24 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
         List<Family> orderList =
             responseList.map((item) => Family.fromMap(item)).toList();
         return orderList;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      throw 'Error en la solicitud: $e';
+    }
+  }
+
+  @override
+  Future<List<ConservationStatus>> getConservationStatus() async {
+    try {
+      final response = await get(Uri.parse('$baseUrl/status'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseList = json.decode(response.body);
+        print('🤚🤚🤚 $responseList');
+        return responseList
+            .map((item) => ConservationStatus.fromMap(item))
+            .toList();
       } else {
         return [];
       }

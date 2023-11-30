@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
 import 'package:species/src/domain/entities/class.dart';
+import 'package:species/src/domain/entities/conservation_status.dart';
 import 'package:species/src/domain/entities/family.dart';
 import 'package:species/src/domain/entities/order.dart';
 import 'package:species/src/domain/entities/specie.dart';
@@ -32,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
   int? selectedOrder;
   int? selectedFamily;
   int? hasSound;
-  int? conservationStatus;
+  int? selectedConservationStatus;
   int? taxonomyId;
   String? orderByType;
   String? orderByName;
@@ -50,7 +51,7 @@ class _SearchPageState extends State<SearchPage> {
         hasSound: hasSound,
         family: selectedFamily,
         orderType: orderByType,
-        conservationStatus: conservationStatus,
+        conservationStatus: selectedConservationStatus,
         taxonomyId: taxonomyId,
         orderByName: orderByName,
       );
@@ -72,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
         selectedFamily != null ||
         hasSound != null ||
         orderByType != null ||
-        conservationStatus != null ||
+        selectedConservationStatus != null ||
         taxonomyId != null ||
         orderByName != null) {
       return true;
@@ -251,20 +252,10 @@ class _SearchPageState extends State<SearchPage> {
           // Add conservation status filter
           _filterOptionButton(
             context: context,
-            onPressed: () => _filterByConservationStatusDialog(
-              context,
-            ),
-            filterValue: conservationStatus,
+            onPressed: () => _filterByConservationStatusDialog(context),
+            filterValue: selectedConservationStatus,
             icon: Icons.eco_rounded,
-            filterName: conservationStatus == 1
-                ? 'En peligro'
-                : conservationStatus == 2
-                    ? 'Vulnerable'
-                    : conservationStatus == 3
-                        ? 'Casí amenazado'
-                        : conservationStatus == 4
-                            ? 'Preocupación menor'
-                            : 'Estado',
+            filterName: 'Conservación',
           ),
 
           // Add category filter
@@ -319,7 +310,7 @@ class _SearchPageState extends State<SearchPage> {
                 selectedFamily = null;
                 hasSound = null;
                 orderByType = null;
-                conservationStatus = null;
+                selectedConservationStatus = null;
                 taxonomyId = null;
                 orderByName = null;
                 _pagingController.refresh();
@@ -413,26 +404,6 @@ class _SearchPageState extends State<SearchPage> {
           onValueChanged: (value) {
             setState(() {
               hasSound = value;
-              _pagingController.refresh();
-            });
-          },
-          onDialogClosed: () {
-            Navigator.pop(context);
-          },
-        );
-      },
-    );
-  }
-
-  void _filterByConservationStatusDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return FilterByConservationStatusDialog(
-          conservationStatus: conservationStatus,
-          onValueChanged: (value) {
-            setState(() {
-              conservationStatus = value;
               _pagingController.refresh();
             });
           },
@@ -593,6 +564,52 @@ class _SearchPageState extends State<SearchPage> {
                   Navigator.pop(context);
                 },
                 families: families,
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
+  void _filterByConservationStatusDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return FutureBuilder<List<ConservationStatus>>(
+          future: specieRepository.getConservationStatus(),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<ConservationStatus>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return const ErrorFetchingDropdown(
+                title: 'Error al cargar estados de conservación',
+                content: 'Inténtalo nuevamente.',
+              );
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const ErrorFetchingDropdown(
+                title: 'No se encontraron estados de conservación',
+                content:
+                    'No se encontraron estados de conservación. Inténtalo nuevamente.',
+              );
+            } else {
+              final List<ConservationStatus> conservationStatusList =
+                  snapshot.data!;
+              return FilterByConservationStatusDialog(
+                selectedConservationStatus: selectedConservationStatus,
+                onValueChanged: (value) {
+                  setState(() {
+                    selectedConservationStatus = value;
+                    _pagingController.refresh();
+                  });
+                },
+                onDialogClosed: () {
+                  Navigator.pop(context);
+                },
+                conservationStatusesList: conservationStatusList,
               );
             }
           },
