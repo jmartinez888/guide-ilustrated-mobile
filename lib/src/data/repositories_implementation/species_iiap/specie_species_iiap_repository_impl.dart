@@ -587,7 +587,6 @@ class SpecieSpeciesIiapRepositoryImpl implements SpecieRepository {
       final response = await get(Uri.parse('$baseUrl/status'));
       if (response.statusCode == 200) {
         final List<dynamic> responseList = json.decode(response.body);
-        print('🤚🤚🤚 $responseList');
         return responseList
             .map((item) => ConservationStatus.fromMap(item))
             .toList();
