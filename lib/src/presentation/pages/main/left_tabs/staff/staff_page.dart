@@ -19,7 +19,7 @@ class StaffPage extends StatelessWidget {
             _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
             const SizedBox(height: 8.0),
             _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
-            _text('Manuel Martín Brañas\nJuan José Bellido Collahuacho'),
+            _text('Manuel Martín Brañas;\nJuan José Bellido Collahuacho'),
           ],
         )),
         SliverToBoxAdapter(
@@ -40,7 +40,7 @@ class StaffPage extends StatelessWidget {
                 children: [
                   _reviewerTitle(context, 'Revisión de textos:'),
                   _text(
-                      'Manuel Martín Brañas, IIAP\nJuan José Bellido Collahuacho, IIAP'),
+                      'Manuel Martín Brañas, IIAP;\nJuan José Bellido Collahuacho, IIAP'),
                   _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
                   _text('Giussepe Gagliardi Urrutia, IIAP'),
                 ],
@@ -49,17 +49,17 @@ class StaffPage extends StatelessWidget {
                   child: Column(
                 children: [
                   _reviewerTitle(context, 'Revisión aves:'),
-                  _text('José Álvarez Alonso, MINAM\nJuan Díaz Alván, UCP'),
+                  _text('José Álvarez Alonso, MINAM;\nJuan Díaz Alván, UCP'),
                   _reviewerTitle(context, 'Revisión peces:'),
                   _text(
-                      'Carmen Rosa García Dávila, IIAP\nKevin Morgan Ruíz Tafur, IIAP'),
+                      'Carmen Rosa García Dávila, IIAP;\nKevin Morgan Ruíz Tafur, IIAP'),
                 ],
               )),
               SizedBox(
                 child: Column(children: [
                   _reviewerTitle(context, 'Revisión insectos:'),
                   _text(
-                      'Joel Bardales Vásquez, IIAP\nWalter Leonardo Vásquez Mora, UNAP'),
+                      'Joel Bardales Vásquez, IIAP;\nWalter Leonardo Vásquez Mora, UNAP'),
                   _reviewerTitle(context, 'Revisión palmeras:'),
                   _text('Kember Mejía Carhuanca, IIAP'),
                 ]),
@@ -68,7 +68,7 @@ class StaffPage extends StatelessWidget {
                 child: Column(children: [
                   _reviewerTitle(context, 'Revisión plantas:'),
                   _text(
-                      'Nállarett Dávila Cardozo, IIAP\nRicardo Zárate Gómez, IIAP\nElsa Renjifo Salgado, IIAP'),
+                      'Nállarett Dávila Cardozo, IIAP;\nRicardo Zárate Gómez, IIAP;\nElsa Renjifo Salgado, IIAP'),
                   _reviewerTitle(context, 'Revisión mamíferos:'),
                   _text('Pedro Pérez Peña, IIAP'),
                 ]),
@@ -87,7 +87,8 @@ class StaffPage extends StatelessWidget {
             children: [
               _subtitleSection(context, 'ILUSTRACIONES'),
               const SizedBox(height: 8.0),
-              _text('Jaime Choclote Martínez\n Javier Vela. (palmeras)'),
+              _text(
+                  'Jaime Choclote Martínez;\n Nicolás Farroñay Kanaffo y Javier Vela.'),
             ],
           ),
         ),
@@ -108,7 +109,7 @@ class StaffPage extends StatelessWidget {
                       children: [
                         _reviewerTitle(context, 'Aves'),
                         _text(
-                            'Roger Ahlman\n Frank Lambert\n Juan Diaz\n Thomas S. Schulenberg\n Curtis A. Marantz\n Peter H. English\n Ohn V. Moore\n Niels Krabbe\n Olaf Jhan'),
+                            'Roger Ahlman;\n Frank Lambert;\n Juan Diaz;\n Thomas S. Schulenberg;\n Curtis A. Marantz;\n Peter H. English;\n Ohn V. Moore;\n Niels Krabbe;\n Olaf Jhan'),
                       ],
                     )),
                     const SizedBox(width: 16.0),
