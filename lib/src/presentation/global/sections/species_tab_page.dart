@@ -156,10 +156,20 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                     Positioned(
                       top: 8.0,
                       right: 8.0,
-                      child: _FavoriteAction(
-                        context: context,
-                        mainColor: mainColor,
-                        specie: item,
+                      child: Row(
+                        children: [
+                          if (item.sound.isNotEmpty)
+                            CustomIconButton(
+                              iconColor: mainColor,
+                              icon: Icons.volume_up_rounded,
+                              onPressed: null,
+                            ),
+                          _FavoriteAction(
+                            context: context,
+                            mainColor: mainColor,
+                            specie: item,
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -238,10 +248,12 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
               CustomIconButton(
                 tooltip: 'Recientes',
                 icon: Icons.timer_rounded,
-                backgroundColor:
-                    asc != null || orderByName != null ? opaqueColor : mainColor,
-                iconColor:
-                    asc != null || orderByName != null ? mainColor : Colors.white,
+                backgroundColor: asc != null || orderByName != null
+                    ? opaqueColor
+                    : mainColor,
+                iconColor: asc != null || orderByName != null
+                    ? mainColor
+                    : Colors.white,
                 onPressed: () {
                   if (asc != null || orderByName != null) {
                     setState(
