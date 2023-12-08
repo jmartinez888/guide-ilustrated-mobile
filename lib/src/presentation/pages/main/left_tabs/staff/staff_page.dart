@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StaffPage extends StatelessWidget {
   const StaffPage({super.key});
@@ -254,6 +254,7 @@ class StaffPage extends StatelessWidget {
     String? image,
     required String github,
   }) {
+    final Uri url = Uri.parse(github);
     return Material(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -284,7 +285,11 @@ class StaffPage extends StatelessWidget {
                 side: const BorderSide(color: Colors.black),
               ),
             ),
-            onPressed: () => Share.share(github),
+            onPressed: () async {
+              if (!await launchUrl(url)) {
+                throw Exception('Could not launch $url');
+              }
+            },
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

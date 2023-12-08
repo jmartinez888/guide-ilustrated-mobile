@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -12,6 +12,9 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
+    final Uri url =
+        Uri.parse('https://repositorio.iiap.gob.pe/handle/20.500.12921/680');
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         AppBar(
@@ -21,12 +24,22 @@ class _AboutPageState extends State<AboutPage> {
           child: Extend(
             min: true,
             child: ListView(
+              physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.all(16),
               children: [
                 Image.asset(
                   'assets/images/guia.png',
-                  width: 320,
-                  height: 500,
+                  width: size.width * 0.8,
+                  height: size.height * 0.4,
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: () async {
+                    if (!await launchUrl(url)) {
+                      throw Exception('Could not launch $url');
+                    }
+                  },
+                  child: const Text('Obtener libro'),
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -83,53 +96,40 @@ class _AboutPageState extends State<AboutPage> {
                   textAlign: TextAlign.justify,
                 ),
                 TextButton(
-                    onPressed: () {
-                      Share.share('https://amazonia.iiap.gob.pe/');
+                    onPressed: () async {
+                      final Uri url0 =
+                          Uri.parse('https://amazonia.iiap.gob.pe/species');
+                      if (!await launchUrl(url0)) {
+                        throw Exception('Could not launch $url0');
+                      }
                     },
-                    child: const Text('https://amazonia.iiap.gob.pe/')),
+                    child: const Text('amazonia.iiap.gob.pe')),
                 const SizedBox(height: 16),
                 const Text(
                   'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ',
                 ),
-                TextButton(
-                    onPressed: () {
-                      Share.share('ciiap@iiap.gob.pe', subject: 'Contacto');
-                    },
-                    child: const Text('ciiap@iiap.gob.pe')),
                 const SizedBox(height: 16),
-                Wrap(
+                const Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 16.0,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Share.share('https://www.gob.pe/iiap');
-                      },
-                      child: Image.asset(
-                        'assets/images/logoIIAP.jpg',
-                        width: 128,
-                        height: 128,
-                      ),
+                    _OrganizationImageButton(
+                      urlAddress: 'https://www.gob.pe/iiap',
+                      imageUrl: 'assets/images/logoIIAP.jpg',
+                      imageHeight: 128,
+                      imageWidth: 128,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Share.share('https://www.gob.pe/minam');
-                      },
-                      child: Image.asset(
-                        'assets/images/logo_minam.png',
-                        width: 256,
-                        height: 128,
-                      ),
+                    _OrganizationImageButton(
+                      urlAddress: 'https://www.gob.pe/minam',
+                      imageUrl: 'assets/images/logo_minam.png',
+                      imageHeight: 128,
+                      imageWidth: 256,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Share.share('https://www.cooperacionespanola.es/');
-                      },
-                      child: Image.asset(
-                        'assets/images/logo_spain.png',
-                        width: 256,
-                        height: 128,
-                      ),
+                    _OrganizationImageButton(
+                      urlAddress: 'https://www.cooperacionespanola.es/',
+                      imageUrl: 'assets/images/logo_spain.png',
+                      imageHeight: 128,
+                      imageWidth: 256,
                     ),
                   ],
                 )
@@ -138,6 +138,36 @@ class _AboutPageState extends State<AboutPage> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _OrganizationImageButton extends StatelessWidget {
+  final String urlAddress;
+  final String imageUrl;
+  final double imageWidth;
+  final double imageHeight;
+
+  const _OrganizationImageButton(
+      {required this.urlAddress,
+      required this.imageUrl,
+      required this.imageWidth,
+      required this.imageHeight});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        Uri url = Uri.parse(urlAddress);
+        if (!await launchUrl(url)) {
+          throw Exception('Could not launch $url');
+        }
+      },
+      child: Image.asset(
+        imageUrl,
+        width: imageWidth,
+        height: imageHeight,
+      ),
     );
   }
 }

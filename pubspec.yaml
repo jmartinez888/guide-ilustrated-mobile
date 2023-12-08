@@ -63,6 +63,7 @@ dependencies:
   firebase_storage: ^11.4.1
   firebase_app_check: ^0.2.1+3
   flutter_multi_formatter: ^2.11.16
+  url_launcher: ^6.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
