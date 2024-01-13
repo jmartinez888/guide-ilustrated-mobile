@@ -111,16 +111,15 @@ class _SpeciesPageState extends State<SpeciesPage>
     final tabBar = Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TabBar(
-          physics: const BouncingScrollPhysics(),
-          controller: _tabController,
-          splashBorderRadius: BorderRadius.circular(16.0),
-          indicatorColor: _tabIndicatorColor[_tabController.index],
-          labelColor: _tabIndicatorColor[_tabController.index],
-          isScrollable: true,
-          onTap: (index) => setState(() => _tabController.index = index),
-          tabs: _tabs,
-        ),
-      
+        physics: const BouncingScrollPhysics(),
+        controller: _tabController,
+        splashBorderRadius: BorderRadius.circular(16.0),
+        indicatorColor: _tabIndicatorColor[_tabController.index],
+        labelColor: _tabIndicatorColor[_tabController.index],
+        isScrollable: true,
+        onTap: (index) => setState(() => _tabController.index = index),
+        tabs: _tabs,
+      ),
     );
     return DefaultTabController(
       length: _pageData.length,
@@ -128,21 +127,23 @@ class _SpeciesPageState extends State<SpeciesPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              padding: const EdgeInsets.only(left: 56.0),
-              height: 56.0,
-              width: double.infinity,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Text(
+            padding: const EdgeInsets.only(left: 56.0),
+            height: 56.0,
+            width: double.infinity,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
                     'Especies',
                     style: textTheme.titleLarge,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                  )),
-                  if (size.height < size.width + 32.0) Expanded(child: tabBar),
-                ],
-              )),
+                  ),
+                ),
+                if (size.height < size.width + 32.0) Expanded(child: tabBar),
+              ],
+            ),
+          ),
           if (size.height > size.width + 32.0)
             Align(
               alignment: Alignment.center,

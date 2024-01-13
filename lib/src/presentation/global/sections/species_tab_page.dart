@@ -161,7 +161,7 @@ class _SpeciesTabPageSectionState extends State<SpeciesTabPageSection> {
                           if (item.sound.isNotEmpty)
                             CustomIconButton(
                               iconColor: mainColor,
-                              icon: Icons.volume_up_rounded,
+                              icon: Icons.music_note_rounded,
                               onPressed: null,
                             ),
                           _FavoriteAction(
