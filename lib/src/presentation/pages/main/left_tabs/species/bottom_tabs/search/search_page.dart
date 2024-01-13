@@ -124,13 +124,18 @@ class _SearchPageState extends State<SearchPage> {
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Specie>(
                   firstPageErrorIndicatorBuilder: (context) {
-                    return _errorIndicator(context);
+                    return _errorIndicator(context, onPressed: () {
+                      _pagingController.refresh();
+                    });
                   },
                   noItemsFoundIndicatorBuilder: (context) {
-                    return _errorIndicator(context);
+                    return _errorIndicator(context, onPressed: () {
+                      _pagingController.refresh();
+                    });
                   },
                   newPageErrorIndicatorBuilder: (context) {
                     return _errorIndicator(context,
+                        onPressed: () => _pagingController.retryLastFailedRequest(),
                         text: 'Algo salió mal. Inténtalo de nuevo');
                   },
                   animateTransitions: true,
@@ -676,7 +681,7 @@ class ErrorFetchingDropdown extends StatelessWidget {
   }
 }
 
-Column _errorIndicator(BuildContext context, {String? text}) {
+Column _errorIndicator(BuildContext context, {String? text,  final void Function()? onPressed}) {
   return Column(
     children: [
       Lottie.asset(
@@ -687,11 +692,21 @@ Column _errorIndicator(BuildContext context, {String? text}) {
       const SizedBox(height: 16.0),
       SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
-        child: Text(
-          text ??
-              'No se encontraron especies relacionadas a tu búsqueda. Inténtalo de nuevo con otra clase, orden o familia.',
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
+        child: Column(
+          children: [
+            Text(
+              text ??
+                  'No se encontraron especies relacionadas a tu búsqueda. Inténtalo de nuevo con otra clase, orden o familia.',
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16.0),
+            FilledButton.icon(
+                  onPressed: onPressed,
+                  icon: const Icon(Icons.refresh_rounded),
+                  label: const Text('Actualizar'),
+                ),
+          ],
         ),
       ),
     ],

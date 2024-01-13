@@ -78,7 +78,7 @@ class Autores {
   final String biografiaAutor;
   final String profesionAutor;
   final int actualizado;
-  final String imagenAutor;
+  final String? imagenAutor;
   final String estadoAutor;
 
   Autores({
@@ -89,7 +89,7 @@ class Autores {
     required this.biografiaAutor,
     required this.profesionAutor,
     required this.actualizado,
-    required this.imagenAutor,
+    this.imagenAutor,
     required this.estadoAutor,
   });
 
@@ -101,7 +101,8 @@ class Autores {
         biografiaAutor: json["biografia_autor"],
         profesionAutor: json["profesion_autor"],
         actualizado: json["actualizado"],
-        imagenAutor: json["imagen_autor"],
+        imagenAutor: json
+        ["imagen_autor"] ?? '',
         estadoAutor: json["estado_autor"],
       );
 
