@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab_page.dart';
@@ -121,42 +122,84 @@ class _SpeciesPageState extends State<SpeciesPage>
         tabs: _tabs,
       ),
     );
-    return DefaultTabController(
-      length: _pageData.length,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 56.0),
-            height: 56.0,
-            width: double.infinity,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Especies',
-                    style: textTheme.titleLarge,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (bool didPop) async {
+        if (didPop) {
+          return;
+        }
+        final bool? shouldPop = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Are you sure?'),
+              content: const Text(
+                'Are you sure you want to leave this page?',
+              ),
+              actions: <Widget>[
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelLarge,
                   ),
+                  child: const Text('Nevermind'),
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
                 ),
-                if (size.height < size.width + 32.0) Expanded(child: tabBar),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  child: const Text('Leave'),
+                  onPressed: () {
+                    Navigator.pop(context, true);
+                  },
+                ),
               ],
+            );
+          },
+        );
+        if (shouldPop ?? false) {
+          SystemNavigator.pop();
+        }
+      },
+      child: DefaultTabController(
+        length: _pageData.length,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 56.0),
+              height: 56.0,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Especies',
+                      style: textTheme.titleLarge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  if (size.height < size.width + 32.0) Expanded(child: tabBar),
+                ],
+              ),
             ),
-          ),
-          if (size.height > size.width + 32.0)
-            Align(
-              alignment: Alignment.center,
-              child: tabBar,
+            if (size.height > size.width + 32.0)
+              Align(
+                alignment: Alignment.center,
+                child: tabBar,
+              ),
+            Expanded(
+              child: TabBarView(
+                physics: const BouncingScrollPhysics(),
+                controller: _tabController,
+                children: _pages,
+              ),
             ),
-          Expanded(
-            child: TabBarView(
-              physics: const BouncingScrollPhysics(),
-              controller: _tabController,
-              children: _pages,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

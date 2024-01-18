@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
@@ -162,18 +163,60 @@ class MainLeftNav extends StatelessWidget {
         children: _buildNavigationDrawerItems(context),
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            navigationShell,
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-              child: CustomIconButton(
-                tooltip: 'Menú',
-                icon: Icons.menu_rounded,
-                onPressed: () => scaffoldKey.currentState?.openDrawer(),
+        child: PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) async {
+            if (didPop) {
+              return;
+            }
+            final bool? shouldPop = await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Are you sure?'),
+                  content: const Text(
+                    'Are you sure you want to leave this page?',
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      child: const Text('Nevermind'),
+                      onPressed: () {
+                        Navigator.pop(context, false);
+                      },
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      child: const Text('Leave'),
+                      onPressed: () {
+                        Navigator.pop(context, true);
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+            if (shouldPop ?? false) {
+              SystemNavigator.pop();
+            }
+          },
+          child: Stack(
+            children: [
+              navigationShell,
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                child: CustomIconButton(
+                  tooltip: 'Menú',
+                  icon: Icons.menu_rounded,
+                  onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
