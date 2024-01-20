@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StaffPage extends StatelessWidget {
@@ -8,7 +6,6 @@ class StaffPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
@@ -26,14 +23,10 @@ class StaffPage extends StatelessWidget {
           child: _subtitleSection(context, 'COMITÉ REVISOR'),
         ),
         SliverToBoxAdapter(
-          child: MasonryGridView(
-            padding: const EdgeInsets.all(16.0),
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: buildMultiGrids(width)),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 16.0,
+            runSpacing: 16.0,
             children: [
               SizedBox(
                   child: Column(
@@ -93,108 +86,152 @@ class StaffPage extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(child: _subtitleSection(context, 'SONIDOS')),
+        SliverToBoxAdapter(child: _reviewerTitle(context, 'Aves')),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: SizedBox(
-              height: 260,
-              width: double.infinity,
-              child: Center(
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  children: [
-                    SizedBox(
-                        child: Column(
-                      children: [
-                        _reviewerTitle(context, 'Aves'),
-                        _text(
-                            'Roger Ahlman;\n Frank Lambert;\n Juan Diaz;\n Thomas S. Schulenberg;\n Curtis A. Marantz;\n Peter H. English;\n Ohn V. Moore;\n Niels Krabbe;\n Olaf Jhan'),
-                      ],
-                    )),
-                    const SizedBox(width: 16.0),
-                    SizedBox(
-                        child: Column(
-                      children: [
-                        _reviewerTitle(context, 'Monos'),
-                        _text('Roberta Aralla'),
-                        _reviewerTitle(context, 'Anfibios'),
-                        _text('José Manuel Padial'),
-                      ],
-                    )),
-                  ],
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 16.0,
+              runSpacing: 16.0,
+              children: [
+                SizedBox(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 8.0),
+                      _text(
+                        'Roger Ahlman;\n Frank Lambert;\n Juan Diaz;\n Thomas S. Schulenberg;\n Curtis A. Marantz;\n Peter H. English;\n Ohn V. Moore;\n Niels Krabbe;\n Olaf Jhan.',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                SizedBox(
+                  child: Column(
+                    children: [
+                      _text(
+                        'Peter Boesman;\n Alejandro Luy;\n Thibaud Aronson;\n Pedro Allasi;\n Andrew Spencer;\n Jaime Suarez;\n Guilherme Melo;\n John V Moore;\n Ted Parker;\n Jonas Nilsson.',
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  child: Column(
+                    children: [
+                      _text(
+                        'Carlos Octavio Gussoni;\n Edson Endrigo;\n Scarlet Medina;\n David F Belmonte;\n Glen Seeholzer;\n Daniel Lane;\n Fernando Angulo;\n Davis Finch.',
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  child: Column(
+                    children: [
+                      _text(
+                        'Glen Seeholzer;\n Daniel Lane;\n Fernando Angulo;\n Davis Finch;\n Raul Pommer;\n Jerome Fischer;\n Paul Marvin;\n Fabio Toledo;\n Manuel Roncal.',
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
         SliverToBoxAdapter(
-            child: _titleSection(context, 'EQUIPO DE DESARROLLO')),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 16.0,
+              runSpacing: 16.0,
+              children: [
+                SizedBox(
+                    child: Column(
+                  children: [
+                    _reviewerTitle(context, 'Monos'),
+                    _text('Roberta Aralla'),
+                  ],
+                )),
+                SizedBox(
+                    child: Column(
+                  children: [
+                    _reviewerTitle(context, 'Anfibios'),
+                    _text('José Manuel Padial;\nGiussepe Gagliardi Urrutia.'),
+                  ],
+                )),
+                const SizedBox(height: 16.0),
+              ],
+            ),
+          ),
+        ),
         SliverToBoxAdapter(
-          child: MasonryGridView(
-            padding: const EdgeInsets.all(16.0),
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: buildMultiGrids(width)),
-            children: [
-              _staffProfile(
-                context,
-                role: 'Líder técnico',
-                name: 'Jhon Charlie Martinez Carranza',
-                image: 'assets/staff/jhon.jpg',
-                github: 'https://github.com/jmartinez888',
-              ),
-              _staffProfile(
-                context,
-                role: 'Desarrollador móvil',
-                name: 'Edson Isaias Sánchez Chota',
-                image: 'assets/staff/edson.jpg',
-                github: 'https://github.com/edisaiassan',
-              ),
-              _staffProfile(context,
+            child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: _titleSection(context, 'EQUIPO DE DESARROLLO'),
+        )),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 16.0,
+              runSpacing: 16.0,
+              alignment: WrapAlignment.center,
+              children: [
+                _staffProfile(
+                  context,
+                  role: 'Líder técnico',
+                  name: 'Jhon Charlie Martinez Carranza',
+                  image: 'assets/staff/jhon.jpg',
+                  github: 'https://github.com/jmartinez888',
+                ),
+                _staffProfile(
+                  context,
                   role: 'Desarrollador móvil',
-                  name: 'Jorge Antonio Del Aguila Malafaya',
-                  image: 'assets/staff/antonio.jpg',
-                  github: 'https://github.com/JorgeAntonio'),
-              _staffProfile(
-                context,
-                role: 'Desarrollador frontend',
-                name: 'Santos Panaifo José Jefferson',
-                image: 'assets/staff/santos.png',
-                github: 'https://github.com/daylerjeff199906',
-              ),
-              _staffProfile(
-                context,
-                role: 'Desarrollador frontend',
-                name: 'Danny Dávila Daza',
-                image: 'assets/staff/danny.jpeg',
-                github: 'https://github.com/Danny-da',
-              ),
-              _staffProfile(
-                context,
-                role: 'Desarrollador frontend',
-                name: 'Josue Franco Soria Ponce',
-                image: 'assets/staff/josue.png',
-                github: 'https://github.com/franquito3',
-              ),
-              _staffProfile(
-                context,
-                role: 'Desarrollador backend',
-                name: 'Piero Eleví Frías Mori',
-                image: 'assets/staff/piero.jpg',
-                github: 'https://github.com/PieroFrias',
-              ),
-              _staffProfile(
-                context,
-                role: 'Desarrollador backend',
-                name: 'Anthony Scott Ramirez Sias',
-                image: 'assets/staff/scott.png',
-                github: 'https://github.com/Scott-Ramirez',
-              ),
-            ],
+                  name: 'Edson Isaias Sánchez Chota',
+                  image: 'assets/staff/edson.jpg',
+                  github: 'https://github.com/edisaiassan',
+                ),
+                _staffProfile(context,
+                    role: 'Desarrollador móvil',
+                    name: 'Jorge Antonio Del Aguila Malafaya',
+                    image: 'assets/staff/antonio.jpg',
+                    github: 'https://github.com/JorgeAntonio'),
+                _staffProfile(
+                  context,
+                  role: 'Desarrollador frontend',
+                  name: 'Santos Panaifo José Jefferson',
+                  image: 'assets/staff/santos.png',
+                  github: 'https://github.com/daylerjeff199906',
+                ),
+                _staffProfile(
+                  context,
+                  role: 'Desarrollador frontend',
+                  name: 'Danny Dávila Daza',
+                  image: 'assets/staff/danny.jpeg',
+                  github: 'https://github.com/Danny-da',
+                ),
+                _staffProfile(
+                  context,
+                  role: 'Desarrollador frontend',
+                  name: 'Josue Franco Soria Ponce',
+                  image: 'assets/staff/josue.png',
+                  github: 'https://github.com/franquito3',
+                ),
+                _staffProfile(
+                  context,
+                  role: 'Desarrollador backend',
+                  name: 'Piero Eleví Frías Mori',
+                  image: 'assets/staff/piero.jpg',
+                  github: 'https://github.com/PieroFrias',
+                ),
+                _staffProfile(
+                  context,
+                  role: 'Desarrollador backend',
+                  name: 'Anthony Scott Ramirez Sias',
+                  image: 'assets/staff/scott.png',
+                  github: 'https://github.com/Scott-Ramirez',
+                ),
+              ],
+            ),
           ),
         )
       ],
