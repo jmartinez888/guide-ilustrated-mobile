@@ -23,56 +23,60 @@ class StaffPage extends StatelessWidget {
           child: _subtitleSection(context, 'COMITÉ REVISOR'),
         ),
         SliverToBoxAdapter(
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 16.0,
-            runSpacing: 16.0,
-            children: [
-              SizedBox(
-                  child: Column(
-                children: [
-                  _reviewerTitle(context, 'Revisión de textos:'),
-                  _text(
-                      'Manuel Martín Brañas, IIAP;\nJuan José Bellido Collahuacho, IIAP'),
-                  _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
-                  _text('Giussepe Gagliardi Urrutia, IIAP'),
-                ],
-              )),
-              SizedBox(
-                  child: Column(
-                children: [
-                  _reviewerTitle(context, 'Revisión aves:'),
-                  _text('José Álvarez Alonso, MINAM;\nJuan Díaz Alván, UCP'),
-                  _reviewerTitle(context, 'Revisión peces:'),
-                  _text(
-                      'Carmen Rosa García Dávila, IIAP;\nKevin Morgan Ruíz Tafur, IIAP'),
-                ],
-              )),
-              SizedBox(
-                child: Column(children: [
-                  _reviewerTitle(context, 'Revisión insectos:'),
-                  _text(
-                      'Joel Bardales Vásquez, IIAP;\nWalter Leonardo Vásquez Mora, UNAP'),
-                  _reviewerTitle(context, 'Revisión palmeras:'),
-                  _text('Kember Mejía Carhuanca, IIAP'),
-                ]),
-              ),
-              SizedBox(
-                child: Column(children: [
-                  _reviewerTitle(context, 'Revisión plantas:'),
-                  _text(
-                      'Nállarett Dávila Cardozo, IIAP;\nRicardo Zárate Gómez, IIAP;\nElsa Renjifo Salgado, IIAP'),
-                  _reviewerTitle(context, 'Revisión mamíferos:'),
-                  _text('Pedro Pérez Peña, IIAP'),
-                ]),
-              ),
-              SizedBox(
-                child: Column(children: [
-                  _reviewerTitle(context, 'Elaboración de mapas:'),
-                  _text('Juan José Palacios Vega y Lizardo Fachín Malaverri.'),
-                ]),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 16.0,
+              runSpacing: 16.0,
+              children: [
+                SizedBox(
+                    child: Column(
+                  children: [
+                    _reviewerTitle(context, 'Revisión de textos:'),
+                    _text(
+                        'Manuel Martín Brañas, IIAP;\nJuan José Bellido Collahuacho, IIAP.'),
+                    _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
+                    _text('Giussepe Gagliardi Urrutia, IIAP.'),
+                  ],
+                )),
+                SizedBox(
+                    child: Column(
+                  children: [
+                    _reviewerTitle(context, 'Revisión aves:'),
+                    _text('José Álvarez Alonso, MINAM;\nJuan Díaz Alván, UCP.'),
+                    _reviewerTitle(context, 'Revisión peces:'),
+                    _text(
+                        'Carmen Rosa García Dávila, IIAP;\nKevin Morgan Ruíz Tafur, IIAP.'),
+                  ],
+                )),
+                SizedBox(
+                  child: Column(children: [
+                    _reviewerTitle(context, 'Revisión insectos:'),
+                    _text(
+                        'Joel Bardales Vásquez, IIAP;\nWalter Leonardo Vásquez Mora, UNAP.'),
+                    _reviewerTitle(context, 'Revisión palmeras:'),
+                    _text('Kember Mejía Carhuanca, IIAP.'),
+                  ]),
+                ),
+                SizedBox(
+                  child: Column(children: [
+                    _reviewerTitle(context, 'Revisión plantas:'),
+                    _text(
+                        'Nállarett Dávila Cardozo, IIAP;\nRicardo Zárate Gómez, IIAP;\nElsa Renjifo Salgado, IIAP.'),
+                    _reviewerTitle(context, 'Revisión mamíferos:'),
+                    _text('Pedro Pérez Peña, IIAP.'),
+                  ]),
+                ),
+                SizedBox(
+                  child: Column(children: [
+                    _reviewerTitle(context, 'Elaboración de mapas:'),
+                    _text(
+                        'Juan José Palacios Vega,\nLizardo Fachín Malaverri.'),
+                  ]),
+                ),
+              ],
+            ),
           ),
         ),
         SliverToBoxAdapter(
@@ -98,9 +102,8 @@ class StaffPage extends StatelessWidget {
                 SizedBox(
                   child: Column(
                     children: [
-                      const SizedBox(height: 8.0),
                       _text(
-                        'Roger Ahlman;\n Frank Lambert;\n Juan Diaz;\n Thomas S. Schulenberg;\n Curtis A. Marantz;\n Peter H. English;\n Ohn V. Moore;\n Niels Krabbe;\n Olaf Jhan.',
+                        'Roger Ahlman;\n Frank Lambert;\n Juan Diaz;\n Thomas S. Schulenberg;\n Curtis A. Marantz;\n Peter H. English;\n Niels Krabbe;\n Olaf Jhan.',
                       ),
                     ],
                   ),
@@ -109,7 +112,7 @@ class StaffPage extends StatelessWidget {
                   child: Column(
                     children: [
                       _text(
-                        'Peter Boesman;\n Alejandro Luy;\n Thibaud Aronson;\n Pedro Allasi;\n Andrew Spencer;\n Jaime Suarez;\n Guilherme Melo;\n John V Moore;\n Ted Parker;\n Jonas Nilsson.',
+                        'Peter Boesman;\n Alejandro Luy;\n Thibaud Aronson;\n Pedro Allasi;\n Andrew Spencer;\n Jaime Suarez;\n Guilherme Melo;\n John V Moore.',
                       ),
                     ],
                   ),
@@ -127,7 +130,7 @@ class StaffPage extends StatelessWidget {
                   child: Column(
                     children: [
                       _text(
-                        'Glen Seeholzer;\n Daniel Lane;\n Fernando Angulo;\n Davis Finch;\n Raul Pommer;\n Jerome Fischer;\n Paul Marvin;\n Fabio Toledo;\n Manuel Roncal.',
+                        'Ted Parker;\n Jonas Nilsson;\nRaul Pommer;\n Jerome Fischer;\n Paul Marvin;\n Fabio Toledo;\n Manuel Roncal.',
                       ),
                     ],
                   ),
