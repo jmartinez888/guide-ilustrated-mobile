@@ -80,33 +80,47 @@ class _IncompleteProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Icon(
-            Icons.account_circle_rounded,
-            color: Colors.grey[400],
-            size: 200,
-          ),
-          const SizedBox(height: 15.0),
-          Text(email,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  )),
-          const SizedBox(height: 16.0),
-          const Text(
-            'Completa tu perfil para acceder a todas las funcionalidades de la aplicación.',
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16.0),
-          FilledButton(
-            onPressed: () {
-              context.pushNamed(Routes.editProfile,
-                  pathParameters: {'userId': userId.toString()});
-            },
-            child: const Text('Completar perfil'),
-          )
-        ],
+    return Container(
+      margin: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[300]!),
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Row(
+          children: [
+            Icon(
+              Icons.account_circle_outlined,
+              color: Colors.grey,
+              weight: 1,
+              size: MediaQuery.of(context).size.width * 0.25,
+            ),
+            const SizedBox(width: 16.0),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: Wrap(
+                    children: [
+                      Text(email, style: Theme.of(context).textTheme.titleSmall)
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                FilledButton(
+                  onPressed: () {
+                    context.pushNamed(Routes.editProfile,
+                        pathParameters: {'userId': userId.toString()});
+                  },
+                  child: const Text('Editar perfil'),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -131,68 +145,73 @@ class _CompleteProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
+    return Container(
+      margin: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey[300]!),
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Row(
         children: [
-          FutureBuilder<bool>(
-            future: doesImageExist(profilePicture),
-            builder: (context, imageSnapshot) {
-              final imageExists = imageSnapshot.data ?? false;
-              return imageExists
-                  ? CircleAvatar(
-                      radius: 100,
-                      backgroundImage: NetworkImage(profilePicture),
-                    )
-                  : const Icon(
-                      Icons.account_circle_rounded,
-                      color: Colors.grey,
-                      size: 200,
-                    );
-            },
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+            child: FutureBuilder<bool>(
+              future: doesImageExist(profilePicture),
+              builder: (context, imageSnapshot) {
+                final imageExists = imageSnapshot.data ?? false;
+                return imageExists
+                    ? CircleAvatar(
+                        radius: 100,
+                        backgroundImage: NetworkImage(profilePicture),
+                      )
+                    : Icon(
+                        Icons.account_circle_outlined,
+                        weight: 1,
+                        color: Colors.grey,
+                        size: MediaQuery.of(context).size.width * 0.25,
+                      );
+              },
+            ),
           ),
-          const SizedBox(height: 16.0),
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              '$name $lastName',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: Wrap(
+                  children: [
+                    Text('$name $lastName',
+                        style: Theme.of(context).textTheme.titleSmall),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.email_outlined, size: 16.0),
+                  const SizedBox(width: 8.0),
+                  Text(
+                    email,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.phone_iphone),
-              const SizedBox(width: 8.0),
-              Text(
-                phone,
-                style: Theme.of(context).textTheme.bodyLarge,
+                ],
+              ),
+              const SizedBox(height: 8.0),
+              TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(0.1),
+                ),
+                onPressed: () {
+                  context.pushNamed(Routes.editProfile,
+                      pathParameters: {'userId': userId.toString()});
+                },
+                child: const Text('Editar perfil'),
               ),
             ],
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.email),
-              const SizedBox(width: 8.0),
-              Text(
-                email,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-            ),
-            onPressed: () {
-              context.pushNamed(Routes.editProfile,
-                  pathParameters: {'userId': userId.toString()});
-            },
-            child: const Text('Editar perfil'),
           ),
         ],
       ),

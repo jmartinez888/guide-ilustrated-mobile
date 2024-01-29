@@ -53,26 +53,31 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
           },
         ),
         const SizedBox(height: 16.0),
-        TextFormField(
-          enabled: enabled,
-          controller: widget._lastnameController,
-          focusNode: _lastnameFocusNode,
-          onTapOutside: (event) => _lastnameFocusNode.unfocus(),
-          decoration: const InputDecoration(
-            labelText: 'Apellido',
-            hintText: 'Ingrese su apellido',
-            prefixIcon: Icon(Icons.person),
-          ),
-          textInputAction: TextInputAction.next,
-          validator: lastNameValidator,
-          onFieldSubmitted: (value) {
-            _lastnameFocusNode.unfocus();
-            FocusScope.of(context).requestFocus(_phoneFocusNode);
-          },
+        Column(
+          children: [
+            TextFormField(
+              enabled: enabled,
+              controller: widget._lastnameController,
+              focusNode: _lastnameFocusNode,
+              onTapOutside: (event) => _lastnameFocusNode.unfocus(),
+              decoration: const InputDecoration(
+                labelText: 'Apellido',
+                hintText: 'Ingrese su apellido',
+                prefixIcon: Icon(Icons.person),
+              ),
+              textInputAction: TextInputAction.next,
+              validator: lastNameValidator,
+              onFieldSubmitted: (value) {
+                _lastnameFocusNode.unfocus();
+                FocusScope.of(context).requestFocus(_phoneFocusNode);
+              },
+            ),
+          ],
         ),
         const SizedBox(height: 16.0),
         SizedBox(
-          child: Row(
+          height: 200.0,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -101,7 +106,10 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
                   },
                 ),
               ),
-              const SizedBox(width: 10.0),
+              const SizedBox(height: 16.0),
+              const Text(
+                  'Nota: El numero de telefono debe iniciar con el codigo de pais. Ejemplo: 51 999 999 999',
+                  style: TextStyle(color: Colors.black54, fontSize: 12.0)),
               Expanded(
                 flex: 6,
                 child: TextFormField(
@@ -137,7 +145,7 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
