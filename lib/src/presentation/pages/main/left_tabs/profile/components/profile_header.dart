@@ -161,9 +161,13 @@ class _CompleteProfile extends StatelessWidget {
               builder: (context, imageSnapshot) {
                 final imageExists = imageSnapshot.data ?? false;
                 return imageExists
-                    ? CircleAvatar(
-                        radius: 100,
-                        backgroundImage: NetworkImage(profilePicture),
+                    ? SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        height: MediaQuery.of(context).size.width * 0.25,
+                        child: Image.network(
+                          fit: BoxFit.contain,
+                          profilePicture,
+                        ),
                       )
                     : Icon(
                         Icons.account_circle_outlined,
