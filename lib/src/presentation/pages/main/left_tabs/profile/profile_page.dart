@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
             physics: const BouncingScrollPhysics(),
             children: const [
               ProfileHeader(),
-              SizedBox(height: 16.0),
+              SizedBox(height: 8.0),
               ProfileBody(),
             ],
           ),

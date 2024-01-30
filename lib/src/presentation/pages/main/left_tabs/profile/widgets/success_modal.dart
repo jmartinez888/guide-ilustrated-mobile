@@ -8,7 +8,7 @@ Future<void> profileSuccessModal(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return SizedBox(
-        height: 100,
+        height: MediaQuery.of(context).size.height * 0.3,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -16,6 +16,7 @@ Future<void> profileSuccessModal(BuildContext context) {
             children: <Widget>[
               Text('Sus datos se han actualizado correctamente',
                   style: Theme.of(context).textTheme.bodyLarge),
+              const SizedBox(height: 16.0),
               FilledButton(
                 child: const Text('Aceptar'),
                 onPressed: () => context.goNamed(Routes.profile),
