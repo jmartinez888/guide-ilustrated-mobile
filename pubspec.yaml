@@ -64,6 +64,7 @@ dependencies:
   firebase_app_check: ^0.2.1+3
   flutter_multi_formatter: ^2.11.16
   url_launcher: ^6.2.1
+  intl_phone_number_input: ^0.7.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
