@@ -91,7 +91,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                           () => context.pushNamed(item['route']),
                       leading: Icon(
                         item['icon'],
-                        color: CustomColors.primary,
+                        color: CustomColors.secondary,
                       ),
                       title: Text(item['title']),
                       trailing: const Icon(
@@ -122,7 +122,7 @@ class _ProfileBodyState extends State<ProfileBody> {
           context.goNamed(Routes.species);
         }
       },
-      leading: const Icon(Icons.logout_outlined, color: CustomColors.primary),
+      leading: const Icon(Icons.logout_outlined, color: CustomColors.secondary),
       title: const Text('Cerrar sesión'),
       trailing: const Icon(Icons.chevron_right, color: Colors.grey),
     );
@@ -133,9 +133,9 @@ class _ProfileBodyState extends State<ProfileBody> {
       onTap: () => context
           .pushNamed(Routes.deleteAccount, pathParameters: {'userId': userId}),
       leading: const Icon(Icons.delete_forever_outlined,
-          color: CustomColors.primary),
+          color: CustomColors.secondary),
       title: const Text('Eliminar cuenta'),
-      trailing: const Icon(Icons.chevron_right, color: CustomColors.primary),
+      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
     );
   }
 }

@@ -39,7 +39,8 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
           final userData = snapshot.data;
-          final profilePicture = userData!['profilePicture'] ?? '';
+          final profilePicture =
+              userData!['profilePicture'] ?? 'assets/images/logo.png';
           final name = userData['name'] ?? '';
           final lastName = userData['lastName'] ?? '';
           final email = userData['email'] ?? '';
@@ -70,7 +71,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                         label: lastName, fontSize: 16, weight: FontWeight.w600),
                     const SizedBox(width: 4.0),
                     _userName(context, label: email, fontSize: 14),
-                    _userName(context, label: phone, fontSize: 14),
+                    _userName(context, label: '+$phone', fontSize: 14),
                     const SizedBox(height: 4.0),
                     FilledButton(
                       onPressed: () {
