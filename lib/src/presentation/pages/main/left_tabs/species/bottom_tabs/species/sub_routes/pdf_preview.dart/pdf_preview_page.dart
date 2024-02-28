@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
-import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
-import 'package:species/src/domain/entities/specie.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
@@ -22,7 +22,7 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
   late Specie specie;
   late Color mainColor;
   late String pathIcon;
-  final SpecieRepository userIiap = SpecieSpeciesIiapRepositoryImpl();
+  SpecieRepository get specieRepository => context.read();
 
   @override
   void initState() {
@@ -34,44 +34,45 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
   Widget build(BuildContext context) {
     late Map<String, dynamic> mainOpaqueColor;
     late Color mainColor;
-    mainOpaqueColor = getMainColorByString(specie.type);
+    mainOpaqueColor =
+        getMainColorByString(specie.type != null ? specie.type!.id : 0);
     mainColor = mainOpaqueColor['main'];
 
-    switch (specie.type) {
-      case 'Aves':
+    switch (specie.type != null ? specie.type!.id : 0) {
+      case 1:
         mainColor = CustomColors.bird;
         pathIcon = 'bird';
 
         break;
-      case 'Mamiferos':
+      case 2:
         mainColor = CustomColors.mammal;
         pathIcon = 'mammal';
 
         break;
-      case 'Reptiles':
+      case 3:
         mainColor = CustomColors.reptile;
         pathIcon = 'reptile';
 
         break;
-      case 'Anfibios':
+      case 4:
         mainColor = CustomColors.reptile;
         pathIcon = 'reptile';
 
         break;
-      case 'Peces':
+      case 5:
         mainColor = CustomColors.fish;
         pathIcon = 'fish';
 
         break;
-      case 'Insectos':
+      case 6:
         mainColor = CustomColors.insect;
         pathIcon = 'insect';
         break;
-      case 'Arboles':
+      case 7:
         mainColor = CustomColors.tree;
         pathIcon = 'tree';
         break;
-      case 'Palmeras':
+      case 8:
         mainColor = CustomColors.palm;
         pathIcon = 'palm';
         break;
@@ -86,7 +87,7 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
         title: const Text('PDF'),
       ),
       body: PdfPreview(
-        build: (context) => userIiap.makePdf(
+        build: (context) => specieRepository.makePdf(
           mainColor: mainColor,
           pathIcon: pathIcon,
           specie: specie,

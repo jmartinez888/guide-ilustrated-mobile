@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/global/widgets/navigations/custom_bottom_nav_bar.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
-class MainSpecies extends ConsumerWidget {
-  final StatefulNavigationShell navigationShell;
+class MainSpecies extends StatefulWidget {
+  final Widget child;
 
   const MainSpecies({
     super.key,
-    required this.navigationShell,
+    required this.child,
   });
 
   static const List<Map<String, dynamic>> _pageData = [
@@ -41,35 +41,62 @@ class MainSpecies extends ConsumerWidget {
       )
       .toList();
 
+  @override
+  State<MainSpecies> createState() => _MainSpeciesState();
+}
+
+class _MainSpeciesState extends State<MainSpecies> {
+  int selectedIndex = 0;
   void _goBranch(
       int index, BuildContext context, FirebaseAuth firebaseAuthInstance) {
-    navigationShell.goBranch(
+    /* navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
-    );
+    ); */
+    setState(() {
+      selectedIndex = index;
+    });
+    switch (selectedIndex) {
+      case 0:
+        context.goNamed(
+          Routes.species,
+        );
+        break;
+      case 1:
+        context.goNamed(
+          Routes.specieSearch,
+        );
+        break;
+      case 2:
+        context.goNamed(
+          Routes.specieFavorites,
+        );
+        break;
+    }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final firebaseAuthInstance = FirebaseAuth.instance;
     final Size size = MediaQuery.of(context).size;
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          child: navigationShell,
+          child: widget.child,
         ),
         Positioned(
           bottom: 16.0,
           right: size.height > size.width + 32.0 ? null : 16.0,
           child: CustomBottomNavBar(
-            selectedIndex: navigationShell.currentIndex,
+            selectedIndex: selectedIndex,
+            //selectedIndex: navigationShell.currentIndex,
             onDestinationSelected: (index) => _goBranch(
               index,
               context,
               firebaseAuthInstance,
             ),
-            destinations: _navigationDestinations,
+            destinations: MainSpecies._navigationDestinations,
           ),
         ),
       ],

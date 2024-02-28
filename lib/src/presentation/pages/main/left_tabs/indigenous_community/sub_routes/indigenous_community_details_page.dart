@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:species/src/presentation/global/sections/details_loading.dart';
 import 'package:species/src/presentation/global/sections/indigenous_community_details_section.dart';
@@ -46,3 +46,4 @@ class _IndigenousCommunityDetailsPagState
     );
   }
 }
+ */

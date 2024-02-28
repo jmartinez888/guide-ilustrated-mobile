@@ -1,10 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
-import 'package:species/src/domain/entities/specie.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/sections/grid_loading.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
@@ -23,9 +23,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
   TextEditingController searchController = TextEditingController();
   List<Specie> customers = [];
   String searchText = '';
-  final specieRepository = SpecieSpeciesIiapRepositoryImpl();
+  FavoriteRepository get favoriteRepository => context.read();
   bool switchSearch = false;
   FocusNode searchFocusNode = FocusNode();
+
+  late Stream<List<Specie>> getFavoriteSpecies;
+
+  @override
+  void initState() {
+   getFavoriteSpecies = favoriteRepository.getFavoritesSpecies('hvv');
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -77,7 +85,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         ],
       ),
       body: StreamBuilder(
-        stream: specieRepository.getFavoriteSpecies(),
+        stream: getFavoriteSpecies,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -119,7 +127,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   pathParameters: {'specie': jsonEncode(specie.toJson())},
                 ),
                 image: CustomImageContainer(
-                  imageUrl: specie.images.first,
+                  imageUrl: specie.image ?? '',
                 ),
                 title: specie.name,
                 subtitle: specie.scientificName,

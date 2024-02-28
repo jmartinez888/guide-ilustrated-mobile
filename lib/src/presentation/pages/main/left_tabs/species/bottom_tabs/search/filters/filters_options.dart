@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:species/src/domain/entities/class.dart';
-import 'package:species/src/domain/entities/conservation_status.dart';
-import 'package:species/src/domain/entities/family.dart';
-import 'package:species/src/domain/entities/order.dart';
-import 'package:species/src/domain/entities/taxonomy.dart';
+import 'package:species/src/domain/entities/class/class.dart';
+import 'package:species/src/domain/entities/family/family.dart';
+import 'package:species/src/domain/entities/order/order.dart';
+import 'package:species/src/domain/entities/state_of_conservation/state_of_conservation.dart';
+import 'package:species/src/domain/entities/taxonomy_for_search/taxonomy_for_search.dart';
 import 'package:species/src/presentation/global/colors.dart';
 
 class ListAlphabeticOrder extends StatelessWidget {
@@ -286,7 +287,7 @@ class FilterByConservationStatusDialog extends StatelessWidget {
   final int? selectedConservationStatus;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<ConservationStatus> conservationStatusesList;
+  final List<StateOfConservation> conservationStatusesList;
 
   const FilterByConservationStatusDialog({
     Key? key,
@@ -349,7 +350,7 @@ class ConservationStatusOptions extends StatelessWidget {
   final int? conservationStatus;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<ConservationStatus> conservationStatuses;
+  final List<StateOfConservation> conservationStatuses;
 
   const ConservationStatusOptions({
     Key? key,
@@ -359,20 +360,26 @@ class ConservationStatusOptions extends StatelessWidget {
     required this.conservationStatuses,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(ConservationStatus conservationStatusItem) {
+  Widget _buildRadioListTile(StateOfConservation conservationStatusItem) {
     return RadioListTile(
       title: Row(
         children: [
-          Image.network(
-            conservationStatusItem.vcImagenEstado,
-            width: 30,
-            height: 30,
+          if (conservationStatusItem.image != null &&
+              conservationStatusItem.image!.isNotEmpty)
+            CachedNetworkImage(
+              imageUrl: conservationStatusItem.image!,
+              width: 30,
+              height: 30,
+            ),
+            if (conservationStatusItem.name != null &&
+              conservationStatusItem.name!.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(conservationStatusItem.name!),
           ),
-          const SizedBox(width: 8.0),
-          Text(conservationStatusItem.vcNombre),
         ],
       ),
-      value: conservationStatusItem.idEstConservacion,
+      value: conservationStatusItem.id,
       groupValue: conservationStatus,
       onChanged: (value) {
         onValueChanged(value as int);
@@ -398,7 +405,7 @@ class FilterByCategoryDialog extends StatelessWidget {
   final int? taxonomyId;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<Taxonomy> taxonomyList;
+  final List<TaxonomyForSearch> taxonomyList;
 
   const FilterByCategoryDialog({
     Key? key,
@@ -456,7 +463,7 @@ class CategoryRadioOptions extends StatelessWidget {
   final int? taxonomyId;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<Taxonomy> taxonomyList;
+  final List<TaxonomyForSearch> taxonomyList;
 
   const CategoryRadioOptions({
     Key? key,
@@ -466,23 +473,28 @@ class CategoryRadioOptions extends StatelessWidget {
     required this.taxonomyList,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(Taxonomy taxonomyItem) {
+  Widget _buildRadioListTile(TaxonomyForSearch taxonomyItem) {
     return RadioListTile(
       title: Row(
         children: [
-          Image.network(
-            color: taxonomyId == taxonomyItem.idTaxonomia
+          if(taxonomyItem.image != null && taxonomyItem.image!.isNotEmpty)
+          CachedNetworkImage(
+            imageUrl: taxonomyItem.image!,
+            color: taxonomyId == taxonomyItem.id
                 ? CustomColors.primary
                 : CustomColors.grey.withOpacity(0.5),
-            taxonomyItem.vcImagen,
+            
             width: 30,
             height: 30,
           ),
-          const SizedBox(width: 8.0),
-          Text(taxonomyItem.vcNombre),
+          if(taxonomyItem.name != null && taxonomyItem.name!.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(taxonomyItem.name!),
+          ),
         ],
       ),
-      value: taxonomyItem.idTaxonomia,
+      value: taxonomyItem.id,
       groupValue: taxonomyId,
       onChanged: (value) {
         onValueChanged(value);
@@ -507,7 +519,7 @@ class FilterByClassDialog extends StatelessWidget {
   final int? selectedClass;
   final Function(int?) onClassValueChanged;
   final Function() onDialogClosed;
-  final List<Class> classes;
+  final List<ClassC> classes;
 
   const FilterByClassDialog({
     Key? key,
@@ -570,7 +582,7 @@ class ClassOptions extends StatelessWidget {
   final int? selectedClass;
   final Function(int?) onClassValueChanged;
   final Function() onDialogClosed;
-  final List<Class> classes;
+  final List<ClassC> classes;
 
   const ClassOptions({
     Key? key,
@@ -580,9 +592,9 @@ class ClassOptions extends StatelessWidget {
     required this.classes,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(Class classItem) {
+  Widget _buildRadioListTile(ClassC classItem) {
     return RadioListTile(
-      title: Text(classItem.name),
+      title: classItem.name != null && classItem.name!.isNotEmpty ? Text(classItem.name!) : null,
       value: classItem.id,
       groupValue: selectedClass,
       onChanged: (value) {
@@ -606,7 +618,7 @@ class FilterByOrderDialog extends StatelessWidget {
   final int? selectedOrder;
   final Function(int?) onOrderValueChanged;
   final Function() onDialogClosed;
-  final List<OrderClass> orders;
+  final List<OrderC> orders;
 
   const FilterByOrderDialog({
     Key? key,
@@ -669,7 +681,7 @@ class OrderOptions extends StatelessWidget {
   final int? selectedOrder;
   final Function(int?) onOrderValueChanged;
   final Function() onDialogClosed;
-  final List<OrderClass> orders;
+  final List<OrderC> orders;
 
   const OrderOptions({
     Key? key,
@@ -679,9 +691,9 @@ class OrderOptions extends StatelessWidget {
     required this.orders,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(OrderClass orderItem) {
+  Widget _buildRadioListTile(OrderC orderItem) {
     return RadioListTile(
-      title: Text(orderItem.name),
+      title: Text(orderItem.name ?? ''),
       value: orderItem.id,
       groupValue: selectedOrder,
       onChanged: (value) {
@@ -780,7 +792,7 @@ class FamilyOptions extends StatelessWidget {
 
   Widget _buildRadioListTile(Family familyItem) {
     return RadioListTile(
-      title: Text(familyItem.name),
+      title: Text(familyItem.name ?? ''),
       value: familyItem.id,
       groupValue: selectedFamily,
       onChanged: (value) {

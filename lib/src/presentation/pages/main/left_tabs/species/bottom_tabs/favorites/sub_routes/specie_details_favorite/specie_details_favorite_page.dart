@@ -1,8 +1,8 @@
-import 'dart:convert';
+/* import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/domain/entities/specie.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/presentation/global/sections/specie_details_section.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -52,3 +52,4 @@ class _SpecieDetailsFavoritePageState extends State<SpecieDetailsFavoritePage> {
     );
   }
 }
+ */

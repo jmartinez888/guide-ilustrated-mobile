@@ -1,36 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart';
 import 'package:species/src/presentation/global/sections/image_details_section.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 
-import 'package:species/src/presentation/pages/providers/species/specie_detail_provider.dart';
-
-class ImageDetailsPage extends ConsumerStatefulWidget {
+class ImageDetailsPage extends StatefulWidget {
   final String id;
+
   const ImageDetailsPage({
-    super.key,
+    Key? key,
     required this.id,
-  });
+  }) : super(key: key);
 
   @override
-  ConsumerState<ImageDetailsPage> createState() => _ImageDetailsState();
+  State<ImageDetailsPage> createState() => _ImageDetailsPageState();
 }
 
-class _ImageDetailsState extends ConsumerState<ImageDetailsPage> {
+class _ImageDetailsPageState extends State<ImageDetailsPage> {
+  SpeciesDetailsController get controllerRead => context.read();
+
   @override
   void initState() {
+    controllerRead.getSpecieById(widget.id);
     super.initState();
-    ref.read(specieDetailsProvider.notifier).loadSpecie(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    final specie = ref.watch(specieDetailsProvider)[widget.id];
-
-    return specie == null
-        ? const Center(child: CircularProgressIndicator())
-        : ImageDetailsSection(
-            tag: 'abc',
-            specie: specie,
-          );
+    final SpeciesDetailsController controllerWatch = context.watch();
+    final state = controllerWatch.state;
+    return Scaffold(
+      body: SafeArea(
+        child: state.loading
+            ? const Center(child: CircularProgressIndicator())
+            : state.mapOfId[widget.id] == null
+                ? Center(
+                    child: FilledButton(
+                      onPressed: () {
+                        controllerRead.getSpecieById(widget.id);
+                      },
+                      child: const Text('Inténtalo de nuevo'),
+                    ),
+                  )
+                : ImageDetailsSection(
+                    specie: state.mapOfId[widget.id]!,
+                  ),
+      ),
+    );
   }
 }

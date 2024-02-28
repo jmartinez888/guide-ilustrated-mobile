@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,12 +5,12 @@ import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
-class MainLeftNav extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
+class MainLeftNav extends StatefulWidget {
+  final Widget child;
 
   const MainLeftNav({
     Key? key,
-    required this.navigationShell,
+    required this.child,
   }) : super(key: key);
 
   static const List<Map<String, dynamic>> _pageData = [
@@ -98,21 +97,47 @@ class MainLeftNav extends StatelessWidget {
     },
   ];
 
+  @override
+  State<MainLeftNav> createState() => _MainLeftNavState();
+}
+
+class _MainLeftNavState extends State<MainLeftNav> {
+  int selectedIndex = 0;
+
   void _goBranch({
     required int index,
     required GlobalKey<ScaffoldState> scaffoldKey,
     required BuildContext context,
-    required FirebaseAuth firebaseAuthInstance,
   }) {
-    if ((index == 0) &&
-        (firebaseAuthInstance.currentUser == null ||
-            !firebaseAuthInstance.currentUser!.emailVerified)) {
-      context.pushNamed(Routes.signIn);
-    } else {
-      navigationShell.goBranch(
-        index,
-        initialLocation: index == navigationShell.currentIndex,
-      );
+    setState(() {
+      selectedIndex = index;
+    });
+    switch (selectedIndex) {
+      case 0:
+        context.goNamed(
+          Routes.profile,
+        );
+        break;
+      case 1:
+        context.goNamed(
+          Routes.species,
+        );
+        break;
+      case 2:
+        context.goNamed(
+          Routes.indigenousCommunity,
+        );
+        break;
+      case 3:
+        context.goNamed(
+          Routes.staff,
+        );
+        break;
+      case 4:
+        context.goNamed(
+          Routes.about,
+        );
+        break;
     }
     scaffoldKey.currentState?.openEndDrawer();
   }
@@ -120,7 +145,7 @@ class MainLeftNav extends StatelessWidget {
   List<Widget> _buildNavigationDrawerItems(BuildContext context) {
     List<Widget> items = [];
 
-    for (var section in _pageData) {
+    for (var section in MainLeftNav._pageData) {
       final textTheme = Theme.of(context).textTheme;
       final colorScheme = Theme.of(context).colorScheme;
       items.add(Padding(
@@ -147,24 +172,23 @@ class MainLeftNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuthInstance = FirebaseAuth.instance;
     final scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: scaffoldKey,
       drawer: NavigationDrawer(
-        selectedIndex: navigationShell.currentIndex,
+        // selectedIndex: navigationShell.currentIndex,
+        selectedIndex: selectedIndex,
         onDestinationSelected: (index) => _goBranch(
           index: index,
           scaffoldKey: scaffoldKey,
           context: context,
-          firebaseAuthInstance: firebaseAuthInstance,
         ),
         children: _buildNavigationDrawerItems(context),
       ),
       body: SafeArea(
         child: Stack(
           children: [
-            navigationShell,
+            widget.child,
             Padding(
               padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               child: CustomIconButton(

@@ -1,36 +1,20 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:species/src/domain/entities/class.dart';
-import 'package:species/src/domain/entities/conservation_status.dart';
-import 'package:species/src/domain/entities/family.dart';
-import 'package:species/src/domain/entities/order.dart';
-import 'package:species/src/domain/entities/specie.dart';
-import 'package:species/src/domain/entities/taxonomy.dart';
+import 'package:species/src/domain/either.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/failures/http_request/http_request_failure.dart';
 
 abstract class SpecieRepository {
-  Future<void> getSpecies({
-    required int pageKey,
+  Future<Either<HttpRequestFailure, List<Specie>>> getSpecies({
+    required int pageNumber,
     required int type,
     required int numberOfPostsPerRequest,
-    required PagingController pagingController,
-    bool? asc,
-    bool? orderBy,
+    required bool orderByName,
+    required bool orderAsc,
   });
 
-  Future<Specie> getSpecieId(String id);
-
-  Stream<List<Specie>> getFavoriteSpecies();
-
-  Future<void> saveSpecieFavorite({
-    required String userId,
-    required Specie specie,
-  });
-
-  Future<void> deleteSpecieFavorite({
-    required String userId,
-    required int idSpecie,
-  });
+  Future<Either<HttpRequestFailure, Specie>> getSpecieById(String id);
 
   Future<Uint8List> makePdf({
     required Specie specie,
@@ -39,18 +23,17 @@ abstract class SpecieRepository {
   });
 
   Future<void> filterSpecies({
-    String query = '',
-    int? family,
-    int? order,
-    int? class_,
+    required PagingController pagingController,
     required int pageKey,
     required int numberOfPostsPerRequest,
-    required PagingController pagingController,
+    int? taxonomyId,
+    int? class_,
+    int? order,
+    int? family,
+    int? conservationStatus,
+    int? hasSound,
+    String query = '',
+    String? orderByName = '',
+    String? orderType = '',
   });
-
-  Future<List<Class>> getClasses();
-  Future<List<OrderClass>> getOrdersByClassId(int familyId);
-  Future<List<Family>> getFamilies(int orderId);
-  Future<List<ConservationStatus>> getConservationStatus();
-  Future<List<Taxonomy>> getTaxonomies();
 }

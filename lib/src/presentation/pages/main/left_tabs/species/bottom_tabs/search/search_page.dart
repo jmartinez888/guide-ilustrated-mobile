@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
-import 'package:species/src/data/repositories_implementation/species_iiap/specie_species_iiap_repository_impl.dart';
-import 'package:species/src/domain/entities/class.dart';
-import 'package:species/src/domain/entities/conservation_status.dart';
-import 'package:species/src/domain/entities/family.dart';
-import 'package:species/src/domain/entities/order.dart';
-import 'package:species/src/domain/entities/specie.dart';
-import 'package:species/src/domain/entities/taxonomy.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/filters_options.dart';
@@ -26,7 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   final PagingController<int, Specie> _pagingController =
       PagingController(firstPageKey: 1);
 
-  final specieRepository = SpecieSpeciesIiapRepositoryImpl();
+  SpecieRepository get specieRepository => context.read();
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -135,7 +131,8 @@ class _SearchPageState extends State<SearchPage> {
                   },
                   newPageErrorIndicatorBuilder: (context) {
                     return _errorIndicator(context,
-                        onPressed: () => _pagingController.retryLastFailedRequest(),
+                        onPressed: () =>
+                            _pagingController.retryLastFailedRequest(),
                         text: 'Algo salió mal. Inténtalo de nuevo');
                   },
                   animateTransitions: true,
@@ -146,14 +143,23 @@ class _SearchPageState extends State<SearchPage> {
                       pathParameters: {'id': item.id.toString()},
                     ),
                     leading: CustomImageContainer(
-                      imageUrl: item.images.first,
+                      imageUrl: item.image,
                       heightImage: 56.0,
                       width: 56.0,
                       fitImage: false,
                     ),
-                    title: Text(item.name),
-                    subtitle: Text(item.scientificName,
-                        style: const TextStyle(fontStyle: FontStyle.italic)),
+                    title: item.name != null && item.name!.isNotEmpty
+                        ? Text(item.name!)
+                        : null,
+                    subtitle: item.scientificName != null &&
+                            item.scientificName!.isNotEmpty
+                        ? Text(
+                            item.scientificName!,
+                            style: const TextStyle(
+                              fontStyle: FontStyle.italic,
+                            ),
+                          )
+                        : null,
                     trailing: const Icon(Icons.chevron_right_rounded),
                   ),
                 ),
@@ -681,7 +687,8 @@ class ErrorFetchingDropdown extends StatelessWidget {
   }
 }
 
-Column _errorIndicator(BuildContext context, {String? text,  final void Function()? onPressed}) {
+Column _errorIndicator(BuildContext context,
+    {String? text, final void Function()? onPressed}) {
   return Column(
     children: [
       Lottie.asset(
@@ -702,10 +709,10 @@ Column _errorIndicator(BuildContext context, {String? text,  final void Function
             ),
             const SizedBox(height: 16.0),
             FilledButton.icon(
-                  onPressed: onPressed,
-                  icon: const Icon(Icons.refresh_rounded),
-                  label: const Text('Actualizar'),
-                ),
+              onPressed: onPressed,
+              icon: const Icon(Icons.refresh_rounded),
+              label: const Text('Actualizar'),
+            ),
           ],
         ),
       ),

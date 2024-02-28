@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
@@ -22,7 +23,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
   bool enabled = true;
   bool validateInInput = false;
 
-  final authRepository = AuthIiapRepositoryImpl();
+  AuthRepository get authRepository => context.read();
+
   final FocusNode _emailFocusNode = FocusNode();
 
   @override
@@ -134,11 +136,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
       final result = await authRepository.resetPassword(email: email);
 
       result.when(
-        (left) => customSnackBar(
-          context: screenContext,
-          title: left,
-          backgroundColor: Theme.of(context).colorScheme.error,
-        ),
+        (failure) {
+          final message = failure.when(
+            network: () => 'Comprueba tu conexión a internet',
+            credential: () => 'Credenciales incorrectas',
+            disable: () =>
+                'Esta cuenta ha sido desactivada, inténtelo más tarde',
+            notRegistered: () => 'El correo no está registrado',
+            password: () => 'Contraseña incorrecta',
+            unknown: () => 'Error desconocido',
+          );
+          customSnackBar(
+            context: screenContext,
+            title: message,
+            backgroundColor: Theme.of(context).colorScheme.error,
+          );
+        },
         (right) => showBottomSheet(
           context: screenContext,
           builder: (screenContext) => CustomBottomSheet(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_body.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_header.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -13,9 +14,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  AuthRepository get authRepository => context.read();
   @override
   Widget build(BuildContext context) {
-    final authRepository = AuthIiapRepositoryImpl();
 
     return Column(
       children: [

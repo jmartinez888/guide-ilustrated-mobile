@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:species/src/domain/entities/community.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
@@ -42,3 +42,4 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
     );
   }
 }
+ */

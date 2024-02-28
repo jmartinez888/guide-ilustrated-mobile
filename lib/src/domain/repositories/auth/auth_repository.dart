@@ -1,20 +1,21 @@
 import 'package:species/src/domain/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:species/src/domain/failures/session_request/session_request_failure.dart';
 
 abstract class AuthRepository {
-  Future<Either<String, UserCredential>> signUp({
+  Future<Either<SessionRequestFailure, UserCredential>> signUp({
     required String email,
     required String password,
   });
 
-  Future<Either<String, String>> sendVerificationEmail();
+  Future<Either<SessionRequestFailure, String>> sendVerificationEmail();
 
-  Future<Either<String, UserCredential>> signIn({
+  Future<Either<SessionRequestFailure, UserCredential>> signIn({
     required String email,
-    required password,
+    required String password,
   });
 
   Future<void> signOut();
 
-  Future<Either<String, String>> resetPassword({required String email});
+  Future<Either<SessionRequestFailure, String>> resetPassword({required String email});
 }

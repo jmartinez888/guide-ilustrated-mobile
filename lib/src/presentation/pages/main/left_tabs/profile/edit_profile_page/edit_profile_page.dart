@@ -1,9 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/utils/upload_image.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
@@ -30,8 +30,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   final FocusNode _lastnameFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
 
-  final UserIiapRepositoryImpl _userIiapRepositoryImpl =
-      UserIiapRepositoryImpl();
+   AccountRepository get _userIiapRepositoryImpl => context.read();
 
   bool enabled = true;
 

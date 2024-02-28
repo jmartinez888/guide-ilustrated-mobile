@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -20,8 +21,15 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   final _passwordFocusNode = FocusNode();
   bool enabled = true;
 
-  final _getUserInfo = AuthIiapRepositoryImpl().getUserInfo;
-  final _deleteUserAccount = AuthIiapRepositoryImpl().deleteUserAccount;
+  AccountRepository get accountRepository => context.read();
+
+  late Future<Map<String, dynamic>> _getUserInfo;
+
+  @override
+  void initState() {
+    _getUserInfo = accountRepository.getUserInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         title: const Text('Eliminar cuenta'),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: _getUserInfo(),
+        future: _getUserInfo,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SizedBox(
@@ -175,7 +183,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       });
 
                       // Realizar la operación de eliminación
-                      await _deleteUserAccount(password);
+                      await accountRepository.deleteUserAccount(password);
 
                       // Navegar a la pantalla deseada
                       if (mounted) {

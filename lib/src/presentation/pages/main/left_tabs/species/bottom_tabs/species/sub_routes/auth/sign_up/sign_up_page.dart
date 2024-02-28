@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _repeatPasswordFocusNode = FocusNode();
 
-  final AuthRepository authRepository = AuthIiapRepositoryImpl();
+  AuthRepository get authRepository => context.read();
 
   bool _hidePassword = true;
   bool validateInInput = false;
@@ -225,13 +225,35 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
       );
 
       userCredential.when(
-        (left) => customSnackBar(context: context, title: left, large: true),
-        (right) async {
+        (failure) {
+          final message = failure.when(
+            network: () => 'Comprueba tu conexión a internet',
+            credential: () => 'Credenciales incorrectas',
+            disable: () =>
+                'Esta cuenta ha sido desactivada, inténtelo más tarde',
+            notRegistered: () => 'El correo no está registrado',
+            password: () => 'Contraseña incorrecta',
+            unknown: () => 'Error desconocido',
+          );
+          customSnackBar(context: context, title: message);
+        },
+        (userCrendential) async {
           final emailVerification =
               await authRepository.sendVerificationEmail();
 
           emailVerification.when(
-            (left) => customSnackBar(context: context, title: left),
+            (failure) {
+              final message = failure.when(
+                network: () => 'Comprueba tu conexión a internet',
+                credential: () => 'Credenciales incorrectas',
+                disable: () =>
+                    'Esta cuenta ha sido desactivada, inténtelo más tarde',
+                notRegistered: () => 'El correo no está registrado',
+                password: () => 'Contraseña incorrecta',
+                unknown: () => 'Error desconocido',
+              );
+              customSnackBar(context: context, title: message);
+            },
             (right) => showModalBottomSheet(
               context: context,
               builder: (context) => CustomBottomSheet(
@@ -246,6 +268,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
           );
         },
       );
+
     }
     enabled = true;
     setState(() {});

@@ -44,7 +44,6 @@ dependencies:
   staggered_grid_view_flutter: ^0.0.4
   http: ^1.1.0
   infinite_scroll_pagination: ^4.0.0
-  flutter_riverpod: ^2.4.4
   rxdart: ^0.27.7
   just_audio: ^0.9.35
   just_audio_cache: ^0.1.2
@@ -64,6 +63,12 @@ dependencies:
   firebase_app_check: ^0.2.1+3
   flutter_multi_formatter: ^2.11.16
   url_launcher: ^6.2.1
+  provider: ^6.1.1
+  freezed: ^2.4.7
+  build_runner: ^2.4.8
+  freezed_annotation: ^2.4.1
+  json_serializable: ^6.7.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

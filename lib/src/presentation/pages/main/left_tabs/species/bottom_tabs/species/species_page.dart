@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/birs_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/fishes_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/insects_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/mammals_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/palms_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/reptiles_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/trees_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/amphibians_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/birds_tab/birds_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/fishes_tab/fishes_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/insects_tab/insects_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/mammals_tab/mammals_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/palms_tab/palms_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/reptiles_tab/reptiles_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/trees_tab/trees_tab_page.dart';
 
 class SpeciesPage extends StatefulWidget {
   const SpeciesPage({super.key});
@@ -108,18 +108,15 @@ class _SpeciesPageState extends State<SpeciesPage>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-    final tabBar = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: TabBar(
-        physics: const BouncingScrollPhysics(),
-        controller: _tabController,
-        splashBorderRadius: BorderRadius.circular(16.0),
-        indicatorColor: _tabIndicatorColor[_tabController.index],
-        labelColor: _tabIndicatorColor[_tabController.index],
-        isScrollable: true,
-        onTap: (index) => setState(() => _tabController.index = index),
-        tabs: _tabs,
-      ),
+    final tabBar = TabBar(
+      physics: const BouncingScrollPhysics(),
+      controller: _tabController,
+      splashBorderRadius: BorderRadius.circular(16.0),
+      indicatorColor: _tabIndicatorColor[_tabController.index],
+      labelColor: _tabIndicatorColor[_tabController.index],
+      isScrollable: true,
+      onTap: (index) => setState(() => _tabController.index = index),
+      tabs: _tabs,
     );
     return DefaultTabController(
       length: _pageData.length,
@@ -161,3 +158,26 @@ class _SpeciesPageState extends State<SpeciesPage>
     );
   }
 }
+ 
+
+
+/* import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/sections/specie_tab/species_tab_section.dart';
+
+class SpeciesPage extends StatelessWidget {
+  const SpeciesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: TabBarView(
+        children: [
+          SpeciesTabSection(type: 1),
+          Text('data')
+        ],
+      ),
+    );
+  }
+}
+ */

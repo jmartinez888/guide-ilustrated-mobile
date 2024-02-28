@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
-import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/account/account_repository.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
@@ -30,8 +31,8 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   bool enabled = true;
   late Timer animationTimer;
 
-  final authRepository = AuthIiapRepositoryImpl();
-  final userRepository = UserIiapRepositoryImpl();
+  AuthRepository get authRepository => context.read();
+  AccountRepository get accountRepository => context.read();
 
   @override
   void initState() {
@@ -259,29 +260,50 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       );
 
       userCredential.when(
-        (left) => customSnackBar(
-          context: context,
-          title: left,
-          backgroundColor: colorScheme.error,
-          large: true,
-        ),
+        (failure) {
+          final message = failure.when(
+            network: () => 'Comprueba tu conexión a internet',
+            credential: () => 'Credenciales incorrectas',
+            disable: () =>
+                'Esta cuenta ha sido desactivada, inténtelo más tarde',
+            notRegistered: () => 'El correo no está registrado',
+            password: () => 'Contraseña incorrecta',
+            unknown: () => 'Error desconocido',
+          );
+          customSnackBar(
+            context: context,
+            title: message,
+            backgroundColor: colorScheme.error,
+            large: true,
+          );
+        },
         (right) async {
           final user = right.user;
           final id = user?.uid;
           if (id != null) {
-            final userData = await userRepository.getUserData(id);
+            final userData = await accountRepository.getUserData(id);
             if (user?.emailVerified == true && userData.isNotEmpty) {
               if (mounted) {
                 context.goNamed(Routes.species);
               }
             } else if (user?.emailVerified == true) {
-              userRepository.createUser(
+              final result = await accountRepository.createUser(
                 userId: id,
                 email: email,
               );
-              if (mounted) {
-                context.goNamed(Routes.species);
-              }
+              result.when(
+                (failure) => customSnackBar(
+                  context: context,
+                  title: 'No se pudo crear el usuario',
+                  backgroundColor: colorScheme.error,
+                  large: true,
+                ),
+                (user) {
+                  if (mounted) {
+                    context.goNamed(Routes.species);
+                  }
+                },
+              );
             } else {
               if (mounted) {
                 showModalBottomSheet(
