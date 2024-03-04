@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
@@ -102,6 +104,7 @@ class MainLeftNav extends StatefulWidget {
 }
 
 class _MainLeftNavState extends State<MainLeftNav> {
+  SessionController get sessionController => context.read();
   int selectedIndex = 0;
 
   void _goBranch({
@@ -114,9 +117,11 @@ class _MainLeftNavState extends State<MainLeftNav> {
     });
     switch (selectedIndex) {
       case 0:
-        context.goNamed(
-          Routes.profile,
-        );
+        if (sessionController.state != null) {
+          context.goNamed(
+            Routes.profile,
+          );
+        }
         break;
       case 1:
         context.goNamed(

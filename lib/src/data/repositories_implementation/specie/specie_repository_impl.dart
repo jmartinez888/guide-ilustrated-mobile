@@ -36,8 +36,8 @@ class SpecieRepositoryImpl implements SpecieRepository {
   }
 
   @override
-  Future<Either<HttpRequestFailure, Specie>> getSpecieById(String id) {
-    return _specieApi.getSpecieById(id);
+  Future<Either<HttpRequestFailure, Specie>> getSpecie(String id) {
+    return _specieApi.getSpecie(id);
   }
 
   @override

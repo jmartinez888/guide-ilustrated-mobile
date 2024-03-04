@@ -3,8 +3,18 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:species/src/domain/entities/class/class.dart';
+import 'package:species/src/domain/entities/family/family.dart';
+import 'package:species/src/domain/entities/order/order.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/state_of_conservation/state_of_conservation.dart';
+import 'package:species/src/domain/entities/taxonomy_for_search/taxonomy_for_search.dart';
+import 'package:species/src/domain/repositories/class/class_repository.dart';
+import 'package:species/src/domain/repositories/family/family_repository.dart';
+import 'package:species/src/domain/repositories/order/order_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
+import 'package:species/src/domain/repositories/state_of_conservation/state_of_conservation_repository.dart';
+import 'package:species/src/domain/repositories/taxonomy/taxonomy_repository.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/filters_options.dart';
@@ -23,6 +33,11 @@ class _SearchPageState extends State<SearchPage> {
       PagingController(firstPageKey: 1);
 
   SpecieRepository get specieRepository => context.read();
+  TaxonomyRepository get texonomyRepository => context.read();
+  ClassRepository get classRepository => context.read();
+  OrderRepository get orderRepository => context.read();
+  FamilyRepository get familyRepository => context.read();
+  StateOfConservationRepository get stateOfConservationRepository => context.read();
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -432,10 +447,10 @@ class _SearchPageState extends State<SearchPage> {
       useSafeArea: true,
       context: context,
       builder: (context) {
-        return FutureBuilder<List<Taxonomy>>(
-          future: specieRepository.getTaxonomies(),
+        return FutureBuilder<List<TaxonomyForSearch>>(
+          future: texonomyRepository.getTaxonomies(),
           builder:
-              (BuildContext context, AsyncSnapshot<List<Taxonomy>> snapshot) {
+              (BuildContext context, AsyncSnapshot<List<TaxonomyForSearch>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -451,7 +466,7 @@ class _SearchPageState extends State<SearchPage> {
                 content: 'No se encontraron categorías. Inténtalo nuevamente.',
               );
             } else {
-              final List<Taxonomy> taxonomies = snapshot.data!;
+              final List<TaxonomyForSearch> taxonomies = snapshot.data!;
               return FilterByCategoryDialog(
                 taxonomyId: taxonomyId,
                 onValueChanged: (value) {
@@ -476,9 +491,9 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return FutureBuilder<List<Class>>(
-          future: specieRepository.getClasses(),
-          builder: (BuildContext context, AsyncSnapshot<List<Class>> snapshot) {
+        return FutureBuilder<List<ClassC>>(
+          future: classRepository.getClasses(),
+          builder: (BuildContext context, AsyncSnapshot<List<ClassC>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -494,7 +509,7 @@ class _SearchPageState extends State<SearchPage> {
                 content: 'No se encontraron clases. Inténtalo nuevamente.',
               );
             } else {
-              final List<Class> classes = snapshot.data!;
+              final List<ClassC> classes = snapshot.data!;
               return FilterByClassDialog(
                 selectedClass: selectedClass,
                 onClassValueChanged: (value) {
@@ -521,10 +536,10 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return FutureBuilder<List<OrderClass>>(
-          future: specieRepository.getOrdersByClassId(selectedClass!),
+        return FutureBuilder<List<OrderC>>(
+          future: orderRepository.getOrdersByClassId(selectedClass!),
           builder:
-              (BuildContext context, AsyncSnapshot<List<OrderClass>> snapshot) {
+              (BuildContext context, AsyncSnapshot<List<OrderC>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -541,7 +556,7 @@ class _SearchPageState extends State<SearchPage> {
                     'No se encontraron ordenes en esta clase. Inténtalo con otra clase.',
               );
             } else {
-              final List<OrderClass> orders = snapshot.data!;
+              final List<OrderC> orders = snapshot.data!;
               return FilterByOrderDialog(
                 selectedOrder: selectedOrder,
                 onOrderValueChanged: (value) {
@@ -568,7 +583,7 @@ class _SearchPageState extends State<SearchPage> {
       context: context,
       builder: (context) {
         return FutureBuilder<List<Family>>(
-          future: specieRepository.getFamilies(selectedOrder!),
+          future: familyRepository.getFamiliesByOrden(selectedOrder!),
           builder:
               (BuildContext context, AsyncSnapshot<List<Family>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -612,10 +627,10 @@ class _SearchPageState extends State<SearchPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return FutureBuilder<List<ConservationStatus>>(
-          future: specieRepository.getConservationStatus(),
+        return FutureBuilder<List<StateOfConservation>>(
+          future: stateOfConservationRepository.getStateOfConservations(),
           builder: (BuildContext context,
-              AsyncSnapshot<List<ConservationStatus>> snapshot) {
+              AsyncSnapshot<List<StateOfConservation>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -632,7 +647,7 @@ class _SearchPageState extends State<SearchPage> {
                     'No se encontraron estados de conservación. Inténtalo nuevamente.',
               );
             } else {
-              final List<ConservationStatus> conservationStatusList =
+              final List<StateOfConservation> conservationStatusList =
                   snapshot.data!;
               return FilterByConservationStatusDialog(
                 selectedConservationStatus: selectedConservationStatus,

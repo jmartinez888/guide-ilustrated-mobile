@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -14,12 +17,16 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  AuthRepository get authRepository => context.read();
+  SessionController get sessionController => context.read();
   late Timer _timer;
   int time = 5;
 
   @override
   void initState() {
     super.initState();
+
+    getUserData();
 
     _timer = Timer(Duration(seconds: time), () {
       ejecutarMetodo();
@@ -34,6 +41,13 @@ class _SplashPageState extends State<SplashPage> {
   void dispose() {
     _timer.cancel();
     super.dispose();
+  }
+
+  void getUserData() {
+    final isAcces = authRepository.isAcces();
+    if (isAcces != null) {
+      sessionController.setUser(isAcces);
+    }
   }
 
   @override

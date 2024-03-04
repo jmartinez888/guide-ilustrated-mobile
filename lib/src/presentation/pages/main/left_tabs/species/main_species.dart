@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/widgets/navigations/custom_bottom_nav_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
@@ -46,6 +48,7 @@ class MainSpecies extends StatefulWidget {
 }
 
 class _MainSpeciesState extends State<MainSpecies> {
+  SessionController get sessionController => context.read();
   int selectedIndex = 0;
   void _goBranch(
       int index, BuildContext context, FirebaseAuth firebaseAuthInstance) {
@@ -68,9 +71,11 @@ class _MainSpeciesState extends State<MainSpecies> {
         );
         break;
       case 2:
-        context.goNamed(
-          Routes.specieFavorites,
-        );
+        if (sessionController.state != null) {
+          context.goNamed(
+            Routes.specieFavorites,
+          );
+        }
         break;
     }
   }

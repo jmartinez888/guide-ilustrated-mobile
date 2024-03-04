@@ -58,5 +58,5 @@ Object? readImageValue(Map map, String _) {
 }
 
 Object? readStateValue(Map map, String _) {
-  return map['id_estado'] ?? map['ch_estado'];
+  return map['estado'] ?? map['ch_estado'];
 }

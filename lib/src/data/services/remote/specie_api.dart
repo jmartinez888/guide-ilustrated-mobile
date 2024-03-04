@@ -25,13 +25,21 @@ class SpecieApi {
     String orderAscValue = orderAsc ? 'ASC' : 'DESC';
 
     try {
+      print('🎈 llamando');
       final response = await get(Uri.parse(
           '$_baseUrl/species/search/type/$type/$pageNumber/$numberOfPostsPerRequest/$orderByNameValue/$orderAscValue'));
+
+      print('🎈 ${response.statusCode}');
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final responseList = jsonDecode(response.body) as Map<String, dynamic>;
 
+        print('🧨 ${responseList}');
+
         final List<Specie> postList = getSpecieList(responseList['species']);
+
+        print('✨ ${postList}');
+
 
         return Either.right(postList);
       } else {
@@ -78,8 +86,7 @@ class SpecieApi {
         }),
       );
 
-       final responseList =
-          jsonDecode(response.body) as Map<String, dynamic>;
+      final responseList = jsonDecode(response.body) as Map<String, dynamic>;
 
       List<Specie> postList = getSpecieList(responseList['species']);
 
@@ -93,11 +100,10 @@ class SpecieApi {
       }
     } catch (e) {
       pagingController.error = e;
-    } 
-    
+    }
   }
 
-  Future<Either<HttpRequestFailure, Specie>> getSpecieById(String id) async {
+  Future<Either<HttpRequestFailure, Specie>> getSpecie(String id) async {
     try {
       final response = await get(Uri.parse('$_baseUrl/species/$id'));
       if (response.statusCode != 200) {
@@ -113,5 +119,4 @@ class SpecieApi {
       return Either.left(HttpRequestFailureUnknown());
     }
   }
-
 }

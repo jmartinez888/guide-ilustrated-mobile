@@ -6,14 +6,14 @@ import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/failures/session_request/session_request_failure.dart';
 
 class AuthApi {
-  FirebaseAuth get _firebaseAuth => FirebaseAuth.instance;
+  FirebaseAuth get _firebaseAuthInstance => FirebaseAuth.instance;
 
   Future<Either<SessionRequestFailure, UserCredential>> signUp({
     required String email,
     required String password,
   }) async {
     try {
-      final value = await _firebaseAuth.createUserWithEmailAndPassword(
+      final value = await _firebaseAuthInstance.createUserWithEmailAndPassword(
         email: email.replaceAll(' ', ''),
         password: password.replaceAll(' ', ''),
       );
@@ -43,7 +43,7 @@ class AuthApi {
 
   Future<Either<SessionRequestFailure, String>> sendVerificationEmail() async {
     try {
-      final user = _firebaseAuth.currentUser;
+      final user = _firebaseAuthInstance.currentUser;
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
         return Either.right(
@@ -63,7 +63,7 @@ class AuthApi {
     required String password,
   }) async {
     try {
-      final value = await _firebaseAuth.signInWithEmailAndPassword(
+      final value = await _firebaseAuthInstance.signInWithEmailAndPassword(
         email: email.replaceAll(' ', ''),
         password: password.replaceAll(' ', ''),
       );
@@ -95,13 +95,13 @@ class AuthApi {
   }
 
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+     _firebaseAuthInstance.signOut();
   }
 
   Future<Either<SessionRequestFailure, String>> resetPassword(
       {required String email}) async {
     try {
-      _firebaseAuth.sendPasswordResetEmail(
+      _firebaseAuthInstance.sendPasswordResetEmail(
         email: email.replaceAll(' ', ''),
       );
       return Either.right(
@@ -115,12 +115,19 @@ class AuthApi {
         case 'network-request-failed':
           sessionRequestFailure = SessionRequestFailure.network();
           break;
-
         default:
           sessionRequestFailure = SessionRequestFailure.unknown();
           break;
       }
       return Either.left(sessionRequestFailure);
     }
+  }
+
+  User? currentUserFromAuthentication()  {
+    final currentUser = _firebaseAuthInstance.currentUser;
+    if (currentUser != null) {
+      return currentUser;
+    }
+    return null;
   }
 }

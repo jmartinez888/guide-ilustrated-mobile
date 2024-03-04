@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/pages/error/error_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/delete_account_page/delete_account_page.dart';
@@ -26,7 +27,7 @@ final parentNavigatorKey = GlobalKey<NavigatorState>();
 final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
-  initialLocation: Routes.species,
+  initialLocation: Routes.splash,
   navigatorKey: parentNavigatorKey,
   errorBuilder: (context, state) => const ErrorPage(),
   routes: [
@@ -43,10 +44,11 @@ final appRouter = GoRouter(
           name: Routes.profile,
           builder: (_, __) => const ProfilePage(),
           redirect: (context, state) {
-            AccountRepository accountRepository = context.read();
-            final result = accountRepository.acces();
+            SessionController sessionController = context.read();
 
-            if (result) {
+            final uid = sessionController.state;
+
+            if (uid != null) {
               return null;
             } else {
               return '${Routes.species}/${Routes.signIn}';
@@ -61,10 +63,11 @@ final appRouter = GoRouter(
                 return EditProfile(userId: userId.toString());
               },
               redirect: (context, state) {
-                AccountRepository accountRepository = context.read();
-                final result = accountRepository.acces();
+                SessionController sessionController = context.read();
 
-                if (result) {
+                final uid = sessionController.state;
+
+                if (uid != null) {
                   return null;
                 } else {
                   return '${Routes.species}/${Routes.signIn}';
@@ -80,10 +83,11 @@ final appRouter = GoRouter(
                 return DeleteAccountPage(userId: userId.toString());
               },
               redirect: (context, state) {
-                AccountRepository accountRepository = context.read();
-                final result = accountRepository.acces();
+                SessionController sessionController = context.read();
 
-                if (result) {
+                final uid = sessionController.state;
+
+                if (uid != null) {
                   return null;
                 } else {
                   return Routes.species;
@@ -115,10 +119,11 @@ final appRouter = GoRouter(
                     name: Routes.signIn,
                     builder: (_, __) => const SignInPage(),
                     redirect: (context, state) {
-                      AccountRepository accountRepository = context.read();
-                      final result = accountRepository.acces();
+                      SessionController sessionController = context.read();
 
-                      if (result) {
+                      final uid = sessionController.state;
+
+                      if (uid != null) {
                         return Routes.species;
                       } else {
                         return null;
@@ -131,10 +136,11 @@ final appRouter = GoRouter(
                     name: Routes.signUp,
                     builder: (_, __) => const SignUpPage(),
                     redirect: (context, state) {
-                      AccountRepository accountRepository = context.read();
-                      final result = accountRepository.acces();
+                      SessionController sessionController = context.read();
 
-                      if (result) {
+                      final uid = sessionController.state;
+
+                      if (uid != null) {
                         return Routes.species;
                       } else {
                         return null;
@@ -177,10 +183,11 @@ final appRouter = GoRouter(
                 name: Routes.specieFavorites,
                 builder: (_, __) => const FavoritesPage(),
                 redirect: (context, state) {
-                  AccountRepository accountRepository = context.read();
-                      final result = accountRepository.acces();
+                  SessionController sessionController = context.read();
 
-                      if (result) {
+                  final uid = sessionController.state;
+
+                  if (uid != null) {
                     return null;
                   } else {
                     return '${Routes.species}/${Routes.signIn}';

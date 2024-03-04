@@ -14,7 +14,7 @@ abstract class SpecieRepository {
     required bool orderAsc,
   });
 
-  Future<Either<HttpRequestFailure, Specie>> getSpecieById(String id);
+  Future<Either<HttpRequestFailure, Specie>> getSpecie(String id);
 
   Future<Uint8List> makePdf({
     required Specie specie,

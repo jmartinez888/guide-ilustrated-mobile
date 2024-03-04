@@ -32,9 +32,9 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    late Map<String, dynamic> mainOpaqueColor;
+    //late Map<String, dynamic> mainOpaqueColor;
     late Color mainColor;
-    mainOpaqueColor =
+   /*  mainOpaqueColor =
         getMainColorByString(specie.type != null ? specie.type!.id : 0);
     mainColor = mainOpaqueColor['main'];
 
@@ -80,7 +80,7 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
         mainColor = CustomColors.bird;
         pathIcon = 'bird';
         break;
-    }
+    } */
 
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +88,7 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
       ),
       body: PdfPreview(
         build: (context) => specieRepository.makePdf(
-          mainColor: mainColor,
+          mainColor: Colors.red,
           pathIcon: pathIcon,
           specie: specie,
         ),

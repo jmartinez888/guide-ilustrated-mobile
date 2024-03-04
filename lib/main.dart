@@ -31,7 +31,10 @@ import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/domain/repositories/state_of_conservation/state_of_conservation_repository.dart';
 import 'package:species/src/domain/repositories/taxonomy/taxonomy_repository.dart';
 import 'package:species/src/my_app.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/state/species_details_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/controller/amphibians_tab_controller.dart';
@@ -173,6 +176,15 @@ void main() async {
           create: (context) => SpeciesDetailsController(
             SpeciesDetailsState(),
             specieRepository: context.read(),
+          ),
+        ),
+        ChangeNotifierProvider<SessionController>(
+          create: (context) => SessionController(context.read()),
+        ),
+        ChangeNotifierProvider<FavoriteController>(
+          create: (context) => FavoriteController(
+            FavoritesState(),
+            favoriteRepository: context.read(),
           ),
         ),
       ],

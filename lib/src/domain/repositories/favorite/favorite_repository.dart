@@ -1,11 +1,11 @@
-import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
 
 abstract class FavoriteRepository {
-  Stream<List<Specie>> getFavoritesSpecies(String userId);
+  Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId);
 
   Future<void> saveSpecieFavorite({
     required String userId,
-    required Specie specie,
+    required SpecieFavorite specie,
   });
 
   Future<void> deleteSpecieFavorite({

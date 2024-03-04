@@ -41,4 +41,15 @@ class AuthRepositoryImpl extends AuthRepository {
     return _authApi.resetPassword(email: email);
   }
 
+  @override
+  String? isAcces() {
+    final currentUserFromAuthentication =
+        _authApi.currentUserFromAuthentication();
+    if (currentUserFromAuthentication != null &&
+        currentUserFromAuthentication.emailVerified) {
+      return currentUserFromAuthentication.uid;
+    } else {
+      return null;
+    }
+  }
 }

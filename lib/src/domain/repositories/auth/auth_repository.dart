@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:species/src/domain/failures/session_request/session_request_failure.dart';
 
 abstract class AuthRepository {
+
+  String? isAcces();
+  
   Future<Either<SessionRequestFailure, UserCredential>> signUp({
     required String email,
     required String password,
@@ -18,4 +21,5 @@ abstract class AuthRepository {
   Future<void> signOut();
 
   Future<Either<SessionRequestFailure, String>> resetPassword({required String email});
+
 }

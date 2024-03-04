@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/entities/taxonomy/taxonomy.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
@@ -80,6 +81,11 @@ class SpecieDetailsSection extends StatelessWidget {
                     ],
                   ),
                 ),
+              _ActionsForSpecieDetails(
+                context: context,
+                mainColor: mainColor,
+                specie: specie,
+              ),
             ],
           ),
           rightChildren: [
@@ -420,7 +426,8 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                             idSpecie: widget.specie.id)
                         : favoriteRepository.saveSpecieFavorite(
                             userId: firebaseInstance.currentUser!.uid,
-                            specie: widget.specie,
+                            specie: SpecieMapper.specieToSpecieFavorite(
+                                widget.specie),
                           );
                   } else {
                     context.pushNamed(Routes.signIn);

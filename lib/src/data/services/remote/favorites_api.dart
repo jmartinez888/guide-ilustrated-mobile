@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
 
 class FavoriteApi {
   final firebaseInstance = FirebaseFirestore.instance.collection('users');
 
-  Stream<List<Specie>> getFavoritesSpecies(String userId) {
+  /* Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
     try {
       final querySnapshot = firebaseInstance
           .doc(userId)
@@ -13,11 +13,35 @@ class FavoriteApi {
           .snapshots();
 
       return querySnapshot.map((snapshot) {
-        final List<Specie> species = [];
+        final List<SpecieFavorite> species = [];
 
         for (var doc in snapshot.docs) {
           final data = doc.data();
-          final specie = Specie.fromJson(data);
+          final specie = SpecieFavorite.fromJson(data);
+          species.add(specie);
+        }
+        return species;
+      });
+    } catch (e) {
+      throw 'Ha ocurrido un error al obtener las especies';
+    }
+  }
+ */
+
+Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
+    try {
+      final querySnapshot = firebaseInstance
+          .doc(userId)
+          .collection('favorites')
+          .orderBy('name')
+          .snapshots();
+
+      return querySnapshot.map((snapshot) {
+        final List<SpecieFavorite> species = [];
+
+        for (var doc in snapshot.docs) {
+          final data = doc.data();
+          final specie = SpecieFavorite.fromJson(data);
           species.add(specie);
         }
         return species;
@@ -27,9 +51,10 @@ class FavoriteApi {
     }
   }
 
+
   Future<void> saveSpecieFavorite({
     required String userId,
-    required Specie specie,
+    required SpecieFavorite specie,
   }) async {
     final docUser = firebaseInstance.doc(userId);
     final getUser = await docUser.get();

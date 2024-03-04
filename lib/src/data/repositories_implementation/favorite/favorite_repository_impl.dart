@@ -1,5 +1,5 @@
 import 'package:species/src/data/services/remote/favorites_api.dart';
-import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 
 class FavoriteRepositoryImpl implements FavoriteRepository {
@@ -9,12 +9,12 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
   FavoriteRepositoryImpl({required FavoriteApi favoriteApi}) : _favoriteApi = favoriteApi;
 
   @override
-  Stream<List<Specie>> getFavoritesSpecies(String userId) {
+  Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
     return _favoriteApi.getFavoritesSpecies(userId);
   }
 
   @override
-  Future<void> saveSpecieFavorite({required String userId, required Specie specie}) {
+  Future<void> saveSpecieFavorite({required String userId, required SpecieFavorite specie}) {
     return _favoriteApi.saveSpecieFavorite(userId: userId, specie: specie);
   }
   
