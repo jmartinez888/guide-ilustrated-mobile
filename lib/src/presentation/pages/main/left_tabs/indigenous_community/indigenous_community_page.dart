@@ -103,7 +103,7 @@ class _IndigenousCommunitySectionState
             ),
             newPageErrorIndicatorBuilder: (context) => CustomGridCard(
               onTap: () =>
-                  Future.sync(() => _pagingController.retryLastFailedRequest()),
+                  Future.sync(() => _pagingController.controllerRead.pagingController.retryLastFailedRequest,()),
               title: 'Algo salió mal, inténtalo de nuevo',
               image: Padding(
                 padding:
@@ -135,3 +135,97 @@ class _IndigenousCommunitySectionState
   }
 }
  */
+
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/entities/community/community.dart';
+import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
+import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/community_controller.dart';
+import 'package:species/src/presentation/router/routes.dart';
+
+class IndigenousCommunityPage extends StatefulWidget {
+  const IndigenousCommunityPage({super.key});
+
+  @override
+  State<IndigenousCommunityPage> createState() =>
+      _IndigenousCommunityPageState();
+}
+
+class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
+  CommunityController get controllerRead => context.read();
+  ColorScheme get colorScheme => Theme.of(context).colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Stack(
+      children: [
+        RefreshIndicator(
+          onRefresh: () =>
+              Future.sync(() => controllerRead.pagingController.refresh()),
+          child: CustomScrollView(
+            key: const PageStorageKey('c'),
+            physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics()),
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
+                sliver: PagedSliverList<int, Community>.separated(
+                  pagingController: controllerRead.pagingController,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8.0),
+                  builderDelegate: PagedChildBuilderDelegate<Community>(
+                    animateTransitions: true,
+                    transitionDuration: const Duration(milliseconds: 400),
+                    newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                      onTap: controllerRead
+                          .pagingController.retryLastFailedRequest,
+                      title: 'Algo salió mal, inténtalo de nuevo',
+                      image: const Text('Falló'),
+                    ),
+                    itemBuilder: (context, community, index) {
+                      return CustomGridCard(
+                        principalColor: colorScheme.primary,
+                        backgroundColor: colorScheme.primaryContainer,
+                         onTap: () => context.pushNamed(
+                          Routes.indigenousCommunityDetails,
+                          pathParameters: {'id': community.id.toString()},
+                        ), 
+                        image: Stack(
+                          children: [
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 48.0),
+                              color: Colors.white,
+                              child: CustomImageContainer(
+                                imageUrl: community.image,
+                                heightImage: 232.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        title: community.name,
+                        subtitle: community.description,
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Positioned(
+          top: 8.0,
+          left: 56.0,
+          child: SafeArea(
+            child: CustomBackButton(),
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -6,6 +6,7 @@ import 'package:species/firebase_options.dart';
 import 'package:species/src/data/repositories_implementation/account/account_repository_impl.dart';
 import 'package:species/src/data/repositories_implementation/auth/auth_repository_impl.dart';
 import 'package:species/src/data/repositories_implementation/class/class_repository_impl.dart';
+import 'package:species/src/data/repositories_implementation/community/community_repository_imp.dart';
 import 'package:species/src/data/repositories_implementation/family/family_repository_impl.dart';
 import 'package:species/src/data/repositories_implementation/favorite/favorite_repository_impl.dart';
 import 'package:species/src/data/repositories_implementation/order/order_repository_impl.dart';
@@ -15,6 +16,7 @@ import 'package:species/src/data/repositories_implementation/taxonomy/taxonomy_r
 import 'package:species/src/data/services/remote/account_api.dart';
 import 'package:species/src/data/services/remote/auth_api.dart';
 import 'package:species/src/data/services/remote/class_api.dart';
+import 'package:species/src/data/services/remote/community_api.dart';
 import 'package:species/src/data/services/remote/family_api.dart';
 import 'package:species/src/data/services/remote/favorites_api.dart';
 import 'package:species/src/data/services/remote/order_api.dart';
@@ -24,6 +26,7 @@ import 'package:species/src/data/services/remote/taxonomy_api.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/domain/repositories/class/class_repository.dart';
+import 'package:species/src/domain/repositories/community/community_repository.dart';
 import 'package:species/src/domain/repositories/family/family_repository.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/domain/repositories/order/order_repository.dart';
@@ -33,6 +36,10 @@ import 'package:species/src/domain/repositories/taxonomy/taxonomy_repository.dar
 import 'package:species/src/my_app.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/community_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/state/community_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community/controller/community_details_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community/controller/state/community_details_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
@@ -124,6 +131,13 @@ void main() async {
             favoriteApi: FavoriteApi(),
           ),
         ),
+        Provider<CommunityRepository>(
+          create: (_) => CommunityRositoryImpl(
+            communityApi: CommunityApi(
+              baseUrl: baseUrl,
+            ),
+          ),
+        ),
         ChangeNotifierProvider<BirdsTabController>(
           create: (context) => BirdsTabController(
             SpecieTabState(),
@@ -185,6 +199,18 @@ void main() async {
           create: (context) => FavoriteController(
             FavoritesState(),
             favoriteRepository: context.read(),
+          ),
+        ),
+        ChangeNotifierProvider<CommunityController>(
+          create: (context) => CommunityController(
+            CommunityState(),
+            communityRepository: context.read(),
+          ),
+        ),
+        ChangeNotifierProvider<CommunityDetailsController>(
+          create: (context) => CommunityDetailsController(
+            CommunityDetailsState(),
+            communityRepository: context.read(),
           ),
         ),
       ],

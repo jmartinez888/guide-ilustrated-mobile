@@ -21,7 +21,7 @@ class _SpecieDetailsPageState extends State<SpecieDetailsPage> {
 
   @override
   void initState() {
-    controllerRead.getSpecieById(widget.id);
+    controllerRead.getSpecie(widget.id);
     super.initState();
   }
   
@@ -40,7 +40,7 @@ class _SpecieDetailsPageState extends State<SpecieDetailsPage> {
                   ? Center(
                       child: FilledButton(
                         onPressed: () {
-                          controllerRead.getSpecieById(widget.id);
+                          controllerRead.getSpecie(widget.id);
                         },
                         child: const Text('Inténtalo de nuevo'),
                       ),

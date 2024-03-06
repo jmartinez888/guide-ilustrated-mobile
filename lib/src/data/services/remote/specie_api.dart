@@ -25,20 +25,14 @@ class SpecieApi {
     String orderAscValue = orderAsc ? 'ASC' : 'DESC';
 
     try {
-      print('🎈 llamando');
       final response = await get(Uri.parse(
           '$_baseUrl/species/search/type/$type/$pageNumber/$numberOfPostsPerRequest/$orderByNameValue/$orderAscValue'));
 
-      print('🎈 ${response.statusCode}');
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final responseList = jsonDecode(response.body) as Map<String, dynamic>;
 
-        print('🧨 ${responseList}');
-
         final List<Specie> postList = getSpecieList(responseList['species']);
-
-        print('✨ ${postList}');
 
 
         return Either.right(postList);

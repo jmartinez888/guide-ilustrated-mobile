@@ -20,7 +20,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
 
   @override
   void initState() {
-    controllerRead.getSpecieById(widget.id);
+    controllerRead.getSpecie(widget.id);
     super.initState();
   }
 
@@ -36,7 +36,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                 ? Center(
                     child: FilledButton(
                       onPressed: () {
-                        controllerRead.getSpecieById(widget.id);
+                        controllerRead.getSpecie(widget.id);
                       },
                       child: const Text('Inténtalo de nuevo'),
                     ),

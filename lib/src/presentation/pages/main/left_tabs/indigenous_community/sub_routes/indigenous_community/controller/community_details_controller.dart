@@ -1,20 +1,20 @@
-import 'package:species/src/domain/repositories/specie/specie_repository.dart';
+import 'package:species/src/domain/repositories/community/community_repository.dart';
 import 'package:species/src/presentation/global/state_notifier.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/state/species_details_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community/controller/state/community_details_state.dart';
 
-class SpeciesDetailsController extends StateNotifier<SpeciesDetailsState> {
-  final SpecieRepository specieRepository;
-  SpeciesDetailsController(
+class CommunityDetailsController extends StateNotifier<CommunityDetailsState> {
+  final CommunityRepository _communityRepository;
+  CommunityDetailsController(
     super.state, {
-    required this.specieRepository,
-  });
+    required CommunityRepository communityRepository,
+  }) : _communityRepository = communityRepository;
 
-  Future<void> getSpecie(String id) async {
-    if(state.mapOfId[id] != null) return;
+  Future<void> getCommunity(String id) async {
+    if (state.mapOfId[id] != null) return;
     state = state.copyWith(
-          loading: true,
-        );
-    final result = await specieRepository.getSpecie(id);
+      loading: true,
+    );
+    final result = await _communityRepository.getCommunity(id);
     result.when(
       (_) {
         state = state.copyWith(
@@ -33,13 +33,13 @@ class SpeciesDetailsController extends StateNotifier<SpeciesDetailsState> {
     );
   }
 
-  Future<void> refreshSpecie(String id) async {
+  Future<void> refreshCommunity(String id) async {
     state = state.copyWith(
       loading: true,
       mapOfId: state.mapOfId..remove(id),
     );
 
-    final result = await specieRepository.getSpecie(id);
+    final result = await _communityRepository.getCommunity(id);
     result.when(
       (_) {
         state = state.copyWith(
