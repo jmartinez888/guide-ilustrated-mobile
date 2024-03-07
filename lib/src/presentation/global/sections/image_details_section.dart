@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+/* import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -35,7 +35,7 @@ class _ImageDetailsSectionState extends State<ImageDetailsSection> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          PhotoViewGallery.builder(
+          PhotoViewGallery.builder(/*  */
             scrollPhysics: const BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
@@ -66,3 +66,4 @@ class _ImageDetailsSectionState extends State<ImageDetailsSection> {
     );
   }
 }
+ */

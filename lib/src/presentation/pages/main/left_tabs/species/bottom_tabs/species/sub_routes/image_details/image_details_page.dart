@@ -1,14 +1,18 @@
+import 'dart:convert';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:species/src/presentation/global/sections/image_details_section.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
+import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
 class ImageDetailsPage extends StatefulWidget {
-  final String id;
+  final String specie;
 
   const ImageDetailsPage({
     Key? key,
-    required this.id,
+    required this.specie,
   }) : super(key: key);
 
   @override
@@ -16,34 +20,45 @@ class ImageDetailsPage extends StatefulWidget {
 }
 
 class _ImageDetailsPageState extends State<ImageDetailsPage> {
-  SpeciesDetailsController get controllerRead => context.read();
-
+  late SpecieFavorite specie;
   @override
   void initState() {
-    controllerRead.getSpecieById(widget.id);
+    specie = SpecieFavorite.fromJson(jsonDecode(widget.specie) as Map<String, dynamic>);
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
-    final SpeciesDetailsController controllerWatch = context.watch();
-    final state = controllerWatch.state;
     return Scaffold(
-      body: SafeArea(
-        child: state.loading
-            ? const Center(child: CircularProgressIndicator())
-            : state.mapOfId[widget.id] == null
-                ? Center(
-                    child: FilledButton(
-                      onPressed: () {
-                        controllerRead.getSpecieById(widget.id);
-                      },
-                      child: const Text('Inténtalo de nuevo'),
-                    ),
-                  )
-                : ImageDetailsSection(
-                    specie: state.mapOfId[widget.id]!,
-                  ),
+      backgroundColor: Colors.black,
+      body:  Stack(
+        children: [
+          PhotoViewGallery.builder(
+            scrollPhysics: const BouncingScrollPhysics(),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                maxScale: PhotoViewComputedScale.covered * 8,
+                minScale: PhotoViewComputedScale.contained,
+                imageProvider: CachedNetworkImageProvider(specie.images![index]),
+              );
+            },
+            itemCount: specie.images!.length,
+            loadingBuilder: (context, event) => Center(
+              child: CircularProgressIndicator(
+                value: event == null
+                    ? 0
+                    : event.cumulativeBytesLoaded /
+                        event.expectedTotalBytes!.toDouble(),
+              ),
+            ),
+          ),
+          const Positioned(
+            top: 8.0,
+            left: 8.0,
+            child: SafeArea(
+              child: CustomBackButton(),
+            ),
+          ),
+        ],
       ),
     );
   }

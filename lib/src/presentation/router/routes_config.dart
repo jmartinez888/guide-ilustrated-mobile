@@ -111,7 +111,7 @@ final appRouter = GoRouter(
                     parentNavigatorKey: parentNavigatorKey,
                     builder: (_, state) {
                       final id = state.pathParameters['id'];
-                      return ImageDetailsPage(id: id.toString());
+                      return ImageDetailsPage(specie: id.toString());
                     },
                   ),
                   GoRoute(

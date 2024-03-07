@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
 import 'package:species/src/domain/entities/taxonomy/taxonomy.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
@@ -38,7 +39,7 @@ class SpecieDetailsSection extends StatelessWidget {
     late Color mainColor;
     late Color opaqueColor;
 
-    mainOpaqueColor = getMainColorByString(specie.type?.id ?? 0);
+    mainOpaqueColor = getMainColorByInt(specie.type?.id ?? 0);
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
 
@@ -52,10 +53,13 @@ class SpecieDetailsSection extends StatelessWidget {
                 color: Colors.white,
                 child: CustomImageContainer(
                   mainColor: mainColor,
-                  onTap: () => context.pushNamed(
+                  onTap: () {
+                   final value =  SpecieMapper.specieToSpecieFavorite(specie);
+                    context.pushNamed(
                     Routes.specieImage,
-                    pathParameters: {'id': specie.id.toString()},
-                  ),
+                    pathParameters: {'id': value.toString()},
+                  );
+                  },
                   imageUrl: specie.image,
                   heightImage:
                       size.height > size.width + 32.0 ? 288 : double.infinity,

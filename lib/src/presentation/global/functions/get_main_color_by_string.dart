@@ -1,6 +1,6 @@
 import 'package:species/src/presentation/global/colors.dart';
 
-Map<String, dynamic> getMainColorByString(int type) {
+Map<String, dynamic> getMainColorByInt(int type) {
   switch (type) {
     case 1:
       return {
