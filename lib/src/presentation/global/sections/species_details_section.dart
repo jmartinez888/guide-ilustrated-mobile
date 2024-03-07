@@ -54,11 +54,14 @@ class SpecieDetailsSection extends StatelessWidget {
                 child: CustomImageContainer(
                   mainColor: mainColor,
                   onTap: () {
-                   final value =  SpecieMapper.specieToSpecieFavorite(specie);
+                    SpecieFavorite specieFirebase =
+                        SpecieMapper.specieToSpecieFavorite(specie);
+                    final value = jsonEncode(specieFirebase.toJson());
+                    
                     context.pushNamed(
-                    Routes.specieImage,
-                    pathParameters: {'id': value.toString()},
-                  );
+                      Routes.specieImage,
+                      pathParameters: {'specie': value},
+                    ); 
                   },
                   imageUrl: specie.image,
                   heightImage:

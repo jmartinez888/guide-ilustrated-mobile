@@ -5,6 +5,9 @@ import 'package:species/src/domain/repositories/account/account_repository.dart'
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/pages/error/error_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/indigenous_community_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/indigenous_community_details_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/delete_account_page/delete_account_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/edit_profile_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/forgot_password/forgot_password_page.dart';
@@ -106,12 +109,12 @@ final appRouter = GoRouter(
                 builder: (_, __) => const SpeciesPage(),
                 routes: [
                   GoRoute(
-                    path: '${Routes.specieImage}/:id',
+                    path: '${Routes.specieImage}/:specie',
                     name: Routes.specieImage,
                     parentNavigatorKey: parentNavigatorKey,
                     builder: (_, state) {
-                      final id = state.pathParameters['id'];
-                      return ImageDetailsPage(specie: id.toString());
+                      final specie = state.pathParameters['specie'];
+                      return ImageDetailsPage(specie: specie!.toString());
                     },
                   ),
                   GoRoute(
@@ -241,23 +244,20 @@ final appRouter = GoRouter(
         GoRoute(
           path: Routes.indigenousCommunity,
           name: Routes.indigenousCommunity,
-          builder: (_, __) => const SizedBox(),
-          //builder: (_, __) => const IndigenousCommunityPage(),
+          builder: (_, __) => const IndigenousCommunityPage(),
           routes: [
             GoRoute(
               path: Routes.indigenousCommunitySearch,
               name: Routes.indigenousCommunitySearch,
               parentNavigatorKey: parentNavigatorKey,
-              builder: (_, __) => const SizedBox(),
-              //builder: (_, __) => const IndigenousCommunitySearchPage(),
+              builder: (_, __) => const IndigenousCommunitySearchPage(),
             ),
             GoRoute(
               path: ':id',
               name: Routes.indigenousCommunityDetails,
               builder: (_, state) {
                 final id = state.pathParameters['id'];
-                //return IndigenousCommunityDetailsPage(id: id.toString());
-                return const SizedBox();
+                return IndigenousCommunityDetailsPage(id: id.toString());
               },
             ),
           ],

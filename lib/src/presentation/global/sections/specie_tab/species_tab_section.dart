@@ -61,10 +61,18 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
             slivers: [
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
-                sliver: PagedSliverList<int, Specie>.separated(
+                sliver: PagedSliverGrid<int, Specie>(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 0.7),
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+
+                  ),
                   pagingController: widget.pagingController,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8.0),
+                  /* separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8.0), */
                   builderDelegate: PagedChildBuilderDelegate<Specie>(
                     animateTransitions: true,
                     transitionDuration: const Duration(milliseconds: 400),

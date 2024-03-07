@@ -23,7 +23,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
   late SpecieFavorite specie;
   @override
   void initState() {
-    specie = SpecieFavorite.fromJson(jsonDecode(widget.specie) as Map<String, dynamic>);
+    specie = SpecieFavorite.fromJson(jsonDecode(widget.specie));
     super.initState();
   }
   @override
