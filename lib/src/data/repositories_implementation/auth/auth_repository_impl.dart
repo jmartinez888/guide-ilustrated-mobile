@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:species/src/data/models/failure/user_acces/user_acces_failure.dart';
 import 'package:species/src/data/services/remote/auth_api.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/failures/session_request/session_request_failure.dart';
@@ -42,14 +43,15 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  String? isAcces() {
+  Either<UserAccesFailure, String> isAcces() {
     final currentUserFromAuthentication =
         _authApi.currentUserFromAuthentication();
-    if (currentUserFromAuthentication != null &&
-        currentUserFromAuthentication.emailVerified) {
-      return currentUserFromAuthentication.uid;
+    if (currentUserFromAuthentication == null) {
+      return Either.left(UserAccesFailure.empty());
+    } else if (currentUserFromAuthentication.emailVerified) {
+      return Either.right(currentUserFromAuthentication.uid);
     } else {
-      return null;
+      return Either.left(UserAccesFailure.emailIsNotVerified());
     }
   }
 }

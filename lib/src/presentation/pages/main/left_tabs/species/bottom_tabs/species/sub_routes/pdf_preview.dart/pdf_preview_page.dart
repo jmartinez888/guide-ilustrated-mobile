@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/presentation/global/colors.dart';
-import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
+import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfPreviewPage extends StatefulWidget {

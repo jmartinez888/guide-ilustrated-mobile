@@ -1,10 +1,11 @@
+import 'package:species/src/data/models/failure/user_acces/user_acces_failure.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:species/src/domain/failures/session_request/session_request_failure.dart';
 
 abstract class AuthRepository {
 
-  String? isAcces();
+  Either<UserAccesFailure, String> isAcces();
   
   Future<Either<SessionRequestFailure, UserCredential>> signUp({
     required String email,

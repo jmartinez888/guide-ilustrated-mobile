@@ -32,9 +32,11 @@ import 'package:species/src/domain/repositories/order/order_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/domain/repositories/state_of_conservation/state_of_conservation_repository.dart';
 import 'package:species/src/domain/repositories/taxonomy/taxonomy_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/my_app.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
+import 'package:species/src/presentation/global/states/lab_position_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/community_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/state/community_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/controller/community_details_controller.dart';
@@ -42,6 +44,8 @@ import 'package:species/src/domain/repositories/community/community_repository.d
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/controller/state/community_details_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/controller/species_page_tabs_up_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/controller/state/species_tabs_up_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/state/species_details_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/controller/amphibians_tab_controller.dart';
@@ -52,6 +56,8 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/palms_tab/controller/palms_tab_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/reptiles_tab/controller/reptiles_tab_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/trees_tab/controller/trees_tab_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/main_species/controller/bottom_tab_position_controller.dart';
+import 'package:species/src/presentation/pages/main/main_left_nav/controller/main_left_nav_controller.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -59,6 +65,7 @@ void main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
   WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
   // if (Platform.isIOS) {
   //   await Firebase.initializeApp(
   //       options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
@@ -68,6 +75,8 @@ void main() async {
   // }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  
 
   const String baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
 
@@ -213,8 +222,23 @@ void main() async {
             communityRepository: context.read(),
           ),
         ),
+        ChangeNotifierProvider<LeftTabController>(
+          create: (_) => LeftTabController(
+            TabPositionState(),
+          ),
+        ),
+        ChangeNotifierProvider<BottomTabPositionController>(
+          create: (_) => BottomTabPositionController(
+            TabPositionState(),
+          ),
+        ),
+        ChangeNotifierProvider<SpeciesTabsUpController>(
+          create: (_) => SpeciesTabsUpController(
+            SpeciesTabsUpState(),
+          ),
+        ),
       ],
-      child: const MyApp(),
+      child: TranslationProvider(child:  const MyApp()),
     ),
   );
 }

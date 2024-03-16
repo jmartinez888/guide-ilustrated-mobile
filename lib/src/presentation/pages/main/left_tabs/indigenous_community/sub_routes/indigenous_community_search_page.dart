@@ -87,7 +87,7 @@ class _IndigenousCommunitySearchPageState
                 min: true,
                 child: PagedListView<int, Community>(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
+                  padding: const EdgeInsets.all(16.0),
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<Community>(
                     firstPageErrorIndicatorBuilder: (context) {
@@ -117,8 +117,8 @@ class _IndigenousCommunitySearchPageState
                       ),
                       title: Text(item.name ?? 'Sin información'),
                       subtitle: Text(item.description ?? 'SIn información',
-                          maxLines: 3),
-                      trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                          maxLines: 2),
+                      trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                     ),
                   ),
                 ),

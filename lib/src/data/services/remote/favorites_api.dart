@@ -28,7 +28,7 @@ class FavoriteApi {
   }
  */
 
-Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
+  Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
     try {
       final querySnapshot = firebaseInstance
           .doc(userId)
@@ -51,7 +51,6 @@ Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
     }
   }
 
-
   Future<void> saveSpecieFavorite({
     required String userId,
     required SpecieFavorite specie,
@@ -73,4 +72,33 @@ Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
     final getUser = await docUser.get();
     getUser.reference.collection('favorites').doc(idSpecie.toString()).delete();
   }
+
+  Stream<bool> isFavorite({
+    required String userId,
+    required int idSpecie,
+  }) {
+    return firebaseInstance
+        .doc(userId)
+        .collection('favorites')
+        .doc(idSpecie.toString())
+        .snapshots()
+        .map((snapshot) => snapshot.exists);
+  }
 }
+
+/* FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('favorites')
+        .doc(widget.specie.id.toString())
+        .snapshots()
+        .map((snapshot) => snapshot.exists); */
+
+
+/* FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('favorites')
+        .doc(widget.specie.id.toString())
+        .snapshots()
+        .map((snapshot) => snapshot.exists); */

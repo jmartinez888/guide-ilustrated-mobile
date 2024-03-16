@@ -12,4 +12,9 @@ abstract class FavoriteRepository {
     required String userId,
     required int idSpecie,
   });
+
+  Stream<bool> isFavorite({
+      required String userId,
+      required int idSpecie,
+    });
 }

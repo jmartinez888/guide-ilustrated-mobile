@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/presentation/global/state_notifier.dart';
@@ -33,7 +31,6 @@ class FavoriteController extends StateNotifier<FavoritesState> {
 
   @override
   void dispose() {
-    print('🎈 Cerrando');
     _speciesSubscription?.cancel();
     super.dispose();
   }

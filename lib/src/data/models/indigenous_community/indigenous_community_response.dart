@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:species/src/data/models/indigenous_community/community_community_iiap.dart';
+import 'package:species/src/data/models/indigenous_community/community_community.dart';
 
 IndigenousCommunityIiapResponse villagesIndigenousVillagesIiapResponseFromJson(String str) => IndigenousCommunityIiapResponse.fromJson(json.decode(str));
 

@@ -1,0 +1,15 @@
+{
+    "title": "Especies",
+    "birds": "Aves",
+    "mammals": "Mamíferos",
+    "reptiles": "Reptiles",
+    "amphibians": "Anfibios",
+    "fishes": "Peces",
+    "insects": "Insectos",
+    "trees": "Árboles",
+    "palms": "Palmeras",
+    "deleteFavorite": "Quitar de favoritos",
+    "saveFavorite": "Guardar en favoritos",
+    "orderName": "Ordenar por nombre común",
+    "orderScientificName": "Ordenar por nombre científico"
+}

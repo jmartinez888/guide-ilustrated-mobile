@@ -1,11 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
+import 'package:species/src/domain/repositories/specie/specie_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
+import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
+import 'package:species/src/presentation/global/sections/grid_loading.dart';
+import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
+import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SpeciesTabSection extends StatefulWidget {
@@ -36,6 +51,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
   late Map<String, dynamic> mainOpaqueColor;
   late Color mainColor;
   late Color opaqueColor;
+  SessionController get sessionController => context.read();
 
   @override
   void initState() {
@@ -49,101 +65,136 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
     opaqueColor = mainOpaqueColor['opaque'];
     final orderByName = widget.state.orderByName;
     final orderAsc = widget.state.orderAsc;
+    final double width = MediaQuery.of(context).size.width;
+    final SessionController sessionControllerWatch = context.watch();
+    final sessionState = sessionControllerWatch.state;
+
     return Stack(
       children: [
         RefreshIndicator(
-          color: mainColor,
           onRefresh: widget.onRefresh,
-          child: CustomScrollView(
+          color: mainColor,
+          child: PagedMasonryGridView<int, Specie>(
+            padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 100.0),
             key: PageStorageKey(widget.type),
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            gridDelegateBuilder: (int childCount) {
+              return SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: buildMultiGrids(width),
+              );
+            },
+            pagingController: widget.pagingController,
             physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics()),
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16.0, 56.0, 16.0, 100.0),
-                sliver: PagedSliverGrid<int, Specie>(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 0.7),
-                        crossAxisSpacing: 8.0,
-                        mainAxisSpacing: 8.0,
-
-                  ),
-                  pagingController: widget.pagingController,
-                  /* separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8.0), */
-                  builderDelegate: PagedChildBuilderDelegate<Specie>(
-                    animateTransitions: true,
-                    transitionDuration: const Duration(milliseconds: 400),
-                    newPageErrorIndicatorBuilder: (context) => CustomGridCard(
-                      onTap: widget.retryLastFailedRequest,
-                      title: 'Algo salió mal, inténtalo de nuevo',
-                      image: Text('Falló'),
-                    ),
-                    itemBuilder: (context, specie, index) {
-                      return CustomGridCard(
-                        onTap: () => context.pushNamed(
-                          Routes.specieDetails,
-                          pathParameters: {'id': specie.id.toString()},
-                        ),
-                        principalColor: mainColor,
-                        backgroundColor: opaqueColor,
-                        image: Stack(
-                          children: [
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 48.0),
-                              color: Colors.white,
-                              child: CustomImageContainer(
-                                mainColor: mainColor,
-                                imageUrl: specie.image,
-                                heightImage: 232.0,
-                              ),
-                            ),
-                            if (specie.stateOfConservations != null &&
-                                specie.stateOfConservations!.isNotEmpty)
-                              Positioned(
-                                left: 8.0,
-                                bottom: 8.0,
-                                child: Row(
-                                  children: [
-                                    for (var statusImage
-                                        in specie.stateOfConservations!)
-                                      CustomImageContainer(
-                                        mainColor: mainColor,
-                                        borderRadius: BorderRadius.zero,
-                                        imageUrl: statusImage.image,
-                                        heightImage: 40.0,
-                                        width: 40.0,
-                                        progressIndicatorBuilder:
-                                            (_, __, ___) => const SizedBox(),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            Positioned(
-                              top: 8.0,
-                              right: 8.0,
-                              child: Row(
-                                children: [
-                                  if (specie.sound != null &&
-                                      specie.sound!.isNotEmpty)
-                                    const Icon(Icons.music_note_rounded),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        title: specie.name,
-                        subtitle: specie.scientificName,
-                        fontStyle: FontStyle.italic,
-                      );
-                    },
-                  ),
+            builderDelegate: PagedChildBuilderDelegate<Specie>(
+              animateTransitions: true,
+              transitionDuration: const Duration(milliseconds: 400),
+              newPageProgressIndicatorBuilder: (_) =>
+                  const SkeletonConatiner(height: 320.0),
+              firstPageErrorIndicatorBuilder: (context) => MessageException(
+                onPressed: widget.onRefresh,
+                lottie: 'assets/lotties/error_data.json',
+              ),
+              noItemsFoundIndicatorBuilder: (context) => MessageException(
+                onPressed:  widget.onRefresh,
+                text: 'Parece que no hay especies aquí',
+                lottie: 'assets/lotties/without_data.json',
+              ),
+              newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                onTap: widget.retryLastFailedRequest,
+                title: 'Algo salió mal, inténtalo de nuevo',
+                image: Padding(
+                  padding:
+                      const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+                  child: Lottie.asset('assets/lotties/error_data.json'),
                 ),
               ),
-            ],
+              firstPageProgressIndicatorBuilder: (_) => const Padding(
+                padding: EdgeInsets.only(top: 40.0),
+                child: GridLoading(),
+              ),
+             
+              itemBuilder: (context, specie, index) {
+                return CustomGridCard(
+                  onTap: () => context.pushNamed(
+                    Routes.specieDetails,
+                    pathParameters: {'id': specie.id.toString()},
+                  ),
+                  principalColor: mainColor,
+                  backgroundColor: opaqueColor,
+                  image: Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 48.0),
+                        color: Colors.white,
+                        child: CustomImageContainer(
+                          mainColor: mainColor,
+                          imageUrl: specie.image,
+                          heightImage: 232.0,
+                        ),
+                      ),
+                      if (specie.stateOfConservations != null &&
+                          specie.stateOfConservations!.isNotEmpty)
+                        Positioned(
+                          left: 8.0,
+                          bottom: 8.0,
+                          child: Row(
+                            children: [
+                              for (var statusImage
+                                  in specie.stateOfConservations!)
+                                CustomImageContainer(
+                                  mainColor: mainColor,
+                                  borderRadius: BorderRadius.zero,
+                                  imageUrl: statusImage.image,
+                                  heightImage: 40.0,
+                                  width: 40.0,
+                                  progressIndicatorBuilder: (_, __, ___) =>
+                                      const SizedBox(),
+                                ),
+                            ],
+                          ),
+                        ),
+                      Positioned(
+                        top: 8.0,
+                        right: 8.0,
+                        child: Wrap(
+                          spacing: 8.0,
+                          runSpacing: 8.0,
+                          children: [
+                            if (specie.sound != null &&
+                                specie.sound!.isNotEmpty)
+                              CustomIconButton(
+                                onPressed: null,
+                                iconColor: mainColor,
+                                icon: Icons.music_note_rounded,
+                              ),
+                            sessionState != null
+                                ? _FavoriteIcon(
+                                    userId: sessionState,
+                                    idSpecie: specie.id,
+                                    mainColor: mainColor,
+                                    opaqueColor: opaqueColor,
+                                  )
+                                : CustomIconButton(
+                                  tooltip: texts.species.saveFavorite,
+                                    icon: Icons.favorite_outline_rounded,
+                                    iconColor: mainColor,
+                                    onPressed: () {
+                                      context.pushNamed(Routes.signIn);
+                                    },
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  title: specie.name,
+                  subtitle: specie.scientificName,
+                  fontStyle: FontStyle.italic,
+                );
+              },
+            ),
           ),
         ),
         SizedBox(
@@ -162,7 +213,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                         ? Icons.text_rotate_vertical_rounded
                         : Icons.text_rotate_up_rounded)
                     : const SizedBox(),
-                label: const Text('Ordenar por nombre científico'),
+                label: Text(texts.species.orderScientificName),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     !orderByName ? mainColor : opaqueColor,
@@ -181,7 +232,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                           ? Icons.text_rotate_vertical_rounded
                           : Icons.text_rotate_up_rounded)
                       : const SizedBox(),
-                  label: const Text('Ordenar por nombre común'),
+                  label: Text(texts.species.orderName),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                       orderByName ? mainColor : opaqueColor,
@@ -196,6 +247,98 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _FavoriteIcon extends StatefulWidget {
+  final String userId;
+  final int idSpecie;
+  final Color mainColor;
+  final Color opaqueColor;
+
+  const _FavoriteIcon({
+    required this.userId,
+    required this.idSpecie,
+    required this.mainColor,
+    required this.opaqueColor,
+  });
+
+  @override
+  State<_FavoriteIcon> createState() => __FavoriteIconState();
+}
+
+class __FavoriteIconState extends State<_FavoriteIcon> {
+  FavoriteRepository get favoriteRepository => context.read();
+  SpecieRepository get specieRepository => context.read();
+  SessionController get sessionController => context.read();
+
+  late Stream<bool> isFavoriteStream;
+
+  @override
+  void initState() {
+    isFavoriteStream = favoriteRepository.isFavorite(
+        userId: widget.userId, idSpecie: widget.idSpecie);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+      stream: isFavoriteStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox();
+        }
+        final isFavorite = snapshot.data ?? false;
+
+        return CustomIconButton(
+          tooltip:
+              isFavorite ? texts.species.deleteFavorite : texts.species.saveFavorite,
+          icon: isFavorite
+              ? Icons.favorite_rounded
+              : Icons.favorite_outline_rounded,
+          iconColor: isFavorite ? Colors.white : widget.mainColor,
+          backgroundColor: isFavorite ? widget.mainColor : null,
+          onPressed: () async {
+            if (sessionController.state != null) {
+              if (isFavorite) {
+                await favoriteRepository.deleteSpecieFavorite(
+                    userId: widget.userId, idSpecie: widget.idSpecie);
+              } else {
+                final getSpecie = await specieRepository
+                    .getSpecie(widget.idSpecie.toString());
+                getSpecie.when(
+                  (httpRequestFailure) {
+                    final message = httpRequestFailure.when(
+                      network: () => 'Error de conexión',
+                      unknown: () => 'Error desconocido',
+                      notFound: () =>
+                          'No se pudo guardar la especie a favoritos',
+                    );
+                    customSnackBar(
+                      context: context,
+                      title: message,
+                      large: true,
+                      error: true,
+                    );
+                  },
+                  (specieResult) async {
+                    final specieValue =
+                        SpecieMapper.specieToSpecieFavorite(specieResult);
+                    await favoriteRepository.saveSpecieFavorite(
+                      userId: widget.userId,
+                      specie: specieValue,
+                    );
+                  },
+                );
+              }
+            } else {
+              context.pushNamed(Routes.signIn);
+            }
+          },
+        );
+      },
     );
   }
 }

@@ -112,7 +112,6 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   }
 
   Future<dynamic> _handleConfirmation(BuildContext currentContext) {
-    final colorScheme = Theme.of(context).colorScheme;
     return showDialog(
       context: currentContext,
       builder: (BuildContext context) {
@@ -169,7 +168,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     customSnackBar(
                       context: currentContext,
                       title: 'Ingrese su contraseña',
-                      backgroundColor: colorScheme.error,
+                      error: true,
                     );
                     setState(() {
                       enabled = true;
@@ -204,7 +203,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                         customSnackBar(
                           context: currentContext,
                           title: e.toString(),
-                          backgroundColor: colorScheme.error,
+                          error: true,
                         );
                       }
                     } finally {

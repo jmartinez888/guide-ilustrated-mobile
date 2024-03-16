@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/amphibians_tab_page.dart';
@@ -19,75 +20,77 @@ class SpeciesPage extends StatefulWidget {
 
 class _SpeciesPageState extends State<SpeciesPage>
     with SingleTickerProviderStateMixin {
-  static const List<Map<String, dynamic>> _pageData = [
+  final List<Map<String, dynamic>> _pageData = [
     {
-      'page': BirdsTabPage(),
+      'page': const BirdsTabPage(),
       'color': CustomColors.bird,
       'icon': CustomIcons.bird,
-      'label': 'Aves',
+      'label': texts.species.birds,
     },
     {
-      'page': MammalsTabPage(),
+      'page': const MammalsTabPage(),
       'color': CustomColors.mammal,
       'icon': CustomIcons.mammal,
-      'label': 'Mamíferos',
+      'label': texts.species.mammals,
     },
     {
-      'page': ReptilesTabPage(),
+      'page': const ReptilesTabPage(),
       'color': CustomColors.reptile,
       'icon': CustomIcons.reptile,
-      'label': 'Reptiles',
+      'label': texts.species.reptiles,
     },
     {
-      'page': AmphibiansTabPage(),
+      'page': const AmphibiansTabPage(),
       'color': CustomColors.reptile,
       'icon': CustomIcons.amphibian,
-      'label': 'Anfibios',
+      'label': texts.species.amphibians,
     },
     {
-      'page': FishesTabPage(),
+      'page': const FishesTabPage(),
       'color': CustomColors.fish,
       'icon': CustomIcons.fish,
-      'label': 'Peces',
+      'label': texts.species.fishes,
     },
     {
-      'page': InsectsTabPage(),
+      'page': const InsectsTabPage(),
       'color': CustomColors.insect,
       'icon': CustomIcons.insect,
-      'label': 'Insectos',
+      'label': texts.species.insects,
     },
     {
-      'page': TreesTabPage(),
+      'page': const TreesTabPage(),
       'color': CustomColors.tree,
       'icon': CustomIcons.tree,
-      'label': 'Árboles',
+      'label': texts.species.trees,
     },
     {
-      'page': PalmsTabPage(),
+      'page': const PalmsTabPage(),
       'color': CustomColors.palm,
       'icon': CustomIcons.palm,
-      'label': 'Palmeras',
+      'label': texts.species.palms,
     },
   ];
 
-  final List<Widget> _pages =
-      _pageData.map((page) => page['page'] as Widget).toList();
+  late List<Widget> _pages;
 
-  final List<Color> _tabIndicatorColor =
-      _pageData.map((color) => color['color'] as Color).toList();
+  late List<Color> _tabIndicatorColor;
 
-  final List<Tab> _tabs = _pageData.map((tab) {
-    return Tab(
-      icon: Icon(tab['icon']),
-      text: tab['label'],
-    );
-  }).toList();
+  late List<Tab> _tabs;
 
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _pages = _pageData.map((page) => page['page'] as Widget).toList();
+    _tabIndicatorColor =
+        _pageData.map((color) => color['color'] as Color).toList();
+    _tabs = _pageData.map((tab) {
+      return Tab(
+        icon: Icon(tab['icon']),
+        text: tab['label'],
+      );
+    }).toList();
     _tabController = TabController(length: _tabs.length, vsync: this);
     _tabController.addListener(_handleTabChange);
   }
@@ -131,7 +134,7 @@ class _SpeciesPageState extends State<SpeciesPage>
               children: [
                 Expanded(
                   child: Text(
-                    'Especies',
+                    texts.species.title,
                     style: textTheme.titleLarge,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

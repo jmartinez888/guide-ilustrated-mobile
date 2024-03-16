@@ -29,11 +29,11 @@ class _SplashPageState extends State<SplashPage> {
     getUserData();
 
     _timer = Timer(Duration(seconds: time), () {
-      ejecutarMetodo();
+      goApp();
     });
   }
 
-  void ejecutarMetodo() {
+  void goApp() {
     context.goNamed(Routes.species);
   }
 
@@ -45,9 +45,10 @@ class _SplashPageState extends State<SplashPage> {
 
   void getUserData() {
     final isAcces = authRepository.isAcces();
-    if (isAcces != null) {
-      sessionController.setUser(isAcces);
-    }
+    isAcces.when(
+      (_) => null,
+      (uid) => sessionController.setUser(uid),
+    );
   }
 
   @override

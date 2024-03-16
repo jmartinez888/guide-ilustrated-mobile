@@ -14,7 +14,7 @@ import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart
 import 'package:species/src/domain/entities/taxonomy/taxonomy.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
-import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
+import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
@@ -57,11 +57,11 @@ class SpecieDetailsSection extends StatelessWidget {
                     SpecieFavorite specieFirebase =
                         SpecieMapper.specieToSpecieFavorite(specie);
                     final value = jsonEncode(specieFirebase.toJson());
-                    
+
                     context.pushNamed(
                       Routes.specieImage,
                       pathParameters: {'specie': value},
-                    ); 
+                    );
                   },
                   imageUrl: specie.image,
                   heightImage:
@@ -477,14 +477,13 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
           onDownloadError: (error) => customSnackBar(
             title: 'Algo salió mal',
             context: context,
-            backgroundColor: Theme.of(context).colorScheme.error,
+            error: true,
           ),
           onDownloadCompleted: (progress) {
             setState(() => _progress = null);
             customSnackBar(
               title: 'Descarga finalizada',
               context: context,
-              backgroundColor: widget.mainColor,
             );
           },
           onProgress: (name, progress) => setState(() => _progress = progress),

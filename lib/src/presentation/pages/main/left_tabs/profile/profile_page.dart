@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_body.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_header.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -14,11 +15,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   AuthRepository get authRepository => context.read();
+  SessionController get sessionController => context.read();
+
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         AppBar(
@@ -29,6 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () async {
                 await authRepository.signOut();
                 if (mounted) {
+                  sessionController.signOut();
                   context.goNamed(Routes.species);
                 }
               },

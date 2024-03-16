@@ -5,6 +5,7 @@ import 'package:species/src/presentation/global/controller/session_controller.da
 
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
+import 'package:species/src/presentation/pages/main/main_left_nav/controller/main_left_nav_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class MainLeftNav extends StatefulWidget {
@@ -37,51 +38,8 @@ class MainLeftNav extends StatefulWidget {
           'label': 'Comunidades Indígenas',
           'icon_selected': CustomIcons.choza,
         },
-        // {
-        //   'label': 'Bardcoding',
-        //   'icon_selected': Icons.code_rounded,
-        // },
       ],
     },
-    // {
-    //   'title': 'Mapas',
-    //   'content': [
-    //     {
-    //       'label': 'Visor',
-    //       'icon_selected': Icons.location_on_rounded,
-    //       'icon_unselected': Icons.location_on_outlined,
-    //     },
-    //     {
-    //       'label': 'Mapas',
-    //       'icon_selected': Icons.map_rounded,
-    //       'icon_unselected': Icons.map_outlined,
-    //     },
-    //   ],
-    // },
-    // {
-    //   'title': 'Más Información',
-    //   'content': [
-    //     {
-    //       'label': 'Datos Biológicos',
-    //       'icon_selected': Icons.dataset_rounded,
-    //       'icon_unselected': Icons.dataset_outlined,
-    //     },
-    //     {
-    //       'label': 'Recursos Científicos',
-    //       'icon_selected': Icons.science_rounded,
-    //       'icon_unselected': Icons.science_outlined,
-    //     },
-    //     {
-    //       'label': 'Especialistas',
-    //       'icon_selected': Icons.biotech_rounded,
-    //       'icon_unselected': Icons.biotech_outlined,
-    //     },
-    //     {
-    //       'label': '¿Cómo depositar?',
-    //       'icon_selected': Icons.question_mark_rounded,
-    //     },
-    //   ],
-    // },
     {
       'title': 'Acerca de',
       'content': [
@@ -105,47 +63,7 @@ class MainLeftNav extends StatefulWidget {
 
 class _MainLeftNavState extends State<MainLeftNav> {
   SessionController get sessionController => context.read();
-  int selectedIndex = 0;
-
-  void _goBranch({
-    required int index,
-    required GlobalKey<ScaffoldState> scaffoldKey,
-    required BuildContext context,
-  }) {
-    setState(() {
-      selectedIndex = index;
-    });
-    switch (selectedIndex) {
-      case 0:
-        if (sessionController.state != null) {
-          context.goNamed(
-            Routes.profile,
-          );
-        }
-        break;
-      case 1:
-        context.goNamed(
-          Routes.species,
-        );
-        break;
-      case 2:
-        context.goNamed(
-          Routes.indigenousCommunity,
-        );
-        break;
-      case 3:
-        context.goNamed(
-          Routes.staff,
-        );
-        break;
-      case 4:
-        context.goNamed(
-          Routes.about,
-        );
-        break;
-    }
-    scaffoldKey.currentState?.openEndDrawer();
-  }
+  LeftTabController get leftTabController => context.read();
 
   List<Widget> _buildNavigationDrawerItems(BuildContext context) {
     List<Widget> items = [];
@@ -176,18 +94,62 @@ class _MainLeftNavState extends State<MainLeftNav> {
   }
 
   @override
+  void initState() {
+    leftTabController.changeTab(1);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
+    final LeftTabController controller = context.watch();
+    final position = controller.state.position;
     return Scaffold(
       key: scaffoldKey,
       drawer: NavigationDrawer(
         // selectedIndex: navigationShell.currentIndex,
-        selectedIndex: selectedIndex,
-        onDestinationSelected: (index) => _goBranch(
-          index: index,
-          scaffoldKey: scaffoldKey,
-          context: context,
-        ),
+        selectedIndex: position,
+        onDestinationSelected: (index) {
+          switch (index) {
+            case 0:
+              if (sessionController.state != null) {
+                context.goNamed(
+                  Routes.profile,
+                );
+                leftTabController.changeTab(index);
+              }
+              break;
+            case 1:
+              context.goNamed(
+                Routes.species,
+              );
+              leftTabController.changeTab(index);
+
+              break;
+            case 2:
+              context.goNamed(
+                Routes.indigenousCommunity,
+              );
+              leftTabController.changeTab(index);
+
+              break;
+            case 3:
+              context.goNamed(
+                Routes.staff,
+              );
+              leftTabController.changeTab(index);
+
+              break;
+            case 4:
+              context.goNamed(
+                Routes.about,
+              );
+              leftTabController.changeTab(index);
+
+              break;
+          }
+          scaffoldKey.currentState?.openEndDrawer();
+        },
         children: _buildNavigationDrawerItems(context),
       ),
       body: SafeArea(

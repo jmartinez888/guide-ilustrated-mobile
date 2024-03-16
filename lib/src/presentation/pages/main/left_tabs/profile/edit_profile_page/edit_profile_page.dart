@@ -30,7 +30,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   final FocusNode _lastnameFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
 
-   AccountRepository get _userIiapRepositoryImpl => context.read();
+  AccountRepository get _userIiapRepositoryImpl => context.read();
 
   bool enabled = true;
 
@@ -67,7 +67,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         customSnackBar(
           context: context,
           title: 'Error al cargar los datos del usuario',
-          backgroundColor: Colors.red,
+          error: true,
         );
       }
     }
@@ -214,7 +214,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
           customSnackBar(
             context: context,
             title: 'Error al guardar el perfil',
-            backgroundColor: Colors.red,
+            error: true,
           );
         }
 

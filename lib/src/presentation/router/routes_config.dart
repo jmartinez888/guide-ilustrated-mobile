@@ -10,6 +10,7 @@ import 'package:species/src/presentation/pages/main/left_tabs/indigenous_communi
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/delete_account_page/delete_account_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/edit_profile_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/sub_routes/specie_details_favorite/specie_details_favorite_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/forgot_password/forgot_password_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/sign_in/sign_in_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/sign_up/sign_up_page.dart';
@@ -17,8 +18,8 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/main_species.dart';
-import 'package:species/src/presentation/pages/main/main_left_nav.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/main_species/main_species.dart';
+import 'package:species/src/presentation/pages/main/main_left_nav/main_left_nav.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/profile_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/pdf_preview.dart/pdf_preview_page.dart';
@@ -212,9 +213,8 @@ final appRouter = GoRouter(
                     name: Routes.specieDetailsFavorite,
                     builder: (_, state) {
                       final specie = state.pathParameters['specie'];
-                      /* return SpecieDetailsFavoritePage(
-                                specie: specie.toString()); */
-                      return SizedBox();
+                       return SpecieDetailsFavoritePage(
+                                specie: specie.toString());
                     },
                   ),
                   GoRoute(

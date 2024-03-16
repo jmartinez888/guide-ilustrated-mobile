@@ -149,7 +149,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
           customSnackBar(
             context: screenContext,
             title: message,
-            backgroundColor: Theme.of(context).colorScheme.error,
+            error: true,
           );
         },
         (right) => showBottomSheet(
@@ -170,7 +170,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                 } else {
                   Navigator.of(context).pop();
                   context.pushNamed(Routes.signIn);
-                }
+                } 
               },
               child: const Icon(Icons.check_rounded),
             ),

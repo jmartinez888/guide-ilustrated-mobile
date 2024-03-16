@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 
 class CustomImageContainer extends StatelessWidget {
   final String? imageUrl;
@@ -47,19 +48,9 @@ class CustomImageContainer extends StatelessWidget {
                           width: double.infinity,
                           fit: fitImage ? BoxFit.cover : BoxFit.contain,
                           progressIndicatorBuilder: progressIndicatorBuilder ??
-                              (context, url, downloadProgress) => SizedBox(
-                                    height: heightImageInAnother,
-                                    width: width,
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: CircularProgressIndicator(
-                                          value: downloadProgress.progress,
-                                          color: mainColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                              (context, url, downloadProgress) => const SkeletonConatiner(
+                                height: 196.0,
+                              ), 
                           errorWidget: (context, url, error) => SizedBox(
                             height: heightImageInAnother ?? heightImage,
                             width: width,

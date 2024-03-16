@@ -3,10 +3,10 @@ import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 
 class FavoriteRepositoryImpl implements FavoriteRepository {
-
   final FavoriteApi _favoriteApi;
 
-  FavoriteRepositoryImpl({required FavoriteApi favoriteApi}) : _favoriteApi = favoriteApi;
+  FavoriteRepositoryImpl({required FavoriteApi favoriteApi})
+      : _favoriteApi = favoriteApi;
 
   @override
   Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
@@ -14,13 +14,23 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
   }
 
   @override
-  Future<void> saveSpecieFavorite({required String userId, required SpecieFavorite specie}) {
+  Future<void> saveSpecieFavorite(
+      {required String userId, required SpecieFavorite specie}) {
     return _favoriteApi.saveSpecieFavorite(userId: userId, specie: specie);
   }
-  
+
   @override
-  Future<void> deleteSpecieFavorite({required String userId, required int idSpecie}) {
-    return _favoriteApi.deleteSpecieFavorite(userId: userId, idSpecie: idSpecie);
+  Future<void> deleteSpecieFavorite(
+      {required String userId, required int idSpecie}) {
+    return _favoriteApi.deleteSpecieFavorite(
+        userId: userId, idSpecie: idSpecie);
   }
 
+  @override
+  Stream<bool> isFavorite({
+    required String userId,
+    required int idSpecie,
+  }) {
+    return _favoriteApi.isFavorite(userId: userId, idSpecie: idSpecie);
+  }
 }

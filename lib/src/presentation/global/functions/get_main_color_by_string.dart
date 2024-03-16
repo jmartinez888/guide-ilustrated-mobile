@@ -1,43 +1,43 @@
 import 'package:species/src/presentation/global/colors.dart';
 
-Map<String, dynamic> getMainColorByInt(int type) {
+Map<String, dynamic> getMainColorByString(String type) {
   switch (type) {
-    case 1:
+    case 'Aves':
       return {
         'main': CustomColors.bird,
         'opaque': CustomColors.birdContainer,
       };
-    case 2:
+    case 'Mamiferos':
       return {
         'main': CustomColors.mammal,
         'opaque': CustomColors.mammalContainer,
       };
-    case 3:
+    case 'Reptiles':
       return {
         'main': CustomColors.reptile,
         'opaque': CustomColors.reptileContainer,
       };
-    case 4:
+    case 'Anfibios':
       return {
         'main': CustomColors.reptile,
         'opaque': CustomColors.reptileContainer,
       };
-    case 5:
+    case 'Peces':
       return {
         'main': CustomColors.fish,
         'opaque': CustomColors.fishContainer,
       };
-    case 6:
+    case 'Insectos':
       return {
         'main': CustomColors.insect,
         'opaque': CustomColors.insectContainer,
       };
-    case 7:
+    case 'Árboles':
       return {
         'main': CustomColors.tree,
         'opaque': CustomColors.treeContainer,
       };
-    case 8:
+    case 'Palmeras':
       return {
         'main': CustomColors.palm,
         'opaque': CustomColors.palmContainer,
