@@ -1,0 +1,39 @@
+{
+    "failedRequest": "发生错误。请重试",
+    "recentlyAdded": "最近添加",
+    "nameFilter": {
+        "common": "常见",
+        "scientific": "科学",
+        "order": "排序方式"
+    },
+    "taxonomyFilter": "分类",
+    "orderFilter": "顺序",
+    "familyFilter": "家庭",
+    "soundFilter": {
+        "withSound": "有声音",
+        "withoutSound": "无声音",
+        "sound": "声音"
+    },
+    "conservationFilter": "保护",
+    "categoryFilter": {
+        "category": "类别",
+        "birds": "鸟类",
+        "mammals": "哺乳动物",
+        "reptiles": "爬行动物",
+        "amphibians": "两栖动物",
+        "fish": "鱼类",
+        "insects": "昆虫",
+        "plants": "植物",
+        "palms": "棕榈树"
+    },
+    "cleanFilters": "清除过滤器",
+    "searchSpecies": "搜索物种",
+    "cleanSearch": "清除搜索",
+    "errorFetchingTitle": "获取结果时出错",
+    "errorFetchingContent": "重试",
+    "notResultsTitle": "未找到结果",
+    "notResultsContent": "未找到结果。请尝试另一种搜索",
+    "errorFetchingSpecies": "未找到与您的搜索相关的物种。 请尝试使用其他类别，排序或科。",
+    "acceptText": "接受",
+    "updateText": "更新"
+}

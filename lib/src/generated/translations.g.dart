@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 260 (52 per locale)
+/// Strings: 415 (83 per locale)
 ///
-/// Built on 2024-03-22 at 16:12 UTC
+/// Built on 2024-03-22 at 17:26 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -152,6 +152,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
+	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
 	late final _TranslationsSpeciesEn species = _TranslationsSpeciesEn._(_root);
 	late final _TranslationsSpeciesDetailsEn speciesDetails = _TranslationsSpeciesDetailsEn._(_root);
@@ -168,6 +169,34 @@ class _TranslationsBottomBarEn {
 	String get home => 'Home';
 	String get search => 'Search';
 	String get favorites => 'Favorites';
+}
+
+// Path: searchPage
+class _TranslationsSearchPageEn {
+	_TranslationsSearchPageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get failedRequest => 'Something went wrong. Please try again';
+	String get recentlyAdded => 'Recently Added';
+	late final _TranslationsSearchPageNameFilterEn nameFilter = _TranslationsSearchPageNameFilterEn._(_root);
+	String get taxonomyFilter => 'Taxonomy';
+	String get orderFilter => 'Order';
+	String get familyFilter => 'Family';
+	late final _TranslationsSearchPageSoundFilterEn soundFilter = _TranslationsSearchPageSoundFilterEn._(_root);
+	String get conservationFilter => 'Conservation';
+	late final _TranslationsSearchPageCategoryFilterEn categoryFilter = _TranslationsSearchPageCategoryFilterEn._(_root);
+	String get cleanFilters => 'Clear Filters';
+	String get searchSpecies => 'Search species';
+	String get cleanSearch => 'Clear Search';
+	String get errorFetchingTitle => 'Error fetching results';
+	String get errorFetchingContent => 'Try again';
+	String get notResultsTitle => 'No results found';
+	String get notResultsContent => 'No results found. Try another search';
+	String get errorFetchingSpecies => 'No species found related to your search. Please try again with another class, order, or family.';
+	String get acceptText => 'Accept';
+	String get updateText => 'Update';
 }
 
 // Path: signIn
@@ -255,6 +284,48 @@ class _TranslationsUserCredentialFailureEn {
 	String get unknown => 'Unknown error';
 }
 
+// Path: searchPage.nameFilter
+class _TranslationsSearchPageNameFilterEn {
+	_TranslationsSearchPageNameFilterEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get common => 'Common';
+	String get scientific => 'Scientific';
+	String get order => 'Order by';
+}
+
+// Path: searchPage.soundFilter
+class _TranslationsSearchPageSoundFilterEn {
+	_TranslationsSearchPageSoundFilterEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get withSound => 'With sound';
+	String get withoutSound => 'Without sound';
+	String get sound => 'Sound';
+}
+
+// Path: searchPage.categoryFilter
+class _TranslationsSearchPageCategoryFilterEn {
+	_TranslationsSearchPageCategoryFilterEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get category => 'Category';
+	String get birds => 'Birds';
+	String get mammals => 'Mammals';
+	String get reptiles => 'Reptiles';
+	String get amphibians => 'Amphibians';
+	String get fish => 'Fish';
+	String get insects => 'Insects';
+	String get plants => 'Plants';
+	String get palms => 'Palms';
+}
+
 // Path: <root>
 class _TranslationsEs implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -280,6 +351,7 @@ class _TranslationsEs implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
+	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
 	@override late final _TranslationsSpeciesEs species = _TranslationsSpeciesEs._(_root);
 	@override late final _TranslationsSpeciesDetailsEs speciesDetails = _TranslationsSpeciesDetailsEs._(_root);
@@ -296,6 +368,34 @@ class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	@override String get home => 'inicio';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'favoritos';
+}
+
+// Path: searchPage
+class _TranslationsSearchPageEs implements _TranslationsSearchPageEn {
+	_TranslationsSearchPageEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get failedRequest => 'Algo salió mal. Inténtalo de nuevo';
+	@override String get recentlyAdded => 'Recién agregado';
+	@override late final _TranslationsSearchPageNameFilterEs nameFilter = _TranslationsSearchPageNameFilterEs._(_root);
+	@override String get taxonomyFilter => 'Taxonomía';
+	@override String get orderFilter => 'Orden';
+	@override String get familyFilter => 'Familia';
+	@override late final _TranslationsSearchPageSoundFilterEs soundFilter = _TranslationsSearchPageSoundFilterEs._(_root);
+	@override String get conservationFilter => 'Conservación';
+	@override late final _TranslationsSearchPageCategoryFilterEs categoryFilter = _TranslationsSearchPageCategoryFilterEs._(_root);
+	@override String get cleanFilters => 'Limpiar filtros';
+	@override String get searchSpecies => 'Buscar especies';
+	@override String get cleanSearch => 'Limpiar búsqueda';
+	@override String get errorFetchingTitle => 'Error al obtener resultados';
+	@override String get errorFetchingContent => 'Inténtalo de nuevo';
+	@override String get notResultsTitle => 'No se encontraron resultados';
+	@override String get notResultsContent => 'No se encontraron resultados. Prueba otra búsqueda';
+	@override String get errorFetchingSpecies => 'No se encontraron especies relacionadas con tu búsqueda. Por favor, intenta nuevamente con otra clase, orden o familia.';
+	@override String get acceptText => 'Aceptar';
+	@override String get updateText => 'Actualizar';
 }
 
 // Path: signIn
@@ -383,6 +483,48 @@ class _TranslationsUserCredentialFailureEs implements _TranslationsUserCredentia
 	@override String get unknown => 'Error desconocido';
 }
 
+// Path: searchPage.nameFilter
+class _TranslationsSearchPageNameFilterEs implements _TranslationsSearchPageNameFilterEn {
+	_TranslationsSearchPageNameFilterEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get common => 'Común';
+	@override String get scientific => 'Científico';
+	@override String get order => 'Ordenar por';
+}
+
+// Path: searchPage.soundFilter
+class _TranslationsSearchPageSoundFilterEs implements _TranslationsSearchPageSoundFilterEn {
+	_TranslationsSearchPageSoundFilterEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get withSound => 'Con sonido';
+	@override String get withoutSound => 'Sin sonido';
+	@override String get sound => 'Sonido';
+}
+
+// Path: searchPage.categoryFilter
+class _TranslationsSearchPageCategoryFilterEs implements _TranslationsSearchPageCategoryFilterEn {
+	_TranslationsSearchPageCategoryFilterEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get category => 'Categoría';
+	@override String get birds => 'Aves';
+	@override String get mammals => 'Mamíferos';
+	@override String get reptiles => 'Reptiles';
+	@override String get amphibians => 'Anfibios';
+	@override String get fish => 'Peces';
+	@override String get insects => 'Insectos';
+	@override String get plants => 'Plantas';
+	@override String get palms => 'Palmeras';
+}
+
 // Path: <root>
 class _TranslationsFr implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -408,6 +550,7 @@ class _TranslationsFr implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
+	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
 	@override late final _TranslationsSpeciesFr species = _TranslationsSpeciesFr._(_root);
 	@override late final _TranslationsSpeciesDetailsFr speciesDetails = _TranslationsSpeciesDetailsFr._(_root);
@@ -424,6 +567,34 @@ class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	@override String get home => 'Accueil';
 	@override String get search => 'Rechercher';
 	@override String get favorites => 'Favoris';
+}
+
+// Path: searchPage
+class _TranslationsSearchPageFr implements _TranslationsSearchPageEn {
+	_TranslationsSearchPageFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get failedRequest => 'Quelque chose s\'est mal passé. Veuillez réessayer';
+	@override String get recentlyAdded => 'Récemment ajouté';
+	@override late final _TranslationsSearchPageNameFilterFr nameFilter = _TranslationsSearchPageNameFilterFr._(_root);
+	@override String get taxonomyFilter => 'Taxonomie';
+	@override String get orderFilter => 'Ordre';
+	@override String get familyFilter => 'Famille';
+	@override late final _TranslationsSearchPageSoundFilterFr soundFilter = _TranslationsSearchPageSoundFilterFr._(_root);
+	@override String get conservationFilter => 'Conservation';
+	@override late final _TranslationsSearchPageCategoryFilterFr categoryFilter = _TranslationsSearchPageCategoryFilterFr._(_root);
+	@override String get cleanFilters => 'Effacer les filtres';
+	@override String get searchSpecies => 'Rechercher des espèces';
+	@override String get cleanSearch => 'Effacer la recherche';
+	@override String get errorFetchingTitle => 'Erreur lors de la récupération des résultats';
+	@override String get errorFetchingContent => 'Réessayer';
+	@override String get notResultsTitle => 'Aucun résultat trouvé';
+	@override String get notResultsContent => 'Aucun résultat trouvé. Essayez une autre recherche';
+	@override String get errorFetchingSpecies => 'Aucune espèce trouvée liée à votre recherche. Veuillez réessayer avec une autre classe, ordre ou famille.';
+	@override String get acceptText => 'Accepter';
+	@override String get updateText => 'Mettre à jour';
 }
 
 // Path: signIn
@@ -511,6 +682,48 @@ class _TranslationsUserCredentialFailureFr implements _TranslationsUserCredentia
 	@override String get unknown => 'Erreur inconnue';
 }
 
+// Path: searchPage.nameFilter
+class _TranslationsSearchPageNameFilterFr implements _TranslationsSearchPageNameFilterEn {
+	_TranslationsSearchPageNameFilterFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get common => 'Commun';
+	@override String get scientific => 'Scientifique';
+	@override String get order => 'Trier par';
+}
+
+// Path: searchPage.soundFilter
+class _TranslationsSearchPageSoundFilterFr implements _TranslationsSearchPageSoundFilterEn {
+	_TranslationsSearchPageSoundFilterFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get withSound => 'Avec son';
+	@override String get withoutSound => 'Sans son';
+	@override String get sound => 'Son';
+}
+
+// Path: searchPage.categoryFilter
+class _TranslationsSearchPageCategoryFilterFr implements _TranslationsSearchPageCategoryFilterEn {
+	_TranslationsSearchPageCategoryFilterFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get category => 'Catégorie';
+	@override String get birds => 'Oiseaux';
+	@override String get mammals => 'Mammifères';
+	@override String get reptiles => 'Reptiles';
+	@override String get amphibians => 'Amphibiens';
+	@override String get fish => 'Poissons';
+	@override String get insects => 'Insectes';
+	@override String get plants => 'Plantes';
+	@override String get palms => 'Palmiers';
+}
+
 // Path: <root>
 class _TranslationsPt implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -536,6 +749,7 @@ class _TranslationsPt implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
+	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
 	@override late final _TranslationsSpeciesPt species = _TranslationsSpeciesPt._(_root);
 	@override late final _TranslationsSpeciesDetailsPt speciesDetails = _TranslationsSpeciesDetailsPt._(_root);
@@ -552,6 +766,34 @@ class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	@override String get home => 'Início';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: searchPage
+class _TranslationsSearchPagePt implements _TranslationsSearchPageEn {
+	_TranslationsSearchPagePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get failedRequest => 'Algo deu errado. Por favor, tente novamente';
+	@override String get recentlyAdded => 'Recentemente adicionado';
+	@override late final _TranslationsSearchPageNameFilterPt nameFilter = _TranslationsSearchPageNameFilterPt._(_root);
+	@override String get taxonomyFilter => 'Taxonomia';
+	@override String get orderFilter => 'Ordem';
+	@override String get familyFilter => 'Família';
+	@override late final _TranslationsSearchPageSoundFilterPt soundFilter = _TranslationsSearchPageSoundFilterPt._(_root);
+	@override String get conservationFilter => 'Conservação';
+	@override late final _TranslationsSearchPageCategoryFilterPt categoryFilter = _TranslationsSearchPageCategoryFilterPt._(_root);
+	@override String get cleanFilters => 'Limpar filtros';
+	@override String get searchSpecies => 'Pesquisar espécies';
+	@override String get cleanSearch => 'Limpar pesquisa';
+	@override String get errorFetchingTitle => 'Erro ao buscar resultados';
+	@override String get errorFetchingContent => 'Tente novamente';
+	@override String get notResultsTitle => 'Nenhum resultado encontrado';
+	@override String get notResultsContent => 'Nenhum resultado encontrado. Tente outra pesquisa';
+	@override String get errorFetchingSpecies => 'Nenhuma espécie encontrada relacionada à sua busca. Por favor, tente novamente com outra classe, ordem ou família.';
+	@override String get acceptText => 'Aceitar';
+	@override String get updateText => 'Atualizar';
 }
 
 // Path: signIn
@@ -639,6 +881,48 @@ class _TranslationsUserCredentialFailurePt implements _TranslationsUserCredentia
 	@override String get unknown => 'Erro desconhecido';
 }
 
+// Path: searchPage.nameFilter
+class _TranslationsSearchPageNameFilterPt implements _TranslationsSearchPageNameFilterEn {
+	_TranslationsSearchPageNameFilterPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get common => 'Comum';
+	@override String get scientific => 'Científico';
+	@override String get order => 'Ordenar por';
+}
+
+// Path: searchPage.soundFilter
+class _TranslationsSearchPageSoundFilterPt implements _TranslationsSearchPageSoundFilterEn {
+	_TranslationsSearchPageSoundFilterPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get withSound => 'Com som';
+	@override String get withoutSound => 'Sem som';
+	@override String get sound => 'Som';
+}
+
+// Path: searchPage.categoryFilter
+class _TranslationsSearchPageCategoryFilterPt implements _TranslationsSearchPageCategoryFilterEn {
+	_TranslationsSearchPageCategoryFilterPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get category => 'Categoria';
+	@override String get birds => 'Aves';
+	@override String get mammals => 'Mamíferos';
+	@override String get reptiles => 'Répteis';
+	@override String get amphibians => 'Anfíbios';
+	@override String get fish => 'Peixes';
+	@override String get insects => 'Insetos';
+	@override String get plants => 'Plantas';
+	@override String get palms => 'Palmeiras';
+}
+
 // Path: <root>
 class _TranslationsZh implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -664,6 +948,7 @@ class _TranslationsZh implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
+	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
 	@override late final _TranslationsSpeciesZh species = _TranslationsSpeciesZh._(_root);
 	@override late final _TranslationsSpeciesDetailsZh speciesDetails = _TranslationsSpeciesDetailsZh._(_root);
@@ -680,6 +965,34 @@ class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	@override String get home => '首页';
 	@override String get search => '搜索';
 	@override String get favorites => '收藏夹';
+}
+
+// Path: searchPage
+class _TranslationsSearchPageZh implements _TranslationsSearchPageEn {
+	_TranslationsSearchPageZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get failedRequest => '发生错误。请重试';
+	@override String get recentlyAdded => '最近添加';
+	@override late final _TranslationsSearchPageNameFilterZh nameFilter = _TranslationsSearchPageNameFilterZh._(_root);
+	@override String get taxonomyFilter => '分类';
+	@override String get orderFilter => '顺序';
+	@override String get familyFilter => '家庭';
+	@override late final _TranslationsSearchPageSoundFilterZh soundFilter = _TranslationsSearchPageSoundFilterZh._(_root);
+	@override String get conservationFilter => '保护';
+	@override late final _TranslationsSearchPageCategoryFilterZh categoryFilter = _TranslationsSearchPageCategoryFilterZh._(_root);
+	@override String get cleanFilters => '清除过滤器';
+	@override String get searchSpecies => '搜索物种';
+	@override String get cleanSearch => '清除搜索';
+	@override String get errorFetchingTitle => '获取结果时出错';
+	@override String get errorFetchingContent => '重试';
+	@override String get notResultsTitle => '未找到结果';
+	@override String get notResultsContent => '未找到结果。请尝试另一种搜索';
+	@override String get errorFetchingSpecies => '未找到与您的搜索相关的物种。 请尝试使用其他类别，排序或科。';
+	@override String get acceptText => '接受';
+	@override String get updateText => '更新';
 }
 
 // Path: signIn
@@ -767,6 +1080,48 @@ class _TranslationsUserCredentialFailureZh implements _TranslationsUserCredentia
 	@override String get unknown => '未知错误';
 }
 
+// Path: searchPage.nameFilter
+class _TranslationsSearchPageNameFilterZh implements _TranslationsSearchPageNameFilterEn {
+	_TranslationsSearchPageNameFilterZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get common => '常见';
+	@override String get scientific => '科学';
+	@override String get order => '排序方式';
+}
+
+// Path: searchPage.soundFilter
+class _TranslationsSearchPageSoundFilterZh implements _TranslationsSearchPageSoundFilterEn {
+	_TranslationsSearchPageSoundFilterZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get withSound => '有声音';
+	@override String get withoutSound => '无声音';
+	@override String get sound => '声音';
+}
+
+// Path: searchPage.categoryFilter
+class _TranslationsSearchPageCategoryFilterZh implements _TranslationsSearchPageCategoryFilterEn {
+	_TranslationsSearchPageCategoryFilterZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get category => '类别';
+	@override String get birds => '鸟类';
+	@override String get mammals => '哺乳动物';
+	@override String get reptiles => '爬行动物';
+	@override String get amphibians => '两栖动物';
+	@override String get fish => '鱼类';
+	@override String get insects => '昆虫';
+	@override String get plants => '植物';
+	@override String get palms => '棕榈树';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -776,6 +1131,37 @@ extension on Translations {
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
+			case 'searchPage.failedRequest': return 'Something went wrong. Please try again';
+			case 'searchPage.recentlyAdded': return 'Recently Added';
+			case 'searchPage.nameFilter.common': return 'Common';
+			case 'searchPage.nameFilter.scientific': return 'Scientific';
+			case 'searchPage.nameFilter.order': return 'Order by';
+			case 'searchPage.taxonomyFilter': return 'Taxonomy';
+			case 'searchPage.orderFilter': return 'Order';
+			case 'searchPage.familyFilter': return 'Family';
+			case 'searchPage.soundFilter.withSound': return 'With sound';
+			case 'searchPage.soundFilter.withoutSound': return 'Without sound';
+			case 'searchPage.soundFilter.sound': return 'Sound';
+			case 'searchPage.conservationFilter': return 'Conservation';
+			case 'searchPage.categoryFilter.category': return 'Category';
+			case 'searchPage.categoryFilter.birds': return 'Birds';
+			case 'searchPage.categoryFilter.mammals': return 'Mammals';
+			case 'searchPage.categoryFilter.reptiles': return 'Reptiles';
+			case 'searchPage.categoryFilter.amphibians': return 'Amphibians';
+			case 'searchPage.categoryFilter.fish': return 'Fish';
+			case 'searchPage.categoryFilter.insects': return 'Insects';
+			case 'searchPage.categoryFilter.plants': return 'Plants';
+			case 'searchPage.categoryFilter.palms': return 'Palms';
+			case 'searchPage.cleanFilters': return 'Clear Filters';
+			case 'searchPage.searchSpecies': return 'Search species';
+			case 'searchPage.cleanSearch': return 'Clear Search';
+			case 'searchPage.errorFetchingTitle': return 'Error fetching results';
+			case 'searchPage.errorFetchingContent': return 'Try again';
+			case 'searchPage.notResultsTitle': return 'No results found';
+			case 'searchPage.notResultsContent': return 'No results found. Try another search';
+			case 'searchPage.errorFetchingSpecies': return 'No species found related to your search. Please try again with another class, order, or family.';
+			case 'searchPage.acceptText': return 'Accept';
+			case 'searchPage.updateText': return 'Update';
 			case 'signIn.title': return 'Amazon';
 			case 'signIn.subtitle': return 'Illustrated Guide to Flora and Fauna';
 			case 'signIn.email': return 'E-Mail';
@@ -836,6 +1222,37 @@ extension on _TranslationsEs {
 			case 'bottomBar.home': return 'inicio';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'favoritos';
+			case 'searchPage.failedRequest': return 'Algo salió mal. Inténtalo de nuevo';
+			case 'searchPage.recentlyAdded': return 'Recién agregado';
+			case 'searchPage.nameFilter.common': return 'Común';
+			case 'searchPage.nameFilter.scientific': return 'Científico';
+			case 'searchPage.nameFilter.order': return 'Ordenar por';
+			case 'searchPage.taxonomyFilter': return 'Taxonomía';
+			case 'searchPage.orderFilter': return 'Orden';
+			case 'searchPage.familyFilter': return 'Familia';
+			case 'searchPage.soundFilter.withSound': return 'Con sonido';
+			case 'searchPage.soundFilter.withoutSound': return 'Sin sonido';
+			case 'searchPage.soundFilter.sound': return 'Sonido';
+			case 'searchPage.conservationFilter': return 'Conservación';
+			case 'searchPage.categoryFilter.category': return 'Categoría';
+			case 'searchPage.categoryFilter.birds': return 'Aves';
+			case 'searchPage.categoryFilter.mammals': return 'Mamíferos';
+			case 'searchPage.categoryFilter.reptiles': return 'Reptiles';
+			case 'searchPage.categoryFilter.amphibians': return 'Anfibios';
+			case 'searchPage.categoryFilter.fish': return 'Peces';
+			case 'searchPage.categoryFilter.insects': return 'Insectos';
+			case 'searchPage.categoryFilter.plants': return 'Plantas';
+			case 'searchPage.categoryFilter.palms': return 'Palmeras';
+			case 'searchPage.cleanFilters': return 'Limpiar filtros';
+			case 'searchPage.searchSpecies': return 'Buscar especies';
+			case 'searchPage.cleanSearch': return 'Limpiar búsqueda';
+			case 'searchPage.errorFetchingTitle': return 'Error al obtener resultados';
+			case 'searchPage.errorFetchingContent': return 'Inténtalo de nuevo';
+			case 'searchPage.notResultsTitle': return 'No se encontraron resultados';
+			case 'searchPage.notResultsContent': return 'No se encontraron resultados. Prueba otra búsqueda';
+			case 'searchPage.errorFetchingSpecies': return 'No se encontraron especies relacionadas con tu búsqueda. Por favor, intenta nuevamente con otra clase, orden o familia.';
+			case 'searchPage.acceptText': return 'Aceptar';
+			case 'searchPage.updateText': return 'Actualizar';
 			case 'signIn.title': return 'Amazonía';
 			case 'signIn.subtitle': return 'Guía ilustrada de flora y fauna';
 			case 'signIn.email': return 'E-Mail';
@@ -896,6 +1313,37 @@ extension on _TranslationsFr {
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
+			case 'searchPage.failedRequest': return 'Quelque chose s\'est mal passé. Veuillez réessayer';
+			case 'searchPage.recentlyAdded': return 'Récemment ajouté';
+			case 'searchPage.nameFilter.common': return 'Commun';
+			case 'searchPage.nameFilter.scientific': return 'Scientifique';
+			case 'searchPage.nameFilter.order': return 'Trier par';
+			case 'searchPage.taxonomyFilter': return 'Taxonomie';
+			case 'searchPage.orderFilter': return 'Ordre';
+			case 'searchPage.familyFilter': return 'Famille';
+			case 'searchPage.soundFilter.withSound': return 'Avec son';
+			case 'searchPage.soundFilter.withoutSound': return 'Sans son';
+			case 'searchPage.soundFilter.sound': return 'Son';
+			case 'searchPage.conservationFilter': return 'Conservation';
+			case 'searchPage.categoryFilter.category': return 'Catégorie';
+			case 'searchPage.categoryFilter.birds': return 'Oiseaux';
+			case 'searchPage.categoryFilter.mammals': return 'Mammifères';
+			case 'searchPage.categoryFilter.reptiles': return 'Reptiles';
+			case 'searchPage.categoryFilter.amphibians': return 'Amphibiens';
+			case 'searchPage.categoryFilter.fish': return 'Poissons';
+			case 'searchPage.categoryFilter.insects': return 'Insectes';
+			case 'searchPage.categoryFilter.plants': return 'Plantes';
+			case 'searchPage.categoryFilter.palms': return 'Palmiers';
+			case 'searchPage.cleanFilters': return 'Effacer les filtres';
+			case 'searchPage.searchSpecies': return 'Rechercher des espèces';
+			case 'searchPage.cleanSearch': return 'Effacer la recherche';
+			case 'searchPage.errorFetchingTitle': return 'Erreur lors de la récupération des résultats';
+			case 'searchPage.errorFetchingContent': return 'Réessayer';
+			case 'searchPage.notResultsTitle': return 'Aucun résultat trouvé';
+			case 'searchPage.notResultsContent': return 'Aucun résultat trouvé. Essayez une autre recherche';
+			case 'searchPage.errorFetchingSpecies': return 'Aucune espèce trouvée liée à votre recherche. Veuillez réessayer avec une autre classe, ordre ou famille.';
+			case 'searchPage.acceptText': return 'Accepter';
+			case 'searchPage.updateText': return 'Mettre à jour';
 			case 'signIn.title': return 'Forêt amazonienne';
 			case 'signIn.subtitle': return 'Guide illustré de la flore et de la faune';
 			case 'signIn.email': return 'E-Mail';
@@ -956,6 +1404,37 @@ extension on _TranslationsPt {
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'searchPage.failedRequest': return 'Algo deu errado. Por favor, tente novamente';
+			case 'searchPage.recentlyAdded': return 'Recentemente adicionado';
+			case 'searchPage.nameFilter.common': return 'Comum';
+			case 'searchPage.nameFilter.scientific': return 'Científico';
+			case 'searchPage.nameFilter.order': return 'Ordenar por';
+			case 'searchPage.taxonomyFilter': return 'Taxonomia';
+			case 'searchPage.orderFilter': return 'Ordem';
+			case 'searchPage.familyFilter': return 'Família';
+			case 'searchPage.soundFilter.withSound': return 'Com som';
+			case 'searchPage.soundFilter.withoutSound': return 'Sem som';
+			case 'searchPage.soundFilter.sound': return 'Som';
+			case 'searchPage.conservationFilter': return 'Conservação';
+			case 'searchPage.categoryFilter.category': return 'Categoria';
+			case 'searchPage.categoryFilter.birds': return 'Aves';
+			case 'searchPage.categoryFilter.mammals': return 'Mamíferos';
+			case 'searchPage.categoryFilter.reptiles': return 'Répteis';
+			case 'searchPage.categoryFilter.amphibians': return 'Anfíbios';
+			case 'searchPage.categoryFilter.fish': return 'Peixes';
+			case 'searchPage.categoryFilter.insects': return 'Insetos';
+			case 'searchPage.categoryFilter.plants': return 'Plantas';
+			case 'searchPage.categoryFilter.palms': return 'Palmeiras';
+			case 'searchPage.cleanFilters': return 'Limpar filtros';
+			case 'searchPage.searchSpecies': return 'Pesquisar espécies';
+			case 'searchPage.cleanSearch': return 'Limpar pesquisa';
+			case 'searchPage.errorFetchingTitle': return 'Erro ao buscar resultados';
+			case 'searchPage.errorFetchingContent': return 'Tente novamente';
+			case 'searchPage.notResultsTitle': return 'Nenhum resultado encontrado';
+			case 'searchPage.notResultsContent': return 'Nenhum resultado encontrado. Tente outra pesquisa';
+			case 'searchPage.errorFetchingSpecies': return 'Nenhuma espécie encontrada relacionada à sua busca. Por favor, tente novamente com outra classe, ordem ou família.';
+			case 'searchPage.acceptText': return 'Aceitar';
+			case 'searchPage.updateText': return 'Atualizar';
 			case 'signIn.title': return 'Floresta Amazônica';
 			case 'signIn.subtitle': return 'Guia Ilustrado de Flora e Fauna';
 			case 'signIn.email': return 'E-Mail';
@@ -1016,6 +1495,37 @@ extension on _TranslationsZh {
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';
+			case 'searchPage.failedRequest': return '发生错误。请重试';
+			case 'searchPage.recentlyAdded': return '最近添加';
+			case 'searchPage.nameFilter.common': return '常见';
+			case 'searchPage.nameFilter.scientific': return '科学';
+			case 'searchPage.nameFilter.order': return '排序方式';
+			case 'searchPage.taxonomyFilter': return '分类';
+			case 'searchPage.orderFilter': return '顺序';
+			case 'searchPage.familyFilter': return '家庭';
+			case 'searchPage.soundFilter.withSound': return '有声音';
+			case 'searchPage.soundFilter.withoutSound': return '无声音';
+			case 'searchPage.soundFilter.sound': return '声音';
+			case 'searchPage.conservationFilter': return '保护';
+			case 'searchPage.categoryFilter.category': return '类别';
+			case 'searchPage.categoryFilter.birds': return '鸟类';
+			case 'searchPage.categoryFilter.mammals': return '哺乳动物';
+			case 'searchPage.categoryFilter.reptiles': return '爬行动物';
+			case 'searchPage.categoryFilter.amphibians': return '两栖动物';
+			case 'searchPage.categoryFilter.fish': return '鱼类';
+			case 'searchPage.categoryFilter.insects': return '昆虫';
+			case 'searchPage.categoryFilter.plants': return '植物';
+			case 'searchPage.categoryFilter.palms': return '棕榈树';
+			case 'searchPage.cleanFilters': return '清除过滤器';
+			case 'searchPage.searchSpecies': return '搜索物种';
+			case 'searchPage.cleanSearch': return '清除搜索';
+			case 'searchPage.errorFetchingTitle': return '获取结果时出错';
+			case 'searchPage.errorFetchingContent': return '重试';
+			case 'searchPage.notResultsTitle': return '未找到结果';
+			case 'searchPage.notResultsContent': return '未找到结果。请尝试另一种搜索';
+			case 'searchPage.errorFetchingSpecies': return '未找到与您的搜索相关的物种。 请尝试使用其他类别，排序或科。';
+			case 'searchPage.acceptText': return '接受';
+			case 'searchPage.updateText': return '更新';
 			case 'signIn.title': return '亚马逊雨林';
 			case 'signIn.subtitle': return '植物和动物图鉴';
 			case 'signIn.email': return '电子邮件';
