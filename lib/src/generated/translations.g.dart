@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 605 (121 per locale)
+/// Strings: 635 (127 per locale)
 ///
-/// Built on 2024-03-22 at 22:45 UTC
+/// Built on 2024-03-22 at 22:58 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -152,6 +152,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
+	late final _TranslationsFavoritesEn favorites = _TranslationsFavoritesEn._(_root);
 	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
 	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
@@ -172,6 +173,21 @@ class _TranslationsBottomBarEn {
 	String get home => 'Home';
 	String get search => 'Search';
 	String get favorites => 'Favorites';
+}
+
+// Path: favorites
+class _TranslationsFavoritesEn {
+	_TranslationsFavoritesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Favorites';
+	String get hintText => 'Search your favorite';
+	String get close => 'Close';
+	String get search => 'Search';
+	String get exceptionText => 'No species here yet';
+	String get deleteFavorite => 'Remove from favorites';
 }
 
 // Path: forgotPassword
@@ -479,6 +495,7 @@ class _TranslationsEs implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
+	@override late final _TranslationsFavoritesEs favorites = _TranslationsFavoritesEs._(_root);
 	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
 	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
@@ -499,6 +516,21 @@ class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	@override String get home => 'inicio';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'favoritos';
+}
+
+// Path: favorites
+class _TranslationsFavoritesEs implements _TranslationsFavoritesEn {
+	_TranslationsFavoritesEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoritos';
+	@override String get hintText => 'Busca tu favorito';
+	@override String get close => 'Cerrar';
+	@override String get search => 'Buscar';
+	@override String get exceptionText => 'Aún no hay especies aquí';
+	@override String get deleteFavorite => 'Quitar de favoritos';
 }
 
 // Path: forgotPassword
@@ -806,6 +838,7 @@ class _TranslationsFr implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
+	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
 	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
 	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
@@ -826,6 +859,21 @@ class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	@override String get home => 'Accueil';
 	@override String get search => 'Rechercher';
 	@override String get favorites => 'Favoris';
+}
+
+// Path: favorites
+class _TranslationsFavoritesFr implements _TranslationsFavoritesEn {
+	_TranslationsFavoritesFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoris';
+	@override String get hintText => 'Recherchez votre favori';
+	@override String get close => 'Fermer';
+	@override String get search => 'Chercher';
+	@override String get exceptionText => 'Pas encore d\'espèces ici';
+	@override String get deleteFavorite => 'Supprimer des favoris';
 }
 
 // Path: forgotPassword
@@ -1133,6 +1181,7 @@ class _TranslationsPt implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
+	@override late final _TranslationsFavoritesPt favorites = _TranslationsFavoritesPt._(_root);
 	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
 	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
@@ -1153,6 +1202,21 @@ class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	@override String get home => 'Início';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: favorites
+class _TranslationsFavoritesPt implements _TranslationsFavoritesEn {
+	_TranslationsFavoritesPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoritos';
+	@override String get hintText => 'Procure o seu favorito';
+	@override String get close => 'Fechar';
+	@override String get search => 'Pesquisar';
+	@override String get exceptionText => 'Ainda não há espécies aqui';
+	@override String get deleteFavorite => 'Remover dos favoritos';
 }
 
 // Path: forgotPassword
@@ -1460,6 +1524,7 @@ class _TranslationsZh implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
+	@override late final _TranslationsFavoritesZh favorites = _TranslationsFavoritesZh._(_root);
 	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
 	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
@@ -1480,6 +1545,21 @@ class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	@override String get home => '首页';
 	@override String get search => '搜索';
 	@override String get favorites => '收藏夹';
+}
+
+// Path: favorites
+class _TranslationsFavoritesZh implements _TranslationsFavoritesEn {
+	_TranslationsFavoritesZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '收藏夹';
+	@override String get hintText => '查找您的收藏';
+	@override String get close => '关闭';
+	@override String get search => '搜索';
+	@override String get exceptionText => '这里还没有物种';
+	@override String get deleteFavorite => '从收藏夹中删除';
 }
 
 // Path: forgotPassword
@@ -1771,6 +1851,12 @@ extension on Translations {
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
+			case 'favorites.title': return 'Favorites';
+			case 'favorites.hintText': return 'Search your favorite';
+			case 'favorites.close': return 'Close';
+			case 'favorites.search': return 'Search';
+			case 'favorites.exceptionText': return 'No species here yet';
+			case 'favorites.deleteFavorite': return 'Remove from favorites';
 			case 'forgotPassword.title': return 'Forgot Your Password';
 			case 'forgotPassword.sendLabel': return 'Send';
 			case 'forgotPassword.validatingLabel': return 'Validating...';
@@ -1900,6 +1986,12 @@ extension on _TranslationsEs {
 			case 'bottomBar.home': return 'inicio';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'favoritos';
+			case 'favorites.title': return 'Favoritos';
+			case 'favorites.hintText': return 'Busca tu favorito';
+			case 'favorites.close': return 'Cerrar';
+			case 'favorites.search': return 'Buscar';
+			case 'favorites.exceptionText': return 'Aún no hay especies aquí';
+			case 'favorites.deleteFavorite': return 'Quitar de favoritos';
 			case 'forgotPassword.title': return 'Olvidó su contraseña';
 			case 'forgotPassword.sendLabel': return 'Enviar';
 			case 'forgotPassword.validatingLabel': return 'Validando...';
@@ -2029,6 +2121,12 @@ extension on _TranslationsFr {
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
+			case 'favorites.title': return 'Favoris';
+			case 'favorites.hintText': return 'Recherchez votre favori';
+			case 'favorites.close': return 'Fermer';
+			case 'favorites.search': return 'Chercher';
+			case 'favorites.exceptionText': return 'Pas encore d\'espèces ici';
+			case 'favorites.deleteFavorite': return 'Supprimer des favoris';
 			case 'forgotPassword.title': return 'Mot de passe oublié';
 			case 'forgotPassword.sendLabel': return 'Envoyer';
 			case 'forgotPassword.validatingLabel': return 'Validation en cours...';
@@ -2158,6 +2256,12 @@ extension on _TranslationsPt {
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'favorites.title': return 'Favoritos';
+			case 'favorites.hintText': return 'Procure o seu favorito';
+			case 'favorites.close': return 'Fechar';
+			case 'favorites.search': return 'Pesquisar';
+			case 'favorites.exceptionText': return 'Ainda não há espécies aqui';
+			case 'favorites.deleteFavorite': return 'Remover dos favoritos';
 			case 'forgotPassword.title': return 'Esqueceu sua senha';
 			case 'forgotPassword.sendLabel': return 'Enviar';
 			case 'forgotPassword.validatingLabel': return 'Validando...';
@@ -2287,6 +2391,12 @@ extension on _TranslationsZh {
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';
+			case 'favorites.title': return '收藏夹';
+			case 'favorites.hintText': return '查找您的收藏';
+			case 'favorites.close': return '关闭';
+			case 'favorites.search': return '搜索';
+			case 'favorites.exceptionText': return '这里还没有物种';
+			case 'favorites.deleteFavorite': return '从收藏夹中删除';
 			case 'forgotPassword.title': return '忘记密码';
 			case 'forgotPassword.sendLabel': return '发送';
 			case 'forgotPassword.validatingLabel': return '正在验证...';
