@@ -1,0 +1,20 @@
+{
+    "authors": "作者",
+    "taxonomicInfo": "分类信息",
+    "kingdom": "王国",
+    "filo": "门",
+    "classes": "类",
+    "order": "目",
+    "family": "科",
+    "download": "下载",
+    "generatePdf": "生成 PDF",
+    "downloadImage": "下载图片",
+    "downloadAudio": "下载音频",
+    "share": "分享",
+    "saveToFavorite": "保存到收藏夹",
+    "deleteFromFavorite": "从收藏夹中删除",
+    "errorDownload": "下载错误",
+    "successDownload": "下载成功",
+    "shareAmazonInfo": "分享亚马逊的美丽！分享有关的宝贵信息.",
+    "shareAmazon": "分享亚马逊的美丽！"
+}

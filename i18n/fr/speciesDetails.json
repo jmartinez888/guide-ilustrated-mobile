@@ -1,0 +1,20 @@
+{
+    "authors": "Auteurs",
+    "taxonomicInfo": "Information Taxonomique",
+    "kingdom": "Royaume",
+    "filo": "Phylum",
+    "classes": "Classe",
+    "order": "Ordre",
+    "family": "Famille",
+    "download": "Télécharger",
+    "generatePdf": "Générer PDF",
+    "downloadImage": "Télécharger l'Image",
+    "downloadAudio": "Télécharger l'Audio",
+    "share": "Partager",
+    "saveToFavorite": "Enregistrer dans les Favoris",
+    "deleteFromFavorite": "Supprimer des Favoris",
+    "errorDownload": "Erreur de Téléchargement",
+    "successDownload": "Téléchargement Réussi",
+    "shareAmazonInfo": "Partagez la beauté de l'Amazonie ! Partagez ces précieuses informations sur.",
+    "shareAmazon": "Partagez la beauté de l'Amazonie !"
+}

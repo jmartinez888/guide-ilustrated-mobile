@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 170 (34 per locale)
+/// Strings: 260 (52 per locale)
 ///
-/// Built on 2024-03-14 at 22:48 UTC
+/// Built on 2024-03-22 at 16:12 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -154,6 +154,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
 	late final _TranslationsSpeciesEn species = _TranslationsSpeciesEn._(_root);
+	late final _TranslationsSpeciesDetailsEn speciesDetails = _TranslationsSpeciesDetailsEn._(_root);
 	late final _TranslationsUserCredentialFailureEn userCredentialFailure = _TranslationsUserCredentialFailureEn._(_root);
 }
 
@@ -212,6 +213,33 @@ class _TranslationsSpeciesEn {
 	String get orderScientificName => 'Sort by Scientific Name';
 }
 
+// Path: speciesDetails
+class _TranslationsSpeciesDetailsEn {
+	_TranslationsSpeciesDetailsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get authors => 'Authors';
+	String get taxonomicInfo => 'Taxonomic Information';
+	String get kingdom => 'Kingdom';
+	String get filo => 'Phylum';
+	String get classes => 'Class';
+	String get order => 'Order';
+	String get family => 'Family';
+	String get download => 'Download';
+	String get generatePdf => 'Generate PDF';
+	String get downloadImage => 'Download Image';
+	String get downloadAudio => 'Download Audio';
+	String get share => 'Share';
+	String get saveToFavorite => 'Save to Favorites';
+	String get deleteFromFavorite => 'Delete from Favorites';
+	String get errorDownload => 'Download Error';
+	String get successDownload => 'Download Success';
+	String get shareAmazonInfo => 'Share the beauty of the Amazon! Share this valuable information about.';
+	String get shareAmazon => 'Share the beauty of the Amazon!';
+}
+
 // Path: userCredentialFailure
 class _TranslationsUserCredentialFailureEn {
 	_TranslationsUserCredentialFailureEn._(this._root);
@@ -254,6 +282,7 @@ class _TranslationsEs implements Translations {
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
 	@override late final _TranslationsSpeciesEs species = _TranslationsSpeciesEs._(_root);
+	@override late final _TranslationsSpeciesDetailsEs speciesDetails = _TranslationsSpeciesDetailsEs._(_root);
 	@override late final _TranslationsUserCredentialFailureEs userCredentialFailure = _TranslationsUserCredentialFailureEs._(_root);
 }
 
@@ -312,6 +341,33 @@ class _TranslationsSpeciesEs implements _TranslationsSpeciesEn {
 	@override String get orderScientificName => 'Ordenar por nombre científico';
 }
 
+// Path: speciesDetails
+class _TranslationsSpeciesDetailsEs implements _TranslationsSpeciesDetailsEn {
+	_TranslationsSpeciesDetailsEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get authors => 'Autores';
+	@override String get taxonomicInfo => 'Información Taxonómica';
+	@override String get kingdom => 'Reino';
+	@override String get filo => 'Filo';
+	@override String get classes => 'Clase';
+	@override String get order => 'Orden';
+	@override String get family => 'Familia';
+	@override String get download => 'Descargar';
+	@override String get generatePdf => 'Generar PDF';
+	@override String get downloadImage => 'Descargar Imagen';
+	@override String get downloadAudio => 'Descargar Audio';
+	@override String get share => 'Compartir';
+	@override String get saveToFavorite => 'Guardar en Favoritos';
+	@override String get deleteFromFavorite => 'Eliminar de Favoritos';
+	@override String get errorDownload => 'Error al Descargar';
+	@override String get successDownload => 'Descarga Exitosa';
+	@override String get shareAmazonInfo => '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre.';
+	@override String get shareAmazon => '¡Comparte la belleza de la Amazonía!';
+}
+
 // Path: userCredentialFailure
 class _TranslationsUserCredentialFailureEs implements _TranslationsUserCredentialFailureEn {
 	_TranslationsUserCredentialFailureEs._(this._root);
@@ -354,6 +410,7 @@ class _TranslationsFr implements Translations {
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
 	@override late final _TranslationsSpeciesFr species = _TranslationsSpeciesFr._(_root);
+	@override late final _TranslationsSpeciesDetailsFr speciesDetails = _TranslationsSpeciesDetailsFr._(_root);
 	@override late final _TranslationsUserCredentialFailureFr userCredentialFailure = _TranslationsUserCredentialFailureFr._(_root);
 }
 
@@ -412,6 +469,33 @@ class _TranslationsSpeciesFr implements _TranslationsSpeciesEn {
 	@override String get orderScientificName => 'Ordenar por Nome Científico';
 }
 
+// Path: speciesDetails
+class _TranslationsSpeciesDetailsFr implements _TranslationsSpeciesDetailsEn {
+	_TranslationsSpeciesDetailsFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get authors => 'Auteurs';
+	@override String get taxonomicInfo => 'Information Taxonomique';
+	@override String get kingdom => 'Royaume';
+	@override String get filo => 'Phylum';
+	@override String get classes => 'Classe';
+	@override String get order => 'Ordre';
+	@override String get family => 'Famille';
+	@override String get download => 'Télécharger';
+	@override String get generatePdf => 'Générer PDF';
+	@override String get downloadImage => 'Télécharger l\'Image';
+	@override String get downloadAudio => 'Télécharger l\'Audio';
+	@override String get share => 'Partager';
+	@override String get saveToFavorite => 'Enregistrer dans les Favoris';
+	@override String get deleteFromFavorite => 'Supprimer des Favoris';
+	@override String get errorDownload => 'Erreur de Téléchargement';
+	@override String get successDownload => 'Téléchargement Réussi';
+	@override String get shareAmazonInfo => 'Partagez la beauté de l\'Amazonie ! Partagez ces précieuses informations sur.';
+	@override String get shareAmazon => 'Partagez la beauté de l\'Amazonie !';
+}
+
 // Path: userCredentialFailure
 class _TranslationsUserCredentialFailureFr implements _TranslationsUserCredentialFailureEn {
 	_TranslationsUserCredentialFailureFr._(this._root);
@@ -454,6 +538,7 @@ class _TranslationsPt implements Translations {
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
 	@override late final _TranslationsSpeciesPt species = _TranslationsSpeciesPt._(_root);
+	@override late final _TranslationsSpeciesDetailsPt speciesDetails = _TranslationsSpeciesDetailsPt._(_root);
 	@override late final _TranslationsUserCredentialFailurePt userCredentialFailure = _TranslationsUserCredentialFailurePt._(_root);
 }
 
@@ -512,6 +597,33 @@ class _TranslationsSpeciesPt implements _TranslationsSpeciesEn {
 	@override String get orderScientificName => 'Ordenar por Nome Científico';
 }
 
+// Path: speciesDetails
+class _TranslationsSpeciesDetailsPt implements _TranslationsSpeciesDetailsEn {
+	_TranslationsSpeciesDetailsPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get authors => 'Autores';
+	@override String get taxonomicInfo => 'Informação Taxonômica';
+	@override String get kingdom => 'Reino';
+	@override String get filo => 'Filo';
+	@override String get classes => 'Classe';
+	@override String get order => 'Ordem';
+	@override String get family => 'Família';
+	@override String get download => 'Baixar';
+	@override String get generatePdf => 'Gerar PDF';
+	@override String get downloadImage => 'Baixar Imagem';
+	@override String get downloadAudio => 'Baixar Áudio';
+	@override String get share => 'Compartilhar';
+	@override String get saveToFavorite => 'Salvar nos Favoritos';
+	@override String get deleteFromFavorite => 'Remover dos Favoritos';
+	@override String get errorDownload => 'Erro ao Baixar';
+	@override String get successDownload => 'Download Bem-Sucedido';
+	@override String get shareAmazonInfo => 'Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.';
+	@override String get shareAmazon => 'Compartilhe a beleza da Amazônia!';
+}
+
 // Path: userCredentialFailure
 class _TranslationsUserCredentialFailurePt implements _TranslationsUserCredentialFailureEn {
 	_TranslationsUserCredentialFailurePt._(this._root);
@@ -554,6 +666,7 @@ class _TranslationsZh implements Translations {
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
 	@override late final _TranslationsSpeciesZh species = _TranslationsSpeciesZh._(_root);
+	@override late final _TranslationsSpeciesDetailsZh speciesDetails = _TranslationsSpeciesDetailsZh._(_root);
 	@override late final _TranslationsUserCredentialFailureZh userCredentialFailure = _TranslationsUserCredentialFailureZh._(_root);
 }
 
@@ -612,6 +725,33 @@ class _TranslationsSpeciesZh implements _TranslationsSpeciesEn {
 	@override String get orderScientificName => '按学名排序';
 }
 
+// Path: speciesDetails
+class _TranslationsSpeciesDetailsZh implements _TranslationsSpeciesDetailsEn {
+	_TranslationsSpeciesDetailsZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get authors => '作者';
+	@override String get taxonomicInfo => '分类信息';
+	@override String get kingdom => '王国';
+	@override String get filo => '门';
+	@override String get classes => '类';
+	@override String get order => '目';
+	@override String get family => '科';
+	@override String get download => '下载';
+	@override String get generatePdf => '生成 PDF';
+	@override String get downloadImage => '下载图片';
+	@override String get downloadAudio => '下载音频';
+	@override String get share => '分享';
+	@override String get saveToFavorite => '保存到收藏夹';
+	@override String get deleteFromFavorite => '从收藏夹中删除';
+	@override String get errorDownload => '下载错误';
+	@override String get successDownload => '下载成功';
+	@override String get shareAmazonInfo => '分享亚马逊的美丽！分享有关的宝贵信息.';
+	@override String get shareAmazon => '分享亚马逊的美丽！';
+}
+
 // Path: userCredentialFailure
 class _TranslationsUserCredentialFailureZh implements _TranslationsUserCredentialFailureEn {
 	_TranslationsUserCredentialFailureZh._(this._root);
@@ -661,6 +801,24 @@ extension on Translations {
 			case 'species.saveFavorite': return 'Save to Favorites';
 			case 'species.orderName': return 'Sort by Common Name';
 			case 'species.orderScientificName': return 'Sort by Scientific Name';
+			case 'speciesDetails.authors': return 'Authors';
+			case 'speciesDetails.taxonomicInfo': return 'Taxonomic Information';
+			case 'speciesDetails.kingdom': return 'Kingdom';
+			case 'speciesDetails.filo': return 'Phylum';
+			case 'speciesDetails.classes': return 'Class';
+			case 'speciesDetails.order': return 'Order';
+			case 'speciesDetails.family': return 'Family';
+			case 'speciesDetails.download': return 'Download';
+			case 'speciesDetails.generatePdf': return 'Generate PDF';
+			case 'speciesDetails.downloadImage': return 'Download Image';
+			case 'speciesDetails.downloadAudio': return 'Download Audio';
+			case 'speciesDetails.share': return 'Share';
+			case 'speciesDetails.saveToFavorite': return 'Save to Favorites';
+			case 'speciesDetails.deleteFromFavorite': return 'Delete from Favorites';
+			case 'speciesDetails.errorDownload': return 'Download Error';
+			case 'speciesDetails.successDownload': return 'Download Success';
+			case 'speciesDetails.shareAmazonInfo': return 'Share the beauty of the Amazon! Share this valuable information about.';
+			case 'speciesDetails.shareAmazon': return 'Share the beauty of the Amazon!';
 			case 'userCredentialFailure.network': return 'Check your internet connection';
 			case 'userCredentialFailure.credential': return 'Incorrect credentials';
 			case 'userCredentialFailure.disable': return 'This account has been disabled, please try again later';
@@ -703,6 +861,24 @@ extension on _TranslationsEs {
 			case 'species.saveFavorite': return 'Guardar en favoritos';
 			case 'species.orderName': return 'Ordenar por nombre común';
 			case 'species.orderScientificName': return 'Ordenar por nombre científico';
+			case 'speciesDetails.authors': return 'Autores';
+			case 'speciesDetails.taxonomicInfo': return 'Información Taxonómica';
+			case 'speciesDetails.kingdom': return 'Reino';
+			case 'speciesDetails.filo': return 'Filo';
+			case 'speciesDetails.classes': return 'Clase';
+			case 'speciesDetails.order': return 'Orden';
+			case 'speciesDetails.family': return 'Familia';
+			case 'speciesDetails.download': return 'Descargar';
+			case 'speciesDetails.generatePdf': return 'Generar PDF';
+			case 'speciesDetails.downloadImage': return 'Descargar Imagen';
+			case 'speciesDetails.downloadAudio': return 'Descargar Audio';
+			case 'speciesDetails.share': return 'Compartir';
+			case 'speciesDetails.saveToFavorite': return 'Guardar en Favoritos';
+			case 'speciesDetails.deleteFromFavorite': return 'Eliminar de Favoritos';
+			case 'speciesDetails.errorDownload': return 'Error al Descargar';
+			case 'speciesDetails.successDownload': return 'Descarga Exitosa';
+			case 'speciesDetails.shareAmazonInfo': return '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre.';
+			case 'speciesDetails.shareAmazon': return '¡Comparte la belleza de la Amazonía!';
 			case 'userCredentialFailure.network': return 'Comprueba tu conexión a internet';
 			case 'userCredentialFailure.credential': return 'Credenciales incorrectas';
 			case 'userCredentialFailure.disable': return 'Esta cuenta ha sido desactivada, inténtelo más tarde';
@@ -745,6 +921,24 @@ extension on _TranslationsFr {
 			case 'species.saveFavorite': return 'Salvar nos Favoritos';
 			case 'species.orderName': return 'Ordenar por Nome Comum';
 			case 'species.orderScientificName': return 'Ordenar por Nome Científico';
+			case 'speciesDetails.authors': return 'Auteurs';
+			case 'speciesDetails.taxonomicInfo': return 'Information Taxonomique';
+			case 'speciesDetails.kingdom': return 'Royaume';
+			case 'speciesDetails.filo': return 'Phylum';
+			case 'speciesDetails.classes': return 'Classe';
+			case 'speciesDetails.order': return 'Ordre';
+			case 'speciesDetails.family': return 'Famille';
+			case 'speciesDetails.download': return 'Télécharger';
+			case 'speciesDetails.generatePdf': return 'Générer PDF';
+			case 'speciesDetails.downloadImage': return 'Télécharger l\'Image';
+			case 'speciesDetails.downloadAudio': return 'Télécharger l\'Audio';
+			case 'speciesDetails.share': return 'Partager';
+			case 'speciesDetails.saveToFavorite': return 'Enregistrer dans les Favoris';
+			case 'speciesDetails.deleteFromFavorite': return 'Supprimer des Favoris';
+			case 'speciesDetails.errorDownload': return 'Erreur de Téléchargement';
+			case 'speciesDetails.successDownload': return 'Téléchargement Réussi';
+			case 'speciesDetails.shareAmazonInfo': return 'Partagez la beauté de l\'Amazonie ! Partagez ces précieuses informations sur.';
+			case 'speciesDetails.shareAmazon': return 'Partagez la beauté de l\'Amazonie !';
 			case 'userCredentialFailure.network': return 'Vérifiez votre connexion internet';
 			case 'userCredentialFailure.credential': return 'Identifiants incorrects';
 			case 'userCredentialFailure.disable': return 'Ce compte a été désactivé, veuillez réessayer ultérieurement';
@@ -787,6 +981,24 @@ extension on _TranslationsPt {
 			case 'species.saveFavorite': return 'Salvar nos Favoritos';
 			case 'species.orderName': return 'Ordenar por Nome Comum';
 			case 'species.orderScientificName': return 'Ordenar por Nome Científico';
+			case 'speciesDetails.authors': return 'Autores';
+			case 'speciesDetails.taxonomicInfo': return 'Informação Taxonômica';
+			case 'speciesDetails.kingdom': return 'Reino';
+			case 'speciesDetails.filo': return 'Filo';
+			case 'speciesDetails.classes': return 'Classe';
+			case 'speciesDetails.order': return 'Ordem';
+			case 'speciesDetails.family': return 'Família';
+			case 'speciesDetails.download': return 'Baixar';
+			case 'speciesDetails.generatePdf': return 'Gerar PDF';
+			case 'speciesDetails.downloadImage': return 'Baixar Imagem';
+			case 'speciesDetails.downloadAudio': return 'Baixar Áudio';
+			case 'speciesDetails.share': return 'Compartilhar';
+			case 'speciesDetails.saveToFavorite': return 'Salvar nos Favoritos';
+			case 'speciesDetails.deleteFromFavorite': return 'Remover dos Favoritos';
+			case 'speciesDetails.errorDownload': return 'Erro ao Baixar';
+			case 'speciesDetails.successDownload': return 'Download Bem-Sucedido';
+			case 'speciesDetails.shareAmazonInfo': return 'Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.';
+			case 'speciesDetails.shareAmazon': return 'Compartilhe a beleza da Amazônia!';
 			case 'userCredentialFailure.network': return 'Verifique sua conexão com a internet';
 			case 'userCredentialFailure.credential': return 'Credenciais incorretas';
 			case 'userCredentialFailure.disable': return 'Esta conta foi desativada, tente novamente mais tarde';
@@ -829,6 +1041,24 @@ extension on _TranslationsZh {
 			case 'species.saveFavorite': return '保存到收藏夹';
 			case 'species.orderName': return '按普通名称排序';
 			case 'species.orderScientificName': return '按学名排序';
+			case 'speciesDetails.authors': return '作者';
+			case 'speciesDetails.taxonomicInfo': return '分类信息';
+			case 'speciesDetails.kingdom': return '王国';
+			case 'speciesDetails.filo': return '门';
+			case 'speciesDetails.classes': return '类';
+			case 'speciesDetails.order': return '目';
+			case 'speciesDetails.family': return '科';
+			case 'speciesDetails.download': return '下载';
+			case 'speciesDetails.generatePdf': return '生成 PDF';
+			case 'speciesDetails.downloadImage': return '下载图片';
+			case 'speciesDetails.downloadAudio': return '下载音频';
+			case 'speciesDetails.share': return '分享';
+			case 'speciesDetails.saveToFavorite': return '保存到收藏夹';
+			case 'speciesDetails.deleteFromFavorite': return '从收藏夹中删除';
+			case 'speciesDetails.errorDownload': return '下载错误';
+			case 'speciesDetails.successDownload': return '下载成功';
+			case 'speciesDetails.shareAmazonInfo': return '分享亚马逊的美丽！分享有关的宝贵信息.';
+			case 'speciesDetails.shareAmazon': return '分享亚马逊的美丽！';
 			case 'userCredentialFailure.network': return '检查您的网络连接';
 			case 'userCredentialFailure.credential': return '凭证不正确';
 			case 'userCredentialFailure.disable': return '此帐户已被禁用，请稍后再试';

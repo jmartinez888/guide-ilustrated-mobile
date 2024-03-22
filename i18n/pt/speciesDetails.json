@@ -1,0 +1,20 @@
+{
+    "authors": "Autores",
+    "taxonomicInfo": "Informação Taxonômica",
+    "kingdom": "Reino",
+    "filo": "Filo",
+    "classes": "Classe",
+    "order": "Ordem",
+    "family": "Família",
+    "download": "Baixar",
+    "generatePdf": "Gerar PDF",
+    "downloadImage": "Baixar Imagem",
+    "downloadAudio": "Baixar Áudio",
+    "share": "Compartilhar",
+    "saveToFavorite": "Salvar nos Favoritos",
+    "deleteFromFavorite": "Remover dos Favoritos",
+    "errorDownload": "Erro ao Baixar",
+    "successDownload": "Download Bem-Sucedido",
+    "shareAmazonInfo": "Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.",
+    "shareAmazon": "Compartilhe a beleza da Amazônia!"
+}
