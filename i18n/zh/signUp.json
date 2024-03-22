@@ -1,0 +1,17 @@
+{
+    "title": "注册",
+    "alreadyRegistered": "已经有账号了？登录",
+    "button": "注册",
+    "email": "邮箱",
+    "password": "密码",
+    "showPassword": "显示密码",
+    "repeatPassword": "重复你的密码",
+    "clear": "清除",
+    "network": "检查你的网络连接",
+    "credential": "凭据不正确",
+    "disabled": "此帐户已被停用，请稍后再试",
+    "notRegistered": "此帐户尚未注册",
+    "passwordNotMatch": "密码不正确",
+    "unknown": "未知错误，请稍后再试",
+    "sendedEmail": "确认邮件已发送至您的电子邮件地址"
+}

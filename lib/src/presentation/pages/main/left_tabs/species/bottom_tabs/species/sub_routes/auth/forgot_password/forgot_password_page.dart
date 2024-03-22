@@ -8,6 +8,7 @@ import 'package:species/src/presentation/global/widgets/custom_back_button.dart'
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -39,7 +40,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: const Text('Olvidó su contraseña'),
+        title: Text(texts.forgotPassword.title),
       ),
       body: Center(
         child: Extend(
@@ -68,8 +69,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                               child: CircularProgressIndicator(),
                             ),
                       label: enabled
-                          ? const Text('Enviar')
-                          : const Text('Validando...'),
+                          ? Text(texts.forgotPassword.sendLabel)
+                          : Text(texts.forgotPassword.validatingLabel),
                     );
                   },
                 ),
@@ -83,13 +84,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                       ? AutovalidateMode.onUserInteraction
                       : null,
                   decoration: InputDecoration(
-                    labelText: 'Correo',
+                    labelText: texts.forgotPassword.email,
                     prefixIcon: const Icon(Icons.email_outlined),
                     suffixIcon: _emailController.text.isNotEmpty
                         ? IconButton(
                             onPressed: () =>
                                 setState(() => _emailController.clear()),
-                            tooltip: 'Limpiar',
+                            tooltip: texts.forgotPassword.clear,
                             icon: const Icon(Icons.cancel_outlined),
                           )
                         : null,
@@ -100,8 +101,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 16.0),
-                Text(
-                    'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:',
+                Text(texts.forgotPassword.message,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleMedium),
               ],
@@ -138,13 +138,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
       result.when(
         (failure) {
           final message = failure.when(
-            network: () => 'Comprueba tu conexión a internet',
-            credential: () => 'Credenciales incorrectas',
-            disable: () =>
-                'Esta cuenta ha sido desactivada, inténtelo más tarde',
-            notRegistered: () => 'El correo no está registrado',
-            password: () => 'Contraseña incorrecta',
-            unknown: () => 'Error desconocido',
+            network: () => texts.signUp.network,
+            credential: () => texts.signUp.credential,
+            disable: () => texts.signUp.disabled,
+            notRegistered: () => texts.signUp.notRegistered,
+            password: () => texts.signUp.passwordNotMatch,
+            unknown: () => texts.signUp.unknown,
           );
           customSnackBar(
             context: screenContext,
@@ -155,7 +154,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
         (right) => showBottomSheet(
           context: screenContext,
           builder: (screenContext) => CustomBottomSheet(
-            title: 'Revisa tu correo!',
+            title: texts.forgotPassword.checkYourEmail,
             body: [
               Text(right),
             ],
@@ -170,7 +169,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                 } else {
                   Navigator.of(context).pop();
                   context.pushNamed(Routes.signIn);
-                } 
+                }
               },
               child: const Icon(Icons.check_rounded),
             ),

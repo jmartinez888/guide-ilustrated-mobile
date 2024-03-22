@@ -1,0 +1,30 @@
+{
+    "password": {
+        "empty": "请输入您的密码",
+        "minLength": "至少输入6个字符",
+        "regExp": "密码必须包含至少一个数字和一个字母"
+    },
+    "repeatPassword": {
+        "empty": "请输入您的密码",
+        "minLength": "至少输入6个字符",
+        "regExp": "密码必须包含至少一个数字和一个字母",
+        "matchPassword": "密码必须相同"
+    },
+    "email": {
+        "empty": "请输入您的邮箱",
+        "regExp": "请输入有效的邮箱"
+    },
+    "name": {
+        "empty": "请输入您的姓名",
+        "minLength": "至少输入3个字符"
+    },
+    "lastName": {
+        "empty": "请输入您的姓氏",
+        "minLength": "至少输入3个字符"
+    },
+    "phone": {
+        "empty": "请输入您的电话号码",
+        "minLength": "至少输入9个字符",
+        "regExp": "请输入有效的电话号码"
+    }
+}

@@ -7,6 +7,7 @@ import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_she
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -46,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: const Text('Regístrate'),
+        title: Text(texts.signUp.title),
       ),
       body: Center(
         child: SizedBox(
@@ -61,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                 Center(
                   child: TextButton(
                       onPressed: () => context.goNamed(Routes.signIn),
-                      child: const Text('¿Ya tienes una cuenta? Ingresa aquí')),
+                      child: Text(texts.signUp.alreadyRegistered)),
                 ),
                 const SizedBox(height: 16.0),
                 FilledButton.icon(
@@ -79,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                           height: 24.0,
                           child: CircularProgressIndicator(),
                         ),
-                  label: const Text('Registrarse'),
+                  label: Text(texts.signUp.button),
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
@@ -92,7 +93,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                       : null,
                   obscureText: _hidePassword,
                   decoration: InputDecoration(
-                    labelText: 'Repite tu contraseña',
+                    labelText: texts.signUp.repeatPassword,
                     prefixIcon: const Icon(Icons.password_rounded),
                     suffixIcon: Wrap(
                       runSpacing: 8.0,
@@ -100,7 +101,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                         IconButton(
                           onPressed: () =>
                               setState(() => _hidePassword = !_hidePassword),
-                          tooltip: 'Mostrar contraseña',
+                          tooltip: texts.signUp.showPassword,
                           icon: Icon(
                             _hidePassword
                                 ? Icons.visibility_outlined
@@ -111,7 +112,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                           IconButton(
                             onPressed: () => setState(
                                 () => _repeatPasswordController.clear()),
-                            tooltip: 'Limpiar',
+                            tooltip: texts.signUp.clear,
                             icon: const Icon(Icons.cancel_outlined),
                           ),
                       ],
@@ -134,7 +135,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                       : null,
                   obscureText: _hidePassword,
                   decoration: InputDecoration(
-                    labelText: 'Contraseña',
+                    labelText: texts.signUp.password,
                     prefixIcon: const Icon(Icons.password_rounded),
                     suffixIcon: Wrap(
                       runSpacing: 8.0,
@@ -142,7 +143,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                         IconButton(
                           onPressed: () =>
                               setState(() => _hidePassword = !_hidePassword),
-                          tooltip: 'Mostrar contraseña',
+                          tooltip: texts.signUp.showPassword,
                           icon: Icon(
                             _hidePassword
                                 ? Icons.visibility_outlined
@@ -153,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                           IconButton(
                             onPressed: () =>
                                 setState(() => _passwordController.clear()),
-                            tooltip: 'Limpiar',
+                            tooltip: texts.signUp.clear,
                             icon: const Icon(Icons.cancel_outlined),
                           ),
                       ],
@@ -174,13 +175,13 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                       ? AutovalidateMode.onUserInteraction
                       : null,
                   decoration: InputDecoration(
-                    labelText: 'Correo',
+                    labelText: texts.signUp.email,
                     prefixIcon: const Icon(Icons.email_outlined),
                     suffixIcon: _emailController.text.isNotEmpty
                         ? IconButton(
                             onPressed: () =>
                                 setState(() => _emailController.clear()),
-                            tooltip: 'Limpiar',
+                            tooltip: texts.signUp.clear,
                             icon: const Icon(Icons.cancel_outlined),
                           )
                         : null,
@@ -227,13 +228,12 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
       userCredential.when(
         (failure) {
           final message = failure.when(
-            network: () => 'Comprueba tu conexión a internet',
-            credential: () => 'Credenciales incorrectas',
-            disable: () =>
-                'Esta cuenta ha sido desactivada, inténtelo más tarde',
-            notRegistered: () => 'El correo no está registrado',
-            password: () => 'Contraseña incorrecta',
-            unknown: () => 'Error desconocido',
+            network: () => texts.signUp.network,
+            credential: () => texts.signUp.credential,
+            disable: () => texts.signUp.disabled,
+            notRegistered: () => texts.signUp.notRegistered,
+            password: () => texts.signUp.passwordNotMatch,
+            unknown: () => texts.signUp.unknown,
           );
           customSnackBar(context: context, title: message);
         },
@@ -244,20 +244,19 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
           emailVerification.when(
             (failure) {
               final message = failure.when(
-                network: () => 'Comprueba tu conexión a internet',
-                credential: () => 'Credenciales incorrectas',
-                disable: () =>
-                    'Esta cuenta ha sido desactivada, inténtelo más tarde',
-                notRegistered: () => 'El correo no está registrado',
-                password: () => 'Contraseña incorrecta',
-                unknown: () => 'Error desconocido',
+                network: () => texts.signUp.network,
+                credential: () => texts.signUp.credential,
+                disable: () => texts.signUp.disabled,
+                notRegistered: () => texts.signUp.notRegistered,
+                password: () => texts.signUp.passwordNotMatch,
+                unknown: () => texts.signUp.unknown,
               );
               customSnackBar(context: context, title: message);
             },
             (right) => showModalBottomSheet(
               context: context,
               builder: (context) => CustomBottomSheet(
-                title: 'Te enviamos un correo!',
+                title: texts.signUp.sendedEmail,
                 body: [Text(right)],
                 floatingActionButton: FloatingActionButton(
                   onPressed: () => context.goNamed(Routes.signIn),
@@ -268,7 +267,6 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
           );
         },
       );
-
     }
     enabled = true;
     setState(() {});

@@ -1,0 +1,30 @@
+{
+    "password": {
+        "empty": "Enter your password",
+        "minLength": "Enter at least 6 characters",
+        "regExp": "Password must contain at least one number and one letter"
+    },
+    "repeatPassword": {
+        "empty": "Enter your password",
+        "minLength": "Enter at least 6 characters",
+        "regExp": "Password must contain at least one number and one letter",
+        "matchPassword": "Passwords must match"
+    },
+    "email": {
+        "empty": "Enter your email",
+        "regExp": "Enter a valid email"
+    },
+    "name": {
+        "empty": "Enter your name",
+        "minLength": "Enter at least 3 characters"
+    },
+    "lastName": {
+        "empty": "Enter your last name",
+        "minLength": "Enter at least 3 characters"
+    },
+    "phone": {
+        "empty": "Enter your phone number",
+        "minLength": "Enter at least 9 characters",
+        "regExp": "Enter a valid phone number"
+    }
+}

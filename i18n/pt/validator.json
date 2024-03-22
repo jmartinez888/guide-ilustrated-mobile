@@ -1,0 +1,30 @@
+{
+    "password": {
+        "empty": "Digite sua senha",
+        "minLength": "Digite pelo menos 6 caracteres",
+        "regExp": "A senha deve conter pelo menos um número e uma letra"
+    },
+    "repeatPassword": {
+        "empty": "Digite sua senha",
+        "minLength": "Digite pelo menos 6 caracteres",
+        "regExp": "A senha deve conter pelo menos um número e uma letra",
+        "matchPassword": "As senhas devem ser iguais"
+    },
+    "email": {
+        "empty": "Digite seu email",
+        "regExp": "Digite um email válido"
+    },
+    "name": {
+        "empty": "Digite seu nome",
+        "minLength": "Digite pelo menos 3 caracteres"
+    },
+    "lastName": {
+        "empty": "Digite seu sobrenome",
+        "minLength": "Digite pelo menos 3 caracteres"
+    },
+    "phone": {
+        "empty": "Digite seu telefone",
+        "minLength": "Digite pelo menos 9 caracteres",
+        "regExp": "Digite um telefone válido"
+    }
+}

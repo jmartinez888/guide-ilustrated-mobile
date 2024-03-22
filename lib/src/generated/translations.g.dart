@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 415 (83 per locale)
+/// Strings: 605 (121 per locale)
 ///
-/// Built on 2024-03-22 at 17:26 UTC
+/// Built on 2024-03-22 at 22:45 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -152,11 +152,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
+	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
 	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
+	late final _TranslationsSignUpEn signUp = _TranslationsSignUpEn._(_root);
 	late final _TranslationsSpeciesEn species = _TranslationsSpeciesEn._(_root);
 	late final _TranslationsSpeciesDetailsEn speciesDetails = _TranslationsSpeciesDetailsEn._(_root);
 	late final _TranslationsUserCredentialFailureEn userCredentialFailure = _TranslationsUserCredentialFailureEn._(_root);
+	late final _TranslationsValidatorEn validator = _TranslationsValidatorEn._(_root);
 }
 
 // Path: bottomBar
@@ -169,6 +172,22 @@ class _TranslationsBottomBarEn {
 	String get home => 'Home';
 	String get search => 'Search';
 	String get favorites => 'Favorites';
+}
+
+// Path: forgotPassword
+class _TranslationsForgotPasswordEn {
+	_TranslationsForgotPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Forgot Your Password';
+	String get sendLabel => 'Send';
+	String get validatingLabel => 'Validating...';
+	String get email => 'Email';
+	String get clear => 'Clear';
+	String get message => 'Enter your email to send you an email where you can change your password:';
+	String get checkYourEmail => 'Check your email!';
 }
 
 // Path: searchPage
@@ -218,6 +237,30 @@ class _TranslationsSignInEn {
 	String get verify_email => 'First verify your email';
 	String get verify_email_more => 'You need to verify your email to log in';
 	String get forgot_password => 'Forgot your password?';
+}
+
+// Path: signUp
+class _TranslationsSignUpEn {
+	_TranslationsSignUpEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Sign Up';
+	String get alreadyRegistered => 'Already have an account? Sign in';
+	String get button => 'Sign Up';
+	String get email => 'Email';
+	String get password => 'Password';
+	String get showPassword => 'Show Password';
+	String get repeatPassword => 'Repeat Your Password';
+	String get clear => 'Clear';
+	String get network => 'Check your internet connection';
+	String get credential => 'Incorrect credentials';
+	String get disabled => 'This account has been disabled, please try again later';
+	String get notRegistered => 'This account is not registered';
+	String get passwordNotMatch => 'Incorrect password';
+	String get unknown => 'Unknown error, please try again later';
+	String get sendedEmail => 'A confirmation email has been sent to your email address';
 }
 
 // Path: species
@@ -284,6 +327,21 @@ class _TranslationsUserCredentialFailureEn {
 	String get unknown => 'Unknown error';
 }
 
+// Path: validator
+class _TranslationsValidatorEn {
+	_TranslationsValidatorEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _TranslationsValidatorPasswordEn password = _TranslationsValidatorPasswordEn._(_root);
+	late final _TranslationsValidatorRepeatPasswordEn repeatPassword = _TranslationsValidatorRepeatPasswordEn._(_root);
+	late final _TranslationsValidatorEmailEn email = _TranslationsValidatorEmailEn._(_root);
+	late final _TranslationsValidatorNameEn name = _TranslationsValidatorNameEn._(_root);
+	late final _TranslationsValidatorLastNameEn lastName = _TranslationsValidatorLastNameEn._(_root);
+	late final _TranslationsValidatorPhoneEn phone = _TranslationsValidatorPhoneEn._(_root);
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterEn._(this._root);
@@ -326,6 +384,76 @@ class _TranslationsSearchPageCategoryFilterEn {
 	String get palms => 'Palms';
 }
 
+// Path: validator.password
+class _TranslationsValidatorPasswordEn {
+	_TranslationsValidatorPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Enter your password';
+	String get minLength => 'Enter at least 6 characters';
+	String get regExp => 'Password must contain at least one number and one letter';
+}
+
+// Path: validator.repeatPassword
+class _TranslationsValidatorRepeatPasswordEn {
+	_TranslationsValidatorRepeatPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Enter your password';
+	String get minLength => 'Enter at least 6 characters';
+	String get regExp => 'Password must contain at least one number and one letter';
+	String get matchPassword => 'Passwords must match';
+}
+
+// Path: validator.email
+class _TranslationsValidatorEmailEn {
+	_TranslationsValidatorEmailEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Enter your email';
+	String get regExp => 'Enter a valid email';
+}
+
+// Path: validator.name
+class _TranslationsValidatorNameEn {
+	_TranslationsValidatorNameEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Enter your name';
+	String get minLength => 'Enter at least 3 characters';
+}
+
+// Path: validator.lastName
+class _TranslationsValidatorLastNameEn {
+	_TranslationsValidatorLastNameEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Enter your last name';
+	String get minLength => 'Enter at least 3 characters';
+}
+
+// Path: validator.phone
+class _TranslationsValidatorPhoneEn {
+	_TranslationsValidatorPhoneEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get empty => 'Enter your phone number';
+	String get minLength => 'Enter at least 9 characters';
+	String get regExp => 'Enter a valid phone number';
+}
+
 // Path: <root>
 class _TranslationsEs implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -351,11 +479,14 @@ class _TranslationsEs implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
+	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
 	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
+	@override late final _TranslationsSignUpEs signUp = _TranslationsSignUpEs._(_root);
 	@override late final _TranslationsSpeciesEs species = _TranslationsSpeciesEs._(_root);
 	@override late final _TranslationsSpeciesDetailsEs speciesDetails = _TranslationsSpeciesDetailsEs._(_root);
 	@override late final _TranslationsUserCredentialFailureEs userCredentialFailure = _TranslationsUserCredentialFailureEs._(_root);
+	@override late final _TranslationsValidatorEs validator = _TranslationsValidatorEs._(_root);
 }
 
 // Path: bottomBar
@@ -368,6 +499,22 @@ class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	@override String get home => 'inicio';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'favoritos';
+}
+
+// Path: forgotPassword
+class _TranslationsForgotPasswordEs implements _TranslationsForgotPasswordEn {
+	_TranslationsForgotPasswordEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Olvidó su contraseña';
+	@override String get sendLabel => 'Enviar';
+	@override String get validatingLabel => 'Validando...';
+	@override String get email => 'Correo';
+	@override String get clear => 'Limpiar';
+	@override String get message => 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
+	@override String get checkYourEmail => '¡Revisa tu correo!';
 }
 
 // Path: searchPage
@@ -417,6 +564,30 @@ class _TranslationsSignInEs implements _TranslationsSignInEn {
 	@override String get verify_email => 'Primero verifica tu correo electrónico';
 	@override String get verify_email_more => 'Debes verificar tu correo electrónico para poder ingresar';
 	@override String get forgot_password => '¿Olvidaste tu contraseña?';
+}
+
+// Path: signUp
+class _TranslationsSignUpEs implements _TranslationsSignUpEn {
+	_TranslationsSignUpEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Registrarse';
+	@override String get alreadyRegistered => '¿Ya tienes una cuenta? Inicia sesión';
+	@override String get button => 'Registrarse';
+	@override String get email => 'Correo';
+	@override String get password => 'Contraseña';
+	@override String get showPassword => 'Mostrar contraseña';
+	@override String get repeatPassword => 'Repite tu contraseña';
+	@override String get clear => 'Limpiar';
+	@override String get network => 'Comprueba tu conexión a internet';
+	@override String get credential => 'Credenciales incorrectas';
+	@override String get disabled => 'Esta cuenta ha sido desactivada, inténtelo más tarde';
+	@override String get notRegistered => 'Esta cuenta no está registrada';
+	@override String get passwordNotMatch => 'Contraseña incorrecta';
+	@override String get unknown => 'Error desconocido, inténtelo más tarde';
+	@override String get sendedEmail => 'Se ha enviado un correo de confirmación a tu dirección de correo electrónico';
 }
 
 // Path: species
@@ -483,6 +654,21 @@ class _TranslationsUserCredentialFailureEs implements _TranslationsUserCredentia
 	@override String get unknown => 'Error desconocido';
 }
 
+// Path: validator
+class _TranslationsValidatorEs implements _TranslationsValidatorEn {
+	_TranslationsValidatorEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsValidatorPasswordEs password = _TranslationsValidatorPasswordEs._(_root);
+	@override late final _TranslationsValidatorRepeatPasswordEs repeatPassword = _TranslationsValidatorRepeatPasswordEs._(_root);
+	@override late final _TranslationsValidatorEmailEs email = _TranslationsValidatorEmailEs._(_root);
+	@override late final _TranslationsValidatorNameEs name = _TranslationsValidatorNameEs._(_root);
+	@override late final _TranslationsValidatorLastNameEs lastName = _TranslationsValidatorLastNameEs._(_root);
+	@override late final _TranslationsValidatorPhoneEs phone = _TranslationsValidatorPhoneEs._(_root);
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterEs implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterEs._(this._root);
@@ -525,6 +711,76 @@ class _TranslationsSearchPageCategoryFilterEs implements _TranslationsSearchPage
 	@override String get palms => 'Palmeras';
 }
 
+// Path: validator.password
+class _TranslationsValidatorPasswordEs implements _TranslationsValidatorPasswordEn {
+	_TranslationsValidatorPasswordEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ingrese su contraseña';
+	@override String get minLength => 'Ingrese al menos 6 caracteres';
+	@override String get regExp => 'La contraseña debe contener al menos un número y una letra';
+}
+
+// Path: validator.repeatPassword
+class _TranslationsValidatorRepeatPasswordEs implements _TranslationsValidatorRepeatPasswordEn {
+	_TranslationsValidatorRepeatPasswordEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ingrese su contraseña';
+	@override String get minLength => 'Ingrese al menos 6 caracteres';
+	@override String get regExp => 'La contraseña debe contener al menos un número y una letra';
+	@override String get matchPassword => 'Las contraseñas deben ser iguales';
+}
+
+// Path: validator.email
+class _TranslationsValidatorEmailEs implements _TranslationsValidatorEmailEn {
+	_TranslationsValidatorEmailEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ingrese su email';
+	@override String get regExp => 'Ingrese un email válido';
+}
+
+// Path: validator.name
+class _TranslationsValidatorNameEs implements _TranslationsValidatorNameEn {
+	_TranslationsValidatorNameEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ingrese su nombre';
+	@override String get minLength => 'Ingrese al menos 3 caracteres';
+}
+
+// Path: validator.lastName
+class _TranslationsValidatorLastNameEs implements _TranslationsValidatorLastNameEn {
+	_TranslationsValidatorLastNameEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ingrese su apellido';
+	@override String get minLength => 'Ingrese al menos 3 caracteres';
+}
+
+// Path: validator.phone
+class _TranslationsValidatorPhoneEs implements _TranslationsValidatorPhoneEn {
+	_TranslationsValidatorPhoneEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Ingrese su teléfono';
+	@override String get minLength => 'Ingrese al menos 9 caracteres';
+	@override String get regExp => 'Ingrese un teléfono válido';
+}
+
 // Path: <root>
 class _TranslationsFr implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -550,11 +806,14 @@ class _TranslationsFr implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
+	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
 	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
+	@override late final _TranslationsSignUpFr signUp = _TranslationsSignUpFr._(_root);
 	@override late final _TranslationsSpeciesFr species = _TranslationsSpeciesFr._(_root);
 	@override late final _TranslationsSpeciesDetailsFr speciesDetails = _TranslationsSpeciesDetailsFr._(_root);
 	@override late final _TranslationsUserCredentialFailureFr userCredentialFailure = _TranslationsUserCredentialFailureFr._(_root);
+	@override late final _TranslationsValidatorFr validator = _TranslationsValidatorFr._(_root);
 }
 
 // Path: bottomBar
@@ -567,6 +826,22 @@ class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	@override String get home => 'Accueil';
 	@override String get search => 'Rechercher';
 	@override String get favorites => 'Favoris';
+}
+
+// Path: forgotPassword
+class _TranslationsForgotPasswordFr implements _TranslationsForgotPasswordEn {
+	_TranslationsForgotPasswordFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mot de passe oublié';
+	@override String get sendLabel => 'Envoyer';
+	@override String get validatingLabel => 'Validation en cours...';
+	@override String get email => 'Email';
+	@override String get clear => 'Effacer';
+	@override String get message => 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
+	@override String get checkYourEmail => 'Vérifiez votre e-mail !';
 }
 
 // Path: searchPage
@@ -616,6 +891,30 @@ class _TranslationsSignInFr implements _TranslationsSignInEn {
 	@override String get verify_email => 'Vérifiez d\'abord votre e-mail';
 	@override String get verify_email_more => 'Vous devez vérifier votre e-mail pour vous connecter';
 	@override String get forgot_password => 'Mot de passe oublié ?';
+}
+
+// Path: signUp
+class _TranslationsSignUpFr implements _TranslationsSignUpEn {
+	_TranslationsSignUpFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'S\'inscrire';
+	@override String get alreadyRegistered => 'Vous avez déjà un compte ? Connectez-vous';
+	@override String get button => 'S\'inscrire';
+	@override String get email => 'E-mail';
+	@override String get password => 'Mot de passe';
+	@override String get showPassword => 'Afficher le mot de passe';
+	@override String get repeatPassword => 'Répéter votre mot de passe';
+	@override String get clear => 'Effacer';
+	@override String get network => 'Vérifiez votre connexion internet';
+	@override String get credential => 'Identifiants incorrects';
+	@override String get disabled => 'Ce compte a été désactivé, veuillez réessayer plus tard';
+	@override String get notRegistered => 'Ce compte n\'est pas enregistré';
+	@override String get passwordNotMatch => 'Mot de passe incorrect';
+	@override String get unknown => 'Erreur inconnue, veuillez réessayer plus tard';
+	@override String get sendedEmail => 'Un e-mail de confirmation a été envoyé à votre adresse e-mail';
 }
 
 // Path: species
@@ -682,6 +981,21 @@ class _TranslationsUserCredentialFailureFr implements _TranslationsUserCredentia
 	@override String get unknown => 'Erreur inconnue';
 }
 
+// Path: validator
+class _TranslationsValidatorFr implements _TranslationsValidatorEn {
+	_TranslationsValidatorFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsValidatorPasswordFr password = _TranslationsValidatorPasswordFr._(_root);
+	@override late final _TranslationsValidatorRepeatPasswordFr repeatPassword = _TranslationsValidatorRepeatPasswordFr._(_root);
+	@override late final _TranslationsValidatorEmailFr email = _TranslationsValidatorEmailFr._(_root);
+	@override late final _TranslationsValidatorNameFr name = _TranslationsValidatorNameFr._(_root);
+	@override late final _TranslationsValidatorLastNameFr lastName = _TranslationsValidatorLastNameFr._(_root);
+	@override late final _TranslationsValidatorPhoneFr phone = _TranslationsValidatorPhoneFr._(_root);
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterFr implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterFr._(this._root);
@@ -724,6 +1038,76 @@ class _TranslationsSearchPageCategoryFilterFr implements _TranslationsSearchPage
 	@override String get palms => 'Palmiers';
 }
 
+// Path: validator.password
+class _TranslationsValidatorPasswordFr implements _TranslationsValidatorPasswordEn {
+	_TranslationsValidatorPasswordFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Entrez votre mot de passe';
+	@override String get minLength => 'Entrez au moins 6 caractères';
+	@override String get regExp => 'Le mot de passe doit contenir au moins un chiffre et une lettre';
+}
+
+// Path: validator.repeatPassword
+class _TranslationsValidatorRepeatPasswordFr implements _TranslationsValidatorRepeatPasswordEn {
+	_TranslationsValidatorRepeatPasswordFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Entrez votre mot de passe';
+	@override String get minLength => 'Entrez au moins 6 caractères';
+	@override String get regExp => 'Le mot de passe doit contenir au moins un chiffre et une lettre';
+	@override String get matchPassword => 'Les mots de passe doivent être identiques';
+}
+
+// Path: validator.email
+class _TranslationsValidatorEmailFr implements _TranslationsValidatorEmailEn {
+	_TranslationsValidatorEmailFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Entrez votre e-mail';
+	@override String get regExp => 'Entrez un e-mail valide';
+}
+
+// Path: validator.name
+class _TranslationsValidatorNameFr implements _TranslationsValidatorNameEn {
+	_TranslationsValidatorNameFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Entrez votre nom';
+	@override String get minLength => 'Entrez au moins 3 caractères';
+}
+
+// Path: validator.lastName
+class _TranslationsValidatorLastNameFr implements _TranslationsValidatorLastNameEn {
+	_TranslationsValidatorLastNameFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Entrez votre nom de famille';
+	@override String get minLength => 'Entrez au moins 3 caractères';
+}
+
+// Path: validator.phone
+class _TranslationsValidatorPhoneFr implements _TranslationsValidatorPhoneEn {
+	_TranslationsValidatorPhoneFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Entrez votre numéro de téléphone';
+	@override String get minLength => 'Entrez au moins 9 caractères';
+	@override String get regExp => 'Entrez un numéro de téléphone valide';
+}
+
 // Path: <root>
 class _TranslationsPt implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -749,11 +1133,14 @@ class _TranslationsPt implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
+	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
 	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
+	@override late final _TranslationsSignUpPt signUp = _TranslationsSignUpPt._(_root);
 	@override late final _TranslationsSpeciesPt species = _TranslationsSpeciesPt._(_root);
 	@override late final _TranslationsSpeciesDetailsPt speciesDetails = _TranslationsSpeciesDetailsPt._(_root);
 	@override late final _TranslationsUserCredentialFailurePt userCredentialFailure = _TranslationsUserCredentialFailurePt._(_root);
+	@override late final _TranslationsValidatorPt validator = _TranslationsValidatorPt._(_root);
 }
 
 // Path: bottomBar
@@ -766,6 +1153,22 @@ class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	@override String get home => 'Início';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: forgotPassword
+class _TranslationsForgotPasswordPt implements _TranslationsForgotPasswordEn {
+	_TranslationsForgotPasswordPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Esqueceu sua senha';
+	@override String get sendLabel => 'Enviar';
+	@override String get validatingLabel => 'Validando...';
+	@override String get email => 'Email';
+	@override String get clear => 'Limpar';
+	@override String get message => 'Digite seu email para enviar um email onde você pode alterar sua senha:';
+	@override String get checkYourEmail => 'Verifique seu email!';
 }
 
 // Path: searchPage
@@ -815,6 +1218,30 @@ class _TranslationsSignInPt implements _TranslationsSignInEn {
 	@override String get verify_email => 'Primeiro verifique seu e-mail';
 	@override String get verify_email_more => 'Você precisa verificar seu e-mail para fazer login';
 	@override String get forgot_password => 'Esqueceu sua senha?';
+}
+
+// Path: signUp
+class _TranslationsSignUpPt implements _TranslationsSignUpEn {
+	_TranslationsSignUpPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Registar-se';
+	@override String get alreadyRegistered => 'Já tem uma conta? Iniciar sessão';
+	@override String get button => 'Registar-se';
+	@override String get email => 'E-mail';
+	@override String get password => 'Senha';
+	@override String get showPassword => 'Mostrar senha';
+	@override String get repeatPassword => 'Repetir sua senha';
+	@override String get clear => 'Limpar';
+	@override String get network => 'Verifique sua conexão com a internet';
+	@override String get credential => 'Credenciais incorretas';
+	@override String get disabled => 'Esta conta foi desativada, tente novamente mais tarde';
+	@override String get notRegistered => 'Esta conta não está registrada';
+	@override String get passwordNotMatch => 'Senha incorreta';
+	@override String get unknown => 'Erro desconhecido, tente novamente mais tarde';
+	@override String get sendedEmail => 'Um e-mail de confirmação foi enviado para o seu endereço de e-mail';
 }
 
 // Path: species
@@ -881,6 +1308,21 @@ class _TranslationsUserCredentialFailurePt implements _TranslationsUserCredentia
 	@override String get unknown => 'Erro desconhecido';
 }
 
+// Path: validator
+class _TranslationsValidatorPt implements _TranslationsValidatorEn {
+	_TranslationsValidatorPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsValidatorPasswordPt password = _TranslationsValidatorPasswordPt._(_root);
+	@override late final _TranslationsValidatorRepeatPasswordPt repeatPassword = _TranslationsValidatorRepeatPasswordPt._(_root);
+	@override late final _TranslationsValidatorEmailPt email = _TranslationsValidatorEmailPt._(_root);
+	@override late final _TranslationsValidatorNamePt name = _TranslationsValidatorNamePt._(_root);
+	@override late final _TranslationsValidatorLastNamePt lastName = _TranslationsValidatorLastNamePt._(_root);
+	@override late final _TranslationsValidatorPhonePt phone = _TranslationsValidatorPhonePt._(_root);
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterPt implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterPt._(this._root);
@@ -923,6 +1365,76 @@ class _TranslationsSearchPageCategoryFilterPt implements _TranslationsSearchPage
 	@override String get palms => 'Palmeiras';
 }
 
+// Path: validator.password
+class _TranslationsValidatorPasswordPt implements _TranslationsValidatorPasswordEn {
+	_TranslationsValidatorPasswordPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Digite sua senha';
+	@override String get minLength => 'Digite pelo menos 6 caracteres';
+	@override String get regExp => 'A senha deve conter pelo menos um número e uma letra';
+}
+
+// Path: validator.repeatPassword
+class _TranslationsValidatorRepeatPasswordPt implements _TranslationsValidatorRepeatPasswordEn {
+	_TranslationsValidatorRepeatPasswordPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Digite sua senha';
+	@override String get minLength => 'Digite pelo menos 6 caracteres';
+	@override String get regExp => 'A senha deve conter pelo menos um número e uma letra';
+	@override String get matchPassword => 'As senhas devem ser iguais';
+}
+
+// Path: validator.email
+class _TranslationsValidatorEmailPt implements _TranslationsValidatorEmailEn {
+	_TranslationsValidatorEmailPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Digite seu email';
+	@override String get regExp => 'Digite um email válido';
+}
+
+// Path: validator.name
+class _TranslationsValidatorNamePt implements _TranslationsValidatorNameEn {
+	_TranslationsValidatorNamePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Digite seu nome';
+	@override String get minLength => 'Digite pelo menos 3 caracteres';
+}
+
+// Path: validator.lastName
+class _TranslationsValidatorLastNamePt implements _TranslationsValidatorLastNameEn {
+	_TranslationsValidatorLastNamePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Digite seu sobrenome';
+	@override String get minLength => 'Digite pelo menos 3 caracteres';
+}
+
+// Path: validator.phone
+class _TranslationsValidatorPhonePt implements _TranslationsValidatorPhoneEn {
+	_TranslationsValidatorPhonePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Digite seu telefone';
+	@override String get minLength => 'Digite pelo menos 9 caracteres';
+	@override String get regExp => 'Digite um telefone válido';
+}
+
 // Path: <root>
 class _TranslationsZh implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -948,11 +1460,14 @@ class _TranslationsZh implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
+	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
 	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
+	@override late final _TranslationsSignUpZh signUp = _TranslationsSignUpZh._(_root);
 	@override late final _TranslationsSpeciesZh species = _TranslationsSpeciesZh._(_root);
 	@override late final _TranslationsSpeciesDetailsZh speciesDetails = _TranslationsSpeciesDetailsZh._(_root);
 	@override late final _TranslationsUserCredentialFailureZh userCredentialFailure = _TranslationsUserCredentialFailureZh._(_root);
+	@override late final _TranslationsValidatorZh validator = _TranslationsValidatorZh._(_root);
 }
 
 // Path: bottomBar
@@ -965,6 +1480,22 @@ class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	@override String get home => '首页';
 	@override String get search => '搜索';
 	@override String get favorites => '收藏夹';
+}
+
+// Path: forgotPassword
+class _TranslationsForgotPasswordZh implements _TranslationsForgotPasswordEn {
+	_TranslationsForgotPasswordZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '忘记密码';
+	@override String get sendLabel => '发送';
+	@override String get validatingLabel => '正在验证...';
+	@override String get email => '邮箱';
+	@override String get clear => '清除';
+	@override String get message => '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
+	@override String get checkYourEmail => '请检查您的邮箱！';
 }
 
 // Path: searchPage
@@ -1014,6 +1545,30 @@ class _TranslationsSignInZh implements _TranslationsSignInEn {
 	@override String get verify_email => '首先验证您的电子邮件';
 	@override String get verify_email_more => '您需要验证您的电子邮件才能登录';
 	@override String get forgot_password => '忘记密码了吗？';
+}
+
+// Path: signUp
+class _TranslationsSignUpZh implements _TranslationsSignUpEn {
+	_TranslationsSignUpZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '注册';
+	@override String get alreadyRegistered => '已经有账号了？登录';
+	@override String get button => '注册';
+	@override String get email => '邮箱';
+	@override String get password => '密码';
+	@override String get showPassword => '显示密码';
+	@override String get repeatPassword => '重复你的密码';
+	@override String get clear => '清除';
+	@override String get network => '检查你的网络连接';
+	@override String get credential => '凭据不正确';
+	@override String get disabled => '此帐户已被停用，请稍后再试';
+	@override String get notRegistered => '此帐户尚未注册';
+	@override String get passwordNotMatch => '密码不正确';
+	@override String get unknown => '未知错误，请稍后再试';
+	@override String get sendedEmail => '确认邮件已发送至您的电子邮件地址';
 }
 
 // Path: species
@@ -1080,6 +1635,21 @@ class _TranslationsUserCredentialFailureZh implements _TranslationsUserCredentia
 	@override String get unknown => '未知错误';
 }
 
+// Path: validator
+class _TranslationsValidatorZh implements _TranslationsValidatorEn {
+	_TranslationsValidatorZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsValidatorPasswordZh password = _TranslationsValidatorPasswordZh._(_root);
+	@override late final _TranslationsValidatorRepeatPasswordZh repeatPassword = _TranslationsValidatorRepeatPasswordZh._(_root);
+	@override late final _TranslationsValidatorEmailZh email = _TranslationsValidatorEmailZh._(_root);
+	@override late final _TranslationsValidatorNameZh name = _TranslationsValidatorNameZh._(_root);
+	@override late final _TranslationsValidatorLastNameZh lastName = _TranslationsValidatorLastNameZh._(_root);
+	@override late final _TranslationsValidatorPhoneZh phone = _TranslationsValidatorPhoneZh._(_root);
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterZh implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterZh._(this._root);
@@ -1122,6 +1692,76 @@ class _TranslationsSearchPageCategoryFilterZh implements _TranslationsSearchPage
 	@override String get palms => '棕榈树';
 }
 
+// Path: validator.password
+class _TranslationsValidatorPasswordZh implements _TranslationsValidatorPasswordEn {
+	_TranslationsValidatorPasswordZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '请输入您的密码';
+	@override String get minLength => '至少输入6个字符';
+	@override String get regExp => '密码必须包含至少一个数字和一个字母';
+}
+
+// Path: validator.repeatPassword
+class _TranslationsValidatorRepeatPasswordZh implements _TranslationsValidatorRepeatPasswordEn {
+	_TranslationsValidatorRepeatPasswordZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '请输入您的密码';
+	@override String get minLength => '至少输入6个字符';
+	@override String get regExp => '密码必须包含至少一个数字和一个字母';
+	@override String get matchPassword => '密码必须相同';
+}
+
+// Path: validator.email
+class _TranslationsValidatorEmailZh implements _TranslationsValidatorEmailEn {
+	_TranslationsValidatorEmailZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '请输入您的邮箱';
+	@override String get regExp => '请输入有效的邮箱';
+}
+
+// Path: validator.name
+class _TranslationsValidatorNameZh implements _TranslationsValidatorNameEn {
+	_TranslationsValidatorNameZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '请输入您的姓名';
+	@override String get minLength => '至少输入3个字符';
+}
+
+// Path: validator.lastName
+class _TranslationsValidatorLastNameZh implements _TranslationsValidatorLastNameEn {
+	_TranslationsValidatorLastNameZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '请输入您的姓氏';
+	@override String get minLength => '至少输入3个字符';
+}
+
+// Path: validator.phone
+class _TranslationsValidatorPhoneZh implements _TranslationsValidatorPhoneEn {
+	_TranslationsValidatorPhoneZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '请输入您的电话号码';
+	@override String get minLength => '至少输入9个字符';
+	@override String get regExp => '请输入有效的电话号码';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -1131,6 +1771,13 @@ extension on Translations {
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
+			case 'forgotPassword.title': return 'Forgot Your Password';
+			case 'forgotPassword.sendLabel': return 'Send';
+			case 'forgotPassword.validatingLabel': return 'Validating...';
+			case 'forgotPassword.email': return 'Email';
+			case 'forgotPassword.clear': return 'Clear';
+			case 'forgotPassword.message': return 'Enter your email to send you an email where you can change your password:';
+			case 'forgotPassword.checkYourEmail': return 'Check your email!';
 			case 'searchPage.failedRequest': return 'Something went wrong. Please try again';
 			case 'searchPage.recentlyAdded': return 'Recently Added';
 			case 'searchPage.nameFilter.common': return 'Common';
@@ -1174,6 +1821,21 @@ extension on Translations {
 			case 'signIn.verify_email': return 'First verify your email';
 			case 'signIn.verify_email_more': return 'You need to verify your email to log in';
 			case 'signIn.forgot_password': return 'Forgot your password?';
+			case 'signUp.title': return 'Sign Up';
+			case 'signUp.alreadyRegistered': return 'Already have an account? Sign in';
+			case 'signUp.button': return 'Sign Up';
+			case 'signUp.email': return 'Email';
+			case 'signUp.password': return 'Password';
+			case 'signUp.showPassword': return 'Show Password';
+			case 'signUp.repeatPassword': return 'Repeat Your Password';
+			case 'signUp.clear': return 'Clear';
+			case 'signUp.network': return 'Check your internet connection';
+			case 'signUp.credential': return 'Incorrect credentials';
+			case 'signUp.disabled': return 'This account has been disabled, please try again later';
+			case 'signUp.notRegistered': return 'This account is not registered';
+			case 'signUp.passwordNotMatch': return 'Incorrect password';
+			case 'signUp.unknown': return 'Unknown error, please try again later';
+			case 'signUp.sendedEmail': return 'A confirmation email has been sent to your email address';
 			case 'species.title': return 'Species';
 			case 'species.birds': return 'Birds';
 			case 'species.mammals': return 'Mammals';
@@ -1211,6 +1873,22 @@ extension on Translations {
 			case 'userCredentialFailure.notRegistered': return 'Email is not registered';
 			case 'userCredentialFailure.password': return 'Incorrect password';
 			case 'userCredentialFailure.unknown': return 'Unknown error';
+			case 'validator.password.empty': return 'Enter your password';
+			case 'validator.password.minLength': return 'Enter at least 6 characters';
+			case 'validator.password.regExp': return 'Password must contain at least one number and one letter';
+			case 'validator.repeatPassword.empty': return 'Enter your password';
+			case 'validator.repeatPassword.minLength': return 'Enter at least 6 characters';
+			case 'validator.repeatPassword.regExp': return 'Password must contain at least one number and one letter';
+			case 'validator.repeatPassword.matchPassword': return 'Passwords must match';
+			case 'validator.email.empty': return 'Enter your email';
+			case 'validator.email.regExp': return 'Enter a valid email';
+			case 'validator.name.empty': return 'Enter your name';
+			case 'validator.name.minLength': return 'Enter at least 3 characters';
+			case 'validator.lastName.empty': return 'Enter your last name';
+			case 'validator.lastName.minLength': return 'Enter at least 3 characters';
+			case 'validator.phone.empty': return 'Enter your phone number';
+			case 'validator.phone.minLength': return 'Enter at least 9 characters';
+			case 'validator.phone.regExp': return 'Enter a valid phone number';
 			default: return null;
 		}
 	}
@@ -1222,6 +1900,13 @@ extension on _TranslationsEs {
 			case 'bottomBar.home': return 'inicio';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'favoritos';
+			case 'forgotPassword.title': return 'Olvidó su contraseña';
+			case 'forgotPassword.sendLabel': return 'Enviar';
+			case 'forgotPassword.validatingLabel': return 'Validando...';
+			case 'forgotPassword.email': return 'Correo';
+			case 'forgotPassword.clear': return 'Limpiar';
+			case 'forgotPassword.message': return 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
+			case 'forgotPassword.checkYourEmail': return '¡Revisa tu correo!';
 			case 'searchPage.failedRequest': return 'Algo salió mal. Inténtalo de nuevo';
 			case 'searchPage.recentlyAdded': return 'Recién agregado';
 			case 'searchPage.nameFilter.common': return 'Común';
@@ -1265,6 +1950,21 @@ extension on _TranslationsEs {
 			case 'signIn.verify_email': return 'Primero verifica tu correo electrónico';
 			case 'signIn.verify_email_more': return 'Debes verificar tu correo electrónico para poder ingresar';
 			case 'signIn.forgot_password': return '¿Olvidaste tu contraseña?';
+			case 'signUp.title': return 'Registrarse';
+			case 'signUp.alreadyRegistered': return '¿Ya tienes una cuenta? Inicia sesión';
+			case 'signUp.button': return 'Registrarse';
+			case 'signUp.email': return 'Correo';
+			case 'signUp.password': return 'Contraseña';
+			case 'signUp.showPassword': return 'Mostrar contraseña';
+			case 'signUp.repeatPassword': return 'Repite tu contraseña';
+			case 'signUp.clear': return 'Limpiar';
+			case 'signUp.network': return 'Comprueba tu conexión a internet';
+			case 'signUp.credential': return 'Credenciales incorrectas';
+			case 'signUp.disabled': return 'Esta cuenta ha sido desactivada, inténtelo más tarde';
+			case 'signUp.notRegistered': return 'Esta cuenta no está registrada';
+			case 'signUp.passwordNotMatch': return 'Contraseña incorrecta';
+			case 'signUp.unknown': return 'Error desconocido, inténtelo más tarde';
+			case 'signUp.sendedEmail': return 'Se ha enviado un correo de confirmación a tu dirección de correo electrónico';
 			case 'species.title': return 'Especies';
 			case 'species.birds': return 'Aves';
 			case 'species.mammals': return 'Mamíferos';
@@ -1302,6 +2002,22 @@ extension on _TranslationsEs {
 			case 'userCredentialFailure.notRegistered': return 'El correo no está registrado';
 			case 'userCredentialFailure.password': return 'Contraseña incorrecta';
 			case 'userCredentialFailure.unknown': return 'Error desconocido';
+			case 'validator.password.empty': return 'Ingrese su contraseña';
+			case 'validator.password.minLength': return 'Ingrese al menos 6 caracteres';
+			case 'validator.password.regExp': return 'La contraseña debe contener al menos un número y una letra';
+			case 'validator.repeatPassword.empty': return 'Ingrese su contraseña';
+			case 'validator.repeatPassword.minLength': return 'Ingrese al menos 6 caracteres';
+			case 'validator.repeatPassword.regExp': return 'La contraseña debe contener al menos un número y una letra';
+			case 'validator.repeatPassword.matchPassword': return 'Las contraseñas deben ser iguales';
+			case 'validator.email.empty': return 'Ingrese su email';
+			case 'validator.email.regExp': return 'Ingrese un email válido';
+			case 'validator.name.empty': return 'Ingrese su nombre';
+			case 'validator.name.minLength': return 'Ingrese al menos 3 caracteres';
+			case 'validator.lastName.empty': return 'Ingrese su apellido';
+			case 'validator.lastName.minLength': return 'Ingrese al menos 3 caracteres';
+			case 'validator.phone.empty': return 'Ingrese su teléfono';
+			case 'validator.phone.minLength': return 'Ingrese al menos 9 caracteres';
+			case 'validator.phone.regExp': return 'Ingrese un teléfono válido';
 			default: return null;
 		}
 	}
@@ -1313,6 +2029,13 @@ extension on _TranslationsFr {
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
+			case 'forgotPassword.title': return 'Mot de passe oublié';
+			case 'forgotPassword.sendLabel': return 'Envoyer';
+			case 'forgotPassword.validatingLabel': return 'Validation en cours...';
+			case 'forgotPassword.email': return 'Email';
+			case 'forgotPassword.clear': return 'Effacer';
+			case 'forgotPassword.message': return 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
+			case 'forgotPassword.checkYourEmail': return 'Vérifiez votre e-mail !';
 			case 'searchPage.failedRequest': return 'Quelque chose s\'est mal passé. Veuillez réessayer';
 			case 'searchPage.recentlyAdded': return 'Récemment ajouté';
 			case 'searchPage.nameFilter.common': return 'Commun';
@@ -1356,6 +2079,21 @@ extension on _TranslationsFr {
 			case 'signIn.verify_email': return 'Vérifiez d\'abord votre e-mail';
 			case 'signIn.verify_email_more': return 'Vous devez vérifier votre e-mail pour vous connecter';
 			case 'signIn.forgot_password': return 'Mot de passe oublié ?';
+			case 'signUp.title': return 'S\'inscrire';
+			case 'signUp.alreadyRegistered': return 'Vous avez déjà un compte ? Connectez-vous';
+			case 'signUp.button': return 'S\'inscrire';
+			case 'signUp.email': return 'E-mail';
+			case 'signUp.password': return 'Mot de passe';
+			case 'signUp.showPassword': return 'Afficher le mot de passe';
+			case 'signUp.repeatPassword': return 'Répéter votre mot de passe';
+			case 'signUp.clear': return 'Effacer';
+			case 'signUp.network': return 'Vérifiez votre connexion internet';
+			case 'signUp.credential': return 'Identifiants incorrects';
+			case 'signUp.disabled': return 'Ce compte a été désactivé, veuillez réessayer plus tard';
+			case 'signUp.notRegistered': return 'Ce compte n\'est pas enregistré';
+			case 'signUp.passwordNotMatch': return 'Mot de passe incorrect';
+			case 'signUp.unknown': return 'Erreur inconnue, veuillez réessayer plus tard';
+			case 'signUp.sendedEmail': return 'Un e-mail de confirmation a été envoyé à votre adresse e-mail';
 			case 'species.title': return 'Espécies';
 			case 'species.birds': return 'Aves';
 			case 'species.mammals': return 'Mamíferos';
@@ -1393,6 +2131,22 @@ extension on _TranslationsFr {
 			case 'userCredentialFailure.notRegistered': return 'L\'e-mail n\'est pas enregistré';
 			case 'userCredentialFailure.password': return 'Mot de passe incorrect';
 			case 'userCredentialFailure.unknown': return 'Erreur inconnue';
+			case 'validator.password.empty': return 'Entrez votre mot de passe';
+			case 'validator.password.minLength': return 'Entrez au moins 6 caractères';
+			case 'validator.password.regExp': return 'Le mot de passe doit contenir au moins un chiffre et une lettre';
+			case 'validator.repeatPassword.empty': return 'Entrez votre mot de passe';
+			case 'validator.repeatPassword.minLength': return 'Entrez au moins 6 caractères';
+			case 'validator.repeatPassword.regExp': return 'Le mot de passe doit contenir au moins un chiffre et une lettre';
+			case 'validator.repeatPassword.matchPassword': return 'Les mots de passe doivent être identiques';
+			case 'validator.email.empty': return 'Entrez votre e-mail';
+			case 'validator.email.regExp': return 'Entrez un e-mail valide';
+			case 'validator.name.empty': return 'Entrez votre nom';
+			case 'validator.name.minLength': return 'Entrez au moins 3 caractères';
+			case 'validator.lastName.empty': return 'Entrez votre nom de famille';
+			case 'validator.lastName.minLength': return 'Entrez au moins 3 caractères';
+			case 'validator.phone.empty': return 'Entrez votre numéro de téléphone';
+			case 'validator.phone.minLength': return 'Entrez au moins 9 caractères';
+			case 'validator.phone.regExp': return 'Entrez un numéro de téléphone valide';
 			default: return null;
 		}
 	}
@@ -1404,6 +2158,13 @@ extension on _TranslationsPt {
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'forgotPassword.title': return 'Esqueceu sua senha';
+			case 'forgotPassword.sendLabel': return 'Enviar';
+			case 'forgotPassword.validatingLabel': return 'Validando...';
+			case 'forgotPassword.email': return 'Email';
+			case 'forgotPassword.clear': return 'Limpar';
+			case 'forgotPassword.message': return 'Digite seu email para enviar um email onde você pode alterar sua senha:';
+			case 'forgotPassword.checkYourEmail': return 'Verifique seu email!';
 			case 'searchPage.failedRequest': return 'Algo deu errado. Por favor, tente novamente';
 			case 'searchPage.recentlyAdded': return 'Recentemente adicionado';
 			case 'searchPage.nameFilter.common': return 'Comum';
@@ -1447,6 +2208,21 @@ extension on _TranslationsPt {
 			case 'signIn.verify_email': return 'Primeiro verifique seu e-mail';
 			case 'signIn.verify_email_more': return 'Você precisa verificar seu e-mail para fazer login';
 			case 'signIn.forgot_password': return 'Esqueceu sua senha?';
+			case 'signUp.title': return 'Registar-se';
+			case 'signUp.alreadyRegistered': return 'Já tem uma conta? Iniciar sessão';
+			case 'signUp.button': return 'Registar-se';
+			case 'signUp.email': return 'E-mail';
+			case 'signUp.password': return 'Senha';
+			case 'signUp.showPassword': return 'Mostrar senha';
+			case 'signUp.repeatPassword': return 'Repetir sua senha';
+			case 'signUp.clear': return 'Limpar';
+			case 'signUp.network': return 'Verifique sua conexão com a internet';
+			case 'signUp.credential': return 'Credenciais incorretas';
+			case 'signUp.disabled': return 'Esta conta foi desativada, tente novamente mais tarde';
+			case 'signUp.notRegistered': return 'Esta conta não está registrada';
+			case 'signUp.passwordNotMatch': return 'Senha incorreta';
+			case 'signUp.unknown': return 'Erro desconhecido, tente novamente mais tarde';
+			case 'signUp.sendedEmail': return 'Um e-mail de confirmação foi enviado para o seu endereço de e-mail';
 			case 'species.title': return 'Espécies';
 			case 'species.birds': return 'Aves';
 			case 'species.mammals': return 'Mamíferos';
@@ -1484,6 +2260,22 @@ extension on _TranslationsPt {
 			case 'userCredentialFailure.notRegistered': return 'O e-mail não está registrado';
 			case 'userCredentialFailure.password': return 'Senha incorreta';
 			case 'userCredentialFailure.unknown': return 'Erro desconhecido';
+			case 'validator.password.empty': return 'Digite sua senha';
+			case 'validator.password.minLength': return 'Digite pelo menos 6 caracteres';
+			case 'validator.password.regExp': return 'A senha deve conter pelo menos um número e uma letra';
+			case 'validator.repeatPassword.empty': return 'Digite sua senha';
+			case 'validator.repeatPassword.minLength': return 'Digite pelo menos 6 caracteres';
+			case 'validator.repeatPassword.regExp': return 'A senha deve conter pelo menos um número e uma letra';
+			case 'validator.repeatPassword.matchPassword': return 'As senhas devem ser iguais';
+			case 'validator.email.empty': return 'Digite seu email';
+			case 'validator.email.regExp': return 'Digite um email válido';
+			case 'validator.name.empty': return 'Digite seu nome';
+			case 'validator.name.minLength': return 'Digite pelo menos 3 caracteres';
+			case 'validator.lastName.empty': return 'Digite seu sobrenome';
+			case 'validator.lastName.minLength': return 'Digite pelo menos 3 caracteres';
+			case 'validator.phone.empty': return 'Digite seu telefone';
+			case 'validator.phone.minLength': return 'Digite pelo menos 9 caracteres';
+			case 'validator.phone.regExp': return 'Digite um telefone válido';
 			default: return null;
 		}
 	}
@@ -1495,6 +2287,13 @@ extension on _TranslationsZh {
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';
+			case 'forgotPassword.title': return '忘记密码';
+			case 'forgotPassword.sendLabel': return '发送';
+			case 'forgotPassword.validatingLabel': return '正在验证...';
+			case 'forgotPassword.email': return '邮箱';
+			case 'forgotPassword.clear': return '清除';
+			case 'forgotPassword.message': return '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
+			case 'forgotPassword.checkYourEmail': return '请检查您的邮箱！';
 			case 'searchPage.failedRequest': return '发生错误。请重试';
 			case 'searchPage.recentlyAdded': return '最近添加';
 			case 'searchPage.nameFilter.common': return '常见';
@@ -1538,6 +2337,21 @@ extension on _TranslationsZh {
 			case 'signIn.verify_email': return '首先验证您的电子邮件';
 			case 'signIn.verify_email_more': return '您需要验证您的电子邮件才能登录';
 			case 'signIn.forgot_password': return '忘记密码了吗？';
+			case 'signUp.title': return '注册';
+			case 'signUp.alreadyRegistered': return '已经有账号了？登录';
+			case 'signUp.button': return '注册';
+			case 'signUp.email': return '邮箱';
+			case 'signUp.password': return '密码';
+			case 'signUp.showPassword': return '显示密码';
+			case 'signUp.repeatPassword': return '重复你的密码';
+			case 'signUp.clear': return '清除';
+			case 'signUp.network': return '检查你的网络连接';
+			case 'signUp.credential': return '凭据不正确';
+			case 'signUp.disabled': return '此帐户已被停用，请稍后再试';
+			case 'signUp.notRegistered': return '此帐户尚未注册';
+			case 'signUp.passwordNotMatch': return '密码不正确';
+			case 'signUp.unknown': return '未知错误，请稍后再试';
+			case 'signUp.sendedEmail': return '确认邮件已发送至您的电子邮件地址';
 			case 'species.title': return '物种';
 			case 'species.birds': return '鸟类';
 			case 'species.mammals': return '哺乳动物';
@@ -1575,6 +2389,22 @@ extension on _TranslationsZh {
 			case 'userCredentialFailure.notRegistered': return '电子邮件未注册';
 			case 'userCredentialFailure.password': return '密码不正确';
 			case 'userCredentialFailure.unknown': return '未知错误';
+			case 'validator.password.empty': return '请输入您的密码';
+			case 'validator.password.minLength': return '至少输入6个字符';
+			case 'validator.password.regExp': return '密码必须包含至少一个数字和一个字母';
+			case 'validator.repeatPassword.empty': return '请输入您的密码';
+			case 'validator.repeatPassword.minLength': return '至少输入6个字符';
+			case 'validator.repeatPassword.regExp': return '密码必须包含至少一个数字和一个字母';
+			case 'validator.repeatPassword.matchPassword': return '密码必须相同';
+			case 'validator.email.empty': return '请输入您的邮箱';
+			case 'validator.email.regExp': return '请输入有效的邮箱';
+			case 'validator.name.empty': return '请输入您的姓名';
+			case 'validator.name.minLength': return '至少输入3个字符';
+			case 'validator.lastName.empty': return '请输入您的姓氏';
+			case 'validator.lastName.minLength': return '至少输入3个字符';
+			case 'validator.phone.empty': return '请输入您的电话号码';
+			case 'validator.phone.minLength': return '至少输入9个字符';
+			case 'validator.phone.regExp': return '请输入有效的电话号码';
 			default: return null;
 		}
 	}
