@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 635 (127 per locale)
+/// Strings: 710 (142 per locale)
 ///
-/// Built on 2024-03-22 at 22:58 UTC
+/// Built on 2024-03-22 at 23:35 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -153,6 +153,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
 	late final _TranslationsFavoritesEn favorites = _TranslationsFavoritesEn._(_root);
+	late final _TranslationsFilterOptionsEn filterOptions = _TranslationsFilterOptionsEn._(_root);
 	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
 	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
@@ -188,6 +189,26 @@ class _TranslationsFavoritesEn {
 	String get search => 'Search';
 	String get exceptionText => 'No species here yet';
 	String get deleteFavorite => 'Remove from favorites';
+}
+
+// Path: filterOptions
+class _TranslationsFilterOptionsEn {
+	_TranslationsFilterOptionsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get listByAlphabethic => 'List by alphabetical order';
+	String get recentlyAdded => 'Recently added';
+	String get all => 'All';
+	String get noPreferencies => 'No preferences';
+	late final _TranslationsFilterOptionsFilterByNameEn filterByName = _TranslationsFilterOptionsFilterByNameEn._(_root);
+	late final _TranslationsFilterOptionsFilterBySoundEn filterBySound = _TranslationsFilterOptionsFilterBySoundEn._(_root);
+	String get filterByConservation => 'Filter by conservation status';
+	String get filterByCategory => 'Filter by category';
+	String get filterByTaxonomy => 'Filter by taxonomy';
+	String get filterByOrder => 'Filter by order';
+	String get filterByFamily => 'Filter by family';
 }
 
 // Path: forgotPassword
@@ -358,6 +379,30 @@ class _TranslationsValidatorEn {
 	late final _TranslationsValidatorPhoneEn phone = _TranslationsValidatorPhoneEn._(_root);
 }
 
+// Path: filterOptions.filterByName
+class _TranslationsFilterOptionsFilterByNameEn {
+	_TranslationsFilterOptionsFilterByNameEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Filter by name';
+	String get common => 'Common name';
+	String get scientific => 'Scientific name';
+}
+
+// Path: filterOptions.filterBySound
+class _TranslationsFilterOptionsFilterBySoundEn {
+	_TranslationsFilterOptionsFilterBySoundEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Filter by sound';
+	String get withSound => 'With sound';
+	String get withoutSound => 'Without sound';
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterEn._(this._root);
@@ -496,6 +541,7 @@ class _TranslationsEs implements Translations {
 	// Translations
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
 	@override late final _TranslationsFavoritesEs favorites = _TranslationsFavoritesEs._(_root);
+	@override late final _TranslationsFilterOptionsEs filterOptions = _TranslationsFilterOptionsEs._(_root);
 	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
 	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
@@ -531,6 +577,26 @@ class _TranslationsFavoritesEs implements _TranslationsFavoritesEn {
 	@override String get search => 'Buscar';
 	@override String get exceptionText => 'Aún no hay especies aquí';
 	@override String get deleteFavorite => 'Quitar de favoritos';
+}
+
+// Path: filterOptions
+class _TranslationsFilterOptionsEs implements _TranslationsFilterOptionsEn {
+	_TranslationsFilterOptionsEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get listByAlphabethic => 'Listar por orden alfabético';
+	@override String get recentlyAdded => 'Más reciente';
+	@override String get all => 'Todos';
+	@override String get noPreferencies => 'Sin preferencias';
+	@override late final _TranslationsFilterOptionsFilterByNameEs filterByName = _TranslationsFilterOptionsFilterByNameEs._(_root);
+	@override late final _TranslationsFilterOptionsFilterBySoundEs filterBySound = _TranslationsFilterOptionsFilterBySoundEs._(_root);
+	@override String get filterByConservation => 'Filtrar por estado de conservación';
+	@override String get filterByCategory => 'Filtrar por categoría';
+	@override String get filterByTaxonomy => 'Filtrar por taxonomía';
+	@override String get filterByOrder => 'Filtrar por orden';
+	@override String get filterByFamily => 'Filtrar por familia';
 }
 
 // Path: forgotPassword
@@ -701,6 +767,30 @@ class _TranslationsValidatorEs implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorPhoneEs phone = _TranslationsValidatorPhoneEs._(_root);
 }
 
+// Path: filterOptions.filterByName
+class _TranslationsFilterOptionsFilterByNameEs implements _TranslationsFilterOptionsFilterByNameEn {
+	_TranslationsFilterOptionsFilterByNameEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtrar por nombre';
+	@override String get common => 'Nombre común';
+	@override String get scientific => 'Nombre científico';
+}
+
+// Path: filterOptions.filterBySound
+class _TranslationsFilterOptionsFilterBySoundEs implements _TranslationsFilterOptionsFilterBySoundEn {
+	_TranslationsFilterOptionsFilterBySoundEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtrar por sonido';
+	@override String get withSound => 'Con sonido';
+	@override String get withoutSound => 'Sin sonido';
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterEs implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterEs._(this._root);
@@ -839,6 +929,7 @@ class _TranslationsFr implements Translations {
 	// Translations
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
 	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
+	@override late final _TranslationsFilterOptionsFr filterOptions = _TranslationsFilterOptionsFr._(_root);
 	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
 	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
@@ -874,6 +965,26 @@ class _TranslationsFavoritesFr implements _TranslationsFavoritesEn {
 	@override String get search => 'Chercher';
 	@override String get exceptionText => 'Pas encore d\'espèces ici';
 	@override String get deleteFavorite => 'Supprimer des favoris';
+}
+
+// Path: filterOptions
+class _TranslationsFilterOptionsFr implements _TranslationsFilterOptionsEn {
+	_TranslationsFilterOptionsFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get listByAlphabethic => 'Trier par ordre alphabétique';
+	@override String get recentlyAdded => 'Plus récent';
+	@override String get all => 'Tout';
+	@override String get noPreferencies => 'Pas de préférences';
+	@override late final _TranslationsFilterOptionsFilterByNameFr filterByName = _TranslationsFilterOptionsFilterByNameFr._(_root);
+	@override late final _TranslationsFilterOptionsFilterBySoundFr filterBySound = _TranslationsFilterOptionsFilterBySoundFr._(_root);
+	@override String get filterByConservation => 'Filtrer par état de conservation';
+	@override String get filterByCategory => 'Filtrer par catégorie';
+	@override String get filterByTaxonomy => 'Filtrer par taxonomie';
+	@override String get filterByOrder => 'Filtrer par ordre';
+	@override String get filterByFamily => 'Filtrer par famille';
 }
 
 // Path: forgotPassword
@@ -1044,6 +1155,30 @@ class _TranslationsValidatorFr implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorPhoneFr phone = _TranslationsValidatorPhoneFr._(_root);
 }
 
+// Path: filterOptions.filterByName
+class _TranslationsFilterOptionsFilterByNameFr implements _TranslationsFilterOptionsFilterByNameEn {
+	_TranslationsFilterOptionsFilterByNameFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtrer par nom';
+	@override String get common => 'Nom commun';
+	@override String get scientific => 'Nom scientifique';
+}
+
+// Path: filterOptions.filterBySound
+class _TranslationsFilterOptionsFilterBySoundFr implements _TranslationsFilterOptionsFilterBySoundEn {
+	_TranslationsFilterOptionsFilterBySoundFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtrer par son';
+	@override String get withSound => 'Avec son';
+	@override String get withoutSound => 'Sans son';
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterFr implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterFr._(this._root);
@@ -1182,6 +1317,7 @@ class _TranslationsPt implements Translations {
 	// Translations
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
 	@override late final _TranslationsFavoritesPt favorites = _TranslationsFavoritesPt._(_root);
+	@override late final _TranslationsFilterOptionsPt filterOptions = _TranslationsFilterOptionsPt._(_root);
 	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
 	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
@@ -1217,6 +1353,26 @@ class _TranslationsFavoritesPt implements _TranslationsFavoritesEn {
 	@override String get search => 'Pesquisar';
 	@override String get exceptionText => 'Ainda não há espécies aqui';
 	@override String get deleteFavorite => 'Remover dos favoritos';
+}
+
+// Path: filterOptions
+class _TranslationsFilterOptionsPt implements _TranslationsFilterOptionsEn {
+	_TranslationsFilterOptionsPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get listByAlphabethic => 'Listar por ordem alfabética';
+	@override String get recentlyAdded => 'Mais recente';
+	@override String get all => 'Todos';
+	@override String get noPreferencies => 'Sem preferências';
+	@override late final _TranslationsFilterOptionsFilterByNamePt filterByName = _TranslationsFilterOptionsFilterByNamePt._(_root);
+	@override late final _TranslationsFilterOptionsFilterBySoundPt filterBySound = _TranslationsFilterOptionsFilterBySoundPt._(_root);
+	@override String get filterByConservation => 'Filtrar por estado de conservação';
+	@override String get filterByCategory => 'Filtrar por categoria';
+	@override String get filterByTaxonomy => 'Filtrar por taxonomia';
+	@override String get filterByOrder => 'Filtrar por ordem';
+	@override String get filterByFamily => 'Filtrar por família';
 }
 
 // Path: forgotPassword
@@ -1387,6 +1543,30 @@ class _TranslationsValidatorPt implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorPhonePt phone = _TranslationsValidatorPhonePt._(_root);
 }
 
+// Path: filterOptions.filterByName
+class _TranslationsFilterOptionsFilterByNamePt implements _TranslationsFilterOptionsFilterByNameEn {
+	_TranslationsFilterOptionsFilterByNamePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtrar por nome';
+	@override String get common => 'Nome comum';
+	@override String get scientific => 'Nome científico';
+}
+
+// Path: filterOptions.filterBySound
+class _TranslationsFilterOptionsFilterBySoundPt implements _TranslationsFilterOptionsFilterBySoundEn {
+	_TranslationsFilterOptionsFilterBySoundPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filtrar por som';
+	@override String get withSound => 'Com som';
+	@override String get withoutSound => 'Sem som';
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterPt implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterPt._(this._root);
@@ -1525,6 +1705,7 @@ class _TranslationsZh implements Translations {
 	// Translations
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
 	@override late final _TranslationsFavoritesZh favorites = _TranslationsFavoritesZh._(_root);
+	@override late final _TranslationsFilterOptionsZh filterOptions = _TranslationsFilterOptionsZh._(_root);
 	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
 	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
@@ -1560,6 +1741,26 @@ class _TranslationsFavoritesZh implements _TranslationsFavoritesEn {
 	@override String get search => '搜索';
 	@override String get exceptionText => '这里还没有物种';
 	@override String get deleteFavorite => '从收藏夹中删除';
+}
+
+// Path: filterOptions
+class _TranslationsFilterOptionsZh implements _TranslationsFilterOptionsEn {
+	_TranslationsFilterOptionsZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get listByAlphabethic => '按字母顺序列出';
+	@override String get recentlyAdded => '最近添加';
+	@override String get all => '全部';
+	@override String get noPreferencies => '没有偏好';
+	@override late final _TranslationsFilterOptionsFilterByNameZh filterByName = _TranslationsFilterOptionsFilterByNameZh._(_root);
+	@override late final _TranslationsFilterOptionsFilterBySoundZh filterBySound = _TranslationsFilterOptionsFilterBySoundZh._(_root);
+	@override String get filterByConservation => '按保护状态过滤';
+	@override String get filterByCategory => '按类别过滤';
+	@override String get filterByTaxonomy => '按分类过滤';
+	@override String get filterByOrder => '按顺序过滤';
+	@override String get filterByFamily => '按科过滤';
 }
 
 // Path: forgotPassword
@@ -1730,6 +1931,30 @@ class _TranslationsValidatorZh implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorPhoneZh phone = _TranslationsValidatorPhoneZh._(_root);
 }
 
+// Path: filterOptions.filterByName
+class _TranslationsFilterOptionsFilterByNameZh implements _TranslationsFilterOptionsFilterByNameEn {
+	_TranslationsFilterOptionsFilterByNameZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '按名称过滤';
+	@override String get common => '通用名称';
+	@override String get scientific => '科学名称';
+}
+
+// Path: filterOptions.filterBySound
+class _TranslationsFilterOptionsFilterBySoundZh implements _TranslationsFilterOptionsFilterBySoundEn {
+	_TranslationsFilterOptionsFilterBySoundZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '按声音过滤';
+	@override String get withSound => '有声音';
+	@override String get withoutSound => '无声音';
+}
+
 // Path: searchPage.nameFilter
 class _TranslationsSearchPageNameFilterZh implements _TranslationsSearchPageNameFilterEn {
 	_TranslationsSearchPageNameFilterZh._(this._root);
@@ -1857,6 +2082,21 @@ extension on Translations {
 			case 'favorites.search': return 'Search';
 			case 'favorites.exceptionText': return 'No species here yet';
 			case 'favorites.deleteFavorite': return 'Remove from favorites';
+			case 'filterOptions.listByAlphabethic': return 'List by alphabetical order';
+			case 'filterOptions.recentlyAdded': return 'Recently added';
+			case 'filterOptions.all': return 'All';
+			case 'filterOptions.noPreferencies': return 'No preferences';
+			case 'filterOptions.filterByName.title': return 'Filter by name';
+			case 'filterOptions.filterByName.common': return 'Common name';
+			case 'filterOptions.filterByName.scientific': return 'Scientific name';
+			case 'filterOptions.filterBySound.title': return 'Filter by sound';
+			case 'filterOptions.filterBySound.withSound': return 'With sound';
+			case 'filterOptions.filterBySound.withoutSound': return 'Without sound';
+			case 'filterOptions.filterByConservation': return 'Filter by conservation status';
+			case 'filterOptions.filterByCategory': return 'Filter by category';
+			case 'filterOptions.filterByTaxonomy': return 'Filter by taxonomy';
+			case 'filterOptions.filterByOrder': return 'Filter by order';
+			case 'filterOptions.filterByFamily': return 'Filter by family';
 			case 'forgotPassword.title': return 'Forgot Your Password';
 			case 'forgotPassword.sendLabel': return 'Send';
 			case 'forgotPassword.validatingLabel': return 'Validating...';
@@ -1992,6 +2232,21 @@ extension on _TranslationsEs {
 			case 'favorites.search': return 'Buscar';
 			case 'favorites.exceptionText': return 'Aún no hay especies aquí';
 			case 'favorites.deleteFavorite': return 'Quitar de favoritos';
+			case 'filterOptions.listByAlphabethic': return 'Listar por orden alfabético';
+			case 'filterOptions.recentlyAdded': return 'Más reciente';
+			case 'filterOptions.all': return 'Todos';
+			case 'filterOptions.noPreferencies': return 'Sin preferencias';
+			case 'filterOptions.filterByName.title': return 'Filtrar por nombre';
+			case 'filterOptions.filterByName.common': return 'Nombre común';
+			case 'filterOptions.filterByName.scientific': return 'Nombre científico';
+			case 'filterOptions.filterBySound.title': return 'Filtrar por sonido';
+			case 'filterOptions.filterBySound.withSound': return 'Con sonido';
+			case 'filterOptions.filterBySound.withoutSound': return 'Sin sonido';
+			case 'filterOptions.filterByConservation': return 'Filtrar por estado de conservación';
+			case 'filterOptions.filterByCategory': return 'Filtrar por categoría';
+			case 'filterOptions.filterByTaxonomy': return 'Filtrar por taxonomía';
+			case 'filterOptions.filterByOrder': return 'Filtrar por orden';
+			case 'filterOptions.filterByFamily': return 'Filtrar por familia';
 			case 'forgotPassword.title': return 'Olvidó su contraseña';
 			case 'forgotPassword.sendLabel': return 'Enviar';
 			case 'forgotPassword.validatingLabel': return 'Validando...';
@@ -2127,6 +2382,21 @@ extension on _TranslationsFr {
 			case 'favorites.search': return 'Chercher';
 			case 'favorites.exceptionText': return 'Pas encore d\'espèces ici';
 			case 'favorites.deleteFavorite': return 'Supprimer des favoris';
+			case 'filterOptions.listByAlphabethic': return 'Trier par ordre alphabétique';
+			case 'filterOptions.recentlyAdded': return 'Plus récent';
+			case 'filterOptions.all': return 'Tout';
+			case 'filterOptions.noPreferencies': return 'Pas de préférences';
+			case 'filterOptions.filterByName.title': return 'Filtrer par nom';
+			case 'filterOptions.filterByName.common': return 'Nom commun';
+			case 'filterOptions.filterByName.scientific': return 'Nom scientifique';
+			case 'filterOptions.filterBySound.title': return 'Filtrer par son';
+			case 'filterOptions.filterBySound.withSound': return 'Avec son';
+			case 'filterOptions.filterBySound.withoutSound': return 'Sans son';
+			case 'filterOptions.filterByConservation': return 'Filtrer par état de conservation';
+			case 'filterOptions.filterByCategory': return 'Filtrer par catégorie';
+			case 'filterOptions.filterByTaxonomy': return 'Filtrer par taxonomie';
+			case 'filterOptions.filterByOrder': return 'Filtrer par ordre';
+			case 'filterOptions.filterByFamily': return 'Filtrer par famille';
 			case 'forgotPassword.title': return 'Mot de passe oublié';
 			case 'forgotPassword.sendLabel': return 'Envoyer';
 			case 'forgotPassword.validatingLabel': return 'Validation en cours...';
@@ -2262,6 +2532,21 @@ extension on _TranslationsPt {
 			case 'favorites.search': return 'Pesquisar';
 			case 'favorites.exceptionText': return 'Ainda não há espécies aqui';
 			case 'favorites.deleteFavorite': return 'Remover dos favoritos';
+			case 'filterOptions.listByAlphabethic': return 'Listar por ordem alfabética';
+			case 'filterOptions.recentlyAdded': return 'Mais recente';
+			case 'filterOptions.all': return 'Todos';
+			case 'filterOptions.noPreferencies': return 'Sem preferências';
+			case 'filterOptions.filterByName.title': return 'Filtrar por nome';
+			case 'filterOptions.filterByName.common': return 'Nome comum';
+			case 'filterOptions.filterByName.scientific': return 'Nome científico';
+			case 'filterOptions.filterBySound.title': return 'Filtrar por som';
+			case 'filterOptions.filterBySound.withSound': return 'Com som';
+			case 'filterOptions.filterBySound.withoutSound': return 'Sem som';
+			case 'filterOptions.filterByConservation': return 'Filtrar por estado de conservação';
+			case 'filterOptions.filterByCategory': return 'Filtrar por categoria';
+			case 'filterOptions.filterByTaxonomy': return 'Filtrar por taxonomia';
+			case 'filterOptions.filterByOrder': return 'Filtrar por ordem';
+			case 'filterOptions.filterByFamily': return 'Filtrar por família';
 			case 'forgotPassword.title': return 'Esqueceu sua senha';
 			case 'forgotPassword.sendLabel': return 'Enviar';
 			case 'forgotPassword.validatingLabel': return 'Validando...';
@@ -2397,6 +2682,21 @@ extension on _TranslationsZh {
 			case 'favorites.search': return '搜索';
 			case 'favorites.exceptionText': return '这里还没有物种';
 			case 'favorites.deleteFavorite': return '从收藏夹中删除';
+			case 'filterOptions.listByAlphabethic': return '按字母顺序列出';
+			case 'filterOptions.recentlyAdded': return '最近添加';
+			case 'filterOptions.all': return '全部';
+			case 'filterOptions.noPreferencies': return '没有偏好';
+			case 'filterOptions.filterByName.title': return '按名称过滤';
+			case 'filterOptions.filterByName.common': return '通用名称';
+			case 'filterOptions.filterByName.scientific': return '科学名称';
+			case 'filterOptions.filterBySound.title': return '按声音过滤';
+			case 'filterOptions.filterBySound.withSound': return '有声音';
+			case 'filterOptions.filterBySound.withoutSound': return '无声音';
+			case 'filterOptions.filterByConservation': return '按保护状态过滤';
+			case 'filterOptions.filterByCategory': return '按类别过滤';
+			case 'filterOptions.filterByTaxonomy': return '按分类过滤';
+			case 'filterOptions.filterByOrder': return '按顺序过滤';
+			case 'filterOptions.filterByFamily': return '按科过滤';
 			case 'forgotPassword.title': return '忘记密码';
 			case 'forgotPassword.sendLabel': return '发送';
 			case 'forgotPassword.validatingLabel': return '正在验证...';
