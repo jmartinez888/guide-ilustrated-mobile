@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_list_tile.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key});
@@ -50,7 +51,7 @@ class ProfileBody extends StatelessWidget {
                     Icons.favorite,
                     color: Colors.grey,
                   ),
-                  title: 'Mis favoritos',
+                  title: texts.profile.favorites,
                   trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
@@ -64,7 +65,7 @@ class ProfileBody extends StatelessWidget {
                     Icons.password_outlined,
                     color: Colors.grey,
                   ),
-                  title: 'Cambiar contraseña',
+                  title: texts.profile.changePassword,
                   trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
@@ -73,13 +74,13 @@ class ProfileBody extends StatelessWidget {
                 CustomListTile(
                   onTap: () {
                     Share.share(
-                        'Descarga la app de IIAP Guía Ilustrada de Flora y Fauna y conoce más sobre las especies de la Amazonía Peruana: https://play.google.com/store/apps/details?id=com.iiap.guiailustrada');
+                        '${texts.profile.share} https://play.google.com/store/apps/details?id=com.iiap.guiailustrada');
                   },
                   leading: const Icon(
                     Icons.person_add,
                     color: Colors.grey,
                   ),
-                  title: 'Invitar amigos',
+                  title: texts.profile.invite,
                   trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
@@ -93,7 +94,7 @@ class ProfileBody extends StatelessWidget {
                     Icons.work_outlined,
                     color: Colors.grey,
                   ),
-                  title: 'Sobre el proyecto',
+                  title: texts.profile.project,
                   trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
@@ -107,7 +108,7 @@ class ProfileBody extends StatelessWidget {
                     Icons.info_outline,
                     color: Colors.grey,
                   ),
-                  title: 'Sobre nosotros',
+                  title: texts.profile.team,
                   trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
@@ -122,7 +123,7 @@ class ProfileBody extends StatelessWidget {
                     Icons.delete_forever_outlined,
                     color: Colors.grey,
                   ),
-                  title: 'Eliminar cuenta',
+                  title: texts.profile.deleteAccount,
                   trailing: const Icon(
                     Icons.chevron_right,
                     color: Colors.grey,
@@ -132,7 +133,7 @@ class ProfileBody extends StatelessWidget {
             ),
           );
         } else {
-          return const Text('Usuario no encontrado');
+          return Text(texts.profile.userNotFound);
         }
       },
     );

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 710 (142 per locale)
+/// Strings: 775 (155 per locale)
 ///
-/// Built on 2024-03-22 at 23:35 UTC
+/// Built on 2024-03-22 at 23:53 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -155,6 +155,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _TranslationsFavoritesEn favorites = _TranslationsFavoritesEn._(_root);
 	late final _TranslationsFilterOptionsEn filterOptions = _TranslationsFilterOptionsEn._(_root);
 	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
+	late final _TranslationsProfileEn profile = _TranslationsProfileEn._(_root);
 	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
 	late final _TranslationsSignUpEn signUp = _TranslationsSignUpEn._(_root);
@@ -225,6 +226,28 @@ class _TranslationsForgotPasswordEn {
 	String get clear => 'Clear';
 	String get message => 'Enter your email to send you an email where you can change your password:';
 	String get checkYourEmail => 'Check your email!';
+}
+
+// Path: profile
+class _TranslationsProfileEn {
+	_TranslationsProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'My Profile';
+	String get logout => 'Logout';
+	String get favorites => 'My favorites';
+	String get changePassword => 'Change password';
+	String get share => 'Download the IIAP Illustrated Guide to Flora and Fauna app and learn more about species in the Peruvian Amazon:';
+	String get invite => 'Invite friends';
+	String get project => 'About the project';
+	String get team => 'About us';
+	String get deleteAccount => 'Delete account';
+	String get userNotFound => 'User not found';
+	String get completeProfile => 'Complete your profile to access all the features of the application.';
+	String get completeButton => 'Complete profile';
+	String get editButton => 'Edit profile';
 }
 
 // Path: searchPage
@@ -543,6 +566,7 @@ class _TranslationsEs implements Translations {
 	@override late final _TranslationsFavoritesEs favorites = _TranslationsFavoritesEs._(_root);
 	@override late final _TranslationsFilterOptionsEs filterOptions = _TranslationsFilterOptionsEs._(_root);
 	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
+	@override late final _TranslationsProfileEs profile = _TranslationsProfileEs._(_root);
 	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
 	@override late final _TranslationsSignUpEs signUp = _TranslationsSignUpEs._(_root);
@@ -613,6 +637,28 @@ class _TranslationsForgotPasswordEs implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Limpiar';
 	@override String get message => 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 	@override String get checkYourEmail => '¡Revisa tu correo!';
+}
+
+// Path: profile
+class _TranslationsProfileEs implements _TranslationsProfileEn {
+	_TranslationsProfileEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mi perfil';
+	@override String get logout => 'Cerrar sesión';
+	@override String get favorites => 'Mis favoritos';
+	@override String get changePassword => 'Cambiar contraseña';
+	@override String get share => 'Descarga la app Guía Ilustrada de Flora y Fauna del IIAP y conoce más sobre las especies de la Amazonía Peruana:';
+	@override String get invite => 'Invitar amigos';
+	@override String get project => 'Sobre el proyecto';
+	@override String get team => 'Sobre nosotros';
+	@override String get deleteAccount => 'Eliminar cuenta';
+	@override String get userNotFound => 'Usuario no encontrado';
+	@override String get completeProfile => 'Completa tu perfil para acceder a todas las funcionalidades de la aplicación.';
+	@override String get completeButton => 'Completar perfil';
+	@override String get editButton => 'Editar perfil';
 }
 
 // Path: searchPage
@@ -931,6 +977,7 @@ class _TranslationsFr implements Translations {
 	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
 	@override late final _TranslationsFilterOptionsFr filterOptions = _TranslationsFilterOptionsFr._(_root);
 	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
+	@override late final _TranslationsProfileFr profile = _TranslationsProfileFr._(_root);
 	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
 	@override late final _TranslationsSignUpFr signUp = _TranslationsSignUpFr._(_root);
@@ -1001,6 +1048,28 @@ class _TranslationsForgotPasswordFr implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Effacer';
 	@override String get message => 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 	@override String get checkYourEmail => 'Vérifiez votre e-mail !';
+}
+
+// Path: profile
+class _TranslationsProfileFr implements _TranslationsProfileEn {
+	_TranslationsProfileFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mon profil';
+	@override String get logout => 'Déconnexion';
+	@override String get favorites => 'Mes favoris';
+	@override String get changePassword => 'Changer le mot de passe';
+	@override String get share => 'Téléchargez l\'application Guide illustré de la flore et de la faune de l\'IIAP et apprenez-en davantage sur les espèces de l\'Amazonie péruvienne :';
+	@override String get invite => 'Inviter des amis';
+	@override String get project => 'À propos du projet';
+	@override String get team => 'À propos de nous';
+	@override String get deleteAccount => 'Supprimer le compte';
+	@override String get userNotFound => 'Utilisateur non trouvé';
+	@override String get completeProfile => 'Complétez votre profil pour accéder à toutes les fonctionnalités de l\'application.';
+	@override String get completeButton => 'Compléter le profil';
+	@override String get editButton => 'Modifier le profil';
 }
 
 // Path: searchPage
@@ -1319,6 +1388,7 @@ class _TranslationsPt implements Translations {
 	@override late final _TranslationsFavoritesPt favorites = _TranslationsFavoritesPt._(_root);
 	@override late final _TranslationsFilterOptionsPt filterOptions = _TranslationsFilterOptionsPt._(_root);
 	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
+	@override late final _TranslationsProfilePt profile = _TranslationsProfilePt._(_root);
 	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
 	@override late final _TranslationsSignUpPt signUp = _TranslationsSignUpPt._(_root);
@@ -1389,6 +1459,28 @@ class _TranslationsForgotPasswordPt implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Limpar';
 	@override String get message => 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 	@override String get checkYourEmail => 'Verifique seu email!';
+}
+
+// Path: profile
+class _TranslationsProfilePt implements _TranslationsProfileEn {
+	_TranslationsProfilePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Meu perfil';
+	@override String get logout => 'Sair';
+	@override String get favorites => 'Meus favoritos';
+	@override String get changePassword => 'Alterar senha';
+	@override String get share => 'Baixe o aplicativo Guia Ilustrado de Flora e Fauna do IIAP e saiba mais sobre as espécies da Amazônia Peruana:';
+	@override String get invite => 'Convidar amigos';
+	@override String get project => 'Sobre o projeto';
+	@override String get team => 'Sobre nós';
+	@override String get deleteAccount => 'Excluir conta';
+	@override String get userNotFound => 'Usuário não encontrado';
+	@override String get completeProfile => 'Complete seu perfil para acessar todos os recursos do aplicativo.';
+	@override String get completeButton => 'Completar perfil';
+	@override String get editButton => 'Editar perfil';
 }
 
 // Path: searchPage
@@ -1707,6 +1799,7 @@ class _TranslationsZh implements Translations {
 	@override late final _TranslationsFavoritesZh favorites = _TranslationsFavoritesZh._(_root);
 	@override late final _TranslationsFilterOptionsZh filterOptions = _TranslationsFilterOptionsZh._(_root);
 	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
+	@override late final _TranslationsProfileZh profile = _TranslationsProfileZh._(_root);
 	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
 	@override late final _TranslationsSignUpZh signUp = _TranslationsSignUpZh._(_root);
@@ -1777,6 +1870,28 @@ class _TranslationsForgotPasswordZh implements _TranslationsForgotPasswordEn {
 	@override String get clear => '清除';
 	@override String get message => '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 	@override String get checkYourEmail => '请检查您的邮箱！';
+}
+
+// Path: profile
+class _TranslationsProfileZh implements _TranslationsProfileEn {
+	_TranslationsProfileZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '我的个人资料';
+	@override String get logout => '退出';
+	@override String get favorites => '我的收藏';
+	@override String get changePassword => '更改密码';
+	@override String get share => '下载IIAP植物和动物图解指南应用程序，了解更多有关秘鲁亚马逊物种的信息：';
+	@override String get invite => '邀请朋友';
+	@override String get project => '关于项目';
+	@override String get team => '关于我们';
+	@override String get deleteAccount => '删除帐户';
+	@override String get userNotFound => '找不到用户';
+	@override String get completeProfile => '完善您的个人资料以访问应用程序的所有功能。';
+	@override String get completeButton => '完成个人资料';
+	@override String get editButton => '编辑个人资料';
 }
 
 // Path: searchPage
@@ -2104,6 +2219,19 @@ extension on Translations {
 			case 'forgotPassword.clear': return 'Clear';
 			case 'forgotPassword.message': return 'Enter your email to send you an email where you can change your password:';
 			case 'forgotPassword.checkYourEmail': return 'Check your email!';
+			case 'profile.title': return 'My Profile';
+			case 'profile.logout': return 'Logout';
+			case 'profile.favorites': return 'My favorites';
+			case 'profile.changePassword': return 'Change password';
+			case 'profile.share': return 'Download the IIAP Illustrated Guide to Flora and Fauna app and learn more about species in the Peruvian Amazon:';
+			case 'profile.invite': return 'Invite friends';
+			case 'profile.project': return 'About the project';
+			case 'profile.team': return 'About us';
+			case 'profile.deleteAccount': return 'Delete account';
+			case 'profile.userNotFound': return 'User not found';
+			case 'profile.completeProfile': return 'Complete your profile to access all the features of the application.';
+			case 'profile.completeButton': return 'Complete profile';
+			case 'profile.editButton': return 'Edit profile';
 			case 'searchPage.failedRequest': return 'Something went wrong. Please try again';
 			case 'searchPage.recentlyAdded': return 'Recently Added';
 			case 'searchPage.nameFilter.common': return 'Common';
@@ -2254,6 +2382,19 @@ extension on _TranslationsEs {
 			case 'forgotPassword.clear': return 'Limpiar';
 			case 'forgotPassword.message': return 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 			case 'forgotPassword.checkYourEmail': return '¡Revisa tu correo!';
+			case 'profile.title': return 'Mi perfil';
+			case 'profile.logout': return 'Cerrar sesión';
+			case 'profile.favorites': return 'Mis favoritos';
+			case 'profile.changePassword': return 'Cambiar contraseña';
+			case 'profile.share': return 'Descarga la app Guía Ilustrada de Flora y Fauna del IIAP y conoce más sobre las especies de la Amazonía Peruana:';
+			case 'profile.invite': return 'Invitar amigos';
+			case 'profile.project': return 'Sobre el proyecto';
+			case 'profile.team': return 'Sobre nosotros';
+			case 'profile.deleteAccount': return 'Eliminar cuenta';
+			case 'profile.userNotFound': return 'Usuario no encontrado';
+			case 'profile.completeProfile': return 'Completa tu perfil para acceder a todas las funcionalidades de la aplicación.';
+			case 'profile.completeButton': return 'Completar perfil';
+			case 'profile.editButton': return 'Editar perfil';
 			case 'searchPage.failedRequest': return 'Algo salió mal. Inténtalo de nuevo';
 			case 'searchPage.recentlyAdded': return 'Recién agregado';
 			case 'searchPage.nameFilter.common': return 'Común';
@@ -2404,6 +2545,19 @@ extension on _TranslationsFr {
 			case 'forgotPassword.clear': return 'Effacer';
 			case 'forgotPassword.message': return 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 			case 'forgotPassword.checkYourEmail': return 'Vérifiez votre e-mail !';
+			case 'profile.title': return 'Mon profil';
+			case 'profile.logout': return 'Déconnexion';
+			case 'profile.favorites': return 'Mes favoris';
+			case 'profile.changePassword': return 'Changer le mot de passe';
+			case 'profile.share': return 'Téléchargez l\'application Guide illustré de la flore et de la faune de l\'IIAP et apprenez-en davantage sur les espèces de l\'Amazonie péruvienne :';
+			case 'profile.invite': return 'Inviter des amis';
+			case 'profile.project': return 'À propos du projet';
+			case 'profile.team': return 'À propos de nous';
+			case 'profile.deleteAccount': return 'Supprimer le compte';
+			case 'profile.userNotFound': return 'Utilisateur non trouvé';
+			case 'profile.completeProfile': return 'Complétez votre profil pour accéder à toutes les fonctionnalités de l\'application.';
+			case 'profile.completeButton': return 'Compléter le profil';
+			case 'profile.editButton': return 'Modifier le profil';
 			case 'searchPage.failedRequest': return 'Quelque chose s\'est mal passé. Veuillez réessayer';
 			case 'searchPage.recentlyAdded': return 'Récemment ajouté';
 			case 'searchPage.nameFilter.common': return 'Commun';
@@ -2554,6 +2708,19 @@ extension on _TranslationsPt {
 			case 'forgotPassword.clear': return 'Limpar';
 			case 'forgotPassword.message': return 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 			case 'forgotPassword.checkYourEmail': return 'Verifique seu email!';
+			case 'profile.title': return 'Meu perfil';
+			case 'profile.logout': return 'Sair';
+			case 'profile.favorites': return 'Meus favoritos';
+			case 'profile.changePassword': return 'Alterar senha';
+			case 'profile.share': return 'Baixe o aplicativo Guia Ilustrado de Flora e Fauna do IIAP e saiba mais sobre as espécies da Amazônia Peruana:';
+			case 'profile.invite': return 'Convidar amigos';
+			case 'profile.project': return 'Sobre o projeto';
+			case 'profile.team': return 'Sobre nós';
+			case 'profile.deleteAccount': return 'Excluir conta';
+			case 'profile.userNotFound': return 'Usuário não encontrado';
+			case 'profile.completeProfile': return 'Complete seu perfil para acessar todos os recursos do aplicativo.';
+			case 'profile.completeButton': return 'Completar perfil';
+			case 'profile.editButton': return 'Editar perfil';
 			case 'searchPage.failedRequest': return 'Algo deu errado. Por favor, tente novamente';
 			case 'searchPage.recentlyAdded': return 'Recentemente adicionado';
 			case 'searchPage.nameFilter.common': return 'Comum';
@@ -2704,6 +2871,19 @@ extension on _TranslationsZh {
 			case 'forgotPassword.clear': return '清除';
 			case 'forgotPassword.message': return '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 			case 'forgotPassword.checkYourEmail': return '请检查您的邮箱！';
+			case 'profile.title': return '我的个人资料';
+			case 'profile.logout': return '退出';
+			case 'profile.favorites': return '我的收藏';
+			case 'profile.changePassword': return '更改密码';
+			case 'profile.share': return '下载IIAP植物和动物图解指南应用程序，了解更多有关秘鲁亚马逊物种的信息：';
+			case 'profile.invite': return '邀请朋友';
+			case 'profile.project': return '关于项目';
+			case 'profile.team': return '关于我们';
+			case 'profile.deleteAccount': return '删除帐户';
+			case 'profile.userNotFound': return '找不到用户';
+			case 'profile.completeProfile': return '完善您的个人资料以访问应用程序的所有功能。';
+			case 'profile.completeButton': return '完成个人资料';
+			case 'profile.editButton': return '编辑个人资料';
 			case 'searchPage.failedRequest': return '发生错误。请重试';
 			case 'searchPage.recentlyAdded': return '最近添加';
 			case 'searchPage.nameFilter.common': return '常见';

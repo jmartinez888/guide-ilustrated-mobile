@@ -1,0 +1,15 @@
+{
+    "title": "My Profile",
+    "logout": "Logout",
+    "favorites": "My favorites",
+    "changePassword": "Change password",
+    "share": "Download the IIAP Illustrated Guide to Flora and Fauna app and learn more about species in the Peruvian Amazon:",
+    "invite": "Invite friends",
+    "project": "About the project",
+    "team": "About us",
+    "deleteAccount": "Delete account",
+    "userNotFound": "User not found",
+    "completeProfile": "Complete your profile to access all the features of the application.",
+    "completeButton": "Complete profile",
+    "editButton": "Edit profile"
+}

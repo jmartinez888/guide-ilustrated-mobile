@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ProfileHeader extends StatefulWidget {
   const ProfileHeader({super.key});
@@ -65,7 +66,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             );
           }
         } else {
-          return const Text('Usuario no encontrado');
+          return Text(texts.profile.userNotFound);
         }
       },
     );
@@ -94,8 +95,8 @@ class _IncompleteProfile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   )),
           const SizedBox(height: 16.0),
-          const Text(
-            'Completa tu perfil para acceder a todas las funcionalidades de la aplicación.',
+          Text(
+            texts.profile.completeProfile,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16.0),
@@ -104,7 +105,7 @@ class _IncompleteProfile extends StatelessWidget {
               context.pushNamed(Routes.editProfile,
                   pathParameters: {'userId': userId.toString()});
             },
-            child: const Text('Completar perfil'),
+            child: Text(texts.profile.completeButton),
           )
         ],
       ),
@@ -192,7 +193,7 @@ class _CompleteProfile extends StatelessWidget {
               context.pushNamed(Routes.editProfile,
                   pathParameters: {'userId': userId.toString()});
             },
-            child: const Text('Editar perfil'),
+            child: Text(texts.profile.editButton),
           ),
         ],
       ),
