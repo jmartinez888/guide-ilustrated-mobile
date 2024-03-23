@@ -3,14 +3,21 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:species/src/data/mappers/specie_mapper.dart';
+import 'package:species/src/data/models/classes/specie_iiap/specie_iiap.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/failures/http_request/http_request_failure.dart';
 
 class SpecieApi {
   final String _baseUrl;
+  final SpecieMapper _specieMapper;
 
-  SpecieApi({required String baseUrl}) : _baseUrl = baseUrl;
+  SpecieApi({
+    required String baseUrl,
+    required specieMapper,
+  })  : _baseUrl = baseUrl,
+        _specieMapper = specieMapper;
 
   Future<Either<HttpRequestFailure, List<Specie>>> getSpecies({
     required int pageNumber,
@@ -25,23 +32,20 @@ class SpecieApi {
     String orderAscValue = orderAsc ? 'ASC' : 'DESC';
 
     try {
-      print('🎈 llamando');
       final response = await get(Uri.parse(
           '$_baseUrl/species/search/type/$type/$pageNumber/$numberOfPostsPerRequest/$orderByNameValue/$orderAscValue'));
 
-      print('🎈 ${response.statusCode}');
-
-      if (response.statusCode >= 200 && response.statusCode < 300) {
+      if (response.statusCode == 200) {
         final responseList = jsonDecode(response.body) as Map<String, dynamic>;
 
-        print('🧨 ${responseList}');
+        final speciesIiap =
+            getSpecieIiapList(responseList['species']);
 
-        final List<Specie> postList = getSpecieList(responseList['species']);
+        final species = speciesIiap
+            .map((specieIiap) => _specieMapper.specieIiapToSpecie(specieIiap))
+            .toList();
 
-        print('✨ ${postList}');
-
-
-        return Either.right(postList);
+        return Either.right(species);
       } else {
         return Either.left(HttpRequestFailureNotFound());
       }
@@ -106,11 +110,14 @@ class SpecieApi {
   Future<Either<HttpRequestFailure, Specie>> getSpecie(String id) async {
     try {
       final response = await get(Uri.parse('$_baseUrl/species/$id'));
+
       if (response.statusCode != 200) {
         return Either.left(HttpRequestFailureNotFound());
       }
-      //final specie = Specie.fromJson(jsonDecode(response.body));
-      final specie = Specie.fromJson(jsonDecode(response.body));
+      final specieIiap = SpecieIiap.fromJson(jsonDecode(response.body));
+
+      final specie = _specieMapper.specieIiapToSpecie(specieIiap);
+
       return Either.right(specie);
     } catch (e) {
       if (e is SocketException || e is ClientException) {

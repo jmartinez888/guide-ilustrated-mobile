@@ -20,13 +20,10 @@ OrderC _$OrderCFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OrderC {
-  @JsonKey(name: 'id_orden')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'id_clase')
-  int? get classId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ch_estado')
+  @JsonKey(name: 'id_class')
+  int? get idClass => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,10 +37,10 @@ abstract class $OrderCCopyWith<$Res> {
       _$OrderCCopyWithImpl<$Res, OrderC>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_orden') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'id_clase') int? classId,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      @JsonKey(name: 'id_class') int? idClass,
+      String? state});
 }
 
 /// @nodoc
@@ -61,7 +58,7 @@ class _$OrderCCopyWithImpl<$Res, $Val extends OrderC>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? classId = freezed,
+    Object? idClass = freezed,
     Object? state = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,9 +70,9 @@ class _$OrderCCopyWithImpl<$Res, $Val extends OrderC>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      classId: freezed == classId
-          ? _value.classId
-          : classId // ignore: cast_nullable_to_non_nullable
+      idClass: freezed == idClass
+          ? _value.idClass
+          : idClass // ignore: cast_nullable_to_non_nullable
               as int?,
       state: freezed == state
           ? _value.state
@@ -93,10 +90,10 @@ abstract class _$$OrderCImplCopyWith<$Res> implements $OrderCCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_orden') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'id_clase') int? classId,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      @JsonKey(name: 'id_class') int? idClass,
+      String? state});
 }
 
 /// @nodoc
@@ -112,7 +109,7 @@ class __$$OrderCImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? classId = freezed,
+    Object? idClass = freezed,
     Object? state = freezed,
   }) {
     return _then(_$OrderCImpl(
@@ -124,9 +121,9 @@ class __$$OrderCImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      classId: freezed == classId
-          ? _value.classId
-          : classId // ignore: cast_nullable_to_non_nullable
+      idClass: freezed == idClass
+          ? _value.idClass
+          : idClass // ignore: cast_nullable_to_non_nullable
               as int?,
       state: freezed == state
           ? _value.state
@@ -140,30 +137,27 @@ class __$$OrderCImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OrderCImpl implements _OrderC {
   _$OrderCImpl(
-      {@JsonKey(name: 'id_orden') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'id_clase') this.classId,
-      @JsonKey(name: 'ch_estado') this.state});
+      {required this.id,
+      this.name,
+      @JsonKey(name: 'id_class') this.idClass,
+      this.state});
 
   factory _$OrderCImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderCImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_orden')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
   @override
-  @JsonKey(name: 'id_clase')
-  final int? classId;
+  @JsonKey(name: 'id_class')
+  final int? idClass;
   @override
-  @JsonKey(name: 'ch_estado')
   final String? state;
 
   @override
   String toString() {
-    return 'OrderC(id: $id, name: $name, classId: $classId, state: $state)';
+    return 'OrderC(id: $id, name: $name, idClass: $idClass, state: $state)';
   }
 
   @override
@@ -173,13 +167,13 @@ class _$OrderCImpl implements _OrderC {
             other is _$OrderCImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.classId, classId) || other.classId == classId) &&
+            (identical(other.idClass, idClass) || other.idClass == idClass) &&
             (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, classId, state);
+  int get hashCode => Object.hash(runtimeType, id, name, idClass, state);
 
   @JsonKey(ignore: true)
   @override
@@ -197,24 +191,21 @@ class _$OrderCImpl implements _OrderC {
 
 abstract class _OrderC implements OrderC {
   factory _OrderC(
-      {@JsonKey(name: 'id_orden') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'id_clase') final int? classId,
-      @JsonKey(name: 'ch_estado') final String? state}) = _$OrderCImpl;
+      {required final int id,
+      final String? name,
+      @JsonKey(name: 'id_class') final int? idClass,
+      final String? state}) = _$OrderCImpl;
 
   factory _OrderC.fromJson(Map<String, dynamic> json) = _$OrderCImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_orden')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
-  @JsonKey(name: 'id_clase')
-  int? get classId;
+  @JsonKey(name: 'id_class')
+  int? get idClass;
   @override
-  @JsonKey(name: 'ch_estado')
   String? get state;
   @override
   @JsonKey(ignore: true)

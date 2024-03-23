@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
 class ImageDetailsPage extends StatefulWidget {
@@ -20,10 +20,10 @@ class ImageDetailsPage extends StatefulWidget {
 }
 
 class _ImageDetailsPageState extends State<ImageDetailsPage> {
-  late SpecieFavorite specie;
+  late Specie specie;
   @override
   void initState() {
-    specie = SpecieFavorite.fromJson(jsonDecode(widget.specie));
+    specie = Specie.fromJson(jsonDecode(widget.specie));
     super.initState();
   }
   @override

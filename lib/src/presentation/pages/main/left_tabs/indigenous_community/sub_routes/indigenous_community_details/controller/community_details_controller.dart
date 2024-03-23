@@ -21,12 +21,12 @@ class CommunityDetailsController extends StateNotifier<CommunityDetailsState> {
           loading: false,
         );
       },
-      (specie) {
+      (community) {
         state = state.copyWith(
           loading: false,
           mapOfId: {
             ...state.mapOfId,
-            id: specie,
+            id: community,
           },
         );
       },

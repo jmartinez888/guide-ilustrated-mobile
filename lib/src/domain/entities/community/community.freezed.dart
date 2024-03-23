@@ -20,19 +20,12 @@ Community _$CommunityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Community {
-  @JsonKey(name: 'id_pueblo_indigena')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'te_descripcion')
   String? get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'de_longitud')
   double? get longitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'de_latitud')
   double? get latitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_image')
-  String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ch_estado')
+  List<String>? get images => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,13 +40,13 @@ abstract class $CommunityCopyWith<$Res> {
       _$CommunityCopyWithImpl<$Res, Community>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_pueblo_indigena') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'te_descripcion') String? description,
-      @JsonKey(name: 'de_longitud') double? longitude,
-      @JsonKey(name: 'de_latitud') double? latitude,
-      @JsonKey(name: 'vc_image') String? image,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      String? description,
+      double? longitude,
+      double? latitude,
+      List<String>? images,
+      String? state});
 }
 
 /// @nodoc
@@ -74,7 +67,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? description = freezed,
     Object? longitude = freezed,
     Object? latitude = freezed,
-    Object? image = freezed,
+    Object? images = freezed,
     Object? state = freezed,
   }) {
     return _then(_value.copyWith(
@@ -98,10 +91,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -119,13 +112,13 @@ abstract class _$$CommunityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_pueblo_indigena') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'te_descripcion') String? description,
-      @JsonKey(name: 'de_longitud') double? longitude,
-      @JsonKey(name: 'de_latitud') double? latitude,
-      @JsonKey(name: 'vc_image') String? image,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      String? description,
+      double? longitude,
+      double? latitude,
+      List<String>? images,
+      String? state});
 }
 
 /// @nodoc
@@ -144,7 +137,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? longitude = freezed,
     Object? latitude = freezed,
-    Object? image = freezed,
+    Object? images = freezed,
     Object? state = freezed,
   }) {
     return _then(_$CommunityImpl(
@@ -168,10 +161,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -184,42 +177,44 @@ class __$$CommunityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommunityImpl implements _Community {
   _$CommunityImpl(
-      {@JsonKey(name: 'id_pueblo_indigena') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'te_descripcion') this.description,
-      @JsonKey(name: 'de_longitud') this.longitude,
-      @JsonKey(name: 'de_latitud') this.latitude,
-      @JsonKey(name: 'vc_image') this.image,
-      @JsonKey(name: 'ch_estado') this.state});
+      {required this.id,
+      this.name,
+      this.description,
+      this.longitude,
+      this.latitude,
+      final List<String>? images,
+      this.state})
+      : _images = images;
 
   factory _$CommunityImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommunityImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_pueblo_indigena')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
   @override
-  @JsonKey(name: 'te_descripcion')
   final String? description;
   @override
-  @JsonKey(name: 'de_longitud')
   final double? longitude;
   @override
-  @JsonKey(name: 'de_latitud')
   final double? latitude;
+  final List<String>? _images;
   @override
-  @JsonKey(name: 'vc_image')
-  final String? image;
+  List<String>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
-  @JsonKey(name: 'ch_estado')
   final String? state;
 
   @override
   String toString() {
-    return 'Community(id: $id, name: $name, description: $description, longitude: $longitude, latitude: $latitude, image: $image, state: $state)';
+    return 'Community(id: $id, name: $name, description: $description, longitude: $longitude, latitude: $latitude, images: $images, state: $state)';
   }
 
   @override
@@ -235,14 +230,14 @@ class _$CommunityImpl implements _Community {
                 other.longitude == longitude) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
-            (identical(other.image, image) || other.image == image) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, description, longitude, latitude, image, state);
+  int get hashCode => Object.hash(runtimeType, id, name, description, longitude,
+      latitude, const DeepCollectionEquality().hash(_images), state);
 
   @JsonKey(ignore: true)
   @override
@@ -260,37 +255,30 @@ class _$CommunityImpl implements _Community {
 
 abstract class _Community implements Community {
   factory _Community(
-      {@JsonKey(name: 'id_pueblo_indigena') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'te_descripcion') final String? description,
-      @JsonKey(name: 'de_longitud') final double? longitude,
-      @JsonKey(name: 'de_latitud') final double? latitude,
-      @JsonKey(name: 'vc_image') final String? image,
-      @JsonKey(name: 'ch_estado') final String? state}) = _$CommunityImpl;
+      {required final int id,
+      final String? name,
+      final String? description,
+      final double? longitude,
+      final double? latitude,
+      final List<String>? images,
+      final String? state}) = _$CommunityImpl;
 
   factory _Community.fromJson(Map<String, dynamic> json) =
       _$CommunityImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_pueblo_indigena')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
-  @JsonKey(name: 'te_descripcion')
   String? get description;
   @override
-  @JsonKey(name: 'de_longitud')
   double? get longitude;
   @override
-  @JsonKey(name: 'de_latitud')
   double? get latitude;
   @override
-  @JsonKey(name: 'vc_image')
-  String? get image;
+  List<String>? get images;
   @override
-  @JsonKey(name: 'ch_estado')
   String? get state;
   @override
   @JsonKey(ignore: true)

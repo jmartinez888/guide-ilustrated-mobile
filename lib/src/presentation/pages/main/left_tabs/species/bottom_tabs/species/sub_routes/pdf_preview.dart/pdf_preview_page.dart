@@ -79,7 +79,10 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
 
   Future<Uint8List> makePdf() async {
     final pdf = pw.Document();
-    final specieImage = await networkImage(specie.image ?? '');
+    final specieImage = await networkImage(
+        specie.images != null && specie.images!.isNotEmpty
+            ? specie.images!.first
+            : '');
     final logoImage = pw.MemoryImage(
       (await rootBundle.load('assets/images/logo.png')).buffer.asUint8List(),
     );
@@ -240,10 +243,10 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
                                 ),
                               ),
                             ),
-                            if (specie.taxonomy != null &&
-                                specie.taxonomy!.kingdom != null &&
-                                specie.taxonomy!.kingdom!.name != null &&
-                                specie.taxonomy!.kingdom!.name!.isNotEmpty)
+                            /* if (
+                                specie.kingdom != null &&
+                                specie.kingdom!.name != null &&
+                                specie.kingdom!.name!.isNotEmpty)
                               pw.RichText(
                                 text: pw.TextSpan(
                                   children: [
@@ -255,15 +258,15 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
                                       ),
                                     ),
                                     pw.TextSpan(
-                                      text: specie.taxonomy!.kingdom!.name,
+                                      text: specie.kingdom!.name,
                                     ),
                                   ],
                                 ),
                               ),
-                            if (specie.taxonomy != null &&
-                                specie.taxonomy!.phylum != null &&
-                                specie.taxonomy!.phylum!.name != null &&
-                                specie.taxonomy!.phylum!.name!.isNotEmpty)
+                            if (
+                                specie.phylum != null &&
+                                specie.phylum!.name != null &&
+                                specie.phylum!.name!.isNotEmpty)
                               pw.RichText(
                                 text: pw.TextSpan(
                                   children: [
@@ -274,15 +277,15 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
                                           fontSize: 12.0),
                                     ),
                                     pw.TextSpan(
-                                      text: specie.taxonomy!.phylum!.name,
+                                      text: specie.phylum!.name,
                                     ),
                                   ],
                                 ),
                               ),
-                            if (specie.taxonomy != null &&
-                                specie.taxonomy!.classC != null &&
-                                specie.taxonomy!.classC!.name != null &&
-                                specie.taxonomy!.classC!.name!.isNotEmpty)
+                            if (
+                                specie.classC != null &&
+                                specie.classC!.name != null &&
+                                specie.classC!.name!.isNotEmpty)
                               pw.RichText(
                                 text: pw.TextSpan(
                                   children: [
@@ -294,15 +297,15 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
                                       ),
                                     ),
                                     pw.TextSpan(
-                                      text: specie.taxonomy!.classC!.name,
+                                      text: specie.classC!.name,
                                     ),
                                   ],
                                 ),
                               ),
-                            if (specie.taxonomy != null &&
-                                specie.taxonomy!.order != null &&
-                                specie.taxonomy!.order!.name != null &&
-                                specie.taxonomy!.order!.name!.isNotEmpty)
+                            if (
+                                specie.order != null &&
+                                specie.order!.name != null &&
+                                specie.order!.name!.isNotEmpty)
                               pw.RichText(
                                 text: pw.TextSpan(
                                   children: [
@@ -314,15 +317,15 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
                                       ),
                                     ),
                                     pw.TextSpan(
-                                      text: specie.taxonomy!.order!.name,
+                                      text: specie.order!.name,
                                     ),
                                   ],
                                 ),
                               ),
-                            if (specie.taxonomy != null &&
-                                specie.taxonomy!.family != null &&
-                                specie.taxonomy!.family!.name != null &&
-                                specie.taxonomy!.family!.name!.isNotEmpty)
+                            if (
+                                specie.family != null &&
+                                specie.family!.name != null &&
+                                specie.family!.name!.isNotEmpty)
                               pw.RichText(
                                 text: pw.TextSpan(
                                   children: [
@@ -334,14 +337,15 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
                                       ),
                                     ),
                                     pw.TextSpan(
-                                      text: specie.taxonomy!.order!.name,
-                                    ),
+                                      text: specie.order!.name,
+                                    ), 
                                   ],
                                 ),
                               ),
+                                 */
                           ],
                         ),
-                        if (specie.image != null)
+                        if (specie.images != null && specie.images!.isNotEmpty)
                           pw.Container(
                             width: double.infinity,
                             height: 512.0,

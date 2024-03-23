@@ -7,16 +7,16 @@ part of 'class.dart';
 // **************************************************************************
 
 _$ClassCImpl _$$ClassCImplFromJson(Map<String, dynamic> json) => _$ClassCImpl(
-      id: json['id_clase'] as int,
-      name: json['vc_nombre'] as String?,
-      phylumId: json['id_filo'] as int?,
-      state: json['ch_estado'] as String?,
+      id: json['id'] as int,
+      name: json['name'] as String?,
+      idPhylum: json['id_phylum'] as int?,
+      state: json['state'] as String?,
     );
 
 Map<String, dynamic> _$$ClassCImplToJson(_$ClassCImpl instance) =>
     <String, dynamic>{
-      'id_clase': instance.id,
-      'vc_nombre': instance.name,
-      'id_filo': instance.phylumId,
-      'ch_estado': instance.state,
+      'id': instance.id,
+      'name': instance.name,
+      'id_phylum': instance.idPhylum,
+      'state': instance.state,
     };

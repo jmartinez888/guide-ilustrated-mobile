@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/specie_error_helper/specie_error_helper.dart';
 
 class FavoriteApi {
   final firebaseInstance = FirebaseFirestore.instance.collection('users');
@@ -28,7 +29,7 @@ class FavoriteApi {
   }
  */
 
-  Stream<List<SpecieFavorite>> getFavoritesSpecies(String userId) {
+  Stream<List<Specie>> getFavoritesSpecies(String userId) {
     try {
       final querySnapshot = firebaseInstance
           .doc(userId)
@@ -37,11 +38,33 @@ class FavoriteApi {
           .snapshots();
 
       return querySnapshot.map((snapshot) {
-        final List<SpecieFavorite> species = [];
+        final List<Specie> species = [];
 
         for (var doc in snapshot.docs) {
           final data = doc.data();
-          final specie = SpecieFavorite.fromJson(data);
+          final specie = Specie.fromJson(data);
+          species.add(specie);
+        }
+        return species;
+      });
+    } catch (e) {
+      throw 'Ha ocurrido un error al obtener las especies';
+    }
+  }
+
+  Stream<List<SpecieErrorHelper>> getFavoritesSpeciesError(String userId) {
+    try {
+      final querySnapshot = firebaseInstance
+          .doc(userId)
+          .collection('favorites')
+          .snapshots();
+
+      return querySnapshot.map((snapshot) {
+        final List<SpecieErrorHelper> species = [];
+
+        for (var doc in snapshot.docs) {
+          final data = doc.data();
+          final specie = SpecieErrorHelper.fromJson(data);
           species.add(specie);
         }
         return species;
@@ -53,7 +76,7 @@ class FavoriteApi {
 
   Future<void> saveSpecieFavorite({
     required String userId,
-    required SpecieFavorite specie,
+    required Specie specie,
   }) async {
     final docUser = firebaseInstance.doc(userId);
     final getUser = await docUser.get();

@@ -1,5 +1,5 @@
-import 'package:species/src/domain/entities/taxonomy_for_search/taxonomy_for_search.dart';
+import 'package:species/src/data/models/classes/taxonomy_for_search_iiap/taxonomy_for_search_iiap.dart';
 
 abstract class TaxonomyRepository {
-  Future<List<TaxonomyForSearch>> getTaxonomies();
+  Future<List<TaxonomyForSearchIiap>> getTaxonomies();
 }

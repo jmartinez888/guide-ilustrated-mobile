@@ -1,21 +1,25 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/presentation/global/utils/serializers/for_entities/species_map_into_class.dart';
 
 part 'author.freezed.dart';
 part 'author.g.dart';
 
 @freezed
 class Author with _$Author {
-
   factory Author({
-    @JsonKey(name: 'id_autor')
     required int id,
-    @JsonKey(name: 'vc_nombre') String? name,
-    @JsonKey(name: 'ano_nacimiento_autor') String? yearOfBirth,
-    @JsonKey(name: 'ano_deceso_autor') String? yearofDeath,
-    @JsonKey(name: 'biografia_autor') String? biography,
-    @JsonKey(name: 'profesion_autor') String? profession,
-    @JsonKey(name: 'imagen_autor') String? image,
-    @JsonKey(name: 'estado_autor') String? state,
+    String? name,
+    String? lastname,
+    String? biography,
+    @JsonKey(name: 'year_of_birth') String? yearOfBirth,
+    @JsonKey(name: 'year_of_death') String? yearOfDeath,
+    String? profession,
+    String? image,
+    String? state,
+    @SpeciesIntoClassToMap() @Default(null) List<Specie>? species,
   }) = _Author;
 
   factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);

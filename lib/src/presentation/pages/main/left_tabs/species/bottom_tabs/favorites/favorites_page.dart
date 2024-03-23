@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
@@ -34,7 +34,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   FocusNode searchFocusNode = FocusNode();
   final firebaseInstance = FirebaseAuth.instance;
 
-  late Stream<List<SpecieFavorite>> getFavoriteSpecies;
+  late Stream<List<Specie>> getFavoriteSpecies;
 
   @override
   void initState() {
@@ -119,7 +119,7 @@ class _BodyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    List<SpecieFavorite> species = [];
+    List<Specie> species = [];
     if (state.loading) {
       return const GridLoading();
     } else if (state.species.isEmpty) {
@@ -129,7 +129,7 @@ class _BodyContainer extends StatelessWidget {
       );
     } else {
       if (searchText.isNotEmpty) {
-        species = state.species.where((specie) {
+        species = state.species.where((Specie specie) {
           return specie.name
               .toString()
               .toLowerCase()
@@ -152,8 +152,10 @@ class _BodyContainer extends StatelessWidget {
               Routes.specieDetailsFavorite,
               pathParameters: {'id': specie.id.toString()},
             ),
-            principalColor: getMainColorByString(specie.type ?? '')['main'],
-            backgroundColor: getMainColorByString(specie.type ?? '')['opaque'],
+            principalColor: getMainColorByString(
+                specie.type != null ? specie.type!.name?? '' : '')['main'],
+            backgroundColor:
+                getMainColorByString(specie.type != null ? specie.type!.name?? '' : '')['opaque'],
             image: Stack(
               children: [
                 if (specie.images != null && specie.images!.isNotEmpty)
@@ -163,11 +165,11 @@ class _BodyContainer extends StatelessWidget {
                     child: CustomImageContainer(
                       imageUrl: specie.images!.first,
                       mainColor:
-                          getMainColorByString(specie.type ?? '')['main'],
+                          getMainColorByString(specie.type != null ? specie.type!.name?? '' : '')['main'],
                       heightImageInAnother: 160.0,
                     ),
                   ),
-                if (specie.vcImagenesEstado != null ||
+                /* if (specie.vcImagenesEstado != null ||
                     specie.vcImagenesEstado!.isNotEmpty)
                   Positioned(
                     left: 8.0,
@@ -185,8 +187,8 @@ class _BodyContainer extends StatelessWidget {
                             width: 40.0,
                           ),
                       ],
-                    ),
-                  ),
+                /*     ),
+                  ), */
                 Positioned(
                   top: 8.0,
                   right: 8.0,
@@ -219,7 +221,7 @@ class _BodyContainer extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ), */
               ],
             ),
             title: specie.name,

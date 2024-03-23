@@ -1,5 +1,5 @@
+import 'package:species/src/data/models/classes/taxonomy_for_search_iiap/taxonomy_for_search_iiap.dart';
 import 'package:species/src/data/services/remote/taxonomy_api.dart';
-import 'package:species/src/domain/entities/taxonomy_for_search/taxonomy_for_search.dart';
 import 'package:species/src/domain/repositories/taxonomy/taxonomy_repository.dart';
 
 class TaxonomyRepositoryImpl implements TaxonomyRepository {
@@ -9,7 +9,7 @@ class TaxonomyRepositoryImpl implements TaxonomyRepository {
       : _taxonomyApi = taxonomyApi;
 
   @override
-  Future<List<TaxonomyForSearch>> getTaxonomies() {
+  Future<List<TaxonomyForSearchIiap>> getTaxonomies() {
     return _taxonomyApi.getTaxonomies();
   }
 }

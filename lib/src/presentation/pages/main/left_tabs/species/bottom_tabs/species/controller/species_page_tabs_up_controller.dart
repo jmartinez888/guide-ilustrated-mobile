@@ -4,7 +4,6 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 class SpeciesTabsUpController extends StateNotifier<SpeciesTabsUpState> {
   SpeciesTabsUpController(super.state);
   void changePosition(int position) {
-    print(position);
     state = state.copyWith(position: position);
   }
 }

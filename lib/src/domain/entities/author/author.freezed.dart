@@ -20,22 +20,19 @@ Author _$AuthorFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Author {
-  @JsonKey(name: 'id_autor')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ano_nacimiento_autor')
-  String? get yearOfBirth => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ano_deceso_autor')
-  String? get yearofDeath => throw _privateConstructorUsedError;
-  @JsonKey(name: 'biografia_autor')
+  String? get lastname => throw _privateConstructorUsedError;
   String? get biography => throw _privateConstructorUsedError;
-  @JsonKey(name: 'profesion_autor')
+  @JsonKey(name: 'year_of_birth')
+  String? get yearOfBirth => throw _privateConstructorUsedError;
+  @JsonKey(name: 'year_of_death')
+  String? get yearOfDeath => throw _privateConstructorUsedError;
   String? get profession => throw _privateConstructorUsedError;
-  @JsonKey(name: 'imagen_autor')
   String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'estado_autor')
   String? get state => throw _privateConstructorUsedError;
+  @SpeciesIntoClassToMap()
+  List<Specie>? get species => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,14 +45,16 @@ abstract class $AuthorCopyWith<$Res> {
       _$AuthorCopyWithImpl<$Res, Author>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_autor') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'ano_nacimiento_autor') String? yearOfBirth,
-      @JsonKey(name: 'ano_deceso_autor') String? yearofDeath,
-      @JsonKey(name: 'biografia_autor') String? biography,
-      @JsonKey(name: 'profesion_autor') String? profession,
-      @JsonKey(name: 'imagen_autor') String? image,
-      @JsonKey(name: 'estado_autor') String? state});
+      {int id,
+      String? name,
+      String? lastname,
+      String? biography,
+      @JsonKey(name: 'year_of_birth') String? yearOfBirth,
+      @JsonKey(name: 'year_of_death') String? yearOfDeath,
+      String? profession,
+      String? image,
+      String? state,
+      @SpeciesIntoClassToMap() List<Specie>? species});
 }
 
 /// @nodoc
@@ -73,12 +72,14 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? yearOfBirth = freezed,
-    Object? yearofDeath = freezed,
+    Object? lastname = freezed,
     Object? biography = freezed,
+    Object? yearOfBirth = freezed,
+    Object? yearOfDeath = freezed,
     Object? profession = freezed,
     Object? image = freezed,
     Object? state = freezed,
+    Object? species = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -89,17 +90,21 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      yearOfBirth: freezed == yearOfBirth
-          ? _value.yearOfBirth
-          : yearOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
-      yearofDeath: freezed == yearofDeath
-          ? _value.yearofDeath
-          : yearofDeath // ignore: cast_nullable_to_non_nullable
+      lastname: freezed == lastname
+          ? _value.lastname
+          : lastname // ignore: cast_nullable_to_non_nullable
               as String?,
       biography: freezed == biography
           ? _value.biography
           : biography // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yearOfBirth: freezed == yearOfBirth
+          ? _value.yearOfBirth
+          : yearOfBirth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yearOfDeath: freezed == yearOfDeath
+          ? _value.yearOfDeath
+          : yearOfDeath // ignore: cast_nullable_to_non_nullable
               as String?,
       profession: freezed == profession
           ? _value.profession
@@ -113,6 +118,10 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String?,
+      species: freezed == species
+          ? _value.species
+          : species // ignore: cast_nullable_to_non_nullable
+              as List<Specie>?,
     ) as $Val);
   }
 }
@@ -125,14 +134,16 @@ abstract class _$$AuthorImplCopyWith<$Res> implements $AuthorCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_autor') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'ano_nacimiento_autor') String? yearOfBirth,
-      @JsonKey(name: 'ano_deceso_autor') String? yearofDeath,
-      @JsonKey(name: 'biografia_autor') String? biography,
-      @JsonKey(name: 'profesion_autor') String? profession,
-      @JsonKey(name: 'imagen_autor') String? image,
-      @JsonKey(name: 'estado_autor') String? state});
+      {int id,
+      String? name,
+      String? lastname,
+      String? biography,
+      @JsonKey(name: 'year_of_birth') String? yearOfBirth,
+      @JsonKey(name: 'year_of_death') String? yearOfDeath,
+      String? profession,
+      String? image,
+      String? state,
+      @SpeciesIntoClassToMap() List<Specie>? species});
 }
 
 /// @nodoc
@@ -148,12 +159,14 @@ class __$$AuthorImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? yearOfBirth = freezed,
-    Object? yearofDeath = freezed,
+    Object? lastname = freezed,
     Object? biography = freezed,
+    Object? yearOfBirth = freezed,
+    Object? yearOfDeath = freezed,
     Object? profession = freezed,
     Object? image = freezed,
     Object? state = freezed,
+    Object? species = freezed,
   }) {
     return _then(_$AuthorImpl(
       id: null == id
@@ -164,17 +177,21 @@ class __$$AuthorImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      yearOfBirth: freezed == yearOfBirth
-          ? _value.yearOfBirth
-          : yearOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
-      yearofDeath: freezed == yearofDeath
-          ? _value.yearofDeath
-          : yearofDeath // ignore: cast_nullable_to_non_nullable
+      lastname: freezed == lastname
+          ? _value.lastname
+          : lastname // ignore: cast_nullable_to_non_nullable
               as String?,
       biography: freezed == biography
           ? _value.biography
           : biography // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yearOfBirth: freezed == yearOfBirth
+          ? _value.yearOfBirth
+          : yearOfBirth // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yearOfDeath: freezed == yearOfDeath
+          ? _value.yearOfDeath
+          : yearOfDeath // ignore: cast_nullable_to_non_nullable
               as String?,
       profession: freezed == profession
           ? _value.profession
@@ -188,6 +205,10 @@ class __$$AuthorImplCopyWithImpl<$Res>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String?,
+      species: freezed == species
+          ? _value._species
+          : species // ignore: cast_nullable_to_non_nullable
+              as List<Specie>?,
     ));
   }
 }
@@ -196,46 +217,56 @@ class __$$AuthorImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AuthorImpl implements _Author {
   _$AuthorImpl(
-      {@JsonKey(name: 'id_autor') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'ano_nacimiento_autor') this.yearOfBirth,
-      @JsonKey(name: 'ano_deceso_autor') this.yearofDeath,
-      @JsonKey(name: 'biografia_autor') this.biography,
-      @JsonKey(name: 'profesion_autor') this.profession,
-      @JsonKey(name: 'imagen_autor') this.image,
-      @JsonKey(name: 'estado_autor') this.state});
+      {required this.id,
+      this.name,
+      this.lastname,
+      this.biography,
+      @JsonKey(name: 'year_of_birth') this.yearOfBirth,
+      @JsonKey(name: 'year_of_death') this.yearOfDeath,
+      this.profession,
+      this.image,
+      this.state,
+      @SpeciesIntoClassToMap() final List<Specie>? species = null})
+      : _species = species;
 
   factory _$AuthorImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthorImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_autor')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
   @override
-  @JsonKey(name: 'ano_nacimiento_autor')
-  final String? yearOfBirth;
+  final String? lastname;
   @override
-  @JsonKey(name: 'ano_deceso_autor')
-  final String? yearofDeath;
-  @override
-  @JsonKey(name: 'biografia_autor')
   final String? biography;
   @override
-  @JsonKey(name: 'profesion_autor')
+  @JsonKey(name: 'year_of_birth')
+  final String? yearOfBirth;
+  @override
+  @JsonKey(name: 'year_of_death')
+  final String? yearOfDeath;
+  @override
   final String? profession;
   @override
-  @JsonKey(name: 'imagen_autor')
   final String? image;
   @override
-  @JsonKey(name: 'estado_autor')
   final String? state;
+  final List<Specie>? _species;
+  @override
+  @JsonKey()
+  @SpeciesIntoClassToMap()
+  List<Specie>? get species {
+    final value = _species;
+    if (value == null) return null;
+    if (_species is EqualUnmodifiableListView) return _species;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Author(id: $id, name: $name, yearOfBirth: $yearOfBirth, yearofDeath: $yearofDeath, biography: $biography, profession: $profession, image: $image, state: $state)';
+    return 'Author(id: $id, name: $name, lastname: $lastname, biography: $biography, yearOfBirth: $yearOfBirth, yearOfDeath: $yearOfDeath, profession: $profession, image: $image, state: $state, species: $species)';
   }
 
   @override
@@ -245,22 +276,35 @@ class _$AuthorImpl implements _Author {
             other is _$AuthorImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.yearOfBirth, yearOfBirth) ||
-                other.yearOfBirth == yearOfBirth) &&
-            (identical(other.yearofDeath, yearofDeath) ||
-                other.yearofDeath == yearofDeath) &&
+            (identical(other.lastname, lastname) ||
+                other.lastname == lastname) &&
             (identical(other.biography, biography) ||
                 other.biography == biography) &&
+            (identical(other.yearOfBirth, yearOfBirth) ||
+                other.yearOfBirth == yearOfBirth) &&
+            (identical(other.yearOfDeath, yearOfDeath) ||
+                other.yearOfDeath == yearOfDeath) &&
             (identical(other.profession, profession) ||
                 other.profession == profession) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.state, state) || other.state == state));
+            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other._species, _species));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, yearOfBirth,
-      yearofDeath, biography, profession, image, state);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      lastname,
+      biography,
+      yearOfBirth,
+      yearOfDeath,
+      profession,
+      image,
+      state,
+      const DeepCollectionEquality().hash(_species));
 
   @JsonKey(ignore: true)
   @override
@@ -278,41 +322,42 @@ class _$AuthorImpl implements _Author {
 
 abstract class _Author implements Author {
   factory _Author(
-      {@JsonKey(name: 'id_autor') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'ano_nacimiento_autor') final String? yearOfBirth,
-      @JsonKey(name: 'ano_deceso_autor') final String? yearofDeath,
-      @JsonKey(name: 'biografia_autor') final String? biography,
-      @JsonKey(name: 'profesion_autor') final String? profession,
-      @JsonKey(name: 'imagen_autor') final String? image,
-      @JsonKey(name: 'estado_autor') final String? state}) = _$AuthorImpl;
+      {required final int id,
+      final String? name,
+      final String? lastname,
+      final String? biography,
+      @JsonKey(name: 'year_of_birth') final String? yearOfBirth,
+      @JsonKey(name: 'year_of_death') final String? yearOfDeath,
+      final String? profession,
+      final String? image,
+      final String? state,
+      @SpeciesIntoClassToMap() final List<Specie>? species}) = _$AuthorImpl;
 
   factory _Author.fromJson(Map<String, dynamic> json) = _$AuthorImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_autor')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
-  @JsonKey(name: 'ano_nacimiento_autor')
-  String? get yearOfBirth;
+  String? get lastname;
   @override
-  @JsonKey(name: 'ano_deceso_autor')
-  String? get yearofDeath;
-  @override
-  @JsonKey(name: 'biografia_autor')
   String? get biography;
   @override
-  @JsonKey(name: 'profesion_autor')
+  @JsonKey(name: 'year_of_birth')
+  String? get yearOfBirth;
+  @override
+  @JsonKey(name: 'year_of_death')
+  String? get yearOfDeath;
+  @override
   String? get profession;
   @override
-  @JsonKey(name: 'imagen_autor')
   String? get image;
   @override
-  @JsonKey(name: 'estado_autor')
   String? get state;
+  @override
+  @SpeciesIntoClassToMap()
+  List<Specie>? get species;
   @override
   @JsonKey(ignore: true)
   _$$AuthorImplCopyWith<_$AuthorImpl> get copyWith =>

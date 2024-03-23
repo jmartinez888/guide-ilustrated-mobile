@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:species/src/domain/entities/community/community.dart';
+import 'package:species/src/data/models/classes/community_iiap/community_iiap.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
@@ -22,7 +22,7 @@ class _IndigenousCommunitySearchPageState
     extends State<IndigenousCommunitySearchPage> {
   CommunityRository get communityRepository => context.read();
   final int numberOfPostsPerRequest = 16;
-  final PagingController<int, Community> _pagingController =
+  final PagingController<int, CommunityIiap> _pagingController =
       PagingController(firstPageKey: 1);
   final searchController = TextEditingController();
 
@@ -85,11 +85,11 @@ class _IndigenousCommunitySearchPageState
               onRefresh: () => Future.sync(() => _pagingController.refresh()),
               child: Extend(
                 min: true,
-                child: PagedListView<int, Community>(
+                child: PagedListView<int, CommunityIiap>(
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.all(16.0),
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Community>(
+                  builderDelegate: PagedChildBuilderDelegate<CommunityIiap>(
                     firstPageErrorIndicatorBuilder: (context) {
                       return _errorIndicator(context);
                     },

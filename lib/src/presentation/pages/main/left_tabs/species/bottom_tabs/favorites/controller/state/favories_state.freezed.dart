@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$FavoritesState {
   String get searchText => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
-  List<SpecieFavorite> get species => throw _privateConstructorUsedError;
+  List<Specie> get species => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FavoritesStateCopyWith<FavoritesState> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $FavoritesStateCopyWith<$Res> {
           FavoritesState value, $Res Function(FavoritesState) then) =
       _$FavoritesStateCopyWithImpl<$Res, FavoritesState>;
   @useResult
-  $Res call({String searchText, bool loading, List<SpecieFavorite> species});
+  $Res call({String searchText, bool loading, List<Specie> species});
 }
 
 /// @nodoc
@@ -63,7 +63,7 @@ class _$FavoritesStateCopyWithImpl<$Res, $Val extends FavoritesState>
       species: null == species
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
-              as List<SpecieFavorite>,
+              as List<Specie>,
     ) as $Val);
   }
 }
@@ -76,7 +76,7 @@ abstract class _$$FavoritesStateImplCopyWith<$Res>
       __$$FavoritesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String searchText, bool loading, List<SpecieFavorite> species});
+  $Res call({String searchText, bool loading, List<Specie> species});
 }
 
 /// @nodoc
@@ -106,7 +106,7 @@ class __$$FavoritesStateImplCopyWithImpl<$Res>
       species: null == species
           ? _value._species
           : species // ignore: cast_nullable_to_non_nullable
-              as List<SpecieFavorite>,
+              as List<Specie>,
     ));
   }
 }
@@ -117,7 +117,7 @@ class _$FavoritesStateImpl implements _FavoritesState {
   _$FavoritesStateImpl(
       {this.searchText = '',
       this.loading = true,
-      final List<SpecieFavorite> species = const []})
+      final List<Specie> species = const []})
       : _species = species;
 
   @override
@@ -126,10 +126,10 @@ class _$FavoritesStateImpl implements _FavoritesState {
   @override
   @JsonKey()
   final bool loading;
-  final List<SpecieFavorite> _species;
+  final List<Specie> _species;
   @override
   @JsonKey()
-  List<SpecieFavorite> get species {
+  List<Specie> get species {
     if (_species is EqualUnmodifiableListView) return _species;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_species);
@@ -167,14 +167,14 @@ abstract class _FavoritesState implements FavoritesState {
   factory _FavoritesState(
       {final String searchText,
       final bool loading,
-      final List<SpecieFavorite> species}) = _$FavoritesStateImpl;
+      final List<Specie> species}) = _$FavoritesStateImpl;
 
   @override
   String get searchText;
   @override
   bool get loading;
   @override
-  List<SpecieFavorite> get species;
+  List<Specie> get species;
   @override
   @JsonKey(ignore: true)
   _$$FavoritesStateImplCopyWith<_$FavoritesStateImpl> get copyWith =>

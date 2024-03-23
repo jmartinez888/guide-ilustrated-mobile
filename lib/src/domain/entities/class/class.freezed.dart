@@ -20,13 +20,10 @@ ClassC _$ClassCFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ClassC {
-  @JsonKey(name: 'id_clase')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'id_filo')
-  int? get phylumId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ch_estado')
+  @JsonKey(name: 'id_phylum')
+  int? get idPhylum => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,10 +37,10 @@ abstract class $ClassCCopyWith<$Res> {
       _$ClassCCopyWithImpl<$Res, ClassC>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_clase') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'id_filo') int? phylumId,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      @JsonKey(name: 'id_phylum') int? idPhylum,
+      String? state});
 }
 
 /// @nodoc
@@ -61,7 +58,7 @@ class _$ClassCCopyWithImpl<$Res, $Val extends ClassC>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? phylumId = freezed,
+    Object? idPhylum = freezed,
     Object? state = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,9 +70,9 @@ class _$ClassCCopyWithImpl<$Res, $Val extends ClassC>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      phylumId: freezed == phylumId
-          ? _value.phylumId
-          : phylumId // ignore: cast_nullable_to_non_nullable
+      idPhylum: freezed == idPhylum
+          ? _value.idPhylum
+          : idPhylum // ignore: cast_nullable_to_non_nullable
               as int?,
       state: freezed == state
           ? _value.state
@@ -93,10 +90,10 @@ abstract class _$$ClassCImplCopyWith<$Res> implements $ClassCCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_clase') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'id_filo') int? phylumId,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      @JsonKey(name: 'id_phylum') int? idPhylum,
+      String? state});
 }
 
 /// @nodoc
@@ -112,7 +109,7 @@ class __$$ClassCImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? phylumId = freezed,
+    Object? idPhylum = freezed,
     Object? state = freezed,
   }) {
     return _then(_$ClassCImpl(
@@ -124,9 +121,9 @@ class __$$ClassCImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      phylumId: freezed == phylumId
-          ? _value.phylumId
-          : phylumId // ignore: cast_nullable_to_non_nullable
+      idPhylum: freezed == idPhylum
+          ? _value.idPhylum
+          : idPhylum // ignore: cast_nullable_to_non_nullable
               as int?,
       state: freezed == state
           ? _value.state
@@ -140,30 +137,27 @@ class __$$ClassCImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ClassCImpl implements _ClassC {
   _$ClassCImpl(
-      {@JsonKey(name: 'id_clase') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'id_filo') this.phylumId,
-      @JsonKey(name: 'ch_estado') this.state});
+      {required this.id,
+      this.name,
+      @JsonKey(name: 'id_phylum') this.idPhylum,
+      this.state});
 
   factory _$ClassCImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassCImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_clase')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
   @override
-  @JsonKey(name: 'id_filo')
-  final int? phylumId;
+  @JsonKey(name: 'id_phylum')
+  final int? idPhylum;
   @override
-  @JsonKey(name: 'ch_estado')
   final String? state;
 
   @override
   String toString() {
-    return 'ClassC(id: $id, name: $name, phylumId: $phylumId, state: $state)';
+    return 'ClassC(id: $id, name: $name, idPhylum: $idPhylum, state: $state)';
   }
 
   @override
@@ -173,14 +167,14 @@ class _$ClassCImpl implements _ClassC {
             other is _$ClassCImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.phylumId, phylumId) ||
-                other.phylumId == phylumId) &&
+            (identical(other.idPhylum, idPhylum) ||
+                other.idPhylum == idPhylum) &&
             (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, phylumId, state);
+  int get hashCode => Object.hash(runtimeType, id, name, idPhylum, state);
 
   @JsonKey(ignore: true)
   @override
@@ -198,24 +192,21 @@ class _$ClassCImpl implements _ClassC {
 
 abstract class _ClassC implements ClassC {
   factory _ClassC(
-      {@JsonKey(name: 'id_clase') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'id_filo') final int? phylumId,
-      @JsonKey(name: 'ch_estado') final String? state}) = _$ClassCImpl;
+      {required final int id,
+      final String? name,
+      @JsonKey(name: 'id_phylum') final int? idPhylum,
+      final String? state}) = _$ClassCImpl;
 
   factory _ClassC.fromJson(Map<String, dynamic> json) = _$ClassCImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_clase')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
-  @JsonKey(name: 'id_filo')
-  int? get phylumId;
+  @JsonKey(name: 'id_phylum')
+  int? get idPhylum;
   @override
-  @JsonKey(name: 'ch_estado')
   String? get state;
   @override
   @JsonKey(ignore: true)

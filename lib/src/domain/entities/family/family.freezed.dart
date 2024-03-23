@@ -20,13 +20,10 @@ Family _$FamilyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Family {
-  @JsonKey(name: 'id_familia')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'id_orden')
-  int? get orderId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ch_estado')
+  @JsonKey(name: 'id_order')
+  int? get idOrder => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,10 +37,10 @@ abstract class $FamilyCopyWith<$Res> {
       _$FamilyCopyWithImpl<$Res, Family>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_familia') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'id_orden') int? orderId,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      @JsonKey(name: 'id_order') int? idOrder,
+      String? state});
 }
 
 /// @nodoc
@@ -61,7 +58,7 @@ class _$FamilyCopyWithImpl<$Res, $Val extends Family>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? orderId = freezed,
+    Object? idOrder = freezed,
     Object? state = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,9 +70,9 @@ class _$FamilyCopyWithImpl<$Res, $Val extends Family>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      orderId: freezed == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
+      idOrder: freezed == idOrder
+          ? _value.idOrder
+          : idOrder // ignore: cast_nullable_to_non_nullable
               as int?,
       state: freezed == state
           ? _value.state
@@ -93,10 +90,10 @@ abstract class _$$FamilyImplCopyWith<$Res> implements $FamilyCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_familia') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'id_orden') int? orderId,
-      @JsonKey(name: 'ch_estado') String? state});
+      {int id,
+      String? name,
+      @JsonKey(name: 'id_order') int? idOrder,
+      String? state});
 }
 
 /// @nodoc
@@ -112,7 +109,7 @@ class __$$FamilyImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
-    Object? orderId = freezed,
+    Object? idOrder = freezed,
     Object? state = freezed,
   }) {
     return _then(_$FamilyImpl(
@@ -124,9 +121,9 @@ class __$$FamilyImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      orderId: freezed == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
+      idOrder: freezed == idOrder
+          ? _value.idOrder
+          : idOrder // ignore: cast_nullable_to_non_nullable
               as int?,
       state: freezed == state
           ? _value.state
@@ -140,30 +137,27 @@ class __$$FamilyImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FamilyImpl implements _Family {
   _$FamilyImpl(
-      {@JsonKey(name: 'id_familia') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'id_orden') this.orderId,
-      @JsonKey(name: 'ch_estado') this.state});
+      {required this.id,
+      this.name,
+      @JsonKey(name: 'id_order') this.idOrder,
+      this.state});
 
   factory _$FamilyImpl.fromJson(Map<String, dynamic> json) =>
       _$$FamilyImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_familia')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
   @override
-  @JsonKey(name: 'id_orden')
-  final int? orderId;
+  @JsonKey(name: 'id_order')
+  final int? idOrder;
   @override
-  @JsonKey(name: 'ch_estado')
   final String? state;
 
   @override
   String toString() {
-    return 'Family(id: $id, name: $name, orderId: $orderId, state: $state)';
+    return 'Family(id: $id, name: $name, idOrder: $idOrder, state: $state)';
   }
 
   @override
@@ -173,13 +167,13 @@ class _$FamilyImpl implements _Family {
             other is _$FamilyImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.orderId, orderId) || other.orderId == orderId) &&
+            (identical(other.idOrder, idOrder) || other.idOrder == idOrder) &&
             (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, orderId, state);
+  int get hashCode => Object.hash(runtimeType, id, name, idOrder, state);
 
   @JsonKey(ignore: true)
   @override
@@ -197,24 +191,21 @@ class _$FamilyImpl implements _Family {
 
 abstract class _Family implements Family {
   factory _Family(
-      {@JsonKey(name: 'id_familia') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'id_orden') final int? orderId,
-      @JsonKey(name: 'ch_estado') final String? state}) = _$FamilyImpl;
+      {required final int id,
+      final String? name,
+      @JsonKey(name: 'id_order') final int? idOrder,
+      final String? state}) = _$FamilyImpl;
 
   factory _Family.fromJson(Map<String, dynamic> json) = _$FamilyImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_familia')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
-  @JsonKey(name: 'id_orden')
-  int? get orderId;
+  @JsonKey(name: 'id_order')
+  int? get idOrder;
   @override
-  @JsonKey(name: 'ch_estado')
   String? get state;
   @override
   @JsonKey(ignore: true)

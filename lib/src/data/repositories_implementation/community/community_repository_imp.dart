@@ -35,6 +35,6 @@ class CommunityRositoryImpl extends CommunityRository {
 
   @override
   Future<Either<HttpRequestFailure, Community>> getCommunity(String id) {
-    return _communityApi.getIndigenousCommunityId(id);
+    return _communityApi.getIndigenousCommunity(id);
   }
 }

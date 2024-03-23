@@ -20,9 +20,7 @@ Phylum _$PhylumFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Phylum {
-  @JsonKey(name: 'id_filo')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,9 +33,7 @@ abstract class $PhylumCopyWith<$Res> {
   factory $PhylumCopyWith(Phylum value, $Res Function(Phylum) then) =
       _$PhylumCopyWithImpl<$Res, Phylum>;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'id_filo') int id,
-      @JsonKey(name: 'vc_nombre') String? name});
+  $Res call({int id, String? name});
 }
 
 /// @nodoc
@@ -76,9 +72,7 @@ abstract class _$$PhylumImplCopyWith<$Res> implements $PhylumCopyWith<$Res> {
       __$$PhylumImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'id_filo') int id,
-      @JsonKey(name: 'vc_nombre') String? name});
+  $Res call({int id, String? name});
 }
 
 /// @nodoc
@@ -111,18 +105,14 @@ class __$$PhylumImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PhylumImpl implements _Phylum {
-  _$PhylumImpl(
-      {@JsonKey(name: 'id_filo') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name});
+  _$PhylumImpl({required this.id, this.name});
 
   factory _$PhylumImpl.fromJson(Map<String, dynamic> json) =>
       _$$PhylumImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_filo')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
 
   @override
@@ -158,17 +148,13 @@ class _$PhylumImpl implements _Phylum {
 }
 
 abstract class _Phylum implements Phylum {
-  factory _Phylum(
-      {@JsonKey(name: 'id_filo') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name}) = _$PhylumImpl;
+  factory _Phylum({required final int id, final String? name}) = _$PhylumImpl;
 
   factory _Phylum.fromJson(Map<String, dynamic> json) = _$PhylumImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_filo')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
   @JsonKey(ignore: true)

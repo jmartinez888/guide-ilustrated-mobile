@@ -20,17 +20,17 @@ TypeC _$TypeCFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TypeC {
-  @JsonKey(name: 'id_taxa')
+  @JsonKey(name: 'id')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
+  @JsonKey(name: 'name')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_color_primario')
+  @JsonKey(name: 'primary_color')
   String? get primaryColor => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_color_secundario')
+  @JsonKey(name: 'secondary_color')
   String? get secondaryColor => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_imagen')
+  @JsonKey(name: 'image')
   String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'estado')
+  @JsonKey(name: 'state')
   String? get state => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,12 +44,12 @@ abstract class $TypeCCopyWith<$Res> {
       _$TypeCCopyWithImpl<$Res, TypeC>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_taxa') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'vc_color_primario') String? primaryColor,
-      @JsonKey(name: 'vc_color_secundario') String? secondaryColor,
-      @JsonKey(name: 'vc_imagen') String? image,
-      @JsonKey(name: 'estado') String? state});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'primary_color') String? primaryColor,
+      @JsonKey(name: 'secondary_color') String? secondaryColor,
+      @JsonKey(name: 'image') String? image,
+      @JsonKey(name: 'state') String? state});
 }
 
 /// @nodoc
@@ -109,12 +109,12 @@ abstract class _$$TypeCImplCopyWith<$Res> implements $TypeCCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_taxa') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'vc_color_primario') String? primaryColor,
-      @JsonKey(name: 'vc_color_secundario') String? secondaryColor,
-      @JsonKey(name: 'vc_imagen') String? image,
-      @JsonKey(name: 'estado') String? state});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'primary_color') String? primaryColor,
+      @JsonKey(name: 'secondary_color') String? secondaryColor,
+      @JsonKey(name: 'image') String? image,
+      @JsonKey(name: 'state') String? state});
 }
 
 /// @nodoc
@@ -168,33 +168,33 @@ class __$$TypeCImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TypeCImpl implements _TypeC {
   _$TypeCImpl(
-      {@JsonKey(name: 'id_taxa') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'vc_color_primario') this.primaryColor,
-      @JsonKey(name: 'vc_color_secundario') this.secondaryColor,
-      @JsonKey(name: 'vc_imagen') this.image,
-      @JsonKey(name: 'estado') this.state});
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'primary_color') this.primaryColor,
+      @JsonKey(name: 'secondary_color') this.secondaryColor,
+      @JsonKey(name: 'image') this.image,
+      @JsonKey(name: 'state') this.state});
 
   factory _$TypeCImpl.fromJson(Map<String, dynamic> json) =>
       _$$TypeCImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_taxa')
+  @JsonKey(name: 'id')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
+  @JsonKey(name: 'name')
   final String? name;
   @override
-  @JsonKey(name: 'vc_color_primario')
+  @JsonKey(name: 'primary_color')
   final String? primaryColor;
   @override
-  @JsonKey(name: 'vc_color_secundario')
+  @JsonKey(name: 'secondary_color')
   final String? secondaryColor;
   @override
-  @JsonKey(name: 'vc_imagen')
+  @JsonKey(name: 'image')
   final String? image;
   @override
-  @JsonKey(name: 'estado')
+  @JsonKey(name: 'state')
   final String? state;
 
   @override
@@ -238,32 +238,32 @@ class _$TypeCImpl implements _TypeC {
 
 abstract class _TypeC implements TypeC {
   factory _TypeC(
-      {@JsonKey(name: 'id_taxa') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'vc_color_primario') final String? primaryColor,
-      @JsonKey(name: 'vc_color_secundario') final String? secondaryColor,
-      @JsonKey(name: 'vc_imagen') final String? image,
-      @JsonKey(name: 'estado') final String? state}) = _$TypeCImpl;
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'name') final String? name,
+      @JsonKey(name: 'primary_color') final String? primaryColor,
+      @JsonKey(name: 'secondary_color') final String? secondaryColor,
+      @JsonKey(name: 'image') final String? image,
+      @JsonKey(name: 'state') final String? state}) = _$TypeCImpl;
 
   factory _TypeC.fromJson(Map<String, dynamic> json) = _$TypeCImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_taxa')
+  @JsonKey(name: 'id')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
+  @JsonKey(name: 'name')
   String? get name;
   @override
-  @JsonKey(name: 'vc_color_primario')
+  @JsonKey(name: 'primary_color')
   String? get primaryColor;
   @override
-  @JsonKey(name: 'vc_color_secundario')
+  @JsonKey(name: 'secondary_color')
   String? get secondaryColor;
   @override
-  @JsonKey(name: 'vc_imagen')
+  @JsonKey(name: 'image')
   String? get image;
   @override
-  @JsonKey(name: 'estado')
+  @JsonKey(name: 'state')
   String? get state;
   @override
   @JsonKey(ignore: true)

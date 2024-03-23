@@ -1,15 +1,15 @@
-import 'package:species/src/data/services/remote/state_of_conservation_api.dart';
-import 'package:species/src/domain/entities/state_of_conservation/state_of_conservation.dart';
-import 'package:species/src/domain/repositories/state_of_conservation/state_of_conservation_repository.dart';
+import 'package:species/src/data/services/remote/conservation_states_api.dart';
+import 'package:species/src/domain/entities/conservation_states/conservation_states.dart';
+import 'package:species/src/domain/repositories/conservation_states/conservation_states_repository.dart';
 
-class StateOfConservationRepositoryImpl implements StateOfConservationRepository {
-  final StateOfConservationApi _stateOfConservationApi;
+class ConservationStatesRepositoryImpl implements ConservationStatesRepository {
+  final ConservationStatesApi _conservationStatesApi;
 
-  StateOfConservationRepositoryImpl({required StateOfConservationApi stateOfConservationApi}) : _stateOfConservationApi = stateOfConservationApi;
+  ConservationStatesRepositoryImpl({required ConservationStatesApi conservationStatesApi}) : _conservationStatesApi = conservationStatesApi;
 
   @override
-  Future<List<StateOfConservation>> getStateOfConservations() {
-    return _stateOfConservationApi.getConservationStatus();
+  Future<List<ConservationStates>> getStateOfConservations() {
+    return _conservationStatesApi.getConservationStatus();
   }
   
 }

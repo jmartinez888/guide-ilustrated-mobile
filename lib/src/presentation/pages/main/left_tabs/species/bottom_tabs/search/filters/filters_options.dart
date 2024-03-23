@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:species/src/data/models/classes/taxonomy_for_search_iiap/taxonomy_for_search_iiap.dart';
 import 'package:species/src/domain/entities/class/class.dart';
+import 'package:species/src/domain/entities/conservation_states/conservation_states.dart';
 import 'package:species/src/domain/entities/family/family.dart';
 import 'package:species/src/domain/entities/order/order.dart';
-import 'package:species/src/domain/entities/state_of_conservation/state_of_conservation.dart';
-import 'package:species/src/domain/entities/taxonomy_for_search/taxonomy_for_search.dart';
 import 'package:species/src/presentation/global/colors.dart';
 
 class ListAlphabeticOrder extends StatelessWidget {
@@ -287,7 +287,7 @@ class FilterByConservationStatusDialog extends StatelessWidget {
   final int? selectedConservationStatus;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<StateOfConservation> conservationStatusesList;
+  final List<ConservationStates>conservationStatusesList;
 
   const FilterByConservationStatusDialog({
     Key? key,
@@ -350,7 +350,7 @@ class ConservationStatusOptions extends StatelessWidget {
   final int? conservationStatus;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<StateOfConservation> conservationStatuses;
+  final List<ConservationStates> conservationStatuses;
 
   const ConservationStatusOptions({
     Key? key,
@@ -360,7 +360,7 @@ class ConservationStatusOptions extends StatelessWidget {
     required this.conservationStatuses,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(StateOfConservation conservationStatusItem) {
+  Widget _buildRadioListTile(ConservationStates conservationStatusItem) {
     return RadioListTile(
       title: Row(
         children: [
@@ -405,7 +405,7 @@ class FilterByCategoryDialog extends StatelessWidget {
   final int? taxonomyId;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<TaxonomyForSearch> taxonomyList;
+  final List<TaxonomyForSearchIiap> taxonomyList;
 
   const FilterByCategoryDialog({
     Key? key,
@@ -463,7 +463,7 @@ class CategoryRadioOptions extends StatelessWidget {
   final int? taxonomyId;
   final Function(int?) onValueChanged;
   final Function() onDialogClosed;
-  final List<TaxonomyForSearch> taxonomyList;
+  final List<TaxonomyForSearchIiap> taxonomyList;
 
   const CategoryRadioOptions({
     Key? key,
@@ -473,7 +473,7 @@ class CategoryRadioOptions extends StatelessWidget {
     required this.taxonomyList,
   }) : super(key: key);
 
-  Widget _buildRadioListTile(TaxonomyForSearch taxonomyItem) {
+  Widget _buildRadioListTile(TaxonomyForSearchIiap taxonomyItem) {
     return RadioListTile(
       title: Row(
         children: [

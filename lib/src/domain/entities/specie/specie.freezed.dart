@@ -20,33 +20,37 @@ Specie _$SpecieFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Specie {
-  @JsonKey(name: 'id_especie')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre')
   String? get name => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre_cientifico')
+  @JsonKey(name: 'scientific_name')
   String? get scientificName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_nombre_ingles')
+  @JsonKey(name: 'english_name')
   String? get englishName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_ano')
   String? get year => throw _privateConstructorUsedError;
-  @JsonKey(name: 'id_familia')
-  int? get familyId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_imagen')
-  String? get image => throw _privateConstructorUsedError;
-  @JsonKey(name: 'taxa')
+  @JsonKey(name: 'id_family')
+  int? get idFamily => throw _privateConstructorUsedError;
+  List<String>? get images => throw _privateConstructorUsedError;
+  @TypeMapIntoClass()
   TypeC? get type => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vc_sonido')
   String? get sound => throw _privateConstructorUsedError;
-  @JsonKey(name: 'te_descripcion')
   String? get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'estados_conservacion')
-  List<StateOfConservation>? get stateOfConservations =>
+  @ConservationsStatesMapIntoClass()
+  @JsonKey(name: 'conservation_states')
+  List<ConservationStates>? get conservationStates =>
       throw _privateConstructorUsedError;
-  @JsonKey(name: 'autores')
+  @AuthorsIntoClassToMap()
   List<Author>? get authors => throw _privateConstructorUsedError;
-  @JsonKey(name: 'taxonomia')
-  Taxonomy? get taxonomy => throw _privateConstructorUsedError;
+  @KingdomMapIntoClass()
+  Kingdom? get kingdom => throw _privateConstructorUsedError;
+  @PhylumMapIntoClass()
+  Phylum? get phylum => throw _privateConstructorUsedError;
+  @ClassMapIntoClass()
+  ClassC? get classC => throw _privateConstructorUsedError;
+  @OrderMapIntoClass()
+  OrderC? get order => throw _privateConstructorUsedError;
+  @FamilyMapIntoClass()
+  Family? get family => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,23 +63,33 @@ abstract class $SpecieCopyWith<$Res> {
       _$SpecieCopyWithImpl<$Res, Specie>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_especie') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'vc_nombre_cientifico') String? scientificName,
-      @JsonKey(name: 'vc_nombre_ingles') String? englishName,
-      @JsonKey(name: 'vc_ano') String? year,
-      @JsonKey(name: 'id_familia') int? familyId,
-      @JsonKey(name: 'vc_imagen') String? image,
-      @JsonKey(name: 'taxa') TypeC? type,
-      @JsonKey(name: 'vc_sonido') String? sound,
-      @JsonKey(name: 'te_descripcion') String? description,
-      @JsonKey(name: 'estados_conservacion')
-      List<StateOfConservation>? stateOfConservations,
-      @JsonKey(name: 'autores') List<Author>? authors,
-      @JsonKey(name: 'taxonomia') Taxonomy? taxonomy});
+      {int id,
+      String? name,
+      @JsonKey(name: 'scientific_name') String? scientificName,
+      @JsonKey(name: 'english_name') String? englishName,
+      String? year,
+      @JsonKey(name: 'id_family') int? idFamily,
+      List<String>? images,
+      @TypeMapIntoClass() TypeC? type,
+      String? sound,
+      String? description,
+      @ConservationsStatesMapIntoClass()
+      @JsonKey(name: 'conservation_states')
+      List<ConservationStates>? conservationStates,
+      @AuthorsIntoClassToMap() List<Author>? authors,
+      @KingdomMapIntoClass() Kingdom? kingdom,
+      @PhylumMapIntoClass() Phylum? phylum,
+      @ClassMapIntoClass() ClassC? classC,
+      @OrderMapIntoClass() OrderC? order,
+      @FamilyMapIntoClass() Family? family,
+      String? state});
 
   $TypeCCopyWith<$Res>? get type;
-  $TaxonomyCopyWith<$Res>? get taxonomy;
+  $KingdomCopyWith<$Res>? get kingdom;
+  $PhylumCopyWith<$Res>? get phylum;
+  $ClassCCopyWith<$Res>? get classC;
+  $OrderCCopyWith<$Res>? get order;
+  $FamilyCopyWith<$Res>? get family;
 }
 
 /// @nodoc
@@ -96,14 +110,19 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     Object? scientificName = freezed,
     Object? englishName = freezed,
     Object? year = freezed,
-    Object? familyId = freezed,
-    Object? image = freezed,
+    Object? idFamily = freezed,
+    Object? images = freezed,
     Object? type = freezed,
     Object? sound = freezed,
     Object? description = freezed,
-    Object? stateOfConservations = freezed,
+    Object? conservationStates = freezed,
     Object? authors = freezed,
-    Object? taxonomy = freezed,
+    Object? kingdom = freezed,
+    Object? phylum = freezed,
+    Object? classC = freezed,
+    Object? order = freezed,
+    Object? family = freezed,
+    Object? state = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -126,14 +145,14 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as String?,
-      familyId: freezed == familyId
-          ? _value.familyId
-          : familyId // ignore: cast_nullable_to_non_nullable
+      idFamily: freezed == idFamily
+          ? _value.idFamily
+          : idFamily // ignore: cast_nullable_to_non_nullable
               as int?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -146,18 +165,38 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      stateOfConservations: freezed == stateOfConservations
-          ? _value.stateOfConservations
-          : stateOfConservations // ignore: cast_nullable_to_non_nullable
-              as List<StateOfConservation>?,
+      conservationStates: freezed == conservationStates
+          ? _value.conservationStates
+          : conservationStates // ignore: cast_nullable_to_non_nullable
+              as List<ConservationStates>?,
       authors: freezed == authors
           ? _value.authors
           : authors // ignore: cast_nullable_to_non_nullable
               as List<Author>?,
-      taxonomy: freezed == taxonomy
-          ? _value.taxonomy
-          : taxonomy // ignore: cast_nullable_to_non_nullable
-              as Taxonomy?,
+      kingdom: freezed == kingdom
+          ? _value.kingdom
+          : kingdom // ignore: cast_nullable_to_non_nullable
+              as Kingdom?,
+      phylum: freezed == phylum
+          ? _value.phylum
+          : phylum // ignore: cast_nullable_to_non_nullable
+              as Phylum?,
+      classC: freezed == classC
+          ? _value.classC
+          : classC // ignore: cast_nullable_to_non_nullable
+              as ClassC?,
+      order: freezed == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as OrderC?,
+      family: freezed == family
+          ? _value.family
+          : family // ignore: cast_nullable_to_non_nullable
+              as Family?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -175,13 +214,61 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
 
   @override
   @pragma('vm:prefer-inline')
-  $TaxonomyCopyWith<$Res>? get taxonomy {
-    if (_value.taxonomy == null) {
+  $KingdomCopyWith<$Res>? get kingdom {
+    if (_value.kingdom == null) {
       return null;
     }
 
-    return $TaxonomyCopyWith<$Res>(_value.taxonomy!, (value) {
-      return _then(_value.copyWith(taxonomy: value) as $Val);
+    return $KingdomCopyWith<$Res>(_value.kingdom!, (value) {
+      return _then(_value.copyWith(kingdom: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PhylumCopyWith<$Res>? get phylum {
+    if (_value.phylum == null) {
+      return null;
+    }
+
+    return $PhylumCopyWith<$Res>(_value.phylum!, (value) {
+      return _then(_value.copyWith(phylum: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ClassCCopyWith<$Res>? get classC {
+    if (_value.classC == null) {
+      return null;
+    }
+
+    return $ClassCCopyWith<$Res>(_value.classC!, (value) {
+      return _then(_value.copyWith(classC: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OrderCCopyWith<$Res>? get order {
+    if (_value.order == null) {
+      return null;
+    }
+
+    return $OrderCCopyWith<$Res>(_value.order!, (value) {
+      return _then(_value.copyWith(order: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FamilyCopyWith<$Res>? get family {
+    if (_value.family == null) {
+      return null;
+    }
+
+    return $FamilyCopyWith<$Res>(_value.family!, (value) {
+      return _then(_value.copyWith(family: value) as $Val);
     });
   }
 }
@@ -194,25 +281,39 @@ abstract class _$$SpecieImplCopyWith<$Res> implements $SpecieCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id_especie') int id,
-      @JsonKey(name: 'vc_nombre') String? name,
-      @JsonKey(name: 'vc_nombre_cientifico') String? scientificName,
-      @JsonKey(name: 'vc_nombre_ingles') String? englishName,
-      @JsonKey(name: 'vc_ano') String? year,
-      @JsonKey(name: 'id_familia') int? familyId,
-      @JsonKey(name: 'vc_imagen') String? image,
-      @JsonKey(name: 'taxa') TypeC? type,
-      @JsonKey(name: 'vc_sonido') String? sound,
-      @JsonKey(name: 'te_descripcion') String? description,
-      @JsonKey(name: 'estados_conservacion')
-      List<StateOfConservation>? stateOfConservations,
-      @JsonKey(name: 'autores') List<Author>? authors,
-      @JsonKey(name: 'taxonomia') Taxonomy? taxonomy});
+      {int id,
+      String? name,
+      @JsonKey(name: 'scientific_name') String? scientificName,
+      @JsonKey(name: 'english_name') String? englishName,
+      String? year,
+      @JsonKey(name: 'id_family') int? idFamily,
+      List<String>? images,
+      @TypeMapIntoClass() TypeC? type,
+      String? sound,
+      String? description,
+      @ConservationsStatesMapIntoClass()
+      @JsonKey(name: 'conservation_states')
+      List<ConservationStates>? conservationStates,
+      @AuthorsIntoClassToMap() List<Author>? authors,
+      @KingdomMapIntoClass() Kingdom? kingdom,
+      @PhylumMapIntoClass() Phylum? phylum,
+      @ClassMapIntoClass() ClassC? classC,
+      @OrderMapIntoClass() OrderC? order,
+      @FamilyMapIntoClass() Family? family,
+      String? state});
 
   @override
   $TypeCCopyWith<$Res>? get type;
   @override
-  $TaxonomyCopyWith<$Res>? get taxonomy;
+  $KingdomCopyWith<$Res>? get kingdom;
+  @override
+  $PhylumCopyWith<$Res>? get phylum;
+  @override
+  $ClassCCopyWith<$Res>? get classC;
+  @override
+  $OrderCCopyWith<$Res>? get order;
+  @override
+  $FamilyCopyWith<$Res>? get family;
 }
 
 /// @nodoc
@@ -231,14 +332,19 @@ class __$$SpecieImplCopyWithImpl<$Res>
     Object? scientificName = freezed,
     Object? englishName = freezed,
     Object? year = freezed,
-    Object? familyId = freezed,
-    Object? image = freezed,
+    Object? idFamily = freezed,
+    Object? images = freezed,
     Object? type = freezed,
     Object? sound = freezed,
     Object? description = freezed,
-    Object? stateOfConservations = freezed,
+    Object? conservationStates = freezed,
     Object? authors = freezed,
-    Object? taxonomy = freezed,
+    Object? kingdom = freezed,
+    Object? phylum = freezed,
+    Object? classC = freezed,
+    Object? order = freezed,
+    Object? family = freezed,
+    Object? state = freezed,
   }) {
     return _then(_$SpecieImpl(
       id: null == id
@@ -261,14 +367,14 @@ class __$$SpecieImplCopyWithImpl<$Res>
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
               as String?,
-      familyId: freezed == familyId
-          ? _value.familyId
-          : familyId // ignore: cast_nullable_to_non_nullable
+      idFamily: freezed == idFamily
+          ? _value.idFamily
+          : idFamily // ignore: cast_nullable_to_non_nullable
               as int?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       type: freezed == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -281,18 +387,38 @@ class __$$SpecieImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      stateOfConservations: freezed == stateOfConservations
-          ? _value._stateOfConservations
-          : stateOfConservations // ignore: cast_nullable_to_non_nullable
-              as List<StateOfConservation>?,
+      conservationStates: freezed == conservationStates
+          ? _value._conservationStates
+          : conservationStates // ignore: cast_nullable_to_non_nullable
+              as List<ConservationStates>?,
       authors: freezed == authors
           ? _value._authors
           : authors // ignore: cast_nullable_to_non_nullable
               as List<Author>?,
-      taxonomy: freezed == taxonomy
-          ? _value.taxonomy
-          : taxonomy // ignore: cast_nullable_to_non_nullable
-              as Taxonomy?,
+      kingdom: freezed == kingdom
+          ? _value.kingdom
+          : kingdom // ignore: cast_nullable_to_non_nullable
+              as Kingdom?,
+      phylum: freezed == phylum
+          ? _value.phylum
+          : phylum // ignore: cast_nullable_to_non_nullable
+              as Phylum?,
+      classC: freezed == classC
+          ? _value.classC
+          : classC // ignore: cast_nullable_to_non_nullable
+              as ClassC?,
+      order: freezed == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as OrderC?,
+      family: freezed == family
+          ? _value.family
+          : family // ignore: cast_nullable_to_non_nullable
+              as Family?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -301,71 +427,83 @@ class __$$SpecieImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SpecieImpl implements _Specie {
   _$SpecieImpl(
-      {@JsonKey(name: 'id_especie') required this.id,
-      @JsonKey(name: 'vc_nombre') this.name,
-      @JsonKey(name: 'vc_nombre_cientifico') this.scientificName,
-      @JsonKey(name: 'vc_nombre_ingles') this.englishName,
-      @JsonKey(name: 'vc_ano') this.year,
-      @JsonKey(name: 'id_familia') this.familyId,
-      @JsonKey(name: 'vc_imagen') this.image,
-      @JsonKey(name: 'taxa') this.type,
-      @JsonKey(name: 'vc_sonido') this.sound,
-      @JsonKey(name: 'te_descripcion') this.description,
-      @JsonKey(name: 'estados_conservacion')
-      final List<StateOfConservation>? stateOfConservations,
-      @JsonKey(name: 'autores') final List<Author>? authors,
-      @JsonKey(name: 'taxonomia') this.taxonomy})
-      : _stateOfConservations = stateOfConservations,
+      {required this.id,
+      this.name,
+      @JsonKey(name: 'scientific_name') this.scientificName,
+      @JsonKey(name: 'english_name') this.englishName,
+      this.year,
+      @JsonKey(name: 'id_family') this.idFamily,
+      final List<String>? images,
+      @TypeMapIntoClass() this.type = null,
+      this.sound,
+      this.description,
+      @ConservationsStatesMapIntoClass()
+      @JsonKey(name: 'conservation_states')
+      final List<ConservationStates>? conservationStates,
+      @AuthorsIntoClassToMap() final List<Author>? authors = null,
+      @KingdomMapIntoClass() this.kingdom = null,
+      @PhylumMapIntoClass() this.phylum = null,
+      @ClassMapIntoClass() this.classC = null,
+      @OrderMapIntoClass() this.order = null,
+      @FamilyMapIntoClass() this.family = null,
+      this.state})
+      : _images = images,
+        _conservationStates = conservationStates,
         _authors = authors;
 
   factory _$SpecieImpl.fromJson(Map<String, dynamic> json) =>
       _$$SpecieImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id_especie')
   final int id;
   @override
-  @JsonKey(name: 'vc_nombre')
   final String? name;
   @override
-  @JsonKey(name: 'vc_nombre_cientifico')
+  @JsonKey(name: 'scientific_name')
   final String? scientificName;
   @override
-  @JsonKey(name: 'vc_nombre_ingles')
+  @JsonKey(name: 'english_name')
   final String? englishName;
   @override
-  @JsonKey(name: 'vc_ano')
   final String? year;
   @override
-  @JsonKey(name: 'id_familia')
-  final int? familyId;
+  @JsonKey(name: 'id_family')
+  final int? idFamily;
+  final List<String>? _images;
   @override
-  @JsonKey(name: 'vc_imagen')
-  final String? image;
+  List<String>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
-  @JsonKey(name: 'taxa')
+  @JsonKey()
+  @TypeMapIntoClass()
   final TypeC? type;
   @override
-  @JsonKey(name: 'vc_sonido')
   final String? sound;
   @override
-  @JsonKey(name: 'te_descripcion')
   final String? description;
-  final List<StateOfConservation>? _stateOfConservations;
+  final List<ConservationStates>? _conservationStates;
   @override
-  @JsonKey(name: 'estados_conservacion')
-  List<StateOfConservation>? get stateOfConservations {
-    final value = _stateOfConservations;
+  @ConservationsStatesMapIntoClass()
+  @JsonKey(name: 'conservation_states')
+  List<ConservationStates>? get conservationStates {
+    final value = _conservationStates;
     if (value == null) return null;
-    if (_stateOfConservations is EqualUnmodifiableListView)
-      return _stateOfConservations;
+    if (_conservationStates is EqualUnmodifiableListView)
+      return _conservationStates;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   final List<Author>? _authors;
   @override
-  @JsonKey(name: 'autores')
+  @JsonKey()
+  @AuthorsIntoClassToMap()
   List<Author>? get authors {
     final value = _authors;
     if (value == null) return null;
@@ -375,12 +513,31 @@ class _$SpecieImpl implements _Specie {
   }
 
   @override
-  @JsonKey(name: 'taxonomia')
-  final Taxonomy? taxonomy;
+  @JsonKey()
+  @KingdomMapIntoClass()
+  final Kingdom? kingdom;
+  @override
+  @JsonKey()
+  @PhylumMapIntoClass()
+  final Phylum? phylum;
+  @override
+  @JsonKey()
+  @ClassMapIntoClass()
+  final ClassC? classC;
+  @override
+  @JsonKey()
+  @OrderMapIntoClass()
+  final OrderC? order;
+  @override
+  @JsonKey()
+  @FamilyMapIntoClass()
+  final Family? family;
+  @override
+  final String? state;
 
   @override
   String toString() {
-    return 'Specie(id: $id, name: $name, scientificName: $scientificName, englishName: $englishName, year: $year, familyId: $familyId, image: $image, type: $type, sound: $sound, description: $description, stateOfConservations: $stateOfConservations, authors: $authors, taxonomy: $taxonomy)';
+    return 'Specie(id: $id, name: $name, scientificName: $scientificName, englishName: $englishName, year: $year, idFamily: $idFamily, images: $images, type: $type, sound: $sound, description: $description, conservationStates: $conservationStates, authors: $authors, kingdom: $kingdom, phylum: $phylum, classC: $classC, order: $order, family: $family, state: $state)';
   }
 
   @override
@@ -395,18 +552,22 @@ class _$SpecieImpl implements _Specie {
             (identical(other.englishName, englishName) ||
                 other.englishName == englishName) &&
             (identical(other.year, year) || other.year == year) &&
-            (identical(other.familyId, familyId) ||
-                other.familyId == familyId) &&
-            (identical(other.image, image) || other.image == image) &&
+            (identical(other.idFamily, idFamily) ||
+                other.idFamily == idFamily) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.sound, sound) || other.sound == sound) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
-                .equals(other._stateOfConservations, _stateOfConservations) &&
+                .equals(other._conservationStates, _conservationStates) &&
             const DeepCollectionEquality().equals(other._authors, _authors) &&
-            (identical(other.taxonomy, taxonomy) ||
-                other.taxonomy == taxonomy));
+            (identical(other.kingdom, kingdom) || other.kingdom == kingdom) &&
+            (identical(other.phylum, phylum) || other.phylum == phylum) &&
+            (identical(other.classC, classC) || other.classC == classC) &&
+            (identical(other.order, order) || other.order == order) &&
+            (identical(other.family, family) || other.family == family) &&
+            (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
@@ -418,14 +579,19 @@ class _$SpecieImpl implements _Specie {
       scientificName,
       englishName,
       year,
-      familyId,
-      image,
+      idFamily,
+      const DeepCollectionEquality().hash(_images),
       type,
       sound,
       description,
-      const DeepCollectionEquality().hash(_stateOfConservations),
+      const DeepCollectionEquality().hash(_conservationStates),
       const DeepCollectionEquality().hash(_authors),
-      taxonomy);
+      kingdom,
+      phylum,
+      classC,
+      order,
+      family,
+      state);
 
   @JsonKey(ignore: true)
   @override
@@ -443,62 +609,77 @@ class _$SpecieImpl implements _Specie {
 
 abstract class _Specie implements Specie {
   factory _Specie(
-      {@JsonKey(name: 'id_especie') required final int id,
-      @JsonKey(name: 'vc_nombre') final String? name,
-      @JsonKey(name: 'vc_nombre_cientifico') final String? scientificName,
-      @JsonKey(name: 'vc_nombre_ingles') final String? englishName,
-      @JsonKey(name: 'vc_ano') final String? year,
-      @JsonKey(name: 'id_familia') final int? familyId,
-      @JsonKey(name: 'vc_imagen') final String? image,
-      @JsonKey(name: 'taxa') final TypeC? type,
-      @JsonKey(name: 'vc_sonido') final String? sound,
-      @JsonKey(name: 'te_descripcion') final String? description,
-      @JsonKey(name: 'estados_conservacion')
-      final List<StateOfConservation>? stateOfConservations,
-      @JsonKey(name: 'autores') final List<Author>? authors,
-      @JsonKey(name: 'taxonomia') final Taxonomy? taxonomy}) = _$SpecieImpl;
+      {required final int id,
+      final String? name,
+      @JsonKey(name: 'scientific_name') final String? scientificName,
+      @JsonKey(name: 'english_name') final String? englishName,
+      final String? year,
+      @JsonKey(name: 'id_family') final int? idFamily,
+      final List<String>? images,
+      @TypeMapIntoClass() final TypeC? type,
+      final String? sound,
+      final String? description,
+      @ConservationsStatesMapIntoClass()
+      @JsonKey(name: 'conservation_states')
+      final List<ConservationStates>? conservationStates,
+      @AuthorsIntoClassToMap() final List<Author>? authors,
+      @KingdomMapIntoClass() final Kingdom? kingdom,
+      @PhylumMapIntoClass() final Phylum? phylum,
+      @ClassMapIntoClass() final ClassC? classC,
+      @OrderMapIntoClass() final OrderC? order,
+      @FamilyMapIntoClass() final Family? family,
+      final String? state}) = _$SpecieImpl;
 
   factory _Specie.fromJson(Map<String, dynamic> json) = _$SpecieImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id_especie')
   int get id;
   @override
-  @JsonKey(name: 'vc_nombre')
   String? get name;
   @override
-  @JsonKey(name: 'vc_nombre_cientifico')
+  @JsonKey(name: 'scientific_name')
   String? get scientificName;
   @override
-  @JsonKey(name: 'vc_nombre_ingles')
+  @JsonKey(name: 'english_name')
   String? get englishName;
   @override
-  @JsonKey(name: 'vc_ano')
   String? get year;
   @override
-  @JsonKey(name: 'id_familia')
-  int? get familyId;
+  @JsonKey(name: 'id_family')
+  int? get idFamily;
   @override
-  @JsonKey(name: 'vc_imagen')
-  String? get image;
+  List<String>? get images;
   @override
-  @JsonKey(name: 'taxa')
+  @TypeMapIntoClass()
   TypeC? get type;
   @override
-  @JsonKey(name: 'vc_sonido')
   String? get sound;
   @override
-  @JsonKey(name: 'te_descripcion')
   String? get description;
   @override
-  @JsonKey(name: 'estados_conservacion')
-  List<StateOfConservation>? get stateOfConservations;
+  @ConservationsStatesMapIntoClass()
+  @JsonKey(name: 'conservation_states')
+  List<ConservationStates>? get conservationStates;
   @override
-  @JsonKey(name: 'autores')
+  @AuthorsIntoClassToMap()
   List<Author>? get authors;
   @override
-  @JsonKey(name: 'taxonomia')
-  Taxonomy? get taxonomy;
+  @KingdomMapIntoClass()
+  Kingdom? get kingdom;
+  @override
+  @PhylumMapIntoClass()
+  Phylum? get phylum;
+  @override
+  @ClassMapIntoClass()
+  ClassC? get classC;
+  @override
+  @OrderMapIntoClass()
+  OrderC? get order;
+  @override
+  @FamilyMapIntoClass()
+  Family? get family;
+  @override
+  String? get state;
   @override
   @JsonKey(ignore: true)
   _$$SpecieImplCopyWith<_$SpecieImpl> get copyWith =>

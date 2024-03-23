@@ -7,24 +7,43 @@ part of 'author.dart';
 // **************************************************************************
 
 _$AuthorImpl _$$AuthorImplFromJson(Map<String, dynamic> json) => _$AuthorImpl(
-      id: json['id_autor'] as int,
-      name: json['vc_nombre'] as String?,
-      yearOfBirth: json['ano_nacimiento_autor'] as String?,
-      yearofDeath: json['ano_deceso_autor'] as String?,
-      biography: json['biografia_autor'] as String?,
-      profession: json['profesion_autor'] as String?,
-      image: json['imagen_autor'] as String?,
-      state: json['estado_autor'] as String?,
+      id: json['id'] as int,
+      name: json['name'] as String?,
+      lastname: json['lastname'] as String?,
+      biography: json['biography'] as String?,
+      yearOfBirth: json['year_of_birth'] as String?,
+      yearOfDeath: json['year_of_death'] as String?,
+      profession: json['profession'] as String?,
+      image: json['image'] as String?,
+      state: json['state'] as String?,
+      species: _$JsonConverterFromJson<List<dynamic>, List<Specie>>(
+              json['species'], const SpeciesIntoClassToMap().fromJson) ??
+          null,
     );
 
 Map<String, dynamic> _$$AuthorImplToJson(_$AuthorImpl instance) =>
     <String, dynamic>{
-      'id_autor': instance.id,
-      'vc_nombre': instance.name,
-      'ano_nacimiento_autor': instance.yearOfBirth,
-      'ano_deceso_autor': instance.yearofDeath,
-      'biografia_autor': instance.biography,
-      'profesion_autor': instance.profession,
-      'imagen_autor': instance.image,
-      'estado_autor': instance.state,
+      'id': instance.id,
+      'name': instance.name,
+      'lastname': instance.lastname,
+      'biography': instance.biography,
+      'year_of_birth': instance.yearOfBirth,
+      'year_of_death': instance.yearOfDeath,
+      'profession': instance.profession,
+      'image': instance.image,
+      'state': instance.state,
+      'species': _$JsonConverterToJson<List<dynamic>, List<Specie>>(
+          instance.species, const SpeciesIntoClassToMap().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

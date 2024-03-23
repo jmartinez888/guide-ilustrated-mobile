@@ -9,7 +9,7 @@ class SpeciesDetailsController extends StateNotifier<SpeciesDetailsState> {
     required this.specieRepository,
   });
 
-  Future<void> getSpecieById(String id) async {
+  Future<void> getSpecie(String id) async {
     if(state.mapOfId[id] != null) return;
     state = state.copyWith(
           loading: true,
@@ -33,7 +33,7 @@ class SpeciesDetailsController extends StateNotifier<SpeciesDetailsState> {
     );
   }
 
-  Future<void> refreshSpecieById(String id) async {
+  Future<void> refreshSpecie(String id) async {
     state = state.copyWith(
       loading: true,
       mapOfId: state.mapOfId..remove(id),

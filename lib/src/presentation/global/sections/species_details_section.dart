@@ -8,10 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
-import 'package:species/src/domain/entities/specie_favorite/specie_favorite.dart';
-import 'package:species/src/domain/entities/taxonomy/taxonomy.dart';
+import 'package:species/src/domain/entities/kindom/kindom.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
@@ -54,22 +52,24 @@ class SpecieDetailsSection extends StatelessWidget {
                 child: CustomImageContainer(
                   mainColor: mainColor,
                   onTap: () {
-                    SpecieFavorite specieFirebase =
+                    /* Specie specieFirebase =
                         SpecieMapper.specieToSpecieFavorite(specie);
                     final value = jsonEncode(specieFirebase.toJson());
 
                     context.pushNamed(
                       Routes.specieImage,
                       pathParameters: {'specie': value},
-                    );
+                    ); */
                   },
-                  imageUrl: specie.image,
+                  imageUrl: specie.images != null && specie.images!.isNotEmpty
+                      ? specie.images!.first
+                      : null,
                   heightImage:
                       size.height > size.width + 32.0 ? 288 : double.infinity,
                 ),
               ),
-              if (specie.stateOfConservations != null &&
-                  specie.stateOfConservations!.isNotEmpty)
+              if (specie.conservationStates != null &&
+                  specie.conservationStates!.isNotEmpty)
                 Positioned(
                   left: 8.0,
                   bottom: 8.0,
@@ -77,7 +77,7 @@ class SpecieDetailsSection extends StatelessWidget {
                     spacing: 8.0,
                     runSpacing: 8.0,
                     children: [
-                      for (var statusImage in specie.stateOfConservations!)
+                      for (var statusImage in specie.conservationStates!)
                         CustomImageContainer(
                           borderRadius: BorderRadius.zero,
                           imageUrl: statusImage.image,
@@ -138,16 +138,16 @@ class SpecieDetailsSection extends StatelessWidget {
                     ?.copyWith(color: colorScheme.onSurfaceVariant),
                 textAlign: TextAlign.end,
               ),
-            if (specie.taxonomy != null)
+            /* if (specie.taxonomy != null)
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: _table(
                   context: context,
                   mainColor: mainColor,
                   opaqueColor: opaqueColor,
-                  taxonomy: specie.taxonomy!,
+                  
                 ),
-              ),
+              ), */
             if (specie.description != null && specie.description!.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
@@ -213,7 +213,7 @@ Widget _table({
   required Color mainColor,
   required Color opaqueColor,
   required BuildContext context,
-  required Taxonomy taxonomy,
+  required Kingdom kingdom,
 }) {
   final textTheme = Theme.of(context).textTheme;
   final customDivider = Divider(
@@ -246,9 +246,9 @@ Widget _table({
           thickness: 2.0,
           color: mainColor,
         ),
-        _doubleListTile(
+        /* _doubleListTile(
           firstText: 'Reino',
-          secondText: taxonomy.kingdom?.name ?? '-',
+          secondText: kingdom.name ?? '-',
           divideColor: mainColor,
           style: textTheme.labelLarge,
         ),
@@ -279,7 +279,7 @@ Widget _table({
           secondText: taxonomy.family?.name ?? '-',
           divideColor: mainColor,
           style: textTheme.labelLarge,
-        ),
+        ), */
       ],
     ),
   );
@@ -358,8 +358,8 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                         },
                       ),
                     ),
-                    if (widget.specie.image != null &&
-                        widget.specie.image!.isNotEmpty)
+                    if (widget.specie.images != null &&
+                        widget.specie.images!.isNotEmpty)
                       PopupMenuItem(
                         value: 1,
                         child: _simpleList(
@@ -367,7 +367,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                             text: 'Descargar Imagen'),
                         onTap: () => download(
                             context: context,
-                            urlDownload: widget.specie.image!),
+                            urlDownload: widget.specie.images!.first),
                       ),
                     if (widget.specie.sound != null &&
                         widget.specie.sound!.isNotEmpty)
@@ -433,8 +433,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                             idSpecie: widget.specie.id)
                         : favoriteRepository.saveSpecieFavorite(
                             userId: firebaseInstance.currentUser!.uid,
-                            specie: SpecieMapper.specieToSpecieFavorite(
-                                widget.specie),
+                            specie: widget.specie,
                           );
                   } else {
                     context.pushNamed(Routes.signIn);

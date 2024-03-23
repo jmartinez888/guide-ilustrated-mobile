@@ -7,14 +7,13 @@ part 'type.g.dart';
 
 @freezed
 class TypeC with _$TypeC {
-
   factory TypeC({
-    @JsonKey(name: 'id_taxa') required int id,
-    @JsonKey(name: 'vc_nombre') String? name,
-    @JsonKey(name: 'vc_color_primario') String? primaryColor,
-    @JsonKey(name: 'vc_color_secundario') String? secondaryColor,
-    @JsonKey(name: 'vc_imagen') String? image,
-    @JsonKey(name: 'estado') String? state,
+    @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'primary_color') String? primaryColor,
+    @JsonKey(name: 'secondary_color') String? secondaryColor,
+    @JsonKey(name: 'image') String? image,
+    @JsonKey(name: 'state') String? state,
   }) = _TypeC;
 
   factory TypeC.fromJson(Map<String, dynamic> json) => _$TypeCFromJson(json);

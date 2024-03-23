@@ -17,8 +17,8 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return GridTwoResponsive(
       leftChild: CustomImageContainer(
-        imageUrl: community.image != null && community.image!.isNotEmpty
-            ? community.image
+        imageUrl: community.images != null && community.images!.isNotEmpty
+            ? community.images!.first
             : 'assets/images/indigenous_community.jpg',
         heightImage: size.height > size.width + 32.0 ? 384.0 : double.infinity,
       ),

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:species/src/data/mappers/specie_mapper.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
@@ -21,6 +20,7 @@ import 'package:species/src/presentation/global/widgets/card/custom_grid_card.da
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SpeciesTabSection extends StatefulWidget {
@@ -97,7 +97,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                 lottie: 'assets/lotties/error_data.json',
               ),
               noItemsFoundIndicatorBuilder: (context) => MessageException(
-                onPressed:  widget.onRefresh,
+                onPressed: widget.onRefresh,
                 text: 'Parece que no hay especies aquí',
                 lottie: 'assets/lotties/without_data.json',
               ),
@@ -114,7 +114,6 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                 padding: EdgeInsets.only(top: 40.0),
                 child: GridLoading(),
               ),
-             
               itemBuilder: (context, specie, index) {
                 return CustomGridCard(
                   onTap: () => context.pushNamed(
@@ -130,19 +129,22 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                         color: Colors.white,
                         child: CustomImageContainer(
                           mainColor: mainColor,
-                          imageUrl: specie.image,
+                          imageUrl:
+                              specie.images != null && specie.images!.isNotEmpty
+                                  ? specie.images!.first
+                                  : null,
                           heightImage: 232.0,
                         ),
                       ),
-                      if (specie.stateOfConservations != null &&
-                          specie.stateOfConservations!.isNotEmpty)
+                      if (specie.conservationStates != null &&
+                          specie.conservationStates!.isNotEmpty)
                         Positioned(
                           left: 8.0,
                           bottom: 8.0,
                           child: Row(
                             children: [
                               for (var statusImage
-                                  in specie.stateOfConservations!)
+                                  in specie.conservationStates!)
                                 CustomImageContainer(
                                   mainColor: mainColor,
                                   borderRadius: BorderRadius.zero,
@@ -177,7 +179,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                                     opaqueColor: opaqueColor,
                                   )
                                 : CustomIconButton(
-                                  tooltip: texts.species.saveFavorite,
+                                    tooltip: texts.species.saveFavorite,
                                     icon: Icons.favorite_outline_rounded,
                                     iconColor: mainColor,
                                     onPressed: () {
@@ -272,8 +274,10 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
   FavoriteRepository get favoriteRepository => context.read();
   SpecieRepository get specieRepository => context.read();
   SessionController get sessionController => context.read();
+  SpeciesDetailsController get speciesDetailsController => context.read();
 
   late Stream<bool> isFavoriteStream;
+  bool loading = false;
 
   @override
   void initState() {
@@ -292,51 +296,55 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
         }
         final isFavorite = snapshot.data ?? false;
 
-        return CustomIconButton(
-          tooltip:
-              isFavorite ? texts.species.deleteFavorite : texts.species.saveFavorite,
-          icon: isFavorite
-              ? Icons.favorite_rounded
-              : Icons.favorite_outline_rounded,
-          iconColor: isFavorite ? Colors.white : widget.mainColor,
-          backgroundColor: isFavorite ? widget.mainColor : null,
-          onPressed: () async {
-            if (sessionController.state != null) {
-              if (isFavorite) {
-                await favoriteRepository.deleteSpecieFavorite(
-                    userId: widget.userId, idSpecie: widget.idSpecie);
-              } else {
-                final getSpecie = await specieRepository
-                    .getSpecie(widget.idSpecie.toString());
-                getSpecie.when(
-                  (httpRequestFailure) {
-                    final message = httpRequestFailure.when(
-                      network: () => 'Error de conexión',
-                      unknown: () => 'Error desconocido',
-                      notFound: () =>
-                          'No se pudo guardar la especie a favoritos',
-                    );
-                    customSnackBar(
-                      context: context,
-                      title: message,
-                      large: true,
-                      error: true,
-                    );
-                  },
-                  (specieResult) async {
-                    final specieValue =
-                        SpecieMapper.specieToSpecieFavorite(specieResult);
-                    await favoriteRepository.saveSpecieFavorite(
-                      userId: widget.userId,
-                      specie: specieValue,
-                    );
-                  },
-                );
-              }
-            } else {
-              context.pushNamed(Routes.signIn);
-            }
-          },
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            CustomIconButton(
+              tooltip: isFavorite
+                  ? texts.species.deleteFavorite
+                  : texts.species.saveFavorite,
+              icon: isFavorite
+                  ? Icons.favorite_rounded
+                  : Icons.favorite_outline_rounded,
+              iconColor: isFavorite ? Colors.white : widget.mainColor,
+              backgroundColor: isFavorite ? widget.mainColor : null,
+              onPressed: () async {
+                if (sessionController.state != null) {
+                  if (isFavorite) {
+                    await favoriteRepository.deleteSpecieFavorite(
+                        userId: widget.userId, idSpecie: widget.idSpecie);
+                  } else {
+                    setState(() => loading = true);
+                    await speciesDetailsController
+                        .getSpecie(widget.idSpecie.toString());
+                    if (speciesDetailsController
+                            .state.mapOfId[widget.idSpecie.toString()] ==
+                        null) {
+                      setState(() => loading = false);
+                      if (mounted) {
+                        customSnackBar(
+                          context: context,
+                          title: 'No se pudo guardar esta especie en favoritos',
+                          large: true,
+                          error: true,
+                        );
+                      }
+                    } else {
+                      setState(() => loading = false);
+                      await favoriteRepository.saveSpecieFavorite(
+                        userId: widget.userId,
+                        specie: speciesDetailsController
+                            .state.mapOfId[widget.idSpecie.toString()]!,
+                      );
+                    }
+                  }
+                } else {
+                  context.pushNamed(Routes.signIn);
+                }
+              },
+            ),
+            if (loading) const CircularProgressIndicator(),
+          ],
         );
       },
     );
