@@ -47,7 +47,10 @@ class _SplashPageState extends State<SplashPage> {
     final isAcces = authRepository.isAcces();
     isAcces.when(
       (_) => null,
-      (uid) => sessionController.setUser(uid),
+      (uid) {
+        print('🎆$uid');
+        sessionController.setUser(uid);
+      },
     );
   }
 

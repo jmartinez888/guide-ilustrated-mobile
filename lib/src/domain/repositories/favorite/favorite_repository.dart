@@ -1,10 +1,13 @@
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_helper/specie_helper.dart';
 import 'package:species/src/domain/specie_error_helper/specie_error_helper.dart';
 
 abstract class FavoriteRepository {
   Stream<List<Specie>> getFavoritesSpecies(String userId);
 
   Stream<List<SpecieErrorHelper>> getFavoritesSpeciesError(String userId);
+
+  Stream<List<SpecieHelper>> getFavoritesSpeciesHelper(String userId);
 
   Future<void> saveSpecieFavorite({
     required String userId,

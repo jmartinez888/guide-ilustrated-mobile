@@ -19,6 +19,9 @@ mixin _$FavoritesState {
   String get searchText => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   List<Specie> get species => throw _privateConstructorUsedError;
+  List<SpecieHelper> get speciesHelper => throw _privateConstructorUsedError;
+  String get errorMesage => throw _privateConstructorUsedError;
+  String get errorMesageHelper => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FavoritesStateCopyWith<FavoritesState> get copyWith =>
@@ -31,7 +34,13 @@ abstract class $FavoritesStateCopyWith<$Res> {
           FavoritesState value, $Res Function(FavoritesState) then) =
       _$FavoritesStateCopyWithImpl<$Res, FavoritesState>;
   @useResult
-  $Res call({String searchText, bool loading, List<Specie> species});
+  $Res call(
+      {String searchText,
+      bool loading,
+      List<Specie> species,
+      List<SpecieHelper> speciesHelper,
+      String errorMesage,
+      String errorMesageHelper});
 }
 
 /// @nodoc
@@ -50,6 +59,9 @@ class _$FavoritesStateCopyWithImpl<$Res, $Val extends FavoritesState>
     Object? searchText = null,
     Object? loading = null,
     Object? species = null,
+    Object? speciesHelper = null,
+    Object? errorMesage = null,
+    Object? errorMesageHelper = null,
   }) {
     return _then(_value.copyWith(
       searchText: null == searchText
@@ -64,6 +76,18 @@ class _$FavoritesStateCopyWithImpl<$Res, $Val extends FavoritesState>
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
               as List<Specie>,
+      speciesHelper: null == speciesHelper
+          ? _value.speciesHelper
+          : speciesHelper // ignore: cast_nullable_to_non_nullable
+              as List<SpecieHelper>,
+      errorMesage: null == errorMesage
+          ? _value.errorMesage
+          : errorMesage // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorMesageHelper: null == errorMesageHelper
+          ? _value.errorMesageHelper
+          : errorMesageHelper // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -76,7 +100,13 @@ abstract class _$$FavoritesStateImplCopyWith<$Res>
       __$$FavoritesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String searchText, bool loading, List<Specie> species});
+  $Res call(
+      {String searchText,
+      bool loading,
+      List<Specie> species,
+      List<SpecieHelper> speciesHelper,
+      String errorMesage,
+      String errorMesageHelper});
 }
 
 /// @nodoc
@@ -93,6 +123,9 @@ class __$$FavoritesStateImplCopyWithImpl<$Res>
     Object? searchText = null,
     Object? loading = null,
     Object? species = null,
+    Object? speciesHelper = null,
+    Object? errorMesage = null,
+    Object? errorMesageHelper = null,
   }) {
     return _then(_$FavoritesStateImpl(
       searchText: null == searchText
@@ -107,6 +140,18 @@ class __$$FavoritesStateImplCopyWithImpl<$Res>
           ? _value._species
           : species // ignore: cast_nullable_to_non_nullable
               as List<Specie>,
+      speciesHelper: null == speciesHelper
+          ? _value._speciesHelper
+          : speciesHelper // ignore: cast_nullable_to_non_nullable
+              as List<SpecieHelper>,
+      errorMesage: null == errorMesage
+          ? _value.errorMesage
+          : errorMesage // ignore: cast_nullable_to_non_nullable
+              as String,
+      errorMesageHelper: null == errorMesageHelper
+          ? _value.errorMesageHelper
+          : errorMesageHelper // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -117,8 +162,12 @@ class _$FavoritesStateImpl implements _FavoritesState {
   _$FavoritesStateImpl(
       {this.searchText = '',
       this.loading = true,
-      final List<Specie> species = const []})
-      : _species = species;
+      final List<Specie> species = const [],
+      final List<SpecieHelper> speciesHelper = const [],
+      this.errorMesage = '',
+      this.errorMesageHelper = ''})
+      : _species = species,
+        _speciesHelper = speciesHelper;
 
   @override
   @JsonKey()
@@ -135,9 +184,25 @@ class _$FavoritesStateImpl implements _FavoritesState {
     return EqualUnmodifiableListView(_species);
   }
 
+  final List<SpecieHelper> _speciesHelper;
+  @override
+  @JsonKey()
+  List<SpecieHelper> get speciesHelper {
+    if (_speciesHelper is EqualUnmodifiableListView) return _speciesHelper;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_speciesHelper);
+  }
+
+  @override
+  @JsonKey()
+  final String errorMesage;
+  @override
+  @JsonKey()
+  final String errorMesageHelper;
+
   @override
   String toString() {
-    return 'FavoritesState(searchText: $searchText, loading: $loading, species: $species)';
+    return 'FavoritesState(searchText: $searchText, loading: $loading, species: $species, speciesHelper: $speciesHelper, errorMesage: $errorMesage, errorMesageHelper: $errorMesageHelper)';
   }
 
   @override
@@ -148,12 +213,24 @@ class _$FavoritesStateImpl implements _FavoritesState {
             (identical(other.searchText, searchText) ||
                 other.searchText == searchText) &&
             (identical(other.loading, loading) || other.loading == loading) &&
-            const DeepCollectionEquality().equals(other._species, _species));
+            const DeepCollectionEquality().equals(other._species, _species) &&
+            const DeepCollectionEquality()
+                .equals(other._speciesHelper, _speciesHelper) &&
+            (identical(other.errorMesage, errorMesage) ||
+                other.errorMesage == errorMesage) &&
+            (identical(other.errorMesageHelper, errorMesageHelper) ||
+                other.errorMesageHelper == errorMesageHelper));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchText, loading,
-      const DeepCollectionEquality().hash(_species));
+  int get hashCode => Object.hash(
+      runtimeType,
+      searchText,
+      loading,
+      const DeepCollectionEquality().hash(_species),
+      const DeepCollectionEquality().hash(_speciesHelper),
+      errorMesage,
+      errorMesageHelper);
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +244,10 @@ abstract class _FavoritesState implements FavoritesState {
   factory _FavoritesState(
       {final String searchText,
       final bool loading,
-      final List<Specie> species}) = _$FavoritesStateImpl;
+      final List<Specie> species,
+      final List<SpecieHelper> speciesHelper,
+      final String errorMesage,
+      final String errorMesageHelper}) = _$FavoritesStateImpl;
 
   @override
   String get searchText;
@@ -175,6 +255,12 @@ abstract class _FavoritesState implements FavoritesState {
   bool get loading;
   @override
   List<Specie> get species;
+  @override
+  List<SpecieHelper> get speciesHelper;
+  @override
+  String get errorMesage;
+  @override
+  String get errorMesageHelper;
   @override
   @JsonKey(ignore: true)
   _$$FavoritesStateImplCopyWith<_$FavoritesStateImpl> get copyWith =>

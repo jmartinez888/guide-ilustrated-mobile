@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_helper/specie_helper.dart';
 import 'package:species/src/domain/specie_error_helper/specie_error_helper.dart';
 
 class FavoriteApi {
@@ -52,12 +53,33 @@ class FavoriteApi {
     }
   }
 
-  Stream<List<SpecieErrorHelper>> getFavoritesSpeciesError(String userId) {
+  Stream<List<SpecieHelper>> getFavoritesSpeciesHelper(String userId) {
     try {
       final querySnapshot = firebaseInstance
           .doc(userId)
           .collection('favorites')
+          .orderBy('name')
           .snapshots();
+
+      return querySnapshot.map((snapshot) {
+        final List<SpecieHelper> species = [];
+
+        for (var doc in snapshot.docs) {
+          final data = doc.data();
+          final specie = SpecieHelper.fromJson(data);
+          species.add(specie);
+        }
+        return species;
+      });
+    } catch (e) {
+      throw 'Ha ocurrido un error al obtener las especies';
+    }
+  }
+
+  Stream<List<SpecieErrorHelper>> getFavoritesSpeciesError(String userId) {
+    try {
+      final querySnapshot =
+          firebaseInstance.doc(userId).collection('favorites').snapshots();
 
       return querySnapshot.map((snapshot) {
         final List<SpecieErrorHelper> species = [];
