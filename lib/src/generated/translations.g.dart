@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 906 (181 per locale)
+/// Strings: 966 (193 per locale)
 ///
-/// Built on 2024-03-23 at 06:45 UTC
+/// Built on 2024-03-23 at 07:07 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -151,6 +151,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
+	late final _TranslationsAboutProjectEn aboutProject = _TranslationsAboutProjectEn._(_root);
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
 	late final _TranslationsDeleteAccountEn deleteAccount = _TranslationsDeleteAccountEn._(_root);
 	late final _TranslationsEditProfileEn editProfile = _TranslationsEditProfileEn._(_root);
@@ -165,6 +166,27 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _TranslationsSpeciesDetailsEn speciesDetails = _TranslationsSpeciesDetailsEn._(_root);
 	late final _TranslationsUserCredentialFailureEn userCredentialFailure = _TranslationsUserCredentialFailureEn._(_root);
 	late final _TranslationsValidatorEn validator = _TranslationsValidatorEn._(_root);
+}
+
+// Path: aboutProject
+class _TranslationsAboutProjectEn {
+	_TranslationsAboutProjectEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'About the project';
+	String get getBook => 'Get the book';
+	String get titleBook => 'AMAZONIA';
+	String get subtitleBook => 'Illustrated Guide to Flora and Fauna';
+	String get p1 => 'Welcome to the mobile platform of the Illustrated Guide to Flora and Fauna of the Amazon. Dive into the richness and diversity of this unique region through an interactive experience based on data updated until 2022';
+	String get content => 'About the content';
+	String get p2 => 'Our platform is a window to the astonishing Amazonian biodiversity. Through expert content and visually stunning imagery, we invite you to explore the unparalleled beauty of this region and understand its critical importance to our planet.';
+	String get commitment => 'Our commitment';
+	String get p3 => 'We strive to raise awareness about the immense importance of biodiversity and its protection, especially in the most vulnerable regions and among populations affected by degradation and climate change.';
+	String get contact => 'Contact us';
+	String get p4 => 'For more information about the project, contact the Peruvian Amazon Research Institute (IIAP) through the website: ';
+	String get address => 'Iquitos - Nauta Road Km 4.5, Quistococha, San Juan Bautista District, Maynas, Loreto: ';
 }
 
 // Path: bottomBar
@@ -618,6 +640,7 @@ class _TranslationsEs implements Translations {
 	@override late final _TranslationsEs _root = this; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsAboutProjectEs aboutProject = _TranslationsAboutProjectEs._(_root);
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
 	@override late final _TranslationsDeleteAccountEs deleteAccount = _TranslationsDeleteAccountEs._(_root);
 	@override late final _TranslationsEditProfileEs editProfile = _TranslationsEditProfileEs._(_root);
@@ -632,6 +655,27 @@ class _TranslationsEs implements Translations {
 	@override late final _TranslationsSpeciesDetailsEs speciesDetails = _TranslationsSpeciesDetailsEs._(_root);
 	@override late final _TranslationsUserCredentialFailureEs userCredentialFailure = _TranslationsUserCredentialFailureEs._(_root);
 	@override late final _TranslationsValidatorEs validator = _TranslationsValidatorEs._(_root);
+}
+
+// Path: aboutProject
+class _TranslationsAboutProjectEs implements _TranslationsAboutProjectEn {
+	_TranslationsAboutProjectEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Acerca del proyecto';
+	@override String get getBook => 'Obtener el libro';
+	@override String get titleBook => 'AMAZONÍA';
+	@override String get subtitleBook => 'Guía ilustrada de flora y fauna';
+	@override String get p1 => 'Bienvenido a la plataforma móvil de la Guía Ilustrada de Flora y Fauna de la Amazonía. Sumérgete en la riqueza y diversidad de esta región única a través de una experiencia interactiva basada en datos actualizados hasta 2022';
+	@override String get content => 'Sobre el contenido';
+	@override String get p2 => 'Nuestra plataforma es una ventana a la sorprendente biodiversidad amazónica. A través de contenido experto e imágenes visualmente impresionantes, te invitamos a explorar la belleza incomparable de esta región y comprender su importancia crítica para nuestro planeta.';
+	@override String get commitment => 'Nuestro compromiso';
+	@override String get p3 => 'Nos esforzamos por concienciar sobre la inmensa importancia de la biodiversidad y su protección, especialmente en las regiones más vulnerables y entre las poblaciones afectadas por la degradación y el cambio climático.';
+	@override String get contact => 'Contáctanos';
+	@override String get p4 => 'Para obtener más información sobre el proyecto, comunícate con el Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través del sitio web: ';
+	@override String get address => 'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 }
 
 // Path: bottomBar
@@ -1086,6 +1130,7 @@ class _TranslationsFr implements Translations {
 	@override late final _TranslationsFr _root = this; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsAboutProjectFr aboutProject = _TranslationsAboutProjectFr._(_root);
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
 	@override late final _TranslationsDeleteAccountFr deleteAccount = _TranslationsDeleteAccountFr._(_root);
 	@override late final _TranslationsEditProfileFr editProfile = _TranslationsEditProfileFr._(_root);
@@ -1100,6 +1145,27 @@ class _TranslationsFr implements Translations {
 	@override late final _TranslationsSpeciesDetailsFr speciesDetails = _TranslationsSpeciesDetailsFr._(_root);
 	@override late final _TranslationsUserCredentialFailureFr userCredentialFailure = _TranslationsUserCredentialFailureFr._(_root);
 	@override late final _TranslationsValidatorFr validator = _TranslationsValidatorFr._(_root);
+}
+
+// Path: aboutProject
+class _TranslationsAboutProjectFr implements _TranslationsAboutProjectEn {
+	_TranslationsAboutProjectFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'À propos du projet';
+	@override String get getBook => 'Obtenir le livre';
+	@override String get titleBook => 'AMAZONIE';
+	@override String get subtitleBook => 'Guide illustré de la flore et de la faune';
+	@override String get p1 => 'Bienvenue sur la plateforme mobile du Guide Illustré de la Flore et de la Faune de l\'Amazonie. Plongez dans la richesse et la diversité de cette région unique à travers une expérience interactive basée sur des données mises à jour jusqu\'en 2022';
+	@override String get content => 'À propos du contenu';
+	@override String get p2 => 'Notre plateforme est une fenêtre sur l\'étonnante biodiversité amazonienne. À travers un contenu expert et des images visuellement stupéfiantes, nous vous invitons à explorer la beauté inégalée de cette région et à comprendre son importance critique pour notre planète.';
+	@override String get commitment => 'Notre engagement';
+	@override String get p3 => 'Nous nous efforçons de sensibiliser à l\'immense importance de la biodiversité et de sa protection, notamment dans les régions les plus vulnérables et parmi les populations affectées par la dégradation et le changement climatique.';
+	@override String get contact => 'Contactez-nous';
+	@override String get p4 => 'Pour plus d\'informations sur le projet, contactez l\'Institut de Recherche de l\'Amazonie Péruvienne (IIAP) via le site web : ';
+	@override String get address => 'Route Iquitos - Nauta Km 4.5, Quistococha, District de San Juan Bautista, Maynas, Loreto : ';
 }
 
 // Path: bottomBar
@@ -1553,6 +1619,7 @@ class _TranslationsPt implements Translations {
 	@override late final _TranslationsPt _root = this; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsAboutProjectPt aboutProject = _TranslationsAboutProjectPt._(_root);
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
 	@override late final _TranslationsDeleteAccountPt deleteAccount = _TranslationsDeleteAccountPt._(_root);
 	@override late final _TranslationsEditProfilePt editProfile = _TranslationsEditProfilePt._(_root);
@@ -1567,6 +1634,27 @@ class _TranslationsPt implements Translations {
 	@override late final _TranslationsSpeciesDetailsPt speciesDetails = _TranslationsSpeciesDetailsPt._(_root);
 	@override late final _TranslationsUserCredentialFailurePt userCredentialFailure = _TranslationsUserCredentialFailurePt._(_root);
 	@override late final _TranslationsValidatorPt validator = _TranslationsValidatorPt._(_root);
+}
+
+// Path: aboutProject
+class _TranslationsAboutProjectPt implements _TranslationsAboutProjectEn {
+	_TranslationsAboutProjectPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sobre o projeto';
+	@override String get getBook => 'Obter o livro';
+	@override String get titleBook => 'AMAZONIA';
+	@override String get subtitleBook => 'Guia Ilustrado de Flora e Fauna';
+	@override String get p1 => 'Bem-vindo à plataforma móvel do Guia Ilustrado de Flora e Fauna da Amazônia. Explore a riqueza e a diversidade desta região única através de uma experiência interativa baseada em dados atualizados até 2022';
+	@override String get content => 'Sobre o conteúdo';
+	@override String get p2 => 'Nossa plataforma é uma janela para a surpreendente biodiversidade amazônica. Através de conteúdo especializado e imagens visualmente impressionantes, convidamos você a explorar a beleza incomparável desta região e entender sua importância crítica para nosso planeta.';
+	@override String get commitment => 'Nosso compromisso';
+	@override String get p3 => 'Nos esforçamos para conscientizar sobre a imensa importância da biodiversidade e sua proteção, especialmente nas regiões mais vulneráveis e entre as populações afetadas pela degradação e mudanças climáticas.';
+	@override String get contact => 'Entre em contato';
+	@override String get p4 => 'Para mais informações sobre o projeto, entre em contato com o Instituto de Pesquisas da Amazônia Peruana (IIAP) através do site: ';
+	@override String get address => 'Estrada Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 }
 
 // Path: bottomBar
@@ -2020,6 +2108,7 @@ class _TranslationsZh implements Translations {
 	@override late final _TranslationsZh _root = this; // ignore: unused_field
 
 	// Translations
+	@override late final _TranslationsAboutProjectZh aboutProject = _TranslationsAboutProjectZh._(_root);
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
 	@override late final _TranslationsDeleteAccountZh deleteAccount = _TranslationsDeleteAccountZh._(_root);
 	@override late final _TranslationsEditProfileZh editProfile = _TranslationsEditProfileZh._(_root);
@@ -2034,6 +2123,27 @@ class _TranslationsZh implements Translations {
 	@override late final _TranslationsSpeciesDetailsZh speciesDetails = _TranslationsSpeciesDetailsZh._(_root);
 	@override late final _TranslationsUserCredentialFailureZh userCredentialFailure = _TranslationsUserCredentialFailureZh._(_root);
 	@override late final _TranslationsValidatorZh validator = _TranslationsValidatorZh._(_root);
+}
+
+// Path: aboutProject
+class _TranslationsAboutProjectZh implements _TranslationsAboutProjectEn {
+	_TranslationsAboutProjectZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '关于项目';
+	@override String get getBook => '获取书籍';
+	@override String get titleBook => '亚马逊';
+	@override String get subtitleBook => '植物和动物图解指南';
+	@override String get p1 => '欢迎来到亚马逊植物和动物图解指南的移动平台。通过基于截至2022年的数据更新的交互式体验，深入了解这个独特地区的丰富多样性';
+	@override String get content => '关于内容';
+	@override String get p2 => '我们的平台是窥视令人惊叹的亚马逊生物多样性的窗口。通过专业内容和视觉上令人惊叹的图像，我们邀请您探索这个地区无与伦比的美丽，并了解其对我们星球的至关重要性。';
+	@override String get commitment => '我们的承诺';
+	@override String get p3 => '我们致力于提高人们对生物多样性及其保护的重要性的认识，特别是在最脆弱的地区和受到退化和气候变化影响的人群中。';
+	@override String get contact => '联系我们';
+	@override String get p4 => '有关该项目的更多信息，请通过以下网站联系秘鲁亚马逊研究所（IIAP）：';
+	@override String get address => '伊基托斯 - 瑙塔路4.5公里，奎斯托科查，圣胡安巴蒂斯塔区，迈纳斯，洛雷托：';
 }
 
 // Path: bottomBar
@@ -2469,6 +2579,18 @@ class _TranslationsValidatorCountryCodeZh implements _TranslationsValidatorCount
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'aboutProject.title': return 'About the project';
+			case 'aboutProject.getBook': return 'Get the book';
+			case 'aboutProject.titleBook': return 'AMAZONIA';
+			case 'aboutProject.subtitleBook': return 'Illustrated Guide to Flora and Fauna';
+			case 'aboutProject.p1': return 'Welcome to the mobile platform of the Illustrated Guide to Flora and Fauna of the Amazon. Dive into the richness and diversity of this unique region through an interactive experience based on data updated until 2022';
+			case 'aboutProject.content': return 'About the content';
+			case 'aboutProject.p2': return 'Our platform is a window to the astonishing Amazonian biodiversity. Through expert content and visually stunning imagery, we invite you to explore the unparalleled beauty of this region and understand its critical importance to our planet.';
+			case 'aboutProject.commitment': return 'Our commitment';
+			case 'aboutProject.p3': return 'We strive to raise awareness about the immense importance of biodiversity and its protection, especially in the most vulnerable regions and among populations affected by degradation and climate change.';
+			case 'aboutProject.contact': return 'Contact us';
+			case 'aboutProject.p4': return 'For more information about the project, contact the Peruvian Amazon Research Institute (IIAP) through the website: ';
+			case 'aboutProject.address': return 'Iquitos - Nauta Road Km 4.5, Quistococha, San Juan Bautista District, Maynas, Loreto: ';
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
@@ -2658,6 +2780,18 @@ extension on Translations {
 extension on _TranslationsEs {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'aboutProject.title': return 'Acerca del proyecto';
+			case 'aboutProject.getBook': return 'Obtener el libro';
+			case 'aboutProject.titleBook': return 'AMAZONÍA';
+			case 'aboutProject.subtitleBook': return 'Guía ilustrada de flora y fauna';
+			case 'aboutProject.p1': return 'Bienvenido a la plataforma móvil de la Guía Ilustrada de Flora y Fauna de la Amazonía. Sumérgete en la riqueza y diversidad de esta región única a través de una experiencia interactiva basada en datos actualizados hasta 2022';
+			case 'aboutProject.content': return 'Sobre el contenido';
+			case 'aboutProject.p2': return 'Nuestra plataforma es una ventana a la sorprendente biodiversidad amazónica. A través de contenido experto e imágenes visualmente impresionantes, te invitamos a explorar la belleza incomparable de esta región y comprender su importancia crítica para nuestro planeta.';
+			case 'aboutProject.commitment': return 'Nuestro compromiso';
+			case 'aboutProject.p3': return 'Nos esforzamos por concienciar sobre la inmensa importancia de la biodiversidad y su protección, especialmente en las regiones más vulnerables y entre las poblaciones afectadas por la degradación y el cambio climático.';
+			case 'aboutProject.contact': return 'Contáctanos';
+			case 'aboutProject.p4': return 'Para obtener más información sobre el proyecto, comunícate con el Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través del sitio web: ';
+			case 'aboutProject.address': return 'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 			case 'bottomBar.home': return 'inicio';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'favoritos';
@@ -2848,6 +2982,18 @@ extension on _TranslationsEs {
 extension on _TranslationsFr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'aboutProject.title': return 'À propos du projet';
+			case 'aboutProject.getBook': return 'Obtenir le livre';
+			case 'aboutProject.titleBook': return 'AMAZONIE';
+			case 'aboutProject.subtitleBook': return 'Guide illustré de la flore et de la faune';
+			case 'aboutProject.p1': return 'Bienvenue sur la plateforme mobile du Guide Illustré de la Flore et de la Faune de l\'Amazonie. Plongez dans la richesse et la diversité de cette région unique à travers une expérience interactive basée sur des données mises à jour jusqu\'en 2022';
+			case 'aboutProject.content': return 'À propos du contenu';
+			case 'aboutProject.p2': return 'Notre plateforme est une fenêtre sur l\'étonnante biodiversité amazonienne. À travers un contenu expert et des images visuellement stupéfiantes, nous vous invitons à explorer la beauté inégalée de cette région et à comprendre son importance critique pour notre planète.';
+			case 'aboutProject.commitment': return 'Notre engagement';
+			case 'aboutProject.p3': return 'Nous nous efforçons de sensibiliser à l\'immense importance de la biodiversité et de sa protection, notamment dans les régions les plus vulnérables et parmi les populations affectées par la dégradation et le changement climatique.';
+			case 'aboutProject.contact': return 'Contactez-nous';
+			case 'aboutProject.p4': return 'Pour plus d\'informations sur le projet, contactez l\'Institut de Recherche de l\'Amazonie Péruvienne (IIAP) via le site web : ';
+			case 'aboutProject.address': return 'Route Iquitos - Nauta Km 4.5, Quistococha, District de San Juan Bautista, Maynas, Loreto : ';
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
@@ -3037,6 +3183,18 @@ extension on _TranslationsFr {
 extension on _TranslationsPt {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'aboutProject.title': return 'Sobre o projeto';
+			case 'aboutProject.getBook': return 'Obter o livro';
+			case 'aboutProject.titleBook': return 'AMAZONIA';
+			case 'aboutProject.subtitleBook': return 'Guia Ilustrado de Flora e Fauna';
+			case 'aboutProject.p1': return 'Bem-vindo à plataforma móvel do Guia Ilustrado de Flora e Fauna da Amazônia. Explore a riqueza e a diversidade desta região única através de uma experiência interativa baseada em dados atualizados até 2022';
+			case 'aboutProject.content': return 'Sobre o conteúdo';
+			case 'aboutProject.p2': return 'Nossa plataforma é uma janela para a surpreendente biodiversidade amazônica. Através de conteúdo especializado e imagens visualmente impressionantes, convidamos você a explorar a beleza incomparável desta região e entender sua importância crítica para nosso planeta.';
+			case 'aboutProject.commitment': return 'Nosso compromisso';
+			case 'aboutProject.p3': return 'Nos esforçamos para conscientizar sobre a imensa importância da biodiversidade e sua proteção, especialmente nas regiões mais vulneráveis e entre as populações afetadas pela degradação e mudanças climáticas.';
+			case 'aboutProject.contact': return 'Entre em contato';
+			case 'aboutProject.p4': return 'Para mais informações sobre o projeto, entre em contato com o Instituto de Pesquisas da Amazônia Peruana (IIAP) através do site: ';
+			case 'aboutProject.address': return 'Estrada Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
@@ -3226,6 +3384,18 @@ extension on _TranslationsPt {
 extension on _TranslationsZh {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'aboutProject.title': return '关于项目';
+			case 'aboutProject.getBook': return '获取书籍';
+			case 'aboutProject.titleBook': return '亚马逊';
+			case 'aboutProject.subtitleBook': return '植物和动物图解指南';
+			case 'aboutProject.p1': return '欢迎来到亚马逊植物和动物图解指南的移动平台。通过基于截至2022年的数据更新的交互式体验，深入了解这个独特地区的丰富多样性';
+			case 'aboutProject.content': return '关于内容';
+			case 'aboutProject.p2': return '我们的平台是窥视令人惊叹的亚马逊生物多样性的窗口。通过专业内容和视觉上令人惊叹的图像，我们邀请您探索这个地区无与伦比的美丽，并了解其对我们星球的至关重要性。';
+			case 'aboutProject.commitment': return '我们的承诺';
+			case 'aboutProject.p3': return '我们致力于提高人们对生物多样性及其保护的重要性的认识，特别是在最脆弱的地区和受到退化和气候变化影响的人群中。';
+			case 'aboutProject.contact': return '联系我们';
+			case 'aboutProject.p4': return '有关该项目的更多信息，请通过以下网站联系秘鲁亚马逊研究所（IIAP）：';
+			case 'aboutProject.address': return '伊基托斯 - 瑙塔路4.5公里，奎斯托科查，圣胡安巴蒂斯塔区，迈纳斯，洛雷托：';
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';

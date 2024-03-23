@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +18,7 @@ class _AboutPageState extends State<AboutPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Acerca de'),
+        title: Text(texts.aboutProject.title),
       ),
       body: Extend(
         min: true,
@@ -37,60 +38,60 @@ class _AboutPageState extends State<AboutPage> {
                   throw Exception('Could not launch $url');
                 }
               },
-              child: const Text('Obtener libro'),
+              child: Text(texts.aboutProject.getBook),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'AMAZONÍA',
-              style: TextStyle(
+            Text(
+              texts.aboutProject.titleBook,
+              style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(1, 94, 128, 1)),
             ),
-            const Text(
-              'Guía ilustrada de flora y fauna',
-              style: TextStyle(
+            Text(
+              texts.aboutProject.subtitleBook,
+              style: const TextStyle(
                   fontSize: 20, color: Color.fromRGBO(139, 180, 56, 1)),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Bienvenidos a la plataforma móvil de la Guía Ilustrada de Flora y Fauna de la Amazonía. Adéntrate en la riqueza y diversidad de esta región única a través de una experiencia interactiva basada en datos actualizados hasta el año 2022',
+            Text(
+              texts.aboutProject.p1,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Sobre el contenido',
-              style: TextStyle(
+            Text(
+              texts.aboutProject.content,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              'Nuestra plataforma es una ventana a la asombrosa biodiversidad amazónica. A través de contenido experto y visualmente impactante, te invitamos a explorar la inigualable belleza de esta región y comprender su importancia crítica para nuestro planeta.',
+            Text(
+              texts.aboutProject.p2,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Nuestro compromiso',
-              style: TextStyle(
+            Text(
+              texts.aboutProject.commitment,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              'Nos esforzamos por concienciar sobre la inmensa importancia de la biodiversidad y su protección, especialmente en las regiones más vulnerables y entre las poblaciones afectadas por la degradación y el cambio climático.',
+            Text(
+              texts.aboutProject.p3,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Contactanos',
-              style: TextStyle(
+            Text(
+              texts.aboutProject.contact,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
-              'Para más información sobre el proyecto, contacta al Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través de la página web: ',
+            Text(
+              texts.aboutProject.p4,
               textAlign: TextAlign.justify,
             ),
             TextButton(
@@ -103,8 +104,8 @@ class _AboutPageState extends State<AboutPage> {
                 },
                 child: const Text('amazonia.iiap.gob.pe')),
             const SizedBox(height: 16),
-            const Text(
-              'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ',
+            Text(
+              texts.aboutProject.address,
             ),
             const SizedBox(height: 16),
             const Wrap(
