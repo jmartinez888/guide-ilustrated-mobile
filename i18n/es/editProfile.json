@@ -1,0 +1,8 @@
+{
+    "errorSnack": "Error al cargar los datos del usuario",
+    "title": "Editar perfil",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "errorSaving": "Error al guardar los datos del perfil",
+    "selectImage": "Seleccione una imagen de perfil"
+}

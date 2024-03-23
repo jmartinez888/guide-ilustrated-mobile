@@ -1,5 +1,6 @@
 {
     "password": {
+        "label": "Password",
         "empty": "Enter your password",
         "minLength": "Enter at least 6 characters",
         "regExp": "Password must contain at least one number and one letter"
@@ -11,20 +12,28 @@
         "matchPassword": "Passwords must match"
     },
     "email": {
+        "label": "Email",
         "empty": "Enter your email",
         "regExp": "Enter a valid email"
     },
     "name": {
+        "label": "Name",
         "empty": "Enter your name",
         "minLength": "Enter at least 3 characters"
     },
     "lastName": {
-        "empty": "Enter your last name",
+        "label": "Lastname",
+        "empty": "Enter your lastname",
         "minLength": "Enter at least 3 characters"
     },
     "phone": {
+        "label": "Phone number",
         "empty": "Enter your phone number",
         "minLength": "Enter at least 9 characters",
         "regExp": "Enter a valid phone number"
+    },
+    "countryCode": {
+        "label": "Country code",
+        "select": "Select country code"
     }
 }

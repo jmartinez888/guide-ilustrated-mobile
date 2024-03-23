@@ -1,0 +1,16 @@
+{
+    "title": "Excluir conta",
+    "userInfo": "Informações do usuário:",
+    "username": "Nome de usuário",
+    "email": "Email",
+    "phone": "Telefone",
+    "delete": "Excluir conta",
+    "warning": "Ao excluir sua conta, você concorda com os seguintes termos:",
+    "firtsTerm": "- Você não poderá recuperar sua conta.",
+    "secondTerm": "- Você não poderá recuperar seus dados.",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "information": "Tem certeza de que deseja excluir sua conta? Esta ação é irreversível. Digite sua senha para confirmar.",
+    "accountDeleted": "Conta excluída com sucesso",
+    "notRegistered": "Não registrado"
+}

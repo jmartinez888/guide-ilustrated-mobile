@@ -11,6 +11,7 @@ import 'package:species/src/presentation/global/widgets/messages/custom_snack_ba
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/image_picker.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/profile_form.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/widgets/success_modal.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class EditProfile extends StatefulWidget {
   final String userId;
@@ -66,7 +67,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
       if (mounted) {
         customSnackBar(
           context: context,
-          title: 'Error al cargar los datos del usuario',
+          title: texts.editProfile.errorSnack,
           error: true,
         );
       }
@@ -106,7 +107,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: const Text('Editar perfil'),
+        title: Text(texts.editProfile.title),
       ),
       body: Center(
         child: Form(
@@ -136,8 +137,8 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
                           child: CircularProgressIndicator(),
                         ),
                   label: enabled
-                      ? const Text('Guardar')
-                      : const Text('Guardando...'),
+                      ? Text(texts.editProfile.save)
+                      : Text(texts.editProfile.saving),
                 ),
                 nameController: _nameController,
                 lastnameController: _lastnameController,

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 775 (155 per locale)
+/// Strings: 906 (181 per locale)
 ///
-/// Built on 2024-03-22 at 23:53 UTC
+/// Built on 2024-03-23 at 06:45 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -152,6 +152,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
+	late final _TranslationsDeleteAccountEn deleteAccount = _TranslationsDeleteAccountEn._(_root);
+	late final _TranslationsEditProfileEn editProfile = _TranslationsEditProfileEn._(_root);
 	late final _TranslationsFavoritesEn favorites = _TranslationsFavoritesEn._(_root);
 	late final _TranslationsFilterOptionsEn filterOptions = _TranslationsFilterOptionsEn._(_root);
 	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
@@ -175,6 +177,43 @@ class _TranslationsBottomBarEn {
 	String get home => 'Home';
 	String get search => 'Search';
 	String get favorites => 'Favorites';
+}
+
+// Path: deleteAccount
+class _TranslationsDeleteAccountEn {
+	_TranslationsDeleteAccountEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Delete account';
+	String get userInfo => 'User information:';
+	String get username => 'Username';
+	String get email => 'Email';
+	String get phone => 'Phone';
+	String get delete => 'Delete account';
+	String get warning => 'By deleting your account, you agree to the following terms:';
+	String get firtsTerm => '- You won\'t be able to recover your account.';
+	String get secondTerm => '- You won\'t be able to recover your data.';
+	String get confirm => 'Confirm';
+	String get cancel => 'Cancel';
+	String get information => 'Are you sure you want to delete your account? This action is irreversible. Enter your password to confirm.';
+	String get accountDeleted => 'Account deleted successfully';
+	String get notRegistered => 'Not registered';
+}
+
+// Path: editProfile
+class _TranslationsEditProfileEn {
+	_TranslationsEditProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get errorSnack => 'Error loading user data';
+	String get title => 'Edit profile';
+	String get save => 'Save';
+	String get saving => 'Saving...';
+	String get errorSaving => 'Error saving profile data';
 }
 
 // Path: favorites
@@ -400,6 +439,7 @@ class _TranslationsValidatorEn {
 	late final _TranslationsValidatorNameEn name = _TranslationsValidatorNameEn._(_root);
 	late final _TranslationsValidatorLastNameEn lastName = _TranslationsValidatorLastNameEn._(_root);
 	late final _TranslationsValidatorPhoneEn phone = _TranslationsValidatorPhoneEn._(_root);
+	late final _TranslationsValidatorCountryCodeEn countryCode = _TranslationsValidatorCountryCodeEn._(_root);
 }
 
 // Path: filterOptions.filterByName
@@ -475,6 +515,7 @@ class _TranslationsValidatorPasswordEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get label => 'Password';
 	String get empty => 'Enter your password';
 	String get minLength => 'Enter at least 6 characters';
 	String get regExp => 'Password must contain at least one number and one letter';
@@ -500,6 +541,7 @@ class _TranslationsValidatorEmailEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get label => 'Email';
 	String get empty => 'Enter your email';
 	String get regExp => 'Enter a valid email';
 }
@@ -511,6 +553,7 @@ class _TranslationsValidatorNameEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get label => 'Name';
 	String get empty => 'Enter your name';
 	String get minLength => 'Enter at least 3 characters';
 }
@@ -522,7 +565,8 @@ class _TranslationsValidatorLastNameEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get empty => 'Enter your last name';
+	String get label => 'Lastname';
+	String get empty => 'Enter your lastname';
 	String get minLength => 'Enter at least 3 characters';
 }
 
@@ -533,9 +577,21 @@ class _TranslationsValidatorPhoneEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get label => 'Phone number';
 	String get empty => 'Enter your phone number';
 	String get minLength => 'Enter at least 9 characters';
 	String get regExp => 'Enter a valid phone number';
+}
+
+// Path: validator.countryCode
+class _TranslationsValidatorCountryCodeEn {
+	_TranslationsValidatorCountryCodeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Country code';
+	String get select => 'Select country code';
 }
 
 // Path: <root>
@@ -563,6 +619,8 @@ class _TranslationsEs implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
+	@override late final _TranslationsDeleteAccountEs deleteAccount = _TranslationsDeleteAccountEs._(_root);
+	@override late final _TranslationsEditProfileEs editProfile = _TranslationsEditProfileEs._(_root);
 	@override late final _TranslationsFavoritesEs favorites = _TranslationsFavoritesEs._(_root);
 	@override late final _TranslationsFilterOptionsEs filterOptions = _TranslationsFilterOptionsEs._(_root);
 	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
@@ -586,6 +644,44 @@ class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	@override String get home => 'inicio';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'favoritos';
+}
+
+// Path: deleteAccount
+class _TranslationsDeleteAccountEs implements _TranslationsDeleteAccountEn {
+	_TranslationsDeleteAccountEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Eliminar cuenta';
+	@override String get userInfo => 'Información del usuario:';
+	@override String get username => 'Nombre de usuario';
+	@override String get email => 'Correo electrónico';
+	@override String get phone => 'Teléfono';
+	@override String get delete => 'Eliminar cuenta';
+	@override String get warning => 'Al eliminar tu cuenta, aceptas los siguientes términos:';
+	@override String get firtsTerm => '- No podrás recuperar tu cuenta.';
+	@override String get secondTerm => '- No podrás recuperar tus datos.';
+	@override String get confirm => 'Confirmar';
+	@override String get cancel => 'Cancelar';
+	@override String get information => '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible. Ingresa tu contraseña para confirmar.';
+	@override String get accountDeleted => 'Cuenta eliminada exitosamente';
+	@override String get notRegistered => 'No registrado';
+}
+
+// Path: editProfile
+class _TranslationsEditProfileEs implements _TranslationsEditProfileEn {
+	_TranslationsEditProfileEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get errorSnack => 'Error al cargar los datos del usuario';
+	@override String get title => 'Editar perfil';
+	@override String get save => 'Guardar';
+	@override String get saving => 'Guardando...';
+	@override String get errorSaving => 'Error al guardar los datos del perfil';
+	@override String get selectImage => 'Seleccione una imagen de perfil';
 }
 
 // Path: favorites
@@ -811,6 +907,7 @@ class _TranslationsValidatorEs implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorNameEs name = _TranslationsValidatorNameEs._(_root);
 	@override late final _TranslationsValidatorLastNameEs lastName = _TranslationsValidatorLastNameEs._(_root);
 	@override late final _TranslationsValidatorPhoneEs phone = _TranslationsValidatorPhoneEs._(_root);
+	@override late final _TranslationsValidatorCountryCodeEs countryCode = _TranslationsValidatorCountryCodeEs._(_root);
 }
 
 // Path: filterOptions.filterByName
@@ -886,6 +983,7 @@ class _TranslationsValidatorPasswordEs implements _TranslationsValidatorPassword
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Contraseña';
 	@override String get empty => 'Ingrese su contraseña';
 	@override String get minLength => 'Ingrese al menos 6 caracteres';
 	@override String get regExp => 'La contraseña debe contener al menos un número y una letra';
@@ -901,7 +999,7 @@ class _TranslationsValidatorRepeatPasswordEs implements _TranslationsValidatorRe
 	@override String get empty => 'Ingrese su contraseña';
 	@override String get minLength => 'Ingrese al menos 6 caracteres';
 	@override String get regExp => 'La contraseña debe contener al menos un número y una letra';
-	@override String get matchPassword => 'Las contraseñas deben ser iguales';
+	@override String get matchPassword => 'Las contraseñas deben coincidir';
 }
 
 // Path: validator.email
@@ -911,8 +1009,9 @@ class _TranslationsValidatorEmailEs implements _TranslationsValidatorEmailEn {
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get empty => 'Ingrese su email';
-	@override String get regExp => 'Ingrese un email válido';
+	@override String get label => 'Correo electrónico';
+	@override String get empty => 'Ingrese su correo electrónico';
+	@override String get regExp => 'Ingrese un correo electrónico válido';
 }
 
 // Path: validator.name
@@ -922,6 +1021,7 @@ class _TranslationsValidatorNameEs implements _TranslationsValidatorNameEn {
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Nombre';
 	@override String get empty => 'Ingrese su nombre';
 	@override String get minLength => 'Ingrese al menos 3 caracteres';
 }
@@ -933,6 +1033,7 @@ class _TranslationsValidatorLastNameEs implements _TranslationsValidatorLastName
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Apellido';
 	@override String get empty => 'Ingrese su apellido';
 	@override String get minLength => 'Ingrese al menos 3 caracteres';
 }
@@ -944,9 +1045,21 @@ class _TranslationsValidatorPhoneEs implements _TranslationsValidatorPhoneEn {
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get empty => 'Ingrese su teléfono';
+	@override String get label => 'Número de teléfono';
+	@override String get empty => 'Ingrese su número de teléfono';
 	@override String get minLength => 'Ingrese al menos 9 caracteres';
-	@override String get regExp => 'Ingrese un teléfono válido';
+	@override String get regExp => 'Ingrese un número de teléfono válido';
+}
+
+// Path: validator.countryCode
+class _TranslationsValidatorCountryCodeEs implements _TranslationsValidatorCountryCodeEn {
+	_TranslationsValidatorCountryCodeEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Código de país';
+	@override String get select => 'Seleccione el código de país';
 }
 
 // Path: <root>
@@ -974,6 +1087,8 @@ class _TranslationsFr implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
+	@override late final _TranslationsDeleteAccountFr deleteAccount = _TranslationsDeleteAccountFr._(_root);
+	@override late final _TranslationsEditProfileFr editProfile = _TranslationsEditProfileFr._(_root);
 	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
 	@override late final _TranslationsFilterOptionsFr filterOptions = _TranslationsFilterOptionsFr._(_root);
 	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
@@ -997,6 +1112,43 @@ class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	@override String get home => 'Accueil';
 	@override String get search => 'Rechercher';
 	@override String get favorites => 'Favoris';
+}
+
+// Path: deleteAccount
+class _TranslationsDeleteAccountFr implements _TranslationsDeleteAccountEn {
+	_TranslationsDeleteAccountFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Supprimer le compte';
+	@override String get userInfo => 'Informations sur l\'utilisateur :';
+	@override String get username => 'Nom d\'utilisateur';
+	@override String get email => 'Email';
+	@override String get phone => 'Téléphone';
+	@override String get delete => 'Supprimer le compte';
+	@override String get warning => 'En supprimant votre compte, vous acceptez les conditions suivantes :';
+	@override String get firtsTerm => '- Vous ne pourrez pas récupérer votre compte.';
+	@override String get secondTerm => '- Vous ne pourrez pas récupérer vos données.';
+	@override String get confirm => 'Confirmer';
+	@override String get cancel => 'Annuler';
+	@override String get information => 'Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible. Entrez votre mot de passe pour confirmer.';
+	@override String get accountDeleted => 'Compte supprimé avec succès';
+	@override String get notRegistered => 'Non inscrit';
+}
+
+// Path: editProfile
+class _TranslationsEditProfileFr implements _TranslationsEditProfileEn {
+	_TranslationsEditProfileFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get errorSnack => 'Erreur lors du chargement des données de l\'utilisateur';
+	@override String get title => 'Modifier le profil';
+	@override String get save => 'Enregistrer';
+	@override String get saving => 'Enregistrement en cours...';
+	@override String get errorSaving => 'Erreur lors de l\'enregistrement des données du profil';
 }
 
 // Path: favorites
@@ -1222,6 +1374,7 @@ class _TranslationsValidatorFr implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorNameFr name = _TranslationsValidatorNameFr._(_root);
 	@override late final _TranslationsValidatorLastNameFr lastName = _TranslationsValidatorLastNameFr._(_root);
 	@override late final _TranslationsValidatorPhoneFr phone = _TranslationsValidatorPhoneFr._(_root);
+	@override late final _TranslationsValidatorCountryCodeFr countryCode = _TranslationsValidatorCountryCodeFr._(_root);
 }
 
 // Path: filterOptions.filterByName
@@ -1297,6 +1450,7 @@ class _TranslationsValidatorPasswordFr implements _TranslationsValidatorPassword
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Mot de passe';
 	@override String get empty => 'Entrez votre mot de passe';
 	@override String get minLength => 'Entrez au moins 6 caractères';
 	@override String get regExp => 'Le mot de passe doit contenir au moins un chiffre et une lettre';
@@ -1312,7 +1466,7 @@ class _TranslationsValidatorRepeatPasswordFr implements _TranslationsValidatorRe
 	@override String get empty => 'Entrez votre mot de passe';
 	@override String get minLength => 'Entrez au moins 6 caractères';
 	@override String get regExp => 'Le mot de passe doit contenir au moins un chiffre et une lettre';
-	@override String get matchPassword => 'Les mots de passe doivent être identiques';
+	@override String get matchPassword => 'Les mots de passe doivent correspondre';
 }
 
 // Path: validator.email
@@ -1322,8 +1476,9 @@ class _TranslationsValidatorEmailFr implements _TranslationsValidatorEmailEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get empty => 'Entrez votre e-mail';
-	@override String get regExp => 'Entrez un e-mail valide';
+	@override String get label => 'Email';
+	@override String get empty => 'Entrez votre email';
+	@override String get regExp => 'Entrez un email valide';
 }
 
 // Path: validator.name
@@ -1333,6 +1488,7 @@ class _TranslationsValidatorNameFr implements _TranslationsValidatorNameEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Nom';
 	@override String get empty => 'Entrez votre nom';
 	@override String get minLength => 'Entrez au moins 3 caractères';
 }
@@ -1344,6 +1500,7 @@ class _TranslationsValidatorLastNameFr implements _TranslationsValidatorLastName
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Nom de famille';
 	@override String get empty => 'Entrez votre nom de famille';
 	@override String get minLength => 'Entrez au moins 3 caractères';
 }
@@ -1355,9 +1512,21 @@ class _TranslationsValidatorPhoneFr implements _TranslationsValidatorPhoneEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Numéro de téléphone';
 	@override String get empty => 'Entrez votre numéro de téléphone';
 	@override String get minLength => 'Entrez au moins 9 caractères';
 	@override String get regExp => 'Entrez un numéro de téléphone valide';
+}
+
+// Path: validator.countryCode
+class _TranslationsValidatorCountryCodeFr implements _TranslationsValidatorCountryCodeEn {
+	_TranslationsValidatorCountryCodeFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Code pays';
+	@override String get select => 'Sélectionnez le code pays';
 }
 
 // Path: <root>
@@ -1385,6 +1554,8 @@ class _TranslationsPt implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
+	@override late final _TranslationsDeleteAccountPt deleteAccount = _TranslationsDeleteAccountPt._(_root);
+	@override late final _TranslationsEditProfilePt editProfile = _TranslationsEditProfilePt._(_root);
 	@override late final _TranslationsFavoritesPt favorites = _TranslationsFavoritesPt._(_root);
 	@override late final _TranslationsFilterOptionsPt filterOptions = _TranslationsFilterOptionsPt._(_root);
 	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
@@ -1408,6 +1579,43 @@ class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	@override String get home => 'Início';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: deleteAccount
+class _TranslationsDeleteAccountPt implements _TranslationsDeleteAccountEn {
+	_TranslationsDeleteAccountPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Excluir conta';
+	@override String get userInfo => 'Informações do usuário:';
+	@override String get username => 'Nome de usuário';
+	@override String get email => 'Email';
+	@override String get phone => 'Telefone';
+	@override String get delete => 'Excluir conta';
+	@override String get warning => 'Ao excluir sua conta, você concorda com os seguintes termos:';
+	@override String get firtsTerm => '- Você não poderá recuperar sua conta.';
+	@override String get secondTerm => '- Você não poderá recuperar seus dados.';
+	@override String get confirm => 'Confirmar';
+	@override String get cancel => 'Cancelar';
+	@override String get information => 'Tem certeza de que deseja excluir sua conta? Esta ação é irreversível. Digite sua senha para confirmar.';
+	@override String get accountDeleted => 'Conta excluída com sucesso';
+	@override String get notRegistered => 'Não registrado';
+}
+
+// Path: editProfile
+class _TranslationsEditProfilePt implements _TranslationsEditProfileEn {
+	_TranslationsEditProfilePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get errorSnack => 'Erro ao carregar os dados do usuário';
+	@override String get title => 'Editar perfil';
+	@override String get save => 'Salvar';
+	@override String get saving => 'Salvando...';
+	@override String get errorSaving => 'Erro ao salvar os dados do perfil';
 }
 
 // Path: favorites
@@ -1633,6 +1841,7 @@ class _TranslationsValidatorPt implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorNamePt name = _TranslationsValidatorNamePt._(_root);
 	@override late final _TranslationsValidatorLastNamePt lastName = _TranslationsValidatorLastNamePt._(_root);
 	@override late final _TranslationsValidatorPhonePt phone = _TranslationsValidatorPhonePt._(_root);
+	@override late final _TranslationsValidatorCountryCodePt countryCode = _TranslationsValidatorCountryCodePt._(_root);
 }
 
 // Path: filterOptions.filterByName
@@ -1708,6 +1917,7 @@ class _TranslationsValidatorPasswordPt implements _TranslationsValidatorPassword
 	@override final _TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Senha';
 	@override String get empty => 'Digite sua senha';
 	@override String get minLength => 'Digite pelo menos 6 caracteres';
 	@override String get regExp => 'A senha deve conter pelo menos um número e uma letra';
@@ -1733,6 +1943,7 @@ class _TranslationsValidatorEmailPt implements _TranslationsValidatorEmailEn {
 	@override final _TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Email';
 	@override String get empty => 'Digite seu email';
 	@override String get regExp => 'Digite um email válido';
 }
@@ -1744,6 +1955,7 @@ class _TranslationsValidatorNamePt implements _TranslationsValidatorNameEn {
 	@override final _TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Nome';
 	@override String get empty => 'Digite seu nome';
 	@override String get minLength => 'Digite pelo menos 3 caracteres';
 }
@@ -1755,6 +1967,7 @@ class _TranslationsValidatorLastNamePt implements _TranslationsValidatorLastName
 	@override final _TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => 'Sobrenome';
 	@override String get empty => 'Digite seu sobrenome';
 	@override String get minLength => 'Digite pelo menos 3 caracteres';
 }
@@ -1766,9 +1979,21 @@ class _TranslationsValidatorPhonePt implements _TranslationsValidatorPhoneEn {
 	@override final _TranslationsPt _root; // ignore: unused_field
 
 	// Translations
-	@override String get empty => 'Digite seu telefone';
+	@override String get label => 'Número de telefone';
+	@override String get empty => 'Digite seu número de telefone';
 	@override String get minLength => 'Digite pelo menos 9 caracteres';
-	@override String get regExp => 'Digite um telefone válido';
+	@override String get regExp => 'Digite um número de telefone válido';
+}
+
+// Path: validator.countryCode
+class _TranslationsValidatorCountryCodePt implements _TranslationsValidatorCountryCodeEn {
+	_TranslationsValidatorCountryCodePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Código do país';
+	@override String get select => 'Selecione o código do país';
 }
 
 // Path: <root>
@@ -1796,6 +2021,8 @@ class _TranslationsZh implements Translations {
 
 	// Translations
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
+	@override late final _TranslationsDeleteAccountZh deleteAccount = _TranslationsDeleteAccountZh._(_root);
+	@override late final _TranslationsEditProfileZh editProfile = _TranslationsEditProfileZh._(_root);
 	@override late final _TranslationsFavoritesZh favorites = _TranslationsFavoritesZh._(_root);
 	@override late final _TranslationsFilterOptionsZh filterOptions = _TranslationsFilterOptionsZh._(_root);
 	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
@@ -1819,6 +2046,43 @@ class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	@override String get home => '首页';
 	@override String get search => '搜索';
 	@override String get favorites => '收藏夹';
+}
+
+// Path: deleteAccount
+class _TranslationsDeleteAccountZh implements _TranslationsDeleteAccountEn {
+	_TranslationsDeleteAccountZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '删除账户';
+	@override String get userInfo => '用户信息：';
+	@override String get username => '用户名';
+	@override String get email => '邮箱';
+	@override String get phone => '电话';
+	@override String get delete => '删除账户';
+	@override String get warning => '删除您的账户，即表示您同意以下条款：';
+	@override String get firtsTerm => '- 您将无法恢复您的账户。';
+	@override String get secondTerm => '- 您将无法恢复您的数据。';
+	@override String get confirm => '确认';
+	@override String get cancel => '取消';
+	@override String get information => '您确定要删除您的账户吗？此操作不可逆。请输入您的密码进行确认。';
+	@override String get accountDeleted => '账户删除成功';
+	@override String get notRegistered => '未注册';
+}
+
+// Path: editProfile
+class _TranslationsEditProfileZh implements _TranslationsEditProfileEn {
+	_TranslationsEditProfileZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get errorSnack => '加载用户数据时出错';
+	@override String get title => '编辑个人资料';
+	@override String get save => '保存';
+	@override String get saving => '保存中...';
+	@override String get errorSaving => '保存个人资料数据时出错';
 }
 
 // Path: favorites
@@ -2044,6 +2308,7 @@ class _TranslationsValidatorZh implements _TranslationsValidatorEn {
 	@override late final _TranslationsValidatorNameZh name = _TranslationsValidatorNameZh._(_root);
 	@override late final _TranslationsValidatorLastNameZh lastName = _TranslationsValidatorLastNameZh._(_root);
 	@override late final _TranslationsValidatorPhoneZh phone = _TranslationsValidatorPhoneZh._(_root);
+	@override late final _TranslationsValidatorCountryCodeZh countryCode = _TranslationsValidatorCountryCodeZh._(_root);
 }
 
 // Path: filterOptions.filterByName
@@ -2119,6 +2384,7 @@ class _TranslationsValidatorPasswordZh implements _TranslationsValidatorPassword
 	@override final _TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => '密码';
 	@override String get empty => '请输入您的密码';
 	@override String get minLength => '至少输入6个字符';
 	@override String get regExp => '密码必须包含至少一个数字和一个字母';
@@ -2134,7 +2400,7 @@ class _TranslationsValidatorRepeatPasswordZh implements _TranslationsValidatorRe
 	@override String get empty => '请输入您的密码';
 	@override String get minLength => '至少输入6个字符';
 	@override String get regExp => '密码必须包含至少一个数字和一个字母';
-	@override String get matchPassword => '密码必须相同';
+	@override String get matchPassword => '密码必须匹配';
 }
 
 // Path: validator.email
@@ -2144,6 +2410,7 @@ class _TranslationsValidatorEmailZh implements _TranslationsValidatorEmailEn {
 	@override final _TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => '邮箱';
 	@override String get empty => '请输入您的邮箱';
 	@override String get regExp => '请输入有效的邮箱';
 }
@@ -2155,6 +2422,7 @@ class _TranslationsValidatorNameZh implements _TranslationsValidatorNameEn {
 	@override final _TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => '姓名';
 	@override String get empty => '请输入您的姓名';
 	@override String get minLength => '至少输入3个字符';
 }
@@ -2166,6 +2434,7 @@ class _TranslationsValidatorLastNameZh implements _TranslationsValidatorLastName
 	@override final _TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => '姓氏';
 	@override String get empty => '请输入您的姓氏';
 	@override String get minLength => '至少输入3个字符';
 }
@@ -2177,9 +2446,21 @@ class _TranslationsValidatorPhoneZh implements _TranslationsValidatorPhoneEn {
 	@override final _TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get label => '电话号码';
 	@override String get empty => '请输入您的电话号码';
 	@override String get minLength => '至少输入9个字符';
 	@override String get regExp => '请输入有效的电话号码';
+}
+
+// Path: validator.countryCode
+class _TranslationsValidatorCountryCodeZh implements _TranslationsValidatorCountryCodeEn {
+	_TranslationsValidatorCountryCodeZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => '国家代码';
+	@override String get select => '选择国家代码';
 }
 
 /// Flat map(s) containing all translations.
@@ -2191,6 +2472,25 @@ extension on Translations {
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
+			case 'deleteAccount.title': return 'Delete account';
+			case 'deleteAccount.userInfo': return 'User information:';
+			case 'deleteAccount.username': return 'Username';
+			case 'deleteAccount.email': return 'Email';
+			case 'deleteAccount.phone': return 'Phone';
+			case 'deleteAccount.delete': return 'Delete account';
+			case 'deleteAccount.warning': return 'By deleting your account, you agree to the following terms:';
+			case 'deleteAccount.firtsTerm': return '- You won\'t be able to recover your account.';
+			case 'deleteAccount.secondTerm': return '- You won\'t be able to recover your data.';
+			case 'deleteAccount.confirm': return 'Confirm';
+			case 'deleteAccount.cancel': return 'Cancel';
+			case 'deleteAccount.information': return 'Are you sure you want to delete your account? This action is irreversible. Enter your password to confirm.';
+			case 'deleteAccount.accountDeleted': return 'Account deleted successfully';
+			case 'deleteAccount.notRegistered': return 'Not registered';
+			case 'editProfile.errorSnack': return 'Error loading user data';
+			case 'editProfile.title': return 'Edit profile';
+			case 'editProfile.save': return 'Save';
+			case 'editProfile.saving': return 'Saving...';
+			case 'editProfile.errorSaving': return 'Error saving profile data';
 			case 'favorites.title': return 'Favorites';
 			case 'favorites.hintText': return 'Search your favorite';
 			case 'favorites.close': return 'Close';
@@ -2327,6 +2627,7 @@ extension on Translations {
 			case 'userCredentialFailure.notRegistered': return 'Email is not registered';
 			case 'userCredentialFailure.password': return 'Incorrect password';
 			case 'userCredentialFailure.unknown': return 'Unknown error';
+			case 'validator.password.label': return 'Password';
 			case 'validator.password.empty': return 'Enter your password';
 			case 'validator.password.minLength': return 'Enter at least 6 characters';
 			case 'validator.password.regExp': return 'Password must contain at least one number and one letter';
@@ -2334,15 +2635,21 @@ extension on Translations {
 			case 'validator.repeatPassword.minLength': return 'Enter at least 6 characters';
 			case 'validator.repeatPassword.regExp': return 'Password must contain at least one number and one letter';
 			case 'validator.repeatPassword.matchPassword': return 'Passwords must match';
+			case 'validator.email.label': return 'Email';
 			case 'validator.email.empty': return 'Enter your email';
 			case 'validator.email.regExp': return 'Enter a valid email';
+			case 'validator.name.label': return 'Name';
 			case 'validator.name.empty': return 'Enter your name';
 			case 'validator.name.minLength': return 'Enter at least 3 characters';
-			case 'validator.lastName.empty': return 'Enter your last name';
+			case 'validator.lastName.label': return 'Lastname';
+			case 'validator.lastName.empty': return 'Enter your lastname';
 			case 'validator.lastName.minLength': return 'Enter at least 3 characters';
+			case 'validator.phone.label': return 'Phone number';
 			case 'validator.phone.empty': return 'Enter your phone number';
 			case 'validator.phone.minLength': return 'Enter at least 9 characters';
 			case 'validator.phone.regExp': return 'Enter a valid phone number';
+			case 'validator.countryCode.label': return 'Country code';
+			case 'validator.countryCode.select': return 'Select country code';
 			default: return null;
 		}
 	}
@@ -2354,6 +2661,26 @@ extension on _TranslationsEs {
 			case 'bottomBar.home': return 'inicio';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'favoritos';
+			case 'deleteAccount.title': return 'Eliminar cuenta';
+			case 'deleteAccount.userInfo': return 'Información del usuario:';
+			case 'deleteAccount.username': return 'Nombre de usuario';
+			case 'deleteAccount.email': return 'Correo electrónico';
+			case 'deleteAccount.phone': return 'Teléfono';
+			case 'deleteAccount.delete': return 'Eliminar cuenta';
+			case 'deleteAccount.warning': return 'Al eliminar tu cuenta, aceptas los siguientes términos:';
+			case 'deleteAccount.firtsTerm': return '- No podrás recuperar tu cuenta.';
+			case 'deleteAccount.secondTerm': return '- No podrás recuperar tus datos.';
+			case 'deleteAccount.confirm': return 'Confirmar';
+			case 'deleteAccount.cancel': return 'Cancelar';
+			case 'deleteAccount.information': return '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible. Ingresa tu contraseña para confirmar.';
+			case 'deleteAccount.accountDeleted': return 'Cuenta eliminada exitosamente';
+			case 'deleteAccount.notRegistered': return 'No registrado';
+			case 'editProfile.errorSnack': return 'Error al cargar los datos del usuario';
+			case 'editProfile.title': return 'Editar perfil';
+			case 'editProfile.save': return 'Guardar';
+			case 'editProfile.saving': return 'Guardando...';
+			case 'editProfile.errorSaving': return 'Error al guardar los datos del perfil';
+			case 'editProfile.selectImage': return 'Seleccione una imagen de perfil';
 			case 'favorites.title': return 'Favoritos';
 			case 'favorites.hintText': return 'Busca tu favorito';
 			case 'favorites.close': return 'Cerrar';
@@ -2490,22 +2817,29 @@ extension on _TranslationsEs {
 			case 'userCredentialFailure.notRegistered': return 'El correo no está registrado';
 			case 'userCredentialFailure.password': return 'Contraseña incorrecta';
 			case 'userCredentialFailure.unknown': return 'Error desconocido';
+			case 'validator.password.label': return 'Contraseña';
 			case 'validator.password.empty': return 'Ingrese su contraseña';
 			case 'validator.password.minLength': return 'Ingrese al menos 6 caracteres';
 			case 'validator.password.regExp': return 'La contraseña debe contener al menos un número y una letra';
 			case 'validator.repeatPassword.empty': return 'Ingrese su contraseña';
 			case 'validator.repeatPassword.minLength': return 'Ingrese al menos 6 caracteres';
 			case 'validator.repeatPassword.regExp': return 'La contraseña debe contener al menos un número y una letra';
-			case 'validator.repeatPassword.matchPassword': return 'Las contraseñas deben ser iguales';
-			case 'validator.email.empty': return 'Ingrese su email';
-			case 'validator.email.regExp': return 'Ingrese un email válido';
+			case 'validator.repeatPassword.matchPassword': return 'Las contraseñas deben coincidir';
+			case 'validator.email.label': return 'Correo electrónico';
+			case 'validator.email.empty': return 'Ingrese su correo electrónico';
+			case 'validator.email.regExp': return 'Ingrese un correo electrónico válido';
+			case 'validator.name.label': return 'Nombre';
 			case 'validator.name.empty': return 'Ingrese su nombre';
 			case 'validator.name.minLength': return 'Ingrese al menos 3 caracteres';
+			case 'validator.lastName.label': return 'Apellido';
 			case 'validator.lastName.empty': return 'Ingrese su apellido';
 			case 'validator.lastName.minLength': return 'Ingrese al menos 3 caracteres';
-			case 'validator.phone.empty': return 'Ingrese su teléfono';
+			case 'validator.phone.label': return 'Número de teléfono';
+			case 'validator.phone.empty': return 'Ingrese su número de teléfono';
 			case 'validator.phone.minLength': return 'Ingrese al menos 9 caracteres';
-			case 'validator.phone.regExp': return 'Ingrese un teléfono válido';
+			case 'validator.phone.regExp': return 'Ingrese un número de teléfono válido';
+			case 'validator.countryCode.label': return 'Código de país';
+			case 'validator.countryCode.select': return 'Seleccione el código de país';
 			default: return null;
 		}
 	}
@@ -2517,6 +2851,25 @@ extension on _TranslationsFr {
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
+			case 'deleteAccount.title': return 'Supprimer le compte';
+			case 'deleteAccount.userInfo': return 'Informations sur l\'utilisateur :';
+			case 'deleteAccount.username': return 'Nom d\'utilisateur';
+			case 'deleteAccount.email': return 'Email';
+			case 'deleteAccount.phone': return 'Téléphone';
+			case 'deleteAccount.delete': return 'Supprimer le compte';
+			case 'deleteAccount.warning': return 'En supprimant votre compte, vous acceptez les conditions suivantes :';
+			case 'deleteAccount.firtsTerm': return '- Vous ne pourrez pas récupérer votre compte.';
+			case 'deleteAccount.secondTerm': return '- Vous ne pourrez pas récupérer vos données.';
+			case 'deleteAccount.confirm': return 'Confirmer';
+			case 'deleteAccount.cancel': return 'Annuler';
+			case 'deleteAccount.information': return 'Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible. Entrez votre mot de passe pour confirmer.';
+			case 'deleteAccount.accountDeleted': return 'Compte supprimé avec succès';
+			case 'deleteAccount.notRegistered': return 'Non inscrit';
+			case 'editProfile.errorSnack': return 'Erreur lors du chargement des données de l\'utilisateur';
+			case 'editProfile.title': return 'Modifier le profil';
+			case 'editProfile.save': return 'Enregistrer';
+			case 'editProfile.saving': return 'Enregistrement en cours...';
+			case 'editProfile.errorSaving': return 'Erreur lors de l\'enregistrement des données du profil';
 			case 'favorites.title': return 'Favoris';
 			case 'favorites.hintText': return 'Recherchez votre favori';
 			case 'favorites.close': return 'Fermer';
@@ -2653,22 +3006,29 @@ extension on _TranslationsFr {
 			case 'userCredentialFailure.notRegistered': return 'L\'e-mail n\'est pas enregistré';
 			case 'userCredentialFailure.password': return 'Mot de passe incorrect';
 			case 'userCredentialFailure.unknown': return 'Erreur inconnue';
+			case 'validator.password.label': return 'Mot de passe';
 			case 'validator.password.empty': return 'Entrez votre mot de passe';
 			case 'validator.password.minLength': return 'Entrez au moins 6 caractères';
 			case 'validator.password.regExp': return 'Le mot de passe doit contenir au moins un chiffre et une lettre';
 			case 'validator.repeatPassword.empty': return 'Entrez votre mot de passe';
 			case 'validator.repeatPassword.minLength': return 'Entrez au moins 6 caractères';
 			case 'validator.repeatPassword.regExp': return 'Le mot de passe doit contenir au moins un chiffre et une lettre';
-			case 'validator.repeatPassword.matchPassword': return 'Les mots de passe doivent être identiques';
-			case 'validator.email.empty': return 'Entrez votre e-mail';
-			case 'validator.email.regExp': return 'Entrez un e-mail valide';
+			case 'validator.repeatPassword.matchPassword': return 'Les mots de passe doivent correspondre';
+			case 'validator.email.label': return 'Email';
+			case 'validator.email.empty': return 'Entrez votre email';
+			case 'validator.email.regExp': return 'Entrez un email valide';
+			case 'validator.name.label': return 'Nom';
 			case 'validator.name.empty': return 'Entrez votre nom';
 			case 'validator.name.minLength': return 'Entrez au moins 3 caractères';
+			case 'validator.lastName.label': return 'Nom de famille';
 			case 'validator.lastName.empty': return 'Entrez votre nom de famille';
 			case 'validator.lastName.minLength': return 'Entrez au moins 3 caractères';
+			case 'validator.phone.label': return 'Numéro de téléphone';
 			case 'validator.phone.empty': return 'Entrez votre numéro de téléphone';
 			case 'validator.phone.minLength': return 'Entrez au moins 9 caractères';
 			case 'validator.phone.regExp': return 'Entrez un numéro de téléphone valide';
+			case 'validator.countryCode.label': return 'Code pays';
+			case 'validator.countryCode.select': return 'Sélectionnez le code pays';
 			default: return null;
 		}
 	}
@@ -2680,6 +3040,25 @@ extension on _TranslationsPt {
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'deleteAccount.title': return 'Excluir conta';
+			case 'deleteAccount.userInfo': return 'Informações do usuário:';
+			case 'deleteAccount.username': return 'Nome de usuário';
+			case 'deleteAccount.email': return 'Email';
+			case 'deleteAccount.phone': return 'Telefone';
+			case 'deleteAccount.delete': return 'Excluir conta';
+			case 'deleteAccount.warning': return 'Ao excluir sua conta, você concorda com os seguintes termos:';
+			case 'deleteAccount.firtsTerm': return '- Você não poderá recuperar sua conta.';
+			case 'deleteAccount.secondTerm': return '- Você não poderá recuperar seus dados.';
+			case 'deleteAccount.confirm': return 'Confirmar';
+			case 'deleteAccount.cancel': return 'Cancelar';
+			case 'deleteAccount.information': return 'Tem certeza de que deseja excluir sua conta? Esta ação é irreversível. Digite sua senha para confirmar.';
+			case 'deleteAccount.accountDeleted': return 'Conta excluída com sucesso';
+			case 'deleteAccount.notRegistered': return 'Não registrado';
+			case 'editProfile.errorSnack': return 'Erro ao carregar os dados do usuário';
+			case 'editProfile.title': return 'Editar perfil';
+			case 'editProfile.save': return 'Salvar';
+			case 'editProfile.saving': return 'Salvando...';
+			case 'editProfile.errorSaving': return 'Erro ao salvar os dados do perfil';
 			case 'favorites.title': return 'Favoritos';
 			case 'favorites.hintText': return 'Procure o seu favorito';
 			case 'favorites.close': return 'Fechar';
@@ -2816,6 +3195,7 @@ extension on _TranslationsPt {
 			case 'userCredentialFailure.notRegistered': return 'O e-mail não está registrado';
 			case 'userCredentialFailure.password': return 'Senha incorreta';
 			case 'userCredentialFailure.unknown': return 'Erro desconhecido';
+			case 'validator.password.label': return 'Senha';
 			case 'validator.password.empty': return 'Digite sua senha';
 			case 'validator.password.minLength': return 'Digite pelo menos 6 caracteres';
 			case 'validator.password.regExp': return 'A senha deve conter pelo menos um número e uma letra';
@@ -2823,15 +3203,21 @@ extension on _TranslationsPt {
 			case 'validator.repeatPassword.minLength': return 'Digite pelo menos 6 caracteres';
 			case 'validator.repeatPassword.regExp': return 'A senha deve conter pelo menos um número e uma letra';
 			case 'validator.repeatPassword.matchPassword': return 'As senhas devem ser iguais';
+			case 'validator.email.label': return 'Email';
 			case 'validator.email.empty': return 'Digite seu email';
 			case 'validator.email.regExp': return 'Digite um email válido';
+			case 'validator.name.label': return 'Nome';
 			case 'validator.name.empty': return 'Digite seu nome';
 			case 'validator.name.minLength': return 'Digite pelo menos 3 caracteres';
+			case 'validator.lastName.label': return 'Sobrenome';
 			case 'validator.lastName.empty': return 'Digite seu sobrenome';
 			case 'validator.lastName.minLength': return 'Digite pelo menos 3 caracteres';
-			case 'validator.phone.empty': return 'Digite seu telefone';
+			case 'validator.phone.label': return 'Número de telefone';
+			case 'validator.phone.empty': return 'Digite seu número de telefone';
 			case 'validator.phone.minLength': return 'Digite pelo menos 9 caracteres';
-			case 'validator.phone.regExp': return 'Digite um telefone válido';
+			case 'validator.phone.regExp': return 'Digite um número de telefone válido';
+			case 'validator.countryCode.label': return 'Código do país';
+			case 'validator.countryCode.select': return 'Selecione o código do país';
 			default: return null;
 		}
 	}
@@ -2843,6 +3229,25 @@ extension on _TranslationsZh {
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';
+			case 'deleteAccount.title': return '删除账户';
+			case 'deleteAccount.userInfo': return '用户信息：';
+			case 'deleteAccount.username': return '用户名';
+			case 'deleteAccount.email': return '邮箱';
+			case 'deleteAccount.phone': return '电话';
+			case 'deleteAccount.delete': return '删除账户';
+			case 'deleteAccount.warning': return '删除您的账户，即表示您同意以下条款：';
+			case 'deleteAccount.firtsTerm': return '- 您将无法恢复您的账户。';
+			case 'deleteAccount.secondTerm': return '- 您将无法恢复您的数据。';
+			case 'deleteAccount.confirm': return '确认';
+			case 'deleteAccount.cancel': return '取消';
+			case 'deleteAccount.information': return '您确定要删除您的账户吗？此操作不可逆。请输入您的密码进行确认。';
+			case 'deleteAccount.accountDeleted': return '账户删除成功';
+			case 'deleteAccount.notRegistered': return '未注册';
+			case 'editProfile.errorSnack': return '加载用户数据时出错';
+			case 'editProfile.title': return '编辑个人资料';
+			case 'editProfile.save': return '保存';
+			case 'editProfile.saving': return '保存中...';
+			case 'editProfile.errorSaving': return '保存个人资料数据时出错';
 			case 'favorites.title': return '收藏夹';
 			case 'favorites.hintText': return '查找您的收藏';
 			case 'favorites.close': return '关闭';
@@ -2979,22 +3384,29 @@ extension on _TranslationsZh {
 			case 'userCredentialFailure.notRegistered': return '电子邮件未注册';
 			case 'userCredentialFailure.password': return '密码不正确';
 			case 'userCredentialFailure.unknown': return '未知错误';
+			case 'validator.password.label': return '密码';
 			case 'validator.password.empty': return '请输入您的密码';
 			case 'validator.password.minLength': return '至少输入6个字符';
 			case 'validator.password.regExp': return '密码必须包含至少一个数字和一个字母';
 			case 'validator.repeatPassword.empty': return '请输入您的密码';
 			case 'validator.repeatPassword.minLength': return '至少输入6个字符';
 			case 'validator.repeatPassword.regExp': return '密码必须包含至少一个数字和一个字母';
-			case 'validator.repeatPassword.matchPassword': return '密码必须相同';
+			case 'validator.repeatPassword.matchPassword': return '密码必须匹配';
+			case 'validator.email.label': return '邮箱';
 			case 'validator.email.empty': return '请输入您的邮箱';
 			case 'validator.email.regExp': return '请输入有效的邮箱';
+			case 'validator.name.label': return '姓名';
 			case 'validator.name.empty': return '请输入您的姓名';
 			case 'validator.name.minLength': return '至少输入3个字符';
+			case 'validator.lastName.label': return '姓氏';
 			case 'validator.lastName.empty': return '请输入您的姓氏';
 			case 'validator.lastName.minLength': return '至少输入3个字符';
+			case 'validator.phone.label': return '电话号码';
 			case 'validator.phone.empty': return '请输入您的电话号码';
 			case 'validator.phone.minLength': return '至少输入9个字符';
 			case 'validator.phone.regExp': return '请输入有效的电话号码';
+			case 'validator.countryCode.label': return '国家代码';
+			case 'validator.countryCode.select': return '选择国家代码';
 			default: return null;
 		}
 	}

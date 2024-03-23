@@ -1,0 +1,16 @@
+{
+    "title": "Supprimer le compte",
+    "userInfo": "Informations sur l'utilisateur :",
+    "username": "Nom d'utilisateur",
+    "email": "Email",
+    "phone": "Téléphone",
+    "delete": "Supprimer le compte",
+    "warning": "En supprimant votre compte, vous acceptez les conditions suivantes :",
+    "firtsTerm": "- Vous ne pourrez pas récupérer votre compte.",
+    "secondTerm": "- Vous ne pourrez pas récupérer vos données.",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "information": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible. Entrez votre mot de passe pour confirmer.",
+    "accountDeleted": "Compte supprimé avec succès",
+    "notRegistered": "Non inscrit"
+}

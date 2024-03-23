@@ -1,5 +1,6 @@
 {
     "password": {
+        "label": "Senha",
         "empty": "Digite sua senha",
         "minLength": "Digite pelo menos 6 caracteres",
         "regExp": "A senha deve conter pelo menos um número e uma letra"
@@ -11,20 +12,28 @@
         "matchPassword": "As senhas devem ser iguais"
     },
     "email": {
+        "label": "Email",
         "empty": "Digite seu email",
         "regExp": "Digite um email válido"
     },
     "name": {
+        "label": "Nome",
         "empty": "Digite seu nome",
         "minLength": "Digite pelo menos 3 caracteres"
     },
     "lastName": {
+        "label": "Sobrenome",
         "empty": "Digite seu sobrenome",
         "minLength": "Digite pelo menos 3 caracteres"
     },
     "phone": {
-        "empty": "Digite seu telefone",
+        "label": "Número de telefone",
+        "empty": "Digite seu número de telefone",
         "minLength": "Digite pelo menos 9 caracteres",
-        "regExp": "Digite um telefone válido"
+        "regExp": "Digite um número de telefone válido"
+    },
+    "countryCode": {
+        "label": "Código do país",
+        "select": "Selecione o código do país"
     }
 }

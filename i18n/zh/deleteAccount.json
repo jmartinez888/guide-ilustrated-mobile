@@ -1,0 +1,16 @@
+{
+    "title": "删除账户",
+    "userInfo": "用户信息：",
+    "username": "用户名",
+    "email": "邮箱",
+    "phone": "电话",
+    "delete": "删除账户",
+    "warning": "删除您的账户，即表示您同意以下条款：",
+    "firtsTerm": "- 您将无法恢复您的账户。",
+    "secondTerm": "- 您将无法恢复您的数据。",
+    "confirm": "确认",
+    "cancel": "取消",
+    "information": "您确定要删除您的账户吗？此操作不可逆。请输入您的密码进行确认。",
+    "accountDeleted": "账户删除成功",
+    "notRegistered": "未注册"
+}
