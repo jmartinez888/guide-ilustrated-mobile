@@ -6,6 +6,7 @@ import 'package:species/src/presentation/global/controller/session_controller.da
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_body.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/components/profile_header.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -23,10 +24,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       children: [
         AppBar(
-          title: const Text('Mi perfil'),
+          title: Text(texts.profile.title),
           actions: [
             IconButton(
-              tooltip: 'Cerrar sesión',
+              tooltip: texts.profile.logout,
               onPressed: () async {
                 await authRepository.signOut();
                 if (mounted) {

@@ -1,0 +1,39 @@
+{
+    "password": {
+        "label": "密码",
+        "empty": "请输入您的密码",
+        "minLength": "至少输入6个字符",
+        "regExp": "密码必须包含至少一个数字和一个字母"
+    },
+    "repeatPassword": {
+        "empty": "请输入您的密码",
+        "minLength": "至少输入6个字符",
+        "regExp": "密码必须包含至少一个数字和一个字母",
+        "matchPassword": "密码必须匹配"
+    },
+    "email": {
+        "label": "邮箱",
+        "empty": "请输入您的邮箱",
+        "regExp": "请输入有效的邮箱"
+    },
+    "name": {
+        "label": "姓名",
+        "empty": "请输入您的姓名",
+        "minLength": "至少输入3个字符"
+    },
+    "lastName": {
+        "label": "姓氏",
+        "empty": "请输入您的姓氏",
+        "minLength": "至少输入3个字符"
+    },
+    "phone": {
+        "label": "电话号码",
+        "empty": "请输入您的电话号码",
+        "minLength": "至少输入9个字符",
+        "regExp": "请输入有效的电话号码"
+    },
+    "countryCode": {
+        "label": "国家代码",
+        "select": "选择国家代码"
+    }
+}

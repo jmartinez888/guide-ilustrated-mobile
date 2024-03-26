@@ -1,0 +1,21 @@
+{
+    "listByAlphabethic": "Listar por ordem alfabética",
+    "recentlyAdded": "Mais recente",
+    "all": "Todos",
+    "noPreferencies": "Sem preferências",
+    "filterByName": {
+        "title": "Filtrar por nome",
+        "common": "Nome comum",
+        "scientific": "Nome científico"
+    },
+    "filterBySound": {
+        "title": "Filtrar por som",
+        "withSound": "Com som",
+        "withoutSound": "Sem som"
+    },
+    "filterByConservation": "Filtrar por estado de conservação",
+    "filterByCategory": "Filtrar por categoria",
+    "filterByTaxonomy": "Filtrar por taxonomia",
+    "filterByOrder": "Filtrar por ordem",
+    "filterByFamily": "Filtrar por família"
+}

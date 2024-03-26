@@ -1,0 +1,15 @@
+{
+    "title": "Mi perfil",
+    "logout": "Cerrar sesión",
+    "favorites": "Mis favoritos",
+    "changePassword": "Cambiar contraseña",
+    "share": "Descarga la app Guía Ilustrada de Flora y Fauna del IIAP y conoce más sobre las especies de la Amazonía Peruana:",
+    "invite": "Invitar amigos",
+    "project": "Sobre el proyecto",
+    "team": "Sobre nosotros",
+    "deleteAccount": "Eliminar cuenta",
+    "userNotFound": "Usuario no encontrado",
+    "completeProfile": "Completa tu perfil para acceder a todas las funcionalidades de la aplicación.",
+    "completeButton": "Completar perfil",
+    "editButton": "Editar perfil"
+}

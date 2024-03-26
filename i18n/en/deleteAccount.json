@@ -1,0 +1,16 @@
+{
+    "title": "Delete account",
+    "userInfo": "User information:",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone",
+    "delete": "Delete account",
+    "warning": "By deleting your account, you agree to the following terms:",
+    "firtsTerm": "- You won't be able to recover your account.",
+    "secondTerm": "- You won't be able to recover your data.",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "information": "Are you sure you want to delete your account? This action is irreversible. Enter your password to confirm.",
+    "accountDeleted": "Account deleted successfully",
+    "notRegistered": "Not registered"
+}

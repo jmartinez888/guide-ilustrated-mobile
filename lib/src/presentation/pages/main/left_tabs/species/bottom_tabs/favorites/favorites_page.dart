@@ -15,6 +15,7 @@ import 'package:species/src/presentation/global/widgets/containers/custom_image_
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -62,17 +63,18 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       searchText = value;
                     });
                   },
-                  decoration: const InputDecoration(
-                    hintText: 'Busca tu favorito',
+                  decoration: InputDecoration(
+                    hintText: texts.favorites.hintText,
                     border: InputBorder.none,
                   ),
                 )
-              : const Text('Favoritos'),
+              : Text(texts.favorites.title),
         ),
         actions: [
           if (state.species.isNotEmpty)
             IconButton(
-              tooltip: switchSearch ? 'Cerrar' : 'Buscar',
+              tooltip:
+                  switchSearch ? texts.favorites.close : texts.favorites.search,
               onPressed: () {
                 setState(() {
                   switchSearch = !switchSearch;

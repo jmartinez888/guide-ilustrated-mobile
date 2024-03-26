@@ -20,6 +20,7 @@ import 'package:species/src/presentation/global/widgets/multimedia/custom_audio_
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class SpecieDetailsSection extends StatelessWidget {
   final Specie specie;
@@ -123,7 +124,7 @@ class SpecieDetailsSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: Text(
-                  'Autores',
+                  texts.speciesDetails.authors,
                   style: textTheme.titleLarge,
                   textAlign: TextAlign.end,
                 ),
@@ -237,7 +238,7 @@ Widget _table({
       mainAxisSize: MainAxisSize.min,
       children: [
         _doubleListTile(
-          firstText: 'Información Taxonómica',
+          firstText: texts.speciesDetails.taxonomicInfo,
           backgroundColor: opaqueColor,
           style: textTheme.titleLarge,
         ),
@@ -254,28 +255,28 @@ Widget _table({
         ),
         customDivider,
         _doubleListTile(
-          firstText: 'Filo',
+          firstText: texts.speciesDetails.filo,
           secondText: taxonomy.phylum?.name ?? '-',
           divideColor: mainColor,
           style: textTheme.labelLarge,
         ),
         customDivider,
         _doubleListTile(
-          firstText: 'Clase',
+          firstText: texts.speciesDetails.classes,
           secondText: taxonomy.classC?.name ?? '-',
           divideColor: mainColor,
           style: textTheme.labelLarge,
         ),
         customDivider,
         _doubleListTile(
-          firstText: 'Orden',
+          firstText: texts.speciesDetails.order,
           secondText: taxonomy.order?.name ?? '-',
           divideColor: mainColor,
           style: textTheme.labelLarge,
         ),
         customDivider,
         _doubleListTile(
-          firstText: 'Familia',
+          firstText: texts.speciesDetails.family,
           secondText: taxonomy.family?.name ?? '-',
           divideColor: mainColor,
           style: textTheme.labelLarge,
@@ -342,7 +343,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                 height: 40.0,
                 width: 40.0,
                 child: PopupMenuButton(
-                  tooltip: 'Descargar',
+                  tooltip: texts.speciesDetails.download,
                   offset: const Offset(0, 48.0),
                   padding: const EdgeInsets.all(0.0),
                   itemBuilder: (context) => [
@@ -350,7 +351,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                       value: 0,
                       child: _simpleList(
                           icon: Icons.picture_as_pdf_rounded,
-                          text: 'Generar PDF'),
+                          text: texts.speciesDetails.download),
                       onTap: () => context.pushNamed(
                         Routes.speciePdfPreview,
                         pathParameters: {
@@ -364,7 +365,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                         value: 1,
                         child: _simpleList(
                             icon: Icons.image_rounded,
-                            text: 'Descargar Imagen'),
+                            text: texts.speciesDetails.downloadImage),
                         onTap: () => download(
                             context: context,
                             urlDownload: widget.specie.images!.first),
@@ -375,7 +376,7 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
                         value: 1,
                         child: _simpleList(
                             icon: Icons.music_note_rounded,
-                            text: 'Descargar Audio'),
+                            text: texts.speciesDetails.downloadAudio),
                         onTap: () => download(
                             context: context,
                             urlDownload: widget.specie.sound!),
@@ -392,14 +393,14 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
             ],
           ),
           CustomIconButton(
-            tooltip: 'Compartir',
+            tooltip: texts.speciesDetails.share,
             icon: Icons.share,
             iconColor: Colors.white,
             backgroundColor: widget.mainColor,
             onPressed: () => Share.share(
               widget.specie.name != null && widget.specie.name!.isNotEmpty
-                  ? '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}'
-                  : '¡Comparte la belleza de la Amazonía! https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}',
+                  ? '${texts.speciesDetails.shareAmazonInfo} ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}'
+                  : '${texts.speciesDetails.shareAmazon} https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}',
             ),
           ),
           StreamBuilder<bool>(
@@ -416,8 +417,8 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
 
               return CustomIconButton(
                 tooltip: isFavorite
-                    ? 'Eliminar en favoritos'
-                    : 'Guardar de favoritos',
+                    ? texts.speciesDetails.deleteFromFavorite
+                    : texts.speciesDetails.saveToFavorite,
                 icon: isFavorite
                     ? Icons.favorite_rounded
                     : Icons.favorite_outline_rounded,
@@ -474,14 +475,14 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
         FileDownloader.downloadFile(
           url: urlDownload,
           onDownloadError: (error) => customSnackBar(
-            title: 'Algo salió mal',
+            title: texts.speciesDetails.errorDownload,
             context: context,
             error: true,
           ),
           onDownloadCompleted: (progress) {
             setState(() => _progress = null);
             customSnackBar(
-              title: 'Descarga finalizada',
+              title: texts.speciesDetails.successDownload,
               context: context,
             );
           },

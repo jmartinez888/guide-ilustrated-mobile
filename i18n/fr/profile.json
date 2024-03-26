@@ -1,0 +1,15 @@
+{
+    "title": "Mon profil",
+    "logout": "Déconnexion",
+    "favorites": "Mes favoris",
+    "changePassword": "Changer le mot de passe",
+    "share": "Téléchargez l'application Guide illustré de la flore et de la faune de l'IIAP et apprenez-en davantage sur les espèces de l'Amazonie péruvienne :",
+    "invite": "Inviter des amis",
+    "project": "À propos du projet",
+    "team": "À propos de nous",
+    "deleteAccount": "Supprimer le compte",
+    "userNotFound": "Utilisateur non trouvé",
+    "completeProfile": "Complétez votre profil pour accéder à toutes les fonctionnalités de l'application.",
+    "completeButton": "Compléter le profil",
+    "editButton": "Modifier le profil"
+}

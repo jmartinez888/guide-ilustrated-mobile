@@ -6,6 +6,7 @@ import 'package:species/src/domain/entities/conservation_states/conservation_sta
 import 'package:species/src/domain/entities/family/family.dart';
 import 'package:species/src/domain/entities/order/order.dart';
 import 'package:species/src/presentation/global/colors.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ListAlphabeticOrder extends StatelessWidget {
   final String? orderAscDesc;
@@ -31,7 +32,7 @@ class ListAlphabeticOrder extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Listar por orden alfabético',
+                texts.filterOptions.listByAlphabethic,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Expanded(
@@ -56,7 +57,7 @@ class AlphabeticOrderOptions extends StatelessWidget {
   final List<AphabeticOrderOption> orderOptions = [
     AphabeticOrderOption('A-Z', 'ASC'),
     AphabeticOrderOption('Z-A', 'DESC'),
-    AphabeticOrderOption('Registro más reciente', null),
+    AphabeticOrderOption(texts.filterOptions.recentlyAdded, null),
   ];
 
   final String? orderNameScientific;
@@ -122,7 +123,7 @@ class ListByNameOrder extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Ordenar por nombre',
+                texts.filterOptions.filterByName.title,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Expanded(
@@ -145,9 +146,10 @@ class ListByNameOrder extends StatelessWidget {
 
 class NameOrderOptions extends StatelessWidget {
   final List<NameOrderOption> nameOptions = [
-    NameOrderOption('Nombre común', 'vc_nombre'),
-    NameOrderOption('Nombre científico', 'vc_nombre_cientifico'),
-    NameOrderOption('Registro más reciente', null),
+    NameOrderOption(texts.filterOptions.filterByName.common, 'vc_nombre'),
+    NameOrderOption(
+        texts.filterOptions.filterByName.scientific, 'vc_nombre_cientifico'),
+    NameOrderOption(texts.filterOptions.recentlyAdded, null),
   ];
 
   final String? orderName;
@@ -214,7 +216,7 @@ class FilterBySoundDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por sonido',
+                texts.filterOptions.filterBySound.title,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -238,9 +240,9 @@ class FilterBySoundDialog extends StatelessWidget {
 
 class SoundOptions extends StatelessWidget {
   final List<SoundOption> soundOptions = [
-    SoundOption('Solo con sonido', 1),
-    SoundOption('Solo sin sonido', 0),
-    SoundOption('Todos', null),
+    SoundOption(texts.filterOptions.filterBySound.withSound, 1),
+    SoundOption(texts.filterOptions.filterBySound.withoutSound, 0),
+    SoundOption(texts.filterOptions.all, null),
   ];
 
   final int? hasSound;
@@ -314,7 +316,7 @@ class FilterByConservationStatusDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por estado de conservación',
+                texts.filterOptions.filterByConservation,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -330,7 +332,7 @@ class FilterByConservationStatusDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Todos'),
+                title: Text(texts.filterOptions.all),
                 value: null,
                 groupValue: selectedConservationStatus,
                 onChanged: (value) {
@@ -371,12 +373,12 @@ class ConservationStatusOptions extends StatelessWidget {
               width: 30,
               height: 30,
             ),
-            if (conservationStatusItem.name != null &&
+          if (conservationStatusItem.name != null &&
               conservationStatusItem.name!.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(conservationStatusItem.name!),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(conservationStatusItem.name!),
+            ),
         ],
       ),
       value: conservationStatusItem.id,
@@ -427,7 +429,7 @@ class FilterByCategoryDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por categoría',
+                texts.filterOptions.filterByCategory,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -443,7 +445,7 @@ class FilterByCategoryDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Todos'),
+                title: Text(texts.filterOptions.all),
                 value: null,
                 groupValue: taxonomyId,
                 onChanged: (value) {
@@ -477,21 +479,20 @@ class CategoryRadioOptions extends StatelessWidget {
     return RadioListTile(
       title: Row(
         children: [
-          if(taxonomyItem.image != null && taxonomyItem.image!.isNotEmpty)
-          CachedNetworkImage(
-            imageUrl: taxonomyItem.image!,
-            color: taxonomyId == taxonomyItem.id
-                ? CustomColors.primary
-                : CustomColors.grey.withOpacity(0.5),
-            
-            width: 30,
-            height: 30,
-          ),
-          if(taxonomyItem.name != null && taxonomyItem.name!.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(taxonomyItem.name!),
-          ),
+          if (taxonomyItem.image != null && taxonomyItem.image!.isNotEmpty)
+            CachedNetworkImage(
+              imageUrl: taxonomyItem.image!,
+              color: taxonomyId == taxonomyItem.id
+                  ? CustomColors.primary
+                  : CustomColors.grey.withOpacity(0.5),
+              width: 30,
+              height: 30,
+            ),
+          if (taxonomyItem.name != null && taxonomyItem.name!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(taxonomyItem.name!),
+            ),
         ],
       ),
       value: taxonomyItem.id,
@@ -546,7 +547,7 @@ class FilterByClassDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por taxonomía',
+                texts.filterOptions.filterByTaxonomy,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -562,7 +563,7 @@ class FilterByClassDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Sin preferencia'),
+                title: Text(texts.filterOptions.noPreferencies),
                 value: null,
                 groupValue: selectedClass,
                 onChanged: (value) {
@@ -594,7 +595,9 @@ class ClassOptions extends StatelessWidget {
 
   Widget _buildRadioListTile(ClassC classItem) {
     return RadioListTile(
-      title: classItem.name != null && classItem.name!.isNotEmpty ? Text(classItem.name!) : null,
+      title: classItem.name != null && classItem.name!.isNotEmpty
+          ? Text(classItem.name!)
+          : null,
       value: classItem.id,
       groupValue: selectedClass,
       onChanged: (value) {
@@ -645,7 +648,7 @@ class FilterByOrderDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por orden',
+                texts.filterOptions.filterByOrder,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -661,7 +664,7 @@ class FilterByOrderDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Sin preferencia'),
+                title: Text(texts.filterOptions.noPreferencies),
                 value: null,
                 groupValue: selectedOrder,
                 onChanged: (value) {
@@ -744,7 +747,7 @@ class FilterByFamilyDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Filtrar por familia',
+                texts.filterOptions.filterByFamily,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16.0),
@@ -760,7 +763,7 @@ class FilterByFamilyDialog extends StatelessWidget {
                 ),
               ),
               RadioListTile(
-                title: const Text('Sin preferencia'),
+                title: Text(texts.filterOptions.noPreferencies),
                 value: null,
                 groupValue: selectedFamily,
                 onChanged: (value) {

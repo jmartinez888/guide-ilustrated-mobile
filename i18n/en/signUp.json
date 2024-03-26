@@ -1,0 +1,17 @@
+{
+    "title": "Sign Up",
+    "alreadyRegistered": "Already have an account? Sign in",
+    "button": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "showPassword": "Show Password",
+    "repeatPassword": "Repeat Your Password",
+    "clear": "Clear",
+    "network": "Check your internet connection",
+    "credential": "Incorrect credentials",
+    "disabled": "This account has been disabled, please try again later",
+    "notRegistered": "This account is not registered",
+    "passwordNotMatch": "Incorrect password",
+    "unknown": "Unknown error, please try again later",
+    "sendedEmail": "A confirmation email has been sent to your email address"
+}

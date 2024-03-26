@@ -1,0 +1,21 @@
+{
+    "listByAlphabethic": "按字母顺序列出",
+    "recentlyAdded": "最近添加",
+    "all": "全部",
+    "noPreferencies": "没有偏好",
+    "filterByName": {
+        "title": "按名称过滤",
+        "common": "通用名称",
+        "scientific": "科学名称"
+    },
+    "filterBySound": {
+        "title": "按声音过滤",
+        "withSound": "有声音",
+        "withoutSound": "无声音"
+    },
+    "filterByConservation": "按保护状态过滤",
+    "filterByCategory": "按类别过滤",
+    "filterByTaxonomy": "按分类过滤",
+    "filterByOrder": "按顺序过滤",
+    "filterByFamily": "按科过滤"
+}

@@ -1,0 +1,7 @@
+{
+    "errorSnack": "Erreur lors du chargement des données de l'utilisateur",
+    "title": "Modifier le profil",
+    "save": "Enregistrer",
+    "saving": "Enregistrement en cours...",
+    "errorSaving": "Erreur lors de l'enregistrement des données du profil"
+}

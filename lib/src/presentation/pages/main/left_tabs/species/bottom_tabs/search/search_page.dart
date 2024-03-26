@@ -19,6 +19,7 @@ import 'package:species/src/presentation/global/widgets/buttons/custom_icon_butt
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/filters_options.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -148,7 +149,7 @@ class _SearchPageState extends State<SearchPage> {
                     return _errorIndicator(context,
                         onPressed: () =>
                             _pagingController.retryLastFailedRequest(),
-                        text: 'Algo salió mal. Inténtalo de nuevo');
+                        text: texts.searchPage.failedRequest);
                   },
                   animateTransitions: true,
                   transitionDuration: const Duration(milliseconds: 400),
@@ -211,7 +212,7 @@ class _SearchPageState extends State<SearchPage> {
                 ? 'A-Z'
                 : orderByType == 'DESC'
                     ? 'Z-A'
-                    : 'Listar',
+                    : texts.searchPage.recentlyAdded,
           ),
 
           // Order by name filter
@@ -225,20 +226,19 @@ class _SearchPageState extends State<SearchPage> {
                     : null,
             icon: Icons.sort_by_alpha_rounded,
             filterName: orderByName == 'vc_nombre'
-                ? 'Común'
+                ? texts.searchPage.nameFilter.common
                 : orderByName == 'vc_nombre_cientifico'
-                    ? 'Científico'
-                    : 'Ordenar',
+                    ? texts.searchPage.nameFilter.scientific
+                    : texts.searchPage.nameFilter.order,
           ),
 
           // Add class filter
           _filterOptionButton(
-            context: context,
-            onPressed: () => _filterByClassDialog(context),
-            filterValue: selectedClass,
-            icon: Icons.class_rounded,
-            filterName: 'Taxonomía',
-          ),
+              context: context,
+              onPressed: () => _filterByClassDialog(context),
+              filterValue: selectedClass,
+              icon: Icons.class_rounded,
+              filterName: texts.searchPage.taxonomyFilter),
 
           // Add order filter
           if (selectedClass != null)
@@ -247,7 +247,7 @@ class _SearchPageState extends State<SearchPage> {
               onPressed: () => _filterByOrderDialog(context),
               filterValue: selectedOrder,
               icon: Icons.sort_rounded,
-              filterName: 'Orden',
+              filterName: texts.searchPage.orderFilter,
             ),
 
           // Add family filter
@@ -257,7 +257,7 @@ class _SearchPageState extends State<SearchPage> {
               onPressed: () => _filterByFamilyDialog(context),
               filterValue: selectedFamily,
               icon: Icons.family_restroom_rounded,
-              filterName: 'Familia',
+              filterName: texts.searchPage.familyFilter,
             ),
 
           // Add sound filter
@@ -271,10 +271,10 @@ class _SearchPageState extends State<SearchPage> {
                     ? Icons.volume_off_rounded
                     : Icons.volume_up_rounded,
             filterName: hasSound == 1
-                ? 'Con sonido'
+                ? texts.searchPage.soundFilter.withSound
                 : hasSound == 0
-                    ? 'Sin sonido'
-                    : 'Sonido',
+                    ? texts.searchPage.soundFilter.withoutSound
+                    : texts.searchPage.soundFilter.sound,
           ),
 
           // Add conservation status filter
@@ -283,33 +283,35 @@ class _SearchPageState extends State<SearchPage> {
             onPressed: () => _filterByConservationStatusDialog(context),
             filterValue: selectedConservationStatus,
             icon: Icons.eco_rounded,
-            filterName: 'Conservación',
+            filterName: texts.searchPage.conservationFilter,
           ),
 
           //Add category filter
           _filterOptionButton(
-            context: context,
-            onPressed: () => _filterByCategoryDialog(context),
-            filterValue: taxonomyId,
-            icon: Icons.category_rounded,
-            filterName: taxonomyId == 1
-                ? 'Aves'
-                : taxonomyId == 2
-                    ? 'Mamiferos'
-                    : taxonomyId == 3
-                        ? 'Reptiles'
-                        : taxonomyId == 4
-                            ? 'Anfibios'
-                            : taxonomyId == 5
-                                ? 'Peces'
-                                : taxonomyId == 6
-                                    ? 'Insectos'
-                                    : taxonomyId == 7
-                                        ? 'Arboles'
-                                        : taxonomyId == 8
-                                            ? 'Palmeras'
-                                            : 'Categoria',
-          ),
+              context: context,
+              onPressed: () => _filterByCategoryDialog(context),
+              filterValue: taxonomyId,
+              icon: Icons.category_rounded,
+              filterName: taxonomyId == 1
+                  ? texts.searchPage.categoryFilter.birds
+                  : taxonomyId == 2
+                      ? texts.searchPage.categoryFilter.mammals
+                      : taxonomyId == 3
+                          ? texts.searchPage.categoryFilter.reptiles
+                          : taxonomyId == 4
+                              ? texts.searchPage.categoryFilter.amphibians
+                              : taxonomyId == 5
+                                  ? texts.searchPage.categoryFilter.fish
+                                  : taxonomyId == 6
+                                      ? texts.searchPage.categoryFilter.insects
+                                      : taxonomyId == 7
+                                          ? texts
+                                              .searchPage.categoryFilter.plants
+                                          : taxonomyId == 8
+                                              ? texts.searchPage.categoryFilter
+                                                  .palms
+                                              : texts.searchPage.categoryFilter
+                                                  .category),
         ],
       ),
     );
@@ -330,7 +332,7 @@ class _SearchPageState extends State<SearchPage> {
     return CustomIconButton(
         backgroundColor:
             Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-        tooltip: 'Limpiar filtros',
+        tooltip: texts.searchPage.cleanFilters,
         onPressed: () => setState(
               () {
                 selectedClass = null;
@@ -362,11 +364,11 @@ class _SearchPageState extends State<SearchPage> {
           borderRadius: BorderRadius.circular(16.0),
           borderSide: BorderSide.none,
         ),
-        hintText: 'Buscar especie',
+        hintText: texts.searchPage.searchSpecies,
         prefixIcon: const Icon(Icons.search_rounded),
         suffixIcon: searchController.text.isNotEmpty
             ? IconButton(
-                tooltip: 'Limpiar',
+                tooltip: texts.searchPage.cleanSearch,
                 onPressed: () => setState(
                       () {
                         searchController.clear();
@@ -457,14 +459,14 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const ErrorFetchingDropdown(
-                title: 'Error al cargar categorías',
-                content: 'Inténtalo de nuevo',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.errorFetchingTitle,
+                content: texts.searchPage.errorFetchingContent,
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const ErrorFetchingDropdown(
-                title: 'No se encontraron categorías',
-                content: 'No se encontraron categorías. Inténtalo nuevamente.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.notResultsTitle,
+                content: texts.searchPage.notResultsContent,
               );
             } else {
               final List<TaxonomyForSearchIiap> taxonomies = snapshot.data!;
@@ -494,20 +496,21 @@ class _SearchPageState extends State<SearchPage> {
       builder: (context) {
         return FutureBuilder<List<ClassC>>(
           future: classRepository.getClasses(),
-          builder: (BuildContext context, AsyncSnapshot<List<ClassC>> snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<List<ClassC>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const ErrorFetchingDropdown(
-                title: 'Error al cargar clases',
-                content: 'Inténtalo de nuevo',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.errorFetchingTitle,
+                content: texts.searchPage.errorFetchingContent,
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const ErrorFetchingDropdown(
-                title: 'No se encontraron clases',
-                content: 'No se encontraron clases. Inténtalo nuevamente.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.notResultsTitle,
+                content: texts.searchPage.notResultsContent,
               );
             } else {
               final List<ClassC> classes = snapshot.data!;
@@ -546,15 +549,14 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const ErrorFetchingDropdown(
-                title: 'Error al cargar ordenes',
-                content: 'Inténtalo nuevamente.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.errorFetchingTitle,
+                content: texts.searchPage.errorFetchingContent,
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const ErrorFetchingDropdown(
-                title: 'No se encontraron ordenes',
-                content:
-                    'No se encontraron ordenes en esta clase. Inténtalo con otra clase.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.notResultsTitle,
+                content: texts.searchPage.notResultsContent,
               );
             } else {
               final List<OrderC> orders = snapshot.data!;
@@ -592,15 +594,14 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const ErrorFetchingDropdown(
-                title: 'Error al cargar familias',
-                content: 'Inténtalo nuevamente.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.errorFetchingTitle,
+                content: texts.searchPage.errorFetchingContent,
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const ErrorFetchingDropdown(
-                title: 'No se encontraron familias',
-                content:
-                    'No se encontraron familias en esta orden. Inténtalo con otra orden.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.notResultsTitle,
+                content: texts.searchPage.notResultsContent,
               );
             } else {
               final List<Family> families = snapshot.data!;
@@ -637,15 +638,14 @@ class _SearchPageState extends State<SearchPage> {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.hasError) {
-              return const ErrorFetchingDropdown(
-                title: 'Error al cargar estados de conservación',
-                content: 'Inténtalo nuevamente.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.errorFetchingTitle,
+                content: texts.searchPage.errorFetchingContent,
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const ErrorFetchingDropdown(
-                title: 'No se encontraron estados de conservación',
-                content:
-                    'No se encontraron estados de conservación. Inténtalo nuevamente.',
+              return ErrorFetchingDropdown(
+                title: texts.searchPage.notResultsTitle,
+                content: texts.searchPage.notResultsContent,
               );
             } else {
               final List<ConservationStates> conservationStatusList =
@@ -696,7 +696,7 @@ class ErrorFetchingDropdown extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Aceptar'),
+          child: Text(texts.searchPage.acceptText),
         ),
       ],
     );
@@ -718,8 +718,7 @@ Column _errorIndicator(BuildContext context,
         child: Column(
           children: [
             Text(
-              text ??
-                  'No se encontraron especies relacionadas a tu búsqueda. Inténtalo de nuevo con otra clase, orden o familia.',
+              text ?? texts.searchPage.errorFetchingSpecies,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
@@ -727,7 +726,7 @@ Column _errorIndicator(BuildContext context,
             FilledButton.icon(
               onPressed: onPressed,
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text('Actualizar'),
+              label: Text(texts.searchPage.updateText),
             ),
           ],
         ),
