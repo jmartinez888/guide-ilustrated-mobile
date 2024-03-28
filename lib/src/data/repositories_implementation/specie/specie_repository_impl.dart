@@ -54,6 +54,15 @@ class SpecieRepositoryImpl implements SpecieRepository {
     return _specieApi.filterSpecies(
       pagingController: pagingController,
       pageKey: pageKey,
+      taxonomyId: taxonomyId,
+      class_: class_,
+      order: order,
+      family: family,
+      conservationStatus: conservationStatus,
+      hasSound: hasSound,
+      query: query,
+      orderByName: orderByName,
+      orderType: orderType,
       numberOfPostsPerRequest: numberOfPostsPerRequest,
     );
   }

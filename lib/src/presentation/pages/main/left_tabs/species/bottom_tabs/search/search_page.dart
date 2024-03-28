@@ -38,7 +38,8 @@ class _SearchPageState extends State<SearchPage> {
   ClassRepository get classRepository => context.read();
   OrderRepository get orderRepository => context.read();
   FamilyRepository get familyRepository => context.read();
-  ConservationStatesRepository get stateOfConservationRepository => context.read();
+  ConservationStatesRepository get stateOfConservationRepository =>
+      context.read();
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -159,8 +160,9 @@ class _SearchPageState extends State<SearchPage> {
                       pathParameters: {'id': item.id.toString()},
                     ),
                     leading: CustomImageContainer(
-                      imageUrl: item.images != null && item.images
-                      !.isNotEmpty ? item.images!.first : null,
+                      imageUrl: item.images != null && item.images!.isNotEmpty
+                          ? item.images!.first
+                          : null,
                       heightImage: 56.0,
                       width: 56.0,
                       fitImage: false,
@@ -452,8 +454,8 @@ class _SearchPageState extends State<SearchPage> {
       builder: (context) {
         return FutureBuilder<List<TaxonomyForSearchIiap>>(
           future: texonomyRepository.getTaxonomies(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<TaxonomyForSearchIiap>> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<List<TaxonomyForSearchIiap>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
