@@ -32,7 +32,7 @@ Map<String, dynamic> getMainColorByString(String type) {
         'main': CustomColors.insect,
         'opaque': CustomColors.insectContainer,
       };
-    case 'Arboles':
+    case 'Árboles':
       return {
         'main': CustomColors.tree,
         'opaque': CustomColors.treeContainer,

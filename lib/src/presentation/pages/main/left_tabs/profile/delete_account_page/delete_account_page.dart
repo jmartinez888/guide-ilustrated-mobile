@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class DeleteAccountPage extends StatefulWidget {
   final String userId;
@@ -20,18 +22,25 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   final _passwordFocusNode = FocusNode();
   bool enabled = true;
 
-  final _getUserInfo = AuthIiapRepositoryImpl().getUserInfo;
-  final _deleteUserAccount = AuthIiapRepositoryImpl().deleteUserAccount;
+  AccountRepository get accountRepository => context.read();
+
+  late Future<Map<String, dynamic>> _getUserInfo;
+
+  @override
+  void initState() {
+    _getUserInfo = accountRepository.getUserInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: const Text('Eliminar cuenta'),
+        title: Text(texts.deleteAccount.title),
       ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: _getUserInfo(),
+        future: _getUserInfo,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return SizedBox(
@@ -65,29 +74,31 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Información de usuario:', style: title),
+          Text(texts.deleteAccount.userInfo, style: title),
           const SizedBox(height: 16.0),
           if (name.isEmpty || lastName.isEmpty)
-            const Text('Nombre: No registrado')
+            Text(
+                '${texts.validator.name.label}: ${texts.deleteAccount.notRegistered}')
           else
-            Text('Nombre: $name $lastName'),
-          Text('Email: $email'),
+            Text('${texts.validator.name.label}: $name $lastName'),
+          Text('${texts.deleteAccount.email}: $email'),
           if (phone.isEmpty)
-            const Text('Teléfono:  No registrado')
+            Text(
+                '${texts.deleteAccount.phone}:  ${texts.deleteAccount.notRegistered}')
           else
-            Text('Teléfono: $phone'),
+            Text('${texts.deleteAccount.phone}: $phone'),
           const SizedBox(height: 16.0),
           Text(
-            'Al borrar tu cuenta, estás de acuerdo con los siguientes términos:',
+            texts.deleteAccount.warning,
             style: title,
           ),
           const SizedBox(height: 16.0),
           Text(
-            '- Todos tus datos serán borrados permanentemente.',
+            texts.deleteAccount.firtsTerm,
             style: conditions,
           ),
           Text(
-            '- No podrás recuperar tu cuenta ni los datos asociados a ella.',
+            texts.deleteAccount.secondTerm,
             style: conditions,
           ),
           const SizedBox(height: 16.0),
@@ -96,7 +107,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
               final currentContext = context;
               _handleConfirmation(currentContext);
             },
-            child: const Text('Eliminar cuenta'),
+            child: Text(texts.deleteAccount.title),
           ),
         ],
       ),
@@ -104,12 +115,11 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   }
 
   Future<dynamic> _handleConfirmation(BuildContext currentContext) {
-    final colorScheme = Theme.of(context).colorScheme;
     return showDialog(
       context: currentContext,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirmar'),
+          title: Text(texts.deleteAccount.confirm),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Form(
@@ -118,8 +128,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      '¿Estás seguro de que quieres borrar tu cuenta? Ingrese su contraseña para confirmar:',
+                    Text(
+                      texts.deleteAccount.information,
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
@@ -128,9 +138,9 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       onTapOutside: (event) => _passwordFocusNode.unfocus(),
                       controller: _passwordController,
                       obscureText: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Contraseña',
-                        hintText: 'Ingrese su contraseña',
+                      decoration: InputDecoration(
+                        labelText: texts.validator.password.label,
+                        hintText: texts.validator.password.empty,
                       ),
                     ),
                     if (!enabled)
@@ -144,7 +154,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           actions: [
             FilledButton(
               onPressed: () => context.pop(),
-              child: const Text('Cancelar'),
+              child: Text(texts.deleteAccount.cancel),
             ),
             OutlinedButton(
               onPressed: () async {
@@ -160,8 +170,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   if (password.isEmpty) {
                     customSnackBar(
                       context: currentContext,
-                      title: 'Ingrese su contraseña',
-                      backgroundColor: colorScheme.error,
+                      title: texts.validator.password.empty,
+                      error: true,
                     );
                     setState(() {
                       enabled = true;
@@ -175,7 +185,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       });
 
                       // Realizar la operación de eliminación
-                      await _deleteUserAccount(password);
+                      await accountRepository.deleteUserAccount(password);
 
                       // Navegar a la pantalla deseada
                       if (mounted) {
@@ -186,7 +196,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       if (mounted) {
                         customSnackBar(
                           context: currentContext,
-                          title: 'Cuenta eliminada exitosamente',
+                          title: texts.deleteAccount.accountDeleted,
                         );
                       }
                     } catch (e) {
@@ -196,7 +206,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                         customSnackBar(
                           context: currentContext,
                           title: e.toString(),
-                          backgroundColor: colorScheme.error,
+                          error: true,
                         );
                       }
                     } finally {
@@ -209,7 +219,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   }
                 }
               },
-              child: const Text('Eliminar cuenta'),
+              child: Text(texts.deleteAccount.title),
             ),
           ],
         );

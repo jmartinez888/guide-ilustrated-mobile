@@ -1,0 +1,158 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:species/src/data/mappers/specie_mapper.dart';
+import 'package:species/src/data/models/classes/specie_iiap/specie_iiap.dart';
+import 'package:species/src/domain/either.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/failures/http_request/http_request_failure.dart';
+
+class SpecieApi {
+  final String _baseUrl;
+  final SpecieMapper _specieMapper;
+
+  SpecieApi({
+    required String baseUrl,
+    required specieMapper,
+  })  : _baseUrl = baseUrl,
+        _specieMapper = specieMapper;
+
+  Future<Either<HttpRequestFailure, List<Specie>>> getSpecies({
+    required int pageNumber,
+    required int type,
+    required int numberOfPostsPerRequest,
+    required bool orderByName,
+    required bool orderAsc,
+  }) async {
+    String orderByNameValue =
+        orderByName ? 'vc_nombre' : 'vc_nombre_cientifico';
+
+    String orderAscValue = orderAsc ? 'ASC' : 'DESC';
+
+    try {
+      final response = await get(Uri.parse(
+          '$_baseUrl/species/search/type/$type/$pageNumber/$numberOfPostsPerRequest/$orderByNameValue/$orderAscValue'));
+
+      if (response.statusCode == 200) {
+        final responseList = jsonDecode(response.body) as Map<String, dynamic>;
+
+        final speciesIiap = getSpecieIiapList(responseList['species']);
+
+        final species = speciesIiap
+            .map((specieIiap) => _specieMapper.specieIiapToSpecie(specieIiap))
+            .toList();
+
+        return Either.right(species);
+      } else {
+        return Either.left(HttpRequestFailure.notFound());
+      }
+    } catch (e) {
+      if (e is SocketException || e is ClientException) {
+        return Either.left(HttpRequestFailure.network());
+      }
+      return Either.left(HttpRequestFailure.unknown());
+    }
+  }
+
+  Future<void> filterSpecies({
+    required PagingController pagingController,
+    required int pageKey,
+    required int numberOfPostsPerRequest,
+    int? taxonomyId,
+    int? class_,
+    int? order,
+    int? family,
+    int? conservationStatus,
+    int? hasSound,
+    String query = '',
+    String? orderByName = '',
+    String? orderType = '',
+  }) async {
+    try {
+      final response = await post(
+        Uri.parse('$_baseUrl/species/filter'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "page": pageKey,
+          "pageSize": numberOfPostsPerRequest,
+          "taxonomyId": taxonomyId,
+          "classId": class_,
+          "orderId": order,
+          "familyId": family,
+          "conservationStatus": conservationStatus,
+          "hasSound": hasSound,
+          "search": query,
+          "orderBy": orderByName,
+          "orderType": orderType,
+        }),
+      );
+
+      final responseList = jsonDecode(response.body) as Map<String, dynamic>;
+
+      List<Specie> postList = getSpecieList(responseList['species']);
+
+      final isLatPage = postList.length < numberOfPostsPerRequest;
+
+      if (isLatPage) {
+        pagingController.appendLastPage(postList);
+      } else {
+        final nextPageKey = pageKey + 1;
+        pagingController.appendPage(postList, nextPageKey);
+      }
+    } catch (e) {
+      pagingController.error = e;
+    }
+  }
+
+  Future<Either<HttpRequestFailure, Specie>> getSpecie(String id) async {
+    return _getSpecieHelper(id);
+  }
+
+  Future<Either<HttpRequestFailure, List<Specie>>> getSpeciesData(
+      List<String> ids) async {
+    final List<Specie> finalSpecies = [];
+    HttpRequestFailure? httpRequestFailureValue;
+
+    for (String id in ids) {
+      final getSpecie = await _getSpecieHelper(id);
+      getSpecie.when(
+        (httpRequestFailure) => httpRequestFailureValue = httpRequestFailure,
+        (specie) {
+          finalSpecies.add(specie);
+        },
+      );
+    }
+
+    if (httpRequestFailureValue != null) {
+      return httpRequestFailureValue!.when(
+        network: () => Either.left(HttpRequestFailure.network()),
+        unknown: () => Either.left(HttpRequestFailure.unknown()),
+        notFound: () => Either.left(HttpRequestFailure.notFound()),
+      );
+    }
+
+    return Either.right(finalSpecies);
+  }
+
+  Future<Either<HttpRequestFailure, Specie>> _getSpecieHelper(String id) async {
+    try {
+      final response = await get(Uri.parse('$_baseUrl/species/$id'));
+
+      if (response.statusCode != 200) {
+        return Either.left(HttpRequestFailure.notFound());
+      }
+      final specieIiap = SpecieIiap.fromJson(jsonDecode(response.body));
+
+      final specie = _specieMapper.specieIiapToSpecie(specieIiap);
+
+      return Either.right(specie);
+    } catch (e) {
+      if (e is SocketException || e is ClientException) {
+        return Either.left(HttpRequestFailure.network());
+      }
+      return Either.left(HttpRequestFailure.unknown());
+    }
+  }
+}

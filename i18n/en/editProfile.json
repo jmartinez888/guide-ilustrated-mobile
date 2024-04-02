@@ -1,0 +1,7 @@
+{
+    "errorSnack": "Error loading user data",
+    "title": "Edit profile",
+    "save": "Save",
+    "saving": "Saving...",
+    "errorSaving": "Error saving profile data"
+}

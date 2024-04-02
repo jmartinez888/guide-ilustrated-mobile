@@ -1,0 +1,14 @@
+{
+    "title": "Amazon",
+    "subtitle": "Illustrated Guide to Flora and Fauna",
+    "email": "E-Mail",
+    "password": "Password",
+    "enter": "Enter",
+    "new_": "If you're new, register here",
+    "view_password": "Show password",
+    "clear": "Clear",
+    "register_first": "You must register first",
+    "verify_email": "First verify your email",
+    "verify_email_more": "You need to verify your email to log in",
+    "forgot_password": "Forgot your password?"
+}

@@ -1,0 +1,17 @@
+{
+    "title": "Registar-se",
+    "alreadyRegistered": "Já tem uma conta? Iniciar sessão",
+    "button": "Registar-se",
+    "email": "E-mail",
+    "password": "Senha",
+    "showPassword": "Mostrar senha",
+    "repeatPassword": "Repetir sua senha",
+    "clear": "Limpar",
+    "network": "Verifique sua conexão com a internet",
+    "credential": "Credenciais incorretas",
+    "disabled": "Esta conta foi desativada, tente novamente mais tarde",
+    "notRegistered": "Esta conta não está registrada",
+    "passwordNotMatch": "Senha incorreta",
+    "unknown": "Erro desconhecido, tente novamente mais tarde",
+    "sendedEmail": "Um e-mail de confirmação foi enviado para o seu endereço de e-mail"
+}

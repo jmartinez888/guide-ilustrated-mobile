@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:species/src/domain/entities/community.dart';
+import 'package:species/src/domain/entities/community/community.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
 
@@ -17,22 +17,24 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     return GridTwoResponsive(
       leftChild: CustomImageContainer(
-        imageUrl: community.image.isNotEmpty
-            ? community.image
+        imageUrl: community.images != null && community.images!.isNotEmpty
+            ? community.images!.first
             : 'assets/images/indigenous_community.jpg',
         heightImage: size.height > size.width + 32.0 ? 384.0 : double.infinity,
       ),
       rightChildren: [
+        if(community.name!= null && community.name!.isNotEmpty)
         Text(
-          community.name,
+          community.name!,
           style: textTheme.titleLarge?.copyWith(
             color: colorScheme.primary,
           ),
         ),
+      
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Text(
-            community.description,
+           community.description != null && community.description!.isNotEmpty ? community.description! : 'Sin descripción',
             textAlign: TextAlign.start,
             style: textTheme.bodyLarge
                 ?.copyWith(color: colorScheme.onSurfaceVariant),
@@ -42,3 +44,4 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
     );
   }
 }
+ 

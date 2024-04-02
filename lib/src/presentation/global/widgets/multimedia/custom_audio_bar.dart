@@ -41,10 +41,7 @@ class _CustomAudioBarState extends State<CustomAudioBar>
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer()
-      ..dynamicSet(
-        url: widget.audioUrl,
-      );
+    _audioPlayer = AudioPlayer()..dynamicSet(url: widget.audioUrl);
     WidgetsBinding.instance.addObserver(this);
   }
 

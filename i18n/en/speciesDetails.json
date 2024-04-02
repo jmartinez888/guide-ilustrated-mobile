@@ -1,0 +1,20 @@
+{
+    "authors": "Authors",
+    "taxonomicInfo": "Taxonomic Information",
+    "kingdom": "Kingdom",
+    "filo": "Phylum",
+    "classes": "Class",
+    "order": "Order",
+    "family": "Family",
+    "download": "Download",
+    "generatePdf": "Generate PDF",
+    "downloadImage": "Download Image",
+    "downloadAudio": "Download Audio",
+    "share": "Share",
+    "saveToFavorite": "Save to Favorites",
+    "deleteFromFavorite": "Delete from Favorites",
+    "errorDownload": "Download Error",
+    "successDownload": "Download Success",
+    "shareAmazonInfo": "Share the beauty of the Amazon! Share this valuable information about.",
+    "shareAmazon": "Share the beauty of the Amazon!"
+}

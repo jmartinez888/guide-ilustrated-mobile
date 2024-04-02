@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -22,7 +24,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
   bool enabled = true;
   bool validateInInput = false;
 
-  final authRepository = AuthIiapRepositoryImpl();
+  AuthRepository get authRepository => context.read();
+
   final FocusNode _emailFocusNode = FocusNode();
 
   @override
@@ -37,7 +40,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: const Text('Olvidó su contraseña'),
+        title: Text(texts.forgotPassword.title),
       ),
       body: Center(
         child: Extend(
@@ -66,8 +69,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                               child: CircularProgressIndicator(),
                             ),
                       label: enabled
-                          ? const Text('Enviar')
-                          : const Text('Validando...'),
+                          ? Text(texts.forgotPassword.sendLabel)
+                          : Text(texts.forgotPassword.validatingLabel),
                     );
                   },
                 ),
@@ -81,13 +84,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                       ? AutovalidateMode.onUserInteraction
                       : null,
                   decoration: InputDecoration(
-                    labelText: 'Correo',
+                    labelText: texts.forgotPassword.email,
                     prefixIcon: const Icon(Icons.email_outlined),
                     suffixIcon: _emailController.text.isNotEmpty
                         ? IconButton(
                             onPressed: () =>
                                 setState(() => _emailController.clear()),
-                            tooltip: 'Limpiar',
+                            tooltip: texts.forgotPassword.clear,
                             icon: const Icon(Icons.cancel_outlined),
                           )
                         : null,
@@ -98,8 +101,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 16.0),
-                Text(
-                    'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:',
+                Text(texts.forgotPassword.message,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleMedium),
               ],
@@ -134,15 +136,25 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
       final result = await authRepository.resetPassword(email: email);
 
       result.when(
-        (left) => customSnackBar(
-          context: screenContext,
-          title: left,
-          backgroundColor: Theme.of(context).colorScheme.error,
-        ),
+        (failure) {
+          final message = failure.when(
+            network: () => texts.signUp.network,
+            credential: () => texts.signUp.credential,
+            disable: () => texts.signUp.disabled,
+            notRegistered: () => texts.signUp.notRegistered,
+            password: () => texts.signUp.passwordNotMatch,
+            unknown: () => texts.signUp.unknown,
+          );
+          customSnackBar(
+            context: screenContext,
+            title: message,
+            error: true,
+          );
+        },
         (right) => showBottomSheet(
           context: screenContext,
           builder: (screenContext) => CustomBottomSheet(
-            title: 'Revisa tu correo!',
+            title: texts.forgotPassword.checkYourEmail,
             body: [
               Text(right),
             ],

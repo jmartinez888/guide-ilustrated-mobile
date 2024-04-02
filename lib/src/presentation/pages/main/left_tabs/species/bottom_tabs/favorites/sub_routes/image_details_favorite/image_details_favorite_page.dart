@@ -1,6 +1,6 @@
-import 'dart:convert';
+/* import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:species/src/domain/entities/specie.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/presentation/global/sections/image_details_section.dart';
 
 class ImageDetailsFavoritePage extends StatefulWidget {
@@ -32,3 +32,4 @@ class _ImageDetailsFavoritePageState extends State<ImageDetailsFavoritePage> {
         specie: specie,
       );
 }
+ */

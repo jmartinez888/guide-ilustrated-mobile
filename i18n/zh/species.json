@@ -1,0 +1,15 @@
+{
+        "title": "物种",
+        "birds": "鸟类",
+        "mammals": "哺乳动物",
+        "reptiles": "爬行动物",
+        "amphibians": "两栖动物",
+        "fishes": "鱼类",
+        "insects": "昆虫",
+        "trees": "树木",
+        "palms": "棕榈树",
+        "deleteFavorite": "从收藏中移除",
+        "saveFavorite": "保存到收藏夹",
+        "orderName": "按普通名称排序",
+        "orderScientificName": "按学名排序"
+    }

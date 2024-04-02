@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
-import 'package:species/src/data/repositories_implementation/community_iiap/community_iiap_repository_impl.dart';
-import 'package:species/src/domain/entities/community.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/data/models/classes/community_iiap/community_iiap.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/domain/repositories/community/community_repository.dart';
 
 class IndigenousCommunitySearchPage extends StatefulWidget {
   const IndigenousCommunitySearchPage({super.key});
@@ -19,16 +20,16 @@ class IndigenousCommunitySearchPage extends StatefulWidget {
 
 class _IndigenousCommunitySearchPageState
     extends State<IndigenousCommunitySearchPage> {
+  CommunityRository get communityRepository => context.read();
   final int numberOfPostsPerRequest = 16;
-  final PagingController<int, Community> _pagingController =
+  final PagingController<int, CommunityIiap> _pagingController =
       PagingController(firstPageKey: 1);
-  final communityRepository = IndigenousCommunityIiaprepositoryImpl();
   final searchController = TextEditingController();
 
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) {
-      communityRepository.getIndigenousCommunitiesSearchGeneral(
+      communityRepository.getCommunitiesSearch(
         query: searchController.text.trim(),
         pageKey: pageKey,
         numberOfPostsPerRequest: numberOfPostsPerRequest,
@@ -84,11 +85,11 @@ class _IndigenousCommunitySearchPageState
               onRefresh: () => Future.sync(() => _pagingController.refresh()),
               child: Extend(
                 min: true,
-                child: PagedListView<int, Community>(
+                child: PagedListView<int, CommunityIiap>(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
+                  padding: const EdgeInsets.all(16.0),
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<Community>(
+                  builderDelegate: PagedChildBuilderDelegate<CommunityIiap>(
                     firstPageErrorIndicatorBuilder: (context) {
                       return _errorIndicator(context);
                     },
@@ -107,16 +108,17 @@ class _IndigenousCommunitySearchPageState
                         pathParameters: {'id': item.id.toString()},
                       ),
                       leading: CustomImageContainer(
-                        imageUrl: item.image.isNotEmpty
+                        imageUrl: item.image != null && item.image!.isNotEmpty
                             ? item.image
                             : 'assets/images/indigenous_community.jpg',
                         heightImage: 56.0,
                         width: 56.0,
                         fitImage: true,
                       ),
-                      title: Text(item.name),
-                      subtitle: Text(item.description, maxLines: 3),
-                      trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                      title: Text(item.name ?? 'Sin información'),
+                      subtitle: Text(item.description ?? 'SIn información',
+                          maxLines: 2),
+                      trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                     ),
                   ),
                 ),

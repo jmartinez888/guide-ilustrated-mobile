@@ -1,0 +1,39 @@
+{
+    "failedRequest": "Algo deu errado. Por favor, tente novamente",
+    "recentlyAdded": "Recentemente adicionado",
+    "nameFilter": {
+        "common": "Comum",
+        "scientific": "Científico",
+        "order": "Ordenar por"
+    },
+    "taxonomyFilter": "Taxonomia",
+    "orderFilter": "Ordem",
+    "familyFilter": "Família",
+    "soundFilter": {
+        "withSound": "Com som",
+        "withoutSound": "Sem som",
+        "sound": "Som"
+    },
+    "conservationFilter": "Conservação",
+    "categoryFilter": {
+        "category": "Categoria",
+        "birds": "Aves",
+        "mammals": "Mamíferos",
+        "reptiles": "Répteis",
+        "amphibians": "Anfíbios",
+        "fish": "Peixes",
+        "insects": "Insetos",
+        "plants": "Plantas",
+        "palms": "Palmeiras"
+    },
+    "cleanFilters": "Limpar filtros",
+    "searchSpecies": "Pesquisar espécies",
+    "cleanSearch": "Limpar pesquisa",
+    "errorFetchingTitle": "Erro ao buscar resultados",
+    "errorFetchingContent": "Tente novamente",
+    "notResultsTitle": "Nenhum resultado encontrado",
+    "notResultsContent": "Nenhum resultado encontrado. Tente outra pesquisa",
+    "errorFetchingSpecies": "Nenhuma espécie encontrada relacionada à sua busca. Por favor, tente novamente com outra classe, ordem ou família.",
+    "acceptText": "Aceitar",
+    "updateText": "Atualizar"
+}

@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
-import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/data/models/failure/user_acces/user_acces_failure.dart';
+import 'package:species/src/domain/repositories/account/account_repository.dart';
+import 'package:species/src/domain/repositories/auth/auth_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
@@ -30,8 +34,9 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   bool enabled = true;
   late Timer animationTimer;
 
-  final authRepository = AuthIiapRepositoryImpl();
-  final userRepository = UserIiapRepositoryImpl();
+  AuthRepository get authRepository => context.read();
+  SessionController get sessionController => context.read();
+  AccountRepository get accountRepository => context.read();
 
   @override
   void initState() {
@@ -157,7 +162,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                 height: 24.0,
                 child: CircularProgressIndicator(),
               ),
-        label: const Text('Ingresar'),
+        label: Text(texts.signIn.enter),
       ),
     );
   }
@@ -173,14 +178,14 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
           validateInInput ? AutovalidateMode.onUserInteraction : null,
       obscureText: _hidePassword,
       decoration: InputDecoration(
-        labelText: 'Contraseña',
+        labelText: texts.signIn.password,
         prefixIcon: const Icon(Icons.password_rounded),
         suffixIcon: Wrap(
           runSpacing: 8.0,
           children: [
             IconButton(
               onPressed: () => setState(() => _hidePassword = !_hidePassword),
-              tooltip: 'Mostrar contraseña',
+              tooltip: texts.signIn.view_password,
               icon: Icon(
                 _hidePassword
                     ? Icons.visibility_outlined
@@ -190,7 +195,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
             if (_passwordController.text.isNotEmpty)
               IconButton(
                 onPressed: () => setState(() => _passwordController.clear()),
-                tooltip: 'Limpiar',
+                tooltip: texts.signIn.clear,
                 icon: const Icon(Icons.cancel_outlined),
               ),
           ],
@@ -213,12 +218,12 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       autovalidateMode:
           validateInInput ? AutovalidateMode.onUserInteraction : null,
       decoration: InputDecoration(
-        labelText: 'Correo',
+        labelText: texts.signIn.email,
         prefixIcon: const Icon(Icons.email_outlined),
         suffixIcon: _emailController.text.isNotEmpty
             ? IconButton(
                 onPressed: () => setState(() => _emailController.clear()),
-                tooltip: 'Limpiar',
+                tooltip: texts.signIn.clear,
                 icon: const Icon(Icons.cancel_outlined),
               )
             : null,
@@ -233,7 +238,6 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   void _validateCredentials({
     required BuildContext context,
   }) async {
-    final colorScheme = Theme.of(context).colorScheme;
     if (validateInInput == false) {
       validateInInput = true;
       enabled = true;
@@ -259,29 +263,88 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       );
 
       userCredential.when(
-        (left) => customSnackBar(
-          context: context,
-          title: left,
-          backgroundColor: colorScheme.error,
-          large: true,
-        ),
+        (failure) {
+          final message = failure.when(
+            network: () => texts.userCredentialFailure.network,
+            credential: () => texts.userCredentialFailure.credential,
+            disable: () =>
+                texts.userCredentialFailure.disable,
+            notRegistered: () => texts.userCredentialFailure.notRegistered,
+            password: () => texts.userCredentialFailure.password,
+            unknown: () => texts.userCredentialFailure.unknown,
+          );
+          customSnackBar(
+            context: context,
+            title: message,
+            error: true,
+            large: true,
+          );
+        },
         (right) async {
-          final user = right.user;
+          final isAcces = authRepository.isAcces();
+
+          isAcces.when(
+            (userAccesFailure) {
+              if (userAccesFailure is UserAccesFailureEmpty) {
+                customSnackBar(
+                  context: context,
+                  title: texts.signIn.register_first,
+                  error: true,
+                );
+                context.pushNamed(Routes.signUp);
+              }
+              if (userAccesFailure is UserAccesFailureEmailIsNotVerified) {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => CustomBottomSheet(
+                    title: texts.signIn.verify_email,
+                    body:  [
+                      Text(
+                          texts.signIn.verify_email_more),
+                    ],
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () => Navigator.maybePop(context),
+                      child: const Icon(Icons.check_rounded),
+                    ),
+                  ),
+                );
+              }
+            },
+            (uid) {
+              if (mounted) {
+                sessionController.setUser(uid);
+                context.goNamed(Routes.species);
+              }
+            },
+          );
+
+          /* final user = right.user;
           final id = user?.uid;
           if (id != null) {
-            final userData = await userRepository.getUserData(id);
+            final userData = await accountRepository.getUserData(id);
             if (user?.emailVerified == true && userData.isNotEmpty) {
               if (mounted) {
+              sessionController.setUser(user!.uid);
                 context.goNamed(Routes.species);
               }
             } else if (user?.emailVerified == true) {
-              userRepository.createUser(
+              final result = await accountRepository.createUser(
                 userId: id,
                 email: email,
               );
-              if (mounted) {
-                context.goNamed(Routes.species);
-              }
+              result.when(
+                (failure) => customSnackBar(
+                  context: context,
+                  title: 'No se pudo crear el usuario',
+                  backgroundColor: colorScheme.error,
+                  large: true,
+                ),
+                (user) {
+                  if (mounted) {
+                    context.goNamed(Routes.species);
+                  }
+                },
+              );
             } else {
               if (mounted) {
                 showModalBottomSheet(
@@ -300,7 +363,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                 );
               }
             }
-          }
+          } */
         },
       );
       enabled = true;
@@ -322,7 +385,7 @@ class _RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: enabled ? () => context.pushNamed(Routes.signUp) : null,
-      child: const Text('Si eres nuevo regístrate aquí'),
+      child: Text(texts.signIn.new_),
     );
   }
 }
@@ -336,7 +399,7 @@ class _ForgotButtonLink extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: TextButton(
         onPressed: () => context.pushNamed(Routes.forgotPassword),
-        child: const Text('¿Olvidaste tu contraseña?'),
+        child: Text(texts.signIn.forgot_password),
       ),
     );
   }
@@ -350,7 +413,7 @@ class _SubtitleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Guía ilustrada de flora y fauna',
+      texts.signIn.subtitle,
       style: Theme.of(context)
           .textTheme
           .headlineSmall
@@ -368,7 +431,7 @@ class _TitleApp extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final isMobile = size.width < 768;
     return Text(
-      'AMAZONÍA',
+      texts.signIn.title,
       style: Theme.of(context).textTheme.headlineLarge?.copyWith(
             fontSize: isMobile ? size.width * 0.1 : size.width * 0.05,
             color: colorScheme.primary,

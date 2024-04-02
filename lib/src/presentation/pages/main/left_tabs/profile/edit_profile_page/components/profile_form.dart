@@ -3,6 +3,7 @@ import 'package:flutter_multi_formatter/formatters/phone_input_formatter.dart';
 import 'package:flutter_multi_formatter/widgets/country_dropdown.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/country_code.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ProfileForm extends StatefulWidget {
   final Widget? action;
@@ -40,10 +41,10 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
           controller: widget._nameController,
           focusNode: _nameFocusNode,
           onTapOutside: (event) => _nameFocusNode.unfocus(),
-          decoration: const InputDecoration(
-            labelText: 'Nombre',
-            hintText: 'Ingrese su nombre',
-            prefixIcon: Icon(Icons.person),
+          decoration: InputDecoration(
+            labelText: texts.validator.name.label,
+            hintText: texts.validator.name.empty,
+            prefixIcon: const Icon(Icons.person),
           ),
           textInputAction: TextInputAction.next,
           validator: nameValidator,
@@ -53,44 +54,39 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
           },
         ),
         const SizedBox(height: 16.0),
-        Column(
-          children: [
-            TextFormField(
-              enabled: enabled,
-              controller: widget._lastnameController,
-              focusNode: _lastnameFocusNode,
-              onTapOutside: (event) => _lastnameFocusNode.unfocus(),
-              decoration: const InputDecoration(
-                labelText: 'Apellido',
-                hintText: 'Ingrese su apellido',
-                prefixIcon: Icon(Icons.person),
-              ),
-              textInputAction: TextInputAction.next,
-              validator: lastNameValidator,
-              onFieldSubmitted: (value) {
-                _lastnameFocusNode.unfocus();
-                FocusScope.of(context).requestFocus(_phoneFocusNode);
-              },
-            ),
-          ],
+        TextFormField(
+          enabled: enabled,
+          controller: widget._lastnameController,
+          focusNode: _lastnameFocusNode,
+          onTapOutside: (event) => _lastnameFocusNode.unfocus(),
+          decoration: InputDecoration(
+            labelText: texts.validator.lastName.label,
+            hintText: texts.validator.lastName.empty,
+            prefixIcon: const Icon(Icons.person),
+          ),
+          textInputAction: TextInputAction.next,
+          validator: lastNameValidator,
+          onFieldSubmitted: (value) {
+            _lastnameFocusNode.unfocus();
+            FocusScope.of(context).requestFocus(_phoneFocusNode);
+          },
         ),
         const SizedBox(height: 16.0),
         SizedBox(
-          height: 200.0,
-          child: Column(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 flex: 4,
                 child: CountryDropdown(
-                  decoration: const InputDecoration(
-                    hintText: 'Código de país',
+                  decoration: InputDecoration(
+                    hintText: texts.validator.countryCode.label,
                   ),
                   menuMaxHeight: 300.0,
                   validator: (value) {
                     if (value == null) {
-                      return 'Seleccione un país';
+                      return texts.validator.countryCode.select;
                     }
                     return null;
                   },
@@ -106,10 +102,7 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
                   },
                 ),
               ),
-              const SizedBox(height: 16.0),
-              const Text(
-                  'Nota: El numero de telefono debe iniciar con el codigo de pais. Por ejemplo Perú: 51 987 456 123',
-                  style: TextStyle(color: Colors.black54, fontSize: 12.0)),
+              const SizedBox(width: 10.0),
               Expanded(
                 flex: 6,
                 child: TextFormField(
@@ -119,13 +112,13 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
                   onTapOutside: (event) => _phoneFocusNode.unfocus(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Ingrese su número de teléfono';
+                      return texts.validator.phone.empty;
                     }
 
                     if (value.length !=
                         _initialCountryData
                             ?.phoneMaskWithoutCountryCode.length) {
-                      return 'Ingrese un número de teléfono válido';
+                      return texts.validator.phone.regExp;
                     }
                     return null;
                   },
@@ -145,7 +138,7 @@ class _ProfileFormState extends State<ProfileForm> with FormMixin {
                     ),
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),

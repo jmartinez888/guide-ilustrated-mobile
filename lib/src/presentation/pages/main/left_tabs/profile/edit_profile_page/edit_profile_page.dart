@@ -1,9 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:species/src/data/repositories_implementation/user_iiap/user_iiap_repository_impl.dart';
+import 'package:provider/provider.dart';
+import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/utils/upload_image.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
@@ -11,6 +11,7 @@ import 'package:species/src/presentation/global/widgets/messages/custom_snack_ba
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/image_picker.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profile_page/components/profile_form.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/widgets/success_modal.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class EditProfile extends StatefulWidget {
   final String userId;
@@ -30,8 +31,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   final FocusNode _lastnameFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
 
-  final UserIiapRepositoryImpl _userIiapRepositoryImpl =
-      UserIiapRepositoryImpl();
+  AccountRepository get _userIiapRepositoryImpl => context.read();
 
   bool enabled = true;
 
@@ -67,8 +67,8 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
       if (mounted) {
         customSnackBar(
           context: context,
-          title: 'Error al cargar los datos del usuario',
-          backgroundColor: Colors.red,
+          title: texts.editProfile.errorSnack,
+          error: true,
         );
       }
     }
@@ -107,7 +107,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: const Text('Editar perfil'),
+        title: Text(texts.editProfile.title),
       ),
       body: Center(
         child: Form(
@@ -137,8 +137,8 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
                           child: CircularProgressIndicator(),
                         ),
                   label: enabled
-                      ? const Text('Guardar')
-                      : const Text('Guardando...'),
+                      ? Text(texts.editProfile.save)
+                      : Text(texts.editProfile.saving),
                 ),
                 nameController: _nameController,
                 lastnameController: _lastnameController,
@@ -215,7 +215,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
           customSnackBar(
             context: context,
             title: 'Error al guardar el perfil',
-            backgroundColor: Colors.red,
+            error: true,
           );
         }
 

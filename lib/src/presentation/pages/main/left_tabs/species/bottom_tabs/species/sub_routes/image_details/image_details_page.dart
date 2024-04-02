@@ -1,36 +1,65 @@
+import 'dart:convert';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:species/src/presentation/global/sections/image_details_section.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
-import 'package:species/src/presentation/pages/providers/species/specie_detail_provider.dart';
+class ImageDetailsPage extends StatefulWidget {
+  final String specie;
 
-class ImageDetailsPage extends ConsumerStatefulWidget {
-  final String id;
   const ImageDetailsPage({
-    super.key,
-    required this.id,
-  });
+    Key? key,
+    required this.specie,
+  }) : super(key: key);
 
   @override
-  ConsumerState<ImageDetailsPage> createState() => _ImageDetailsState();
+  State<ImageDetailsPage> createState() => _ImageDetailsPageState();
 }
 
-class _ImageDetailsState extends ConsumerState<ImageDetailsPage> {
+class _ImageDetailsPageState extends State<ImageDetailsPage> {
+  late Specie specie;
   @override
   void initState() {
+    specie = Specie.fromJson(jsonDecode(widget.specie));
     super.initState();
-    ref.read(specieDetailsProvider.notifier).loadSpecie(widget.id);
   }
-
   @override
   Widget build(BuildContext context) {
-    final specie = ref.watch(specieDetailsProvider)[widget.id];
-
-    return specie == null
-        ? const Center(child: CircularProgressIndicator())
-        : ImageDetailsSection(
-            tag: 'abc',
-            specie: specie,
-          );
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body:  Stack(
+        children: [
+          PhotoViewGallery.builder(
+            scrollPhysics: const BouncingScrollPhysics(),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                maxScale: PhotoViewComputedScale.covered * 8,
+                minScale: PhotoViewComputedScale.contained,
+                imageProvider: CachedNetworkImageProvider(specie.images![index]),
+              );
+            },
+            itemCount: specie.images!.length,
+            loadingBuilder: (context, event) => Center(
+              child: CircularProgressIndicator(
+                value: event == null
+                    ? 0
+                    : event.cumulativeBytesLoaded /
+                        event.expectedTotalBytes!.toDouble(),
+              ),
+            ),
+          ),
+          const Positioned(
+            top: 8.0,
+            left: 8.0,
+            child: SafeArea(
+              child: CustomBackButton(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

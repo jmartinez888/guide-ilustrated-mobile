@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/birs_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/fishes_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/insects_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/mammals_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/palms_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/reptiles_tab_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/trees_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/amphibians_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/birds_tab/birds_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/fishes_tab/fishes_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/insects_tab/insects_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/mammals_tab/mammals_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/palms_tab/palms_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/reptiles_tab/reptiles_tab_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/trees_tab/trees_tab_page.dart';
 
 class SpeciesPage extends StatefulWidget {
   const SpeciesPage({super.key});
@@ -19,75 +20,77 @@ class SpeciesPage extends StatefulWidget {
 
 class _SpeciesPageState extends State<SpeciesPage>
     with SingleTickerProviderStateMixin {
-  static const List<Map<String, dynamic>> _pageData = [
+  final List<Map<String, dynamic>> _pageData = [
     {
-      'page': BirdsTabPage(),
+      'page': const BirdsTabPage(),
       'color': CustomColors.bird,
       'icon': CustomIcons.bird,
-      'label': 'Aves',
+      'label': texts.species.birds,
     },
     {
-      'page': MammalsTabPage(),
+      'page': const MammalsTabPage(),
       'color': CustomColors.mammal,
       'icon': CustomIcons.mammal,
-      'label': 'Mamíferos',
+      'label': texts.species.mammals,
     },
     {
-      'page': ReptilesTabPage(),
+      'page': const ReptilesTabPage(),
       'color': CustomColors.reptile,
       'icon': CustomIcons.reptile,
-      'label': 'Reptiles',
+      'label': texts.species.reptiles,
     },
     {
-      'page': AmphibiansTabPage(),
+      'page': const AmphibiansTabPage(),
       'color': CustomColors.reptile,
       'icon': CustomIcons.amphibian,
-      'label': 'Anfibios',
+      'label': texts.species.amphibians,
     },
     {
-      'page': FishesTabPage(),
+      'page': const FishesTabPage(),
       'color': CustomColors.fish,
       'icon': CustomIcons.fish,
-      'label': 'Peces',
+      'label': texts.species.fishes,
     },
     {
-      'page': InsectsTabPage(),
+      'page': const InsectsTabPage(),
       'color': CustomColors.insect,
       'icon': CustomIcons.insect,
-      'label': 'Insectos',
+      'label': texts.species.insects,
     },
     {
-      'page': TreesTabPage(),
+      'page': const TreesTabPage(),
       'color': CustomColors.tree,
       'icon': CustomIcons.tree,
-      'label': 'Árboles',
+      'label': texts.species.trees,
     },
     {
-      'page': PalmsTabPage(),
+      'page': const PalmsTabPage(),
       'color': CustomColors.palm,
       'icon': CustomIcons.palm,
-      'label': 'Palmeras',
+      'label': texts.species.palms,
     },
   ];
 
-  final List<Widget> _pages =
-      _pageData.map((page) => page['page'] as Widget).toList();
+  late List<Widget> _pages;
 
-  final List<Color> _tabIndicatorColor =
-      _pageData.map((color) => color['color'] as Color).toList();
+  late List<Color> _tabIndicatorColor;
 
-  final List<Tab> _tabs = _pageData.map((tab) {
-    return Tab(
-      icon: Icon(tab['icon']),
-      text: tab['label'],
-    );
-  }).toList();
+  late List<Tab> _tabs;
 
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _pages = _pageData.map((page) => page['page'] as Widget).toList();
+    _tabIndicatorColor =
+        _pageData.map((color) => color['color'] as Color).toList();
+    _tabs = _pageData.map((tab) {
+      return Tab(
+        icon: Icon(tab['icon']),
+        text: tab['label'],
+      );
+    }).toList();
     _tabController = TabController(length: _tabs.length, vsync: this);
     _tabController.addListener(_handleTabChange);
   }
@@ -108,18 +111,15 @@ class _SpeciesPageState extends State<SpeciesPage>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-    final tabBar = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: TabBar(
-        physics: const BouncingScrollPhysics(),
-        controller: _tabController,
-        splashBorderRadius: BorderRadius.circular(16.0),
-        indicatorColor: _tabIndicatorColor[_tabController.index],
-        labelColor: _tabIndicatorColor[_tabController.index],
-        isScrollable: true,
-        onTap: (index) => setState(() => _tabController.index = index),
-        tabs: _tabs,
-      ),
+    final tabBar = TabBar(
+      physics: const BouncingScrollPhysics(),
+      controller: _tabController,
+      splashBorderRadius: BorderRadius.circular(16.0),
+      indicatorColor: _tabIndicatorColor[_tabController.index],
+      labelColor: _tabIndicatorColor[_tabController.index],
+      isScrollable: true,
+      onTap: (index) => setState(() => _tabController.index = index),
+      tabs: _tabs,
     );
     return DefaultTabController(
       length: _pageData.length,
@@ -134,7 +134,7 @@ class _SpeciesPageState extends State<SpeciesPage>
               children: [
                 Expanded(
                   child: Text(
-                    'Especies',
+                    texts.species.title,
                     style: textTheme.titleLarge,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -161,3 +161,26 @@ class _SpeciesPageState extends State<SpeciesPage>
     );
   }
 }
+ 
+
+
+/* import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/sections/specie_tab/species_tab_section.dart';
+
+class SpeciesPage extends StatelessWidget {
+  const SpeciesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: TabBarView(
+        children: [
+          SpeciesTabSection(type: 1),
+          Text('data')
+        ],
+      ),
+    );
+  }
+}
+ */

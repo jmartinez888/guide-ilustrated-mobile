@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class ProfileHeader extends StatefulWidget {
   const ProfileHeader({super.key});
@@ -39,65 +41,173 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
           final userData = snapshot.data;
-          final profilePicture =
-              userData!['profilePicture'] ?? 'assets/images/logo.png';
+          final profilePicture = userData!['profilePicture'] ?? '';
           final name = userData['name'] ?? '';
           final lastName = userData['lastName'] ?? '';
           final email = userData['email'] ?? '';
           final phone = userData['phone'] ?? '';
           final userId = userData['id'] ?? '';
 
-          return Container(
-            margin: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Row(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 32.0),
-                    child: CircleAvatar(
-                        backgroundImage: NetworkImage(profilePicture),
-                        radius: 50)),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _userName(context,
-                        label: name, fontSize: 16, weight: FontWeight.w600),
-                    _userName(context,
-                        label: lastName, fontSize: 16, weight: FontWeight.w600),
-                    const SizedBox(width: 4.0),
-                    _userName(context, label: email, fontSize: 14),
-                    _userName(context, label: '+$phone', fontSize: 14),
-                    const SizedBox(height: 4.0),
-                    FilledButton(
-                      onPressed: () {
-                        context.pushNamed(Routes.editProfile,
-                            pathParameters: {'userId': userId.toString()});
-                      },
-                      child: const Text('Editar perfil'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
+          final profileIncomplete =
+              name.isEmpty || lastName.isEmpty || phone.isEmpty;
+          if (profileIncomplete) {
+            return _IncompleteProfile(
+              userId: userId,
+              email: email,
+            );
+          } else {
+            return _CompleteProfile(
+              userId: userId,
+              name: name,
+              lastName: lastName,
+              email: email,
+              phone: '+$phone',
+              profilePicture: profilePicture,
+            );
+          }
         } else {
-          return const Text('Usuario no encontrado');
+          return Text(texts.profile.userNotFound);
         }
       },
     );
   }
+}
 
-  Widget _userName(BuildContext context,
-          {required String label,
-          required double fontSize,
-          FontWeight? weight}) =>
-      Text(
-        label,
-        style: TextStyle(fontSize: fontSize, fontWeight: weight),
-      );
+class _IncompleteProfile extends StatelessWidget {
+  final String userId;
+  final String email;
+
+  const _IncompleteProfile({required this.userId, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Icon(
+            Icons.account_circle_rounded,
+            color: Colors.grey[400],
+            size: 200,
+          ),
+          const SizedBox(height: 15.0),
+          Text(email,
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
+          const SizedBox(height: 16.0),
+          Text(
+            texts.profile.completeProfile,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16.0),
+          FilledButton(
+            onPressed: () {
+              context.pushNamed(Routes.editProfile,
+                  pathParameters: {'userId': userId.toString()});
+            },
+            child: Text(texts.profile.completeButton),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _CompleteProfile extends StatelessWidget {
+  final String userId;
+  final String name;
+  final String lastName;
+  final String email;
+  final String phone;
+  final String profilePicture;
+
+  const _CompleteProfile({
+    required this.userId,
+    required this.name,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.profilePicture,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          FutureBuilder<bool>(
+            future: doesImageExist(profilePicture),
+            builder: (context, imageSnapshot) {
+              final imageExists = imageSnapshot.data ?? false;
+              return imageExists
+                  ? CircleAvatar(
+                      radius: 100,
+                      backgroundImage: NetworkImage(profilePicture),
+                    )
+                  : const Icon(
+                      Icons.account_circle_rounded,
+                      color: Colors.grey,
+                      size: 200,
+                    );
+            },
+          ),
+          const SizedBox(height: 16.0),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              '$name $lastName',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.phone_iphone),
+              const SizedBox(width: 8.0),
+              Text(
+                phone,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.email),
+              const SizedBox(width: 8.0),
+              Text(
+                email,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
+            ),
+            onPressed: () {
+              context.pushNamed(Routes.editProfile,
+                  pathParameters: {'userId': userId.toString()});
+            },
+            child: Text(texts.profile.editButton),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Future<bool> doesImageExist(String imageUrl) async {
+  final storage = FirebaseStorage.instance;
+  try {
+    final ref = storage.refFromURL(imageUrl);
+    await ref.getMetadata();
+    return true;
+  } catch (e) {
+    return false;
+  }
 }

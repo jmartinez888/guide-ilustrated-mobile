@@ -1,0 +1,39 @@
+{
+    "password": {
+        "label": "Mot de passe",
+        "empty": "Entrez votre mot de passe",
+        "minLength": "Entrez au moins 6 caractères",
+        "regExp": "Le mot de passe doit contenir au moins un chiffre et une lettre"
+    },
+    "repeatPassword": {
+        "empty": "Entrez votre mot de passe",
+        "minLength": "Entrez au moins 6 caractères",
+        "regExp": "Le mot de passe doit contenir au moins un chiffre et une lettre",
+        "matchPassword": "Les mots de passe doivent correspondre"
+    },
+    "email": {
+        "label": "Email",
+        "empty": "Entrez votre email",
+        "regExp": "Entrez un email valide"
+    },
+    "name": {
+        "label": "Nom",
+        "empty": "Entrez votre nom",
+        "minLength": "Entrez au moins 3 caractères"
+    },
+    "lastName": {
+        "label": "Nom de famille",
+        "empty": "Entrez votre nom de famille",
+        "minLength": "Entrez au moins 3 caractères"
+    },
+    "phone": {
+        "label": "Numéro de téléphone",
+        "empty": "Entrez votre numéro de téléphone",
+        "minLength": "Entrez au moins 9 caractères",
+        "regExp": "Entrez un numéro de téléphone valide"
+    },
+    "countryCode": {
+        "label": "Code pays",
+        "select": "Sélectionnez le code pays"
+    }
+}

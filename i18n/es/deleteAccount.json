@@ -1,0 +1,16 @@
+{
+    "title": "Eliminar cuenta",
+    "userInfo": "Información del usuario:",
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "delete": "Eliminar cuenta",
+    "warning": "Al eliminar tu cuenta, aceptas los siguientes términos:",
+    "firtsTerm": "- No podrás recuperar tu cuenta.",
+    "secondTerm": "- No podrás recuperar tus datos.",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "information": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible. Ingresa tu contraseña para confirmar.",
+    "accountDeleted": "Cuenta eliminada exitosamente",
+    "notRegistered": "No registrado"
+}

@@ -3,49 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:species/src/data/repositories_implementation/auth_iiap/auth_iiap_repository_impl.dart';
-import 'package:species/src/presentation/global/colors.dart';
+import 'package:species/src/presentation/global/widgets/card/custom_list_tile.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/generated/translations.g.dart';
 
-List<Map<String, dynamic>> items = [
-  {
-    'icon': Icons.favorite,
-    'title': 'Mis favoritos',
-    'route': Routes.specieFavorites,
-  },
-  {
-    'icon': Icons.password_outlined,
-    'title': 'Cambiar contraseña',
-    'route': Routes.forgotPassword,
-  },
-  {
-    'icon': Icons.person_add,
-    'title': 'Compartir',
-    'onTap': () {
-      Share.share(
-          'Descarga la app de IIAP Guía Ilustrada de Flora y Fauna y conoce más sobre las especies de la Amazonía Peruana: https://play.google.com/store/apps/details?id=com.iiap.guiailustrada');
-    },
-  },
-  {
-    'icon': Icons.work_outlined,
-    'title': 'Acerca de la app',
-    'route': Routes.about,
-  },
-  {
-    'icon': Icons.info_outline,
-    'title': 'Acerca del Equipo IIAP',
-    'route': Routes.staff,
-  },
-];
-
-class ProfileBody extends StatefulWidget {
+class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key});
 
-  @override
-  State<ProfileBody> createState() => _ProfileBodyState();
-}
-
-class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
     Future<Map<String, dynamic>> getUserData() async {
@@ -76,66 +40,102 @@ class _ProfileBodyState extends State<ProfileBody> {
           final userId = userData?['id'] ?? '';
 
           return Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            margin: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(10),
-            ),
+            padding: const EdgeInsets.only(left: 10, right: 10),
             child: Column(
               children: [
-                Column(
-                  children: items.map((item) {
-                    return ListTile(
-                      onTap: item['onTap'] ??
-                          () => context.pushNamed(item['route']),
-                      leading: Icon(
-                        item['icon'],
-                        color: CustomColors.secondary,
-                      ),
-                      title: Text(item['title']),
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                        color: Colors.grey,
-                      ),
-                    );
-                  }).toList(),
+                CustomListTile(
+                  onTap: () => context.pushNamed(
+                    Routes.specieFavorites,
+                  ),
+                  leading: const Icon(
+                    Icons.favorite,
+                    color: Colors.grey,
+                  ),
+                  title: texts.profile.favorites,
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
                 ),
-                _deleteAccount(context, userId),
-                _logout(context, userId),
+                CustomListTile(
+                  onTap: () => context.pushNamed(
+                    Routes.forgotPassword,
+                  ),
+                  leading: const Icon(
+                    Icons.password_outlined,
+                    color: Colors.grey,
+                  ),
+                  title: texts.profile.changePassword,
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                ),
+                CustomListTile(
+                  onTap: () {
+                    Share.share(
+                        '${texts.profile.share} https://play.google.com/store/apps/details?id=com.iiap.guiailustrada');
+                  },
+                  leading: const Icon(
+                    Icons.person_add,
+                    color: Colors.grey,
+                  ),
+                  title: texts.profile.invite,
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                ),
+                CustomListTile(
+                  onTap: () => context.pushNamed(
+                    Routes.about,
+                  ),
+                  leading: const Icon(
+                    Icons.work_outlined,
+                    color: Colors.grey,
+                  ),
+                  title: texts.profile.project,
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                ),
+                CustomListTile(
+                  onTap: () => context.pushNamed(
+                    Routes.staff,
+                  ),
+                  leading: const Icon(
+                    Icons.info_outline,
+                    color: Colors.grey,
+                  ),
+                  title: texts.profile.team,
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                ),
+                CustomListTile(
+                  onTap: () => context.pushNamed(
+                    Routes.deleteAccount,
+                    pathParameters: {'userId': userId},
+                  ),
+                  leading: const Icon(
+                    Icons.delete_forever_outlined,
+                    color: Colors.grey,
+                  ),
+                  title: texts.profile.deleteAccount,
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  ),
+                ),
               ],
             ),
           );
         } else {
-          return const Text('Usuario no encontrado');
+          return Text(texts.profile.userNotFound);
         }
       },
-    );
-  }
-
-  ListTile _logout(BuildContext context, userId) {
-    final authRepository = AuthIiapRepositoryImpl();
-    return ListTile(
-      onTap: () async {
-        await authRepository.signOut();
-        if (mounted) {
-          context.goNamed(Routes.species);
-        }
-      },
-      leading: const Icon(Icons.logout_outlined, color: CustomColors.secondary),
-      title: const Text('Cerrar sesión'),
-      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-    );
-  }
-
-  ListTile _deleteAccount(BuildContext context, userId) {
-    return ListTile(
-      onTap: () => context
-          .pushNamed(Routes.deleteAccount, pathParameters: {'userId': userId}),
-      leading: const Icon(Icons.delete_forever_outlined,
-          color: CustomColors.secondary),
-      title: const Text('Eliminar cuenta'),
-      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
     );
   }
 }
