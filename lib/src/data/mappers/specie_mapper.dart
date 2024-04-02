@@ -89,7 +89,7 @@ class SpecieMapper {
           : null,
       family: specie.taxonomy != null && specie.taxonomy!.family != null
           ? _familyMapper.familyIiapToFamily(specie.taxonomy!.family!)
-          : null,
+          : null, 
       state: specie.state,
     );
   }

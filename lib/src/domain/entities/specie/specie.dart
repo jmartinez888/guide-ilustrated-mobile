@@ -40,6 +40,7 @@ class Specie with _$Specie {
     @AuthorsIntoClassToMap() @Default(null) List<Author>? authors,
     @KingdomMapIntoClass() @Default(null) Kingdom? kingdom,
     @PhylumMapIntoClass() @Default(null) Phylum? phylum,
+    @JsonKey(name: 'class')
     @ClassMapIntoClass() @Default(null) ClassC? classC,
     @OrderMapIntoClass()
     @Default(null) OrderC? order,
@@ -50,7 +51,6 @@ class Specie with _$Specie {
 
   factory Specie.fromJson(Map<String, dynamic> json) => _$SpecieFromJson(json);
 }
-
 
 List<Specie> getSpecieList(List list) {
   return list.map((e) => Specie.fromJson(e)).toList();

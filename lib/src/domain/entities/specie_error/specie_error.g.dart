@@ -1,19 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'specie_error_helper.dart';
+part of 'specie_error.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SpecieErrorHelperImpl _$$SpecieErrorHelperImplFromJson(
-        Map<String, dynamic> json) =>
-    _$SpecieErrorHelperImpl(
-      id: json['id'] as String,
+_$SpecieErrorImpl _$$SpecieErrorImplFromJson(Map<String, dynamic> json) =>
+    _$SpecieErrorImpl(
+      id: json['id'] as int,
     );
 
-Map<String, dynamic> _$$SpecieErrorHelperImplToJson(
-        _$SpecieErrorHelperImpl instance) =>
+Map<String, dynamic> _$$SpecieErrorImplToJson(_$SpecieErrorImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
     };

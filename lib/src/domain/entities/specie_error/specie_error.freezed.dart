@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'specie_error_helper.dart';
+part of 'specie_error.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,33 +14,33 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-SpecieErrorHelper _$SpecieErrorHelperFromJson(Map<String, dynamic> json) {
-  return _SpecieErrorHelper.fromJson(json);
+SpecieError _$SpecieErrorFromJson(Map<String, dynamic> json) {
+  return _SpecieError.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SpecieErrorHelper {
-  String get id => throw _privateConstructorUsedError;
+mixin _$SpecieError {
+  int get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SpecieErrorHelperCopyWith<SpecieErrorHelper> get copyWith =>
+  $SpecieErrorCopyWith<SpecieError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SpecieErrorHelperCopyWith<$Res> {
-  factory $SpecieErrorHelperCopyWith(
-          SpecieErrorHelper value, $Res Function(SpecieErrorHelper) then) =
-      _$SpecieErrorHelperCopyWithImpl<$Res, SpecieErrorHelper>;
+abstract class $SpecieErrorCopyWith<$Res> {
+  factory $SpecieErrorCopyWith(
+          SpecieError value, $Res Function(SpecieError) then) =
+      _$SpecieErrorCopyWithImpl<$Res, SpecieError>;
   @useResult
-  $Res call({String id});
+  $Res call({int id});
 }
 
 /// @nodoc
-class _$SpecieErrorHelperCopyWithImpl<$Res, $Val extends SpecieErrorHelper>
-    implements $SpecieErrorHelperCopyWith<$Res> {
-  _$SpecieErrorHelperCopyWithImpl(this._value, this._then);
+class _$SpecieErrorCopyWithImpl<$Res, $Val extends SpecieError>
+    implements $SpecieErrorCopyWith<$Res> {
+  _$SpecieErrorCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -56,28 +56,28 @@ class _$SpecieErrorHelperCopyWithImpl<$Res, $Val extends SpecieErrorHelper>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$SpecieErrorHelperImplCopyWith<$Res>
-    implements $SpecieErrorHelperCopyWith<$Res> {
-  factory _$$SpecieErrorHelperImplCopyWith(_$SpecieErrorHelperImpl value,
-          $Res Function(_$SpecieErrorHelperImpl) then) =
-      __$$SpecieErrorHelperImplCopyWithImpl<$Res>;
+abstract class _$$SpecieErrorImplCopyWith<$Res>
+    implements $SpecieErrorCopyWith<$Res> {
+  factory _$$SpecieErrorImplCopyWith(
+          _$SpecieErrorImpl value, $Res Function(_$SpecieErrorImpl) then) =
+      __$$SpecieErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id});
+  $Res call({int id});
 }
 
 /// @nodoc
-class __$$SpecieErrorHelperImplCopyWithImpl<$Res>
-    extends _$SpecieErrorHelperCopyWithImpl<$Res, _$SpecieErrorHelperImpl>
-    implements _$$SpecieErrorHelperImplCopyWith<$Res> {
-  __$$SpecieErrorHelperImplCopyWithImpl(_$SpecieErrorHelperImpl _value,
-      $Res Function(_$SpecieErrorHelperImpl) _then)
+class __$$SpecieErrorImplCopyWithImpl<$Res>
+    extends _$SpecieErrorCopyWithImpl<$Res, _$SpecieErrorImpl>
+    implements _$$SpecieErrorImplCopyWith<$Res> {
+  __$$SpecieErrorImplCopyWithImpl(
+      _$SpecieErrorImpl _value, $Res Function(_$SpecieErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -85,36 +85,36 @@ class __$$SpecieErrorHelperImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
   }) {
-    return _then(_$SpecieErrorHelperImpl(
+    return _then(_$SpecieErrorImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$SpecieErrorHelperImpl implements _SpecieErrorHelper {
-  _$SpecieErrorHelperImpl({required this.id});
+class _$SpecieErrorImpl implements _SpecieError {
+  _$SpecieErrorImpl({required this.id});
 
-  factory _$SpecieErrorHelperImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SpecieErrorHelperImplFromJson(json);
+  factory _$SpecieErrorImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SpecieErrorImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
 
   @override
   String toString() {
-    return 'SpecieErrorHelper(id: $id)';
+    return 'SpecieError(id: $id)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SpecieErrorHelperImpl &&
+            other is _$SpecieErrorImpl &&
             (identical(other.id, id) || other.id == id));
   }
 
@@ -125,29 +125,27 @@ class _$SpecieErrorHelperImpl implements _SpecieErrorHelper {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SpecieErrorHelperImplCopyWith<_$SpecieErrorHelperImpl> get copyWith =>
-      __$$SpecieErrorHelperImplCopyWithImpl<_$SpecieErrorHelperImpl>(
-          this, _$identity);
+  _$$SpecieErrorImplCopyWith<_$SpecieErrorImpl> get copyWith =>
+      __$$SpecieErrorImplCopyWithImpl<_$SpecieErrorImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SpecieErrorHelperImplToJson(
+    return _$$SpecieErrorImplToJson(
       this,
     );
   }
 }
 
-abstract class _SpecieErrorHelper implements SpecieErrorHelper {
-  factory _SpecieErrorHelper({required final String id}) =
-      _$SpecieErrorHelperImpl;
+abstract class _SpecieError implements SpecieError {
+  factory _SpecieError({required final int id}) = _$SpecieErrorImpl;
 
-  factory _SpecieErrorHelper.fromJson(Map<String, dynamic> json) =
-      _$SpecieErrorHelperImpl.fromJson;
+  factory _SpecieError.fromJson(Map<String, dynamic> json) =
+      _$SpecieErrorImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   @JsonKey(ignore: true)
-  _$$SpecieErrorHelperImplCopyWith<_$SpecieErrorHelperImpl> get copyWith =>
+  _$$SpecieErrorImplCopyWith<_$SpecieErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

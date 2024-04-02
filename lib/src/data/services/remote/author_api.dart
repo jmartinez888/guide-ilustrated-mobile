@@ -37,9 +37,9 @@ class AuthorApi {
       }
     } catch (e) {
       if (e is SocketException || e is ClientException) {
-        return Either.left(HttpRequestFailureNetwork());
+        return Either.left(HttpRequestFailure.network());
       }
-      return Either.left(HttpRequestFailureUnknown());
+      return Either.left(HttpRequestFailure.unknown());
     }
   }
 
@@ -72,7 +72,7 @@ class AuthorApi {
     try {
       final response = await get(Uri.parse('$_baseUrl/authors/$id'));
       if (response.statusCode != 200) {
-        return Either.left(HttpRequestFailureNotFound());
+        return Either.left(HttpRequestFailure.notFound());
       }
       final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
         final authorIiap = AuthorIiap.fromJson(responseBody);
@@ -81,9 +81,9 @@ class AuthorApi {
         return Either.right(author);
     } catch (e) {
       if (e is SocketException || e is ClientException) {
-        return Either.left(HttpRequestFailureNetwork());
+        return Either.left(HttpRequestFailure.network());
       }
-      return Either.left(HttpRequestFailureUnknown());
+      return Either.left(HttpRequestFailure.unknown());
     }
   }
 }

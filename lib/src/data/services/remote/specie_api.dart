@@ -38,8 +38,7 @@ class SpecieApi {
       if (response.statusCode == 200) {
         final responseList = jsonDecode(response.body) as Map<String, dynamic>;
 
-        final speciesIiap =
-            getSpecieIiapList(responseList['species']);
+        final speciesIiap = getSpecieIiapList(responseList['species']);
 
         final species = speciesIiap
             .map((specieIiap) => _specieMapper.specieIiapToSpecie(specieIiap))
@@ -47,13 +46,13 @@ class SpecieApi {
 
         return Either.right(species);
       } else {
-        return Either.left(HttpRequestFailureNotFound());
+        return Either.left(HttpRequestFailure.notFound());
       }
     } catch (e) {
       if (e is SocketException || e is ClientException) {
-        return Either.left(HttpRequestFailureNetwork());
+        return Either.left(HttpRequestFailure.network());
       }
-      return Either.left(HttpRequestFailureUnknown());
+      return Either.left(HttpRequestFailure.unknown());
     }
   }
 
@@ -108,11 +107,41 @@ class SpecieApi {
   }
 
   Future<Either<HttpRequestFailure, Specie>> getSpecie(String id) async {
+    return _getSpecieHelper(id);
+  }
+
+  Future<Either<HttpRequestFailure, List<Specie>>> getSpeciesData(
+      List<String> ids) async {
+    final List<Specie> finalSpecies = [];
+    HttpRequestFailure? httpRequestFailureValue;
+
+    for (String id in ids) {
+      final getSpecie = await _getSpecieHelper(id);
+      getSpecie.when(
+        (httpRequestFailure) => httpRequestFailureValue = httpRequestFailure,
+        (specie) {
+          finalSpecies.add(specie);
+        },
+      );
+    }
+
+    if (httpRequestFailureValue != null) {
+      return httpRequestFailureValue!.when(
+        network: () => Either.left(HttpRequestFailure.network()),
+        unknown: () => Either.left(HttpRequestFailure.unknown()),
+        notFound: () => Either.left(HttpRequestFailure.notFound()),
+      );
+    }
+
+    return Either.right(finalSpecies);
+  }
+
+  Future<Either<HttpRequestFailure, Specie>> _getSpecieHelper(String id) async {
     try {
       final response = await get(Uri.parse('$_baseUrl/species/$id'));
 
       if (response.statusCode != 200) {
-        return Either.left(HttpRequestFailureNotFound());
+        return Either.left(HttpRequestFailure.notFound());
       }
       final specieIiap = SpecieIiap.fromJson(jsonDecode(response.body));
 
@@ -121,9 +150,9 @@ class SpecieApi {
       return Either.right(specie);
     } catch (e) {
       if (e is SocketException || e is ClientException) {
-        return Either.left(HttpRequestFailureNetwork());
+        return Either.left(HttpRequestFailure.network());
       }
-      return Either.left(HttpRequestFailureUnknown());
+      return Either.left(HttpRequestFailure.unknown());
     }
   }
 }

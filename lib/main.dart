@@ -36,6 +36,7 @@ import 'package:species/src/data/services/remote/order_api.dart';
 import 'package:species/src/data/services/remote/specie_api.dart';
 import 'package:species/src/data/services/remote/conservation_states_api.dart';
 import 'package:species/src/data/services/remote/taxonomy_api.dart';
+import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/domain/repositories/author/author_repository.dart';
@@ -60,6 +61,7 @@ import 'package:species/src/domain/repositories/community/community_repository.d
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/controller/state/community_details_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/controller/species_page_tabs_up_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/controller/state/species_tabs_up_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
@@ -109,21 +111,7 @@ void main() async {
         ),
         Provider<SpecieRepository>(
           create: (_) => SpecieRepositoryImpl(
-            specieApi: SpecieApi(
-              baseUrl: baseUrl,
-              specieMapper: SpecieMapper(
-                typeMapper: TypeMapper(),
-                conservationStateMapper: ConservationStateMapper(),
-                authorMapper: AuthorMapper(
-                  specieForAuthorMapper: SpecieForAuthorMapper(),
-                ),
-                kingdomMapper: KingdomMapper(),
-                phylumMapper: PhylumMapper(),
-                classMapper: ClassMapper(),
-                orderMapper: OrderMapper(),
-                familyMapper: FamilyMapper(),
-              ),
-            ),
+            specieApi: specieApi(baseUrl),
           ),
         ),
         Provider<ClassRepository>(
@@ -167,6 +155,7 @@ void main() async {
         Provider<FavoriteRepository>(
           create: (_) => FavoriteRepositoryImpl(
             favoriteApi: FavoriteApi(),
+            specieApi: specieApi(baseUrl),
           ),
         ),
         Provider<CommunityRository>(
@@ -285,6 +274,24 @@ void main() async {
         ),
       ],
       child: TranslationProvider(child: const MyApp()),
+    ),
+  );
+}
+
+SpecieApi specieApi(String baseUrl) {
+  return SpecieApi(
+    baseUrl: baseUrl,
+    specieMapper: SpecieMapper(
+      typeMapper: TypeMapper(),
+      conservationStateMapper: ConservationStateMapper(),
+      authorMapper: AuthorMapper(
+        specieForAuthorMapper: SpecieForAuthorMapper(),
+      ),
+      kingdomMapper: KingdomMapper(),
+      phylumMapper: PhylumMapper(),
+      classMapper: ClassMapper(),
+      orderMapper: OrderMapper(),
+      familyMapper: FamilyMapper(),
     ),
   );
 }

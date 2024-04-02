@@ -5,7 +5,7 @@ class FamilyMapIntoClass implements JsonConverter<Family, dynamic> {
   const FamilyMapIntoClass();
 
   @override
-  Family fromJson(dynamic family) => family.fromJson(family);
+  Family fromJson(dynamic family) => Family.fromJson(family);
 
   @override
   Map<String, dynamic> toJson(Family family) => family.toJson();

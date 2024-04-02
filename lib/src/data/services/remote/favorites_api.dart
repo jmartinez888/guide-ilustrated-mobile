@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart';
+import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
-import 'package:species/src/domain/entities/specie_helper/specie_helper.dart';
-import 'package:species/src/domain/specie_error_helper/specie_error_helper.dart';
+import 'package:species/src/domain/entities/specie_error/specie_error.dart';
+import 'package:species/src/domain/failures/upload_data_firts_time/upload_data_first_time.dart';
 
 class FavoriteApi {
   final firebaseInstance = FirebaseFirestore.instance.collection('users');
@@ -53,40 +57,17 @@ class FavoriteApi {
     }
   }
 
-  Stream<List<SpecieHelper>> getFavoritesSpeciesHelper(String userId) {
-    try {
-      final querySnapshot = firebaseInstance
-          .doc(userId)
-          .collection('favorites')
-          .orderBy('name')
-          .snapshots();
-
-      return querySnapshot.map((snapshot) {
-        final List<SpecieHelper> species = [];
-
-        for (var doc in snapshot.docs) {
-          final data = doc.data();
-          final specie = SpecieHelper.fromJson(data);
-          species.add(specie);
-        }
-        return species;
-      });
-    } catch (e) {
-      throw 'Ha ocurrido un error al obtener las especies';
-    }
-  }
-
-  Stream<List<SpecieErrorHelper>> getFavoritesSpeciesError(String userId) {
+  Stream<List<SpecieError>> getFavoritesSpeciesError(String userId) {
     try {
       final querySnapshot =
           firebaseInstance.doc(userId).collection('favorites').snapshots();
 
       return querySnapshot.map((snapshot) {
-        final List<SpecieErrorHelper> species = [];
+        final List<SpecieError> species = [];
 
         for (var doc in snapshot.docs) {
           final data = doc.data();
-          final specie = SpecieErrorHelper.fromJson(data);
+          final specie = SpecieError.fromJson(data);
           species.add(specie);
         }
         return species;
@@ -95,6 +76,21 @@ class FavoriteApi {
       throw 'Ha ocurrido un error al obtener las especies';
     }
   }
+
+  Future<Either<UploadDataForFirstTimeFailure, List<Specie>>> setFavoritesSpecies({
+  required List<Specie> species,
+  required String userId,
+}) async {
+  try {
+    for (var specie in species) {
+      await saveSpecieFavorite(userId: userId, specie: specie);
+    }
+    return Either.right(species);
+  } catch (e) {
+    return Either.left(UploadDataForFirstTimeFailure.unknow());
+  }
+}
+
 
   Future<void> saveSpecieFavorite({
     required String userId,
@@ -131,19 +127,16 @@ class FavoriteApi {
   }
 }
 
-/* FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection('favorites')
-        .doc(widget.specie.id.toString())
-        .snapshots()
-        .map((snapshot) => snapshot.exists); */
 
-
-/* FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
+/* Future<void> _saveSpecieFavoriteHelper({
+    required String userId,
+    required Specie specie,
+  }) async {
+    final docUser = firebaseInstance.doc(userId);
+    final getUser = await docUser.get();
+    final json = specie.toJson();
+    await getUser.reference
         .collection('favorites')
-        .doc(widget.specie.id.toString())
-        .snapshots()
-        .map((snapshot) => snapshot.exists); */
+        .doc(specie.id.toString())
+        .set(json);
+  } */

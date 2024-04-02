@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
@@ -14,10 +16,9 @@ import 'package:species/src/presentation/global/functions/get_main_color_by_int.
 import 'package:species/src/presentation/global/sections/grid_loading.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
+import 'package:species/src/presentation/global/widgets/card/card_to_specie_grid.dart';
 import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
-import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
@@ -115,85 +116,29 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                 child: GridLoading(),
               ),
               itemBuilder: (context, specie, index) {
-                return CustomGridCard(
+                return CardToSpeciesGrid(
+                  specie: specie,
+                  mainColor: mainColor,
+                  opaqueColor: opaqueColor,
                   onTap: () => context.pushNamed(
                     Routes.specieDetails,
                     pathParameters: {'id': specie.id.toString()},
                   ),
-                  principalColor: mainColor,
-                  backgroundColor: opaqueColor,
-                  image: Stack(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 48.0),
-                        color: Colors.white,
-                        child: CustomImageContainer(
+                  favoriteIcon: sessionState != null
+                      ? _FavoriteIcon(
+                          userId: sessionState,
+                          idSpecie: specie.id,
                           mainColor: mainColor,
-                          imageUrl:
-                              specie.images != null && specie.images!.isNotEmpty
-                                  ? specie.images!.first
-                                  : null,
-                          heightImage: 232.0,
+                          opaqueColor: opaqueColor,
+                        )
+                      : CustomIconButton(
+                          tooltip: texts.species.saveFavorite,
+                          icon: Icons.favorite_outline_rounded,
+                          iconColor: mainColor,
+                          onPressed: () {
+                            context.pushNamed(Routes.signIn);
+                          },
                         ),
-                      ),
-                      if (specie.conservationStates != null &&
-                          specie.conservationStates!.isNotEmpty)
-                        Positioned(
-                          left: 8.0,
-                          bottom: 8.0,
-                          child: Row(
-                            children: [
-                              for (var statusImage
-                                  in specie.conservationStates!)
-                                CustomImageContainer(
-                                  mainColor: mainColor,
-                                  borderRadius: BorderRadius.zero,
-                                  imageUrl: statusImage.image,
-                                  heightImage: 40.0,
-                                  width: 40.0,
-                                  progressIndicatorBuilder: (_, __, ___) =>
-                                      const SizedBox(),
-                                ),
-                            ],
-                          ),
-                        ),
-                      Positioned(
-                        top: 8.0,
-                        right: 8.0,
-                        child: Wrap(
-                          spacing: 8.0,
-                          runSpacing: 8.0,
-                          children: [
-                            if (specie.sound != null &&
-                                specie.sound!.isNotEmpty)
-                              CustomIconButton(
-                                onPressed: null,
-                                iconColor: mainColor,
-                                icon: Icons.music_note_rounded,
-                              ),
-                            sessionState != null
-                                ? _FavoriteIcon(
-                                    userId: sessionState,
-                                    idSpecie: specie.id,
-                                    mainColor: mainColor,
-                                    opaqueColor: opaqueColor,
-                                  )
-                                : CustomIconButton(
-                                    tooltip: texts.species.saveFavorite,
-                                    icon: Icons.favorite_outline_rounded,
-                                    iconColor: mainColor,
-                                    onPressed: () {
-                                      context.pushNamed(Routes.signIn);
-                                    },
-                                  ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  title: specie.name,
-                  subtitle: specie.scientificName,
-                  fontStyle: FontStyle.italic,
                 );
               },
             ),
@@ -343,7 +288,7 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
                 }
               },
             ),
-            if (loading) const CircularProgressIndicator(),
+            if (loading) CircularProgressIndicator(color: widget.mainColor),
           ],
         );
       },

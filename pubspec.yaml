@@ -75,6 +75,7 @@ dependencies:
   slang_flutter: ^3.30.0
   slang_build_runner: ^3.30.0
   intl: ^0.18.1
+  remove_diacritic: ^0.9.0
   
 dev_dependencies:
   flutter_test:

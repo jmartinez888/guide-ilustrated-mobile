@@ -5,7 +5,7 @@ class OrderMapIntoClass implements JsonConverter<OrderC, dynamic> {
   const OrderMapIntoClass();
 
   @override
-  OrderC fromJson(dynamic orderC) => orderC.fromJson(orderC);
+  OrderC fromJson(dynamic orderC) => OrderC.fromJson(orderC);
 
   @override
   Map<String, dynamic> toJson(OrderC orderC) => orderC.toJson();

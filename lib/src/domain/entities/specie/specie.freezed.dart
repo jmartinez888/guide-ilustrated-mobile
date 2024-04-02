@@ -44,6 +44,7 @@ mixin _$Specie {
   Kingdom? get kingdom => throw _privateConstructorUsedError;
   @PhylumMapIntoClass()
   Phylum? get phylum => throw _privateConstructorUsedError;
+  @JsonKey(name: 'class')
   @ClassMapIntoClass()
   ClassC? get classC => throw _privateConstructorUsedError;
   @OrderMapIntoClass()
@@ -79,7 +80,7 @@ abstract class $SpecieCopyWith<$Res> {
       @AuthorsIntoClassToMap() List<Author>? authors,
       @KingdomMapIntoClass() Kingdom? kingdom,
       @PhylumMapIntoClass() Phylum? phylum,
-      @ClassMapIntoClass() ClassC? classC,
+      @JsonKey(name: 'class') @ClassMapIntoClass() ClassC? classC,
       @OrderMapIntoClass() OrderC? order,
       @FamilyMapIntoClass() Family? family,
       String? state});
@@ -297,7 +298,7 @@ abstract class _$$SpecieImplCopyWith<$Res> implements $SpecieCopyWith<$Res> {
       @AuthorsIntoClassToMap() List<Author>? authors,
       @KingdomMapIntoClass() Kingdom? kingdom,
       @PhylumMapIntoClass() Phylum? phylum,
-      @ClassMapIntoClass() ClassC? classC,
+      @JsonKey(name: 'class') @ClassMapIntoClass() ClassC? classC,
       @OrderMapIntoClass() OrderC? order,
       @FamilyMapIntoClass() Family? family,
       String? state});
@@ -443,7 +444,7 @@ class _$SpecieImpl implements _Specie {
       @AuthorsIntoClassToMap() final List<Author>? authors = null,
       @KingdomMapIntoClass() this.kingdom = null,
       @PhylumMapIntoClass() this.phylum = null,
-      @ClassMapIntoClass() this.classC = null,
+      @JsonKey(name: 'class') @ClassMapIntoClass() this.classC = null,
       @OrderMapIntoClass() this.order = null,
       @FamilyMapIntoClass() this.family = null,
       this.state})
@@ -521,7 +522,7 @@ class _$SpecieImpl implements _Specie {
   @PhylumMapIntoClass()
   final Phylum? phylum;
   @override
-  @JsonKey()
+  @JsonKey(name: 'class')
   @ClassMapIntoClass()
   final ClassC? classC;
   @override
@@ -625,7 +626,7 @@ abstract class _Specie implements Specie {
       @AuthorsIntoClassToMap() final List<Author>? authors,
       @KingdomMapIntoClass() final Kingdom? kingdom,
       @PhylumMapIntoClass() final Phylum? phylum,
-      @ClassMapIntoClass() final ClassC? classC,
+      @JsonKey(name: 'class') @ClassMapIntoClass() final ClassC? classC,
       @OrderMapIntoClass() final OrderC? order,
       @FamilyMapIntoClass() final Family? family,
       final String? state}) = _$SpecieImpl;
@@ -670,6 +671,7 @@ abstract class _Specie implements Specie {
   @PhylumMapIntoClass()
   Phylum? get phylum;
   @override
+  @JsonKey(name: 'class')
   @ClassMapIntoClass()
   ClassC? get classC;
   @override

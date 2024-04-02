@@ -33,9 +33,9 @@ _$SpecieImpl _$$SpecieImplFromJson(Map<String, dynamic> json) => _$SpecieImpl(
       phylum: json['phylum'] == null
           ? null
           : const PhylumMapIntoClass().fromJson(json['phylum']),
-      classC: json['classC'] == null
+      classC: json['class'] == null
           ? null
-          : const ClassMapIntoClass().fromJson(json['classC']),
+          : const ClassMapIntoClass().fromJson(json['class']),
       order: json['order'] == null
           ? null
           : const OrderMapIntoClass().fromJson(json['order']),
@@ -68,7 +68,7 @@ Map<String, dynamic> _$$SpecieImplToJson(_$SpecieImpl instance) =>
           instance.kingdom, const KingdomMapIntoClass().toJson),
       'phylum': _$JsonConverterToJson<dynamic, Phylum>(
           instance.phylum, const PhylumMapIntoClass().toJson),
-      'classC': _$JsonConverterToJson<dynamic, ClassC>(
+      'class': _$JsonConverterToJson<dynamic, ClassC>(
           instance.classC, const ClassMapIntoClass().toJson),
       'order': _$JsonConverterToJson<dynamic, OrderC>(
           instance.order, const OrderMapIntoClass().toJson),

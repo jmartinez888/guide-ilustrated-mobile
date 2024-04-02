@@ -1,21 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:remove_diacritic/remove_diacritic.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/domain/entities/specie_error/specie_error.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
-import 'package:species/src/presentation/global/functions/get_main_color_by_string.dart';
-import 'package:species/src/presentation/global/sections/grid_loading.dart';
+import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
-import 'package:species/src/presentation/global/widgets/card/custom_grid_card.dart';
-import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
+import 'package:species/src/presentation/global/widgets/card/card_to_specie_grid.dart';
+import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
+import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
-import 'package:species/src/presentation/router/routes.dart';
-import 'package:species/src/generated/translations.g.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -25,324 +24,260 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
+  late Stream<List<Specie>> _favorites;
   SessionController get sessionController => context.read();
+  FavoriteController get favoriteControllerRead => context.read();
   FavoriteRepository get favoriteRepository => context.read();
-  FavoriteController get favoriteController => context.read();
-  TextEditingController searchController = TextEditingController();
-  String searchText = '';
-  bool switchSearch = false;
+  late Color mainColor;
+  late Color opaqueColor;
   FocusNode searchFocusNode = FocusNode();
-  final firebaseInstance = FirebaseAuth.instance;
+
+  // Añade un TextEditingController y asigna el valor por defecto
+  late TextEditingController searchTextController;
 
   @override
   void initState() {
-    favoriteController.subscribeToSpecies(sessionController.state!);
+    _favorites =
+        favoriteControllerRead.getFavoritesSpecies(sessionController.state!);
+
+    // Inicializa el TextEditingController con el valor por defecto
+    searchTextController =
+        TextEditingController(text: favoriteControllerRead.state.searchText);
+
     super.initState();
   }
 
   @override
   void dispose() {
+    searchTextController.dispose();
     super.dispose();
-    searchController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final FavoriteController controller = context.watch();
-    final state = controller.state;
+    final width = MediaQuery.of(context).size.width;
+    final FavoriteController favoriteControllerWatch = context.watch();
+    final searchText = favoriteControllerWatch.state.searchText;
+    final switchSearch = favoriteControllerWatch.state.switchSearch;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 40.0),
-          child: switchSearch
-              ? TextField(
-                  focusNode: searchFocusNode,
-                  controller: searchController,
-                  onChanged: (value) {
-                    setState(() {
-                      searchText = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: texts.favorites.hintText,
-                    border: InputBorder.none,
+      body: StreamBuilder<List<Specie>>(
+        stream: _favorites,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            if (favoriteControllerRead.state.switchSearch) {
+              favoriteControllerRead.removeSwitchSearch();
+            }
+            if (favoriteControllerRead.state.searchText.isNotEmpty) {
+              favoriteControllerRead.removeSearchValue();
+            }
+            return SpecieErrorSection(userId: sessionController.state!);
+          } else {
+            var species = snapshot.data!;
+            if (species.isEmpty) {
+              if (favoriteControllerRead.state.switchSearch) {}
+              if (favoriteControllerRead.state.searchText.isNotEmpty) {}
+              return const MessageException(
+                text:
+                    'Empieza a marcar especies como favoritos para verlas aquí',
+                buttonText: 'Recuperar las especies',
+                lottie: 'assets/lotties/without_data.json',
+              );
+            }
+            if (searchText.isNotEmpty) {
+              species = species.where(
+                (specie) {
+                  if (searchText.isNotEmpty) {}
+                  return specie.name != null && specie.scientificName != null;
+                },
+              ).where(
+                (specie) {
+                  final normalizedSearch =
+                      removeDiacritics(searchText.toLowerCase());
+                  final name = specie.name!;
+                  final scientificName = specie.scientificName!;
+
+                  return removeDiacritics(name.toLowerCase())
+                          .contains(normalizedSearch) ||
+                      removeDiacritics(scientificName.toLowerCase())
+                          .contains(normalizedSearch);
+                },
+              ).toList();
+            }
+            return Column(
+              children: [
+                AppBar(
+                  leading: const SizedBox(),
+                  title: switchSearch
+                      ? TextField(
+                          focusNode: searchFocusNode,
+                          controller:
+                              searchTextController, // Asigna el TextEditingController
+                          onChanged: (value) =>
+                              favoriteControllerRead.onSearchTexChanged(value),
+                          decoration: const InputDecoration(
+                            hintText: 'Busca tu favorito',
+                            border: InputBorder.none,
+                          ),
+                        )
+                      : const Text('Favoritos'),
+                  actions: [
+                    IconButton(
+                      tooltip: switchSearch ? 'Cerrar' : 'Buscar',
+                      onPressed: () {
+                        favoriteControllerRead.switchSearch(
+                            favoriteControllerRead.state.switchSearch);
+                        if (favoriteControllerRead.state.switchSearch) {
+                          favoriteControllerRead
+                              .onSearchTexChanged(searchTextController.text);
+                          searchFocusNode.requestFocus();
+                        } else {
+                          favoriteControllerRead.removeSearchValue();
+                          searchFocusNode.unfocus();
+                        }
+                      },
+                      icon: Icon(
+                        switchSearch
+                            ? Icons.clear_rounded
+                            : Icons.search_rounded,
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                  ],
+                ),
+                Expanded(
+                  child: Extend(
+                    child: MasonryGridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      key: const PageStorageKey('favorites'),
+                      padding:
+                          const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
+                      gridDelegate:
+                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: buildMultiGrids(width)),
+                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 8.0,
+                      itemCount: species.length,
+                      itemBuilder: (context, index) {
+                        final specie = species[index];
+                        final getMainColors =
+                            getMainColorByInt(specie.type?.id ?? 0);
+                        final mainColor = getMainColors['main'];
+                        final opaqueColor = getMainColors['opaque'];
+
+                        return CardToSpeciesGrid(
+                          specie: specie,
+                          mainColor: mainColor,
+                          opaqueColor: opaqueColor,
+                          favoriteIcon: CustomIconButton(
+                            tooltip: texts.species.deleteFavorite,
+                            icon: Icons.favorite_rounded,
+                            iconColor: opaqueColor,
+                            backgroundColor: mainColor,
+                            onPressed: () async {
+                              if (sessionController.state != null) {
+                                await favoriteRepository.deleteSpecieFavorite(
+                                  userId: sessionController.state!,
+                                  idSpecie: specie.id,
+                                );
+                              } else {
+                                customSnackBar(
+                                  context: context,
+                                  title: 'No se pudo realizar esta acción',
+                                  error: true,
+                                );
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                )
-              : Text(texts.favorites.title),
-        ),
-        actions: [
-          if (state.species.isNotEmpty)
-            IconButton(
-              tooltip:
-                  switchSearch ? texts.favorites.close : texts.favorites.search,
-              onPressed: () {
-                setState(() {
-                  switchSearch = !switchSearch;
-                  if (switchSearch) {
-                    searchFocusNode.requestFocus();
-                  } else {
-                    searchFocusNode.unfocus();
-                    searchController.clear();
-                    searchText = '';
-                  }
-                });
-              },
-              icon: Icon(
-                  switchSearch ? Icons.clear_rounded : Icons.search_rounded),
-            ),
-          const SizedBox(width: 8.0),
-        ],
-      ),
-      body: _BodyContainer(
-        state: state,
-        searchText: searchText,
-        sessionController: sessionController,
-        favoriteRepository: favoriteRepository,
+                ),
+              ],
+            );
+          }
+        },
       ),
     );
   }
 }
 
-class _BodyContainer extends StatelessWidget {
-  final String searchText;
-  final FavoritesState state;
-  final SessionController sessionController;
-  final FavoriteRepository favoriteRepository;
-  const _BodyContainer({
-    required this.state,
-    required this.searchText,
-    required this.sessionController,
-    required this.favoriteRepository,
-  });
+class SpecieErrorSection extends StatefulWidget {
+  final String userId;
+  const SpecieErrorSection({
+    Key? key,
+    required this.userId,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    List<Specie> species = [];
-    if (state.loading) {
-      return const GridLoading();
-    }  else  if(state.errorMesage.isNotEmpty) {
-      return _BodyHelper();
-      /* return MessageException(
-        text: 'Aún no hay especies aquí 1 ${state.errorMesage}',
-        lottie: 'assets/lotties/without_data.json',
-      ); */
-    /* return  Column(
-      children: [
-        Text(state.errorMesage),
-        Text(state.species.toString()),
-      ],
-    ); */
-    } else {
-      return Text('data'); } 
-   /* else if (state.errorMesage.isNotEmpty) {
-      return _BodyHelper();
-    } else {
-      if (searchText.isNotEmpty) {
-        species = state.species.where((Specie specie) {
-          return specie.name
-              .toString()
-              .toLowerCase()
-              .contains(searchText.toLowerCase());
-        }).toList();
-      } else {
-        species = state.species;
-      }
-      return MasonryGridView.builder(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
-        key: const PageStorageKey('specie_favorite'),
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
-        physics: const BouncingScrollPhysics(),
-        itemCount: species.length,
-        itemBuilder: (context, index) {
-          final specie = state.species[index];
-          return CustomGridCard(
-            onTap: () => context.pushNamed(
-              Routes.specieDetailsFavorite,
-              pathParameters: {'id': specie.id.toString()},
-            ),
-            principalColor: getMainColorByString(
-                specie.type != null ? specie.type!.name ?? '' : '')['main'],
-            backgroundColor: getMainColorByString(
-                specie.type != null ? specie.type!.name ?? '' : '')['opaque'],
-            image: Stack(
-              children: [
-                if (specie.images != null && specie.images!.isNotEmpty)
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 48.0),
-                    color: Colors.white,
-                    child: CustomImageContainer(
-                      imageUrl: specie.images!.first,
-                      mainColor: getMainColorByString(specie.type != null
-                          ? specie.type!.name ?? ''
-                          : '')['main'],
-                      heightImageInAnother: 160.0,
-                    ),
-                  ),
-              ],
-            ),
-            title: specie.name,
-            subtitle: specie.scientificName,
-          );
-        },
-        gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: buildMultiGrids(width),
-        ),
-      );
-    } */
-  }
+  State<SpecieErrorSection> createState() => _SpecieErrorSectionState();
 }
 
-/* state.loading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : state.species.isEmpty
-              ? Center(
-                  child: Text('Sin datos'),
-                )
-              : MasonryGridView.builder(
-                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
-                  key: const PageStorageKey('specie_favorite'),
-                  mainAxisSpacing: 8.0,
-                  crossAxisSpacing: 8.0,
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: state.species.length,
-                  itemBuilder: (context, index) {
-                    final specie = state.species[index];
-                    return CustomGridCard(
-                      onTap: () => context.pushNamed(
-                        Routes.specieDetailsFavorite,
-                        pathParameters: {'id': specie.id.toString()},
-                      ),
-                      principalColor:
-                          getMainColorByString(specie.type ?? '')['main'],
-                      backgroundColor:
-                          getMainColorByString(specie.type ?? '')['opaque'],
-                      image: Stack(
-                        children: [
-                          if (specie.images != null &&
-                              specie.images!.isNotEmpty)
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 48.0),
-                              color: Colors.white,
-                              child: CustomImageContainer(
-                                imageUrl: specie.images!.first,
-                                mainColor: getMainColorByString(
-                                    specie.type ?? '')['main'],
-                                heightImageInAnother: 160.0,
-                              ),
-                            ),
-                          if (specie.vcImagenesEstado != null ||
-                              specie.vcImagenesEstado!.isNotEmpty)
-                            Positioned(
-                              left: 8.0,
-                              bottom: 8.0,
-                              child: Wrap(
-                                spacing: 8.0,
-                                runSpacing: 8.0,
-                                children: [
-                                  for (var statusImage
-                                      in specie.vcImagenesEstado!)
-                                    CustomImageContainer(
-                                      borderRadius: BorderRadius.zero,
-                                      imageUrl: statusImage,
-                                      mainColor: Colors.teal,
-                                      heightImage: 40.0,
-                                      width: 40.0,
-                                    ),
-                                ],
-                              ),
-                            ),
-                          Positioned(
-                            top: 8.0,
-                            right: 8.0,
-                            child: Wrap(
-                              spacing: 8.0,
-                              runSpacing: 8.0,
-                              children: [
-                                if (specie.sound != null &&
-                                    specie.sound!.isNotEmpty)
-                                  CustomIconButton(
-                                    onPressed: null,
-                                    iconColor: getMainColorByString(
-                                        specie.type ?? '')['main'],
-                                    icon: Icons.music_note_rounded,
-                                  ),
-                                CustomIconButton(
-                                  tooltip: 'Guardar en favoritos',
-                                  icon: Icons.favorite_rounded,
-                                  backgroundColor: getMainColorByString(
-                                      specie.type ?? '')['main'],
-                                  iconColor: getMainColorByString(
-                                      specie.type ?? '')['opaque'],
-                                  onPressed: () {
-                                    context.pushNamed(Routes.signIn);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      title: specie.name,
-                      subtitle: specie.scientificName,
-                    );
-                  },
-                  gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: buildMultiGrids(width),
-                  ),
-                ),
-   */
-
-class _BodyHelper extends StatefulWidget {
-  @override
-  State<_BodyHelper> createState() => __BodyHelperState();
-}
-
-class __BodyHelperState extends State<_BodyHelper> {
-  SessionController get sessionController => context.read();
-  FavoriteController get favoriteController => context.read();
+class _SpecieErrorSectionState extends State<SpecieErrorSection> {
+  late Stream<List<SpecieError>> _favoritesError;
+  FavoriteController get userProvider => context.read();
+  FavoriteRepository get favoriteRepository => context.read();
+  bool interaction = true;
 
   @override
   void initState() {
-    favoriteController.subscribeToSpeciesHelper(sessionController.state!);
+    _favoritesError = userProvider.getFavoritesSpeciesError(widget.userId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final FavoriteController controller = context.watch();
-    final width = MediaQuery.of(context).size.width;
-    final state = controller.state;
-    if (state.loading) {
-      return const GridLoading();
-    } else if (state.errorMesageHelper.isNotEmpty) {
-      return Text('Error: ${state.errorMesageHelper}');
-    } else if (state.speciesHelper.isEmpty) {
-      return const MessageException(
-        text: 'Aún no hay especies aquí saas',
-        lottie: 'assets/lotties/without_data.json',
-      );
-    } else {
-      return MasonryGridView.builder(
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
-          key: const PageStorageKey('specie_favorite'),
-          mainAxisSpacing: 8.0,
-          crossAxisSpacing: 8.0,
-          physics: const BouncingScrollPhysics(),
-          gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: buildMultiGrids(width),
-          ),
-          itemCount: state.speciesHelper.length,
-          itemBuilder: (context, index) {
-            final specie = state.speciesHelper[index];
-            return ListTile(
-              title: Text(specie.id.toString()),
-            );
-          });
-    }
+    return StreamBuilder<List<SpecieError>>(
+      stream: _favoritesError,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          final speciesError = snapshot.data!;
+          return MessageException(
+            text:
+                'Hemos hecho cambios importantes, toca en "Recuperar las especies" para actualizar la información',
+            buttonText: 'Recuperar las especies',
+            icon: Icons.restore_rounded,
+            onPressed: interaction
+                ? () async {
+                    setState(() => interaction = false);
+                    final setFavoritesSpecies =
+                        await favoriteRepository.setFavoritesSpecies(
+                      speciesError: speciesError,
+                      userId: widget.userId,
+                    );
+                    setFavoritesSpecies.when(
+                      (httpRequestFailure) {
+                        setState(() => interaction = true);
+                        final message = httpRequestFailure.when(
+                          network: () => 'Error de conexión',
+                          unknown: () => 'Error desconocido',
+                          notFound: () => 'Error inesperado',
+                        );
+                        customSnackBar(
+                          context: context,
+                          title: message,
+                          error: true,
+                        );
+                      },
+                      (_) {
+                        if (mounted) {
+                          setState(() => interaction = true);
+                        }
+                      },
+                    );
+                  }
+                : null,
+            lottie: 'assets/lotties/update.json',
+          );
+        }
+      },
+    );
   }
 }
