@@ -6,7 +6,7 @@
 /// Locales: 5
 /// Strings: 966 (193 per locale)
 ///
-/// Built on 2024-03-23 at 07:07 UTC
+/// Built on 2024-04-04 at 22:48 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -892,8 +892,8 @@ class _TranslationsSpeciesEs implements _TranslationsSpeciesEn {
 	@override String get palms => 'Palmeras';
 	@override String get deleteFavorite => 'Quitar de favoritos';
 	@override String get saveFavorite => 'Guardar en favoritos';
-	@override String get orderName => 'Ordenar por nombre común';
-	@override String get orderScientificName => 'Ordenar por nombre científico';
+	@override String get orderName => 'Nombre común';
+	@override String get orderScientificName => 'Nombre científico';
 }
 
 // Path: speciesDetails
@@ -2925,8 +2925,8 @@ extension on _TranslationsEs {
 			case 'species.palms': return 'Palmeras';
 			case 'species.deleteFavorite': return 'Quitar de favoritos';
 			case 'species.saveFavorite': return 'Guardar en favoritos';
-			case 'species.orderName': return 'Ordenar por nombre común';
-			case 'species.orderScientificName': return 'Ordenar por nombre científico';
+			case 'species.orderName': return 'Nombre común';
+			case 'species.orderScientificName': return 'Nombre científico';
 			case 'speciesDetails.authors': return 'Autores';
 			case 'speciesDetails.taxonomicInfo': return 'Información Taxonómica';
 			case 'speciesDetails.kingdom': return 'Reino';

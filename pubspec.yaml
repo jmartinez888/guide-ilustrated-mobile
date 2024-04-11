@@ -51,7 +51,7 @@ dependencies:
   just_audio_cache: ^0.1.2
   audio_video_progress_bar: ^2.0.1
   share_plus: ^7.2.1
-  flutter_file_downloader: ^1.1.4
+  flutter_file_downloader: ^1.2.1
   permission_handler: ^11.0.1
   pdf: ^3.10.4
   printing: ^5.11.0
@@ -76,6 +76,7 @@ dependencies:
   slang_build_runner: ^3.30.0
   intl: ^0.18.1
   remove_diacritic: ^0.9.0
+  download_assets: ^3.1.1
   
 dev_dependencies:
   flutter_test:

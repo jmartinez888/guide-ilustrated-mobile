@@ -83,7 +83,6 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
         );
       },
       (setSpeciesResult) {
-        print('🎀 final ${setSpeciesResult}');
        return Either.right(setSpeciesResult);
       },
     );

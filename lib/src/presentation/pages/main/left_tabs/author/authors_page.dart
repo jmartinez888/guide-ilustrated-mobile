@@ -96,8 +96,8 @@ class _AuthorsPageState extends State<AuthorsPage> {
                     Routes.indigenousCommunityDetails,
                     pathParameters: {'id': community.id.toString()},
                   ),
-                  principalColor: colorScheme.primary,
-                  backgroundColor: colorScheme.primaryContainer,
+                  mainColor: colorScheme.primary,
+                  opaqueColor: colorScheme.primaryContainer,
                   image: CustomImageContainer(
                     mainColor: colorScheme.primary,
                     imageUrl: community.images != null && community.images!.isNotEmpty ? community.images!.first : null,

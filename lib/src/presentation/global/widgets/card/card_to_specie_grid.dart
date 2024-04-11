@@ -23,9 +23,10 @@ class CardToSpeciesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomGridCard(
+      maxLines: 2,
       onTap: onTap,
-      principalColor: mainColor,
-      backgroundColor: opaqueColor, 
+      mainColor: mainColor,
+      opaqueColor: opaqueColor, 
       image: Stack(
         children: [
           Container(
@@ -70,7 +71,7 @@ class CardToSpeciesGrid extends StatelessWidget {
                   CustomIconButton(
                     onPressed: null,
                     iconColor: mainColor,
-                    icon: Icons.music_note_rounded,
+                    icon: Icons.volume_up_rounded,
                   ),
                 SizedBox(child: favoriteIcon)
               ],

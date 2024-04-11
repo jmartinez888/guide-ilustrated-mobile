@@ -1,18 +1,15 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 
 class ImageDetailsPage extends StatefulWidget {
-  final String specie;
+  final String images;
 
   const ImageDetailsPage({
     Key? key,
-    required this.specie,
+    required this.images,
   }) : super(key: key);
 
   @override
@@ -20,17 +17,24 @@ class ImageDetailsPage extends StatefulWidget {
 }
 
 class _ImageDetailsPageState extends State<ImageDetailsPage> {
-  late Specie specie;
+  late List<String> images;
   @override
   void initState() {
-    specie = Specie.fromJson(jsonDecode(widget.specie));
+    final replace = widget.images
+        .replaceAll('[', '')
+        .replaceAll(']', '')
+        .replaceAll('\'', '')
+        .replaceAll('"', '')
+        ;
+    images = replace.split(', ');
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body:  Stack(
+      body: Stack(
         children: [
           PhotoViewGallery.builder(
             scrollPhysics: const BouncingScrollPhysics(),
@@ -38,10 +42,11 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
               return PhotoViewGalleryPageOptions(
                 maxScale: PhotoViewComputedScale.covered * 8,
                 minScale: PhotoViewComputedScale.contained,
-                imageProvider: CachedNetworkImageProvider(specie.images![index]),
+                imageProvider:
+                    CachedNetworkImageProvider(images[index]),
               );
             },
-            itemCount: specie.images!.length,
+            itemCount: images.length,
             loadingBuilder: (context, event) => Center(
               child: CircularProgressIndicator(
                 value: event == null

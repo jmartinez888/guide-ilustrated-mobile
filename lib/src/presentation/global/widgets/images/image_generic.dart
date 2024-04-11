@@ -37,16 +37,13 @@ class ImageGeneric extends StatelessWidget {
               fit: fit ??
                   (height != null || width != null ? BoxFit.cover : null),
               progressIndicatorBuilder: height == null && width == null
-                  ? (_, __, ___) => Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Center(
-                          child: SkeletonConatiner(
-                            height: height,
-                            width: width,
-                          ),
+                  ? null
+                  : (_, __, ___) => Center(
+                        child: SkeletonConatiner(
+                          height: height,
+                          width: width,
                         ),
-                      )
-                  : null,
+                      ),
               errorWidget: (_, __, ___) => _errorContainer(),
             )
           : Image.asset(

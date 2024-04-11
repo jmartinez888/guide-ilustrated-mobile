@@ -22,7 +22,7 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
             : 'assets/images/indigenous_community.jpg',
         heightImage: size.height > size.width + 32.0 ? 384.0 : double.infinity,
       ),
-      rightChildren: [
+      /* rightChildren: [
         if(community.name!= null && community.name!.isNotEmpty)
         Text(
           community.name!,
@@ -40,7 +40,7 @@ class IndigenousCommunityDetailsSection extends StatelessWidget {
                 ?.copyWith(color: colorScheme.onSurfaceVariant),
           ),
         )
-      ],
+      ], */
     );
   }
 }

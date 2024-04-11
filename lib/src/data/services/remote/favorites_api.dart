@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/entities/specie_error/specie_error.dart';

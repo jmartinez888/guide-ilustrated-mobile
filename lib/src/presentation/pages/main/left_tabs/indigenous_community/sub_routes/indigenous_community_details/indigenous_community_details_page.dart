@@ -49,7 +49,6 @@ class _IndigenousCommunityDetailsPagState
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:species/src/presentation/global/sections/details_loading.dart';
 import 'package:species/src/presentation/global/sections/indigenous_community_details_section.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/controller/community_details_controller.dart';
@@ -82,7 +81,7 @@ class _IndigenousCommunityDetailsPageState
       body: Stack(
         children: [
           state.loading
-              ? const DetailsLoading()
+              ? const SizedBox()
               : state.mapOfId[widget.id] == null
                   ? Center(
                       child: FilledButton(

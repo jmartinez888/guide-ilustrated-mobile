@@ -66,7 +66,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
         color: widget.contentBackground ?? CustomColors.background,
         borderRadius: borderRadius,
         border: Border.all(
-          width: 1,
+          width: 2,
           color: widget.border ?? Colors.transparent,
         ),
       ),
@@ -95,7 +95,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
                             widget.title ?? '',
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: textTheme.titleMedium
+                            style: textTheme.titleLarge
                                 ?.copyWith(color: colorScheme.onPrimary),
                           ),
                         ),

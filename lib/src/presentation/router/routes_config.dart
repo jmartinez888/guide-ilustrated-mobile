@@ -110,12 +110,12 @@ final appRouter = GoRouter(
                 builder: (_, __) => const SpeciesPage(),
                 routes: [
                   GoRoute(
-                    path: '${Routes.specieImage}/:specie',
+                    path: '${Routes.specieImage}/:images',
                     name: Routes.specieImage,
                     parentNavigatorKey: parentNavigatorKey,
                     builder: (_, state) {
-                      final specie = state.pathParameters['specie'];
-                      return ImageDetailsPage(specie: specie!.toString());
+                      final images = state.pathParameters['images'];
+                      return ImageDetailsPage(images: images!.toString());
                     },
                   ),
                   GoRoute(
@@ -213,8 +213,9 @@ final appRouter = GoRouter(
                     name: Routes.specieDetailsFavorite,
                     builder: (_, state) {
                       final specie = state.pathParameters['specie'];
-                       return SpecieDetailsFavoritePage(
-                                specie: specie.toString());
+                      return SpecieDetailsFavoritePage(
+                        specie: specie.toString(),
+                      );
                     },
                   ),
                   GoRoute(

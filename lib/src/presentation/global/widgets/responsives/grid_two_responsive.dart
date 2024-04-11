@@ -1,54 +1,41 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class GridTwoResponsive extends StatelessWidget {
   final Widget? leftChild;
-  final List<Widget> rightChildren;
+  final Widget? rightChild;
+  final bool neverScroll;
 
   const GridTwoResponsive({
     Key? key,
     this.leftChild,
-    this.rightChildren = const <Widget>[],
+    this.rightChild,
+    this.neverScroll = false,
   }) : super(key: key);
 
-  final String left = 'left';
-  final String right = 'right';
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return size.height > size.width + 32.0
-        ? Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 320.0,
-                key: Key(left),
-                child: leftChild,
-              ),
-              Expanded(
-                key: Key(right),
-                child: _leftList(),
-              ),
-            ],
-          )
-        : Row(
-            children: [
-              Expanded(
-                key: Key(left),
-                child: SizedBox(child: leftChild),
-              ),
-              Expanded(
-                key: Key(right),
-                child: _leftList(),
-              ),
-            ],
-          );
+    final mediaQuery = MediaQuery.of(context);
+    final Size size = mediaQuery.size;
+    final statusBar = MediaQueryData.fromView(View.of(context)).padding.top;
+    final maxHeight = size.height - statusBar;
+    return StaggeredGrid.count(
+      crossAxisCount: size.height > size.width + 32.0 ? 1 : 2,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: size.height > size.width + 32.0 ? 320.0 : maxHeight,
+          child: leftChild,
+        ),
+        SizedBox(
+          height:
+              size.height > size.width + 32.0 ? maxHeight - 320.0 : maxHeight,
+          width: double.infinity,
+          child: rightChild,
+        ),
+      ],
+    );
   }
-
-  Widget _leftList() => ListView(
-        key: const PageStorageKey('list'),
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(
-            top: 16.0, right: 16.0, left: 16.0, bottom: 100.0),
-        children: rightChildren,
-      );
 }
