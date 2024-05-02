@@ -5,7 +5,7 @@ class Routes {
   static const String profile = '/profile'; //proteted
   static const String species = '/species';
   static const String specieDetails = 'specie-details';
-  static const String specieImage = 'image';
+  static const String image = 'image';
   static const String signIn = 'sign-in'; //proteted
   static const String signUp = 'sign-up'; //proteted
   static const String forgotPassword = 'forgot-password';
@@ -15,9 +15,16 @@ class Routes {
   static const String specieDetailsFavorite = 'details-favorite'; //proteted
   static const String specieImageFavorite = 'image-favorite'; //proteted
 
-  static const String indigenousCommunity = '/community';
-  static const String indigenousCommunityDetails = 'community-details';
-  static const String indigenousCommunitySearch = 'community-search';
+  static const String communities = '/communities';
+  static const String communityDetails = 'community-details';
+  static const String communityImage = 'community-image';
+  static const String communitySearch = 'community-search';
+
+  static const String authors = '/authors';
+  static const String authorDetails = 'author-details';
+  static const String authorImage = 'author-image';
+  static const String authorSearch = 'author-search';
+
   static const String bardcoding = '/bardcoding';
   static const String viewfinder = '/viewfinder';
   static const String maps = '/maps';

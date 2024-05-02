@@ -24,7 +24,6 @@ class _SpecieDetailsPageState extends State<SpecieDetailsPage> {
   @override
   void initState() {
     specieReadController.getSpecie(widget.id);
-    print(widget.id);
     super.initState();
   }
 

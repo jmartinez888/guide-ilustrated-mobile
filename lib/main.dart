@@ -51,8 +51,10 @@ import 'package:species/src/my_app.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
 import 'package:species/src/presentation/global/states/lab_position_state.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/controller/author_details_controller.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/controller/state/author_details_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/controller/author_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/controller/state/author_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/author_details/controller/author_details_controller.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/author_details/controller/state/author_details_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/community_controller.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/state/community_state.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/controller/community_details_controller.dart';
@@ -174,6 +176,16 @@ void main() async {
             ),
           ),
         ),
+        Provider<AuthorRepository>(
+          create: (_) => AuthorRepositoryImpl(
+            authorApi: AuthorApi(
+              baseUrl: baseUrl,
+              authorMapper: AuthorMapper(
+                specieForAuthorMapper: SpecieForAuthorMapper(),
+              ),
+            ),
+          ),
+        ),
         ChangeNotifierProvider<BirdsTabController>(
           create: (context) => BirdsTabController(
             SpecieTabState(),
@@ -247,6 +259,12 @@ void main() async {
           create: (context) => CommunityController(
             CommunityState(),
             communityRepository: context.read(),
+          ),
+        ),
+        ChangeNotifierProvider<AuthorController>(
+          create: (context) => AuthorController(
+            AuthorState(),
+            authorRepository: context.read(),
           ),
         ),
         ChangeNotifierProvider<CommunityDetailsController>(

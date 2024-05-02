@@ -10,10 +10,10 @@ class SpeciesDetailsController extends StateNotifier<SpeciesDetailsState> {
   });
 
   Future<void> getSpecie(String id) async {
-    if(state.mapOfId[id] != null) return;
+    if (state.mapOfId[id] != null) return;
     state = state.copyWith(
-          loading: true,
-        );
+      loading: true,
+    );
     final result = await specieRepository.getSpecie(id);
     result.when(
       (_) {
@@ -30,6 +30,12 @@ class SpeciesDetailsController extends StateNotifier<SpeciesDetailsState> {
           },
         );
       },
+    );
+  }
+
+  void changeToggle(bool value) {
+    state = state.copyWith(
+      expanded: value,
     );
   }
 

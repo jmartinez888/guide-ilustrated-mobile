@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
+import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/amphibians_tab_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/birds_tab/birds_tab_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/fishes_tab/fishes_tab_page.dart';
@@ -150,10 +151,14 @@ class _SpeciesPageState extends State<SpeciesPage>
               child: tabBar,
             ),
           Expanded(
-            child: TabBarView(
-              physics: const BouncingScrollPhysics(),
-              controller: _tabController,
-              children: _pages,
+            child: PageStorage(
+              bucket: PersistenScrollPosition.bucketGlobal,
+              child: TabBarView(
+                key: const PageStorageKey('specieTabs'),
+                physics: const BouncingScrollPhysics(),
+                controller: _tabController,
+                children: _pages,
+              ),
             ),
           ),
         ],
@@ -161,26 +166,3 @@ class _SpeciesPageState extends State<SpeciesPage>
     );
   }
 }
- 
-
-
-/* import 'package:flutter/material.dart';
-import 'package:species/src/presentation/global/sections/specie_tab/species_tab_section.dart';
-
-class SpeciesPage extends StatelessWidget {
-  const SpeciesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: TabBarView(
-        children: [
-          SpeciesTabSection(type: 1),
-          Text('data')
-        ],
-      ),
-    );
-  }
-}
- */

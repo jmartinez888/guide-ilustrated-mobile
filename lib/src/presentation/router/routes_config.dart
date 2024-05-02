@@ -5,6 +5,9 @@ import 'package:species/src/domain/repositories/account/account_repository.dart'
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/pages/error/error_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/about/about_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/authors_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/author_details/author_details_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/author_search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/indigenous_community_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_details/indigenous_community_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/sub_routes/indigenous_community_search_page.dart';
@@ -14,7 +17,7 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/forgot_password/forgot_password_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/sign_in/sign_in_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/auth/sign_up/sign_up_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/image_details/image_details_page.dart';
+import 'package:species/src/presentation/pages/general/image_details/image_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
@@ -110,8 +113,8 @@ final appRouter = GoRouter(
                 builder: (_, __) => const SpeciesPage(),
                 routes: [
                   GoRoute(
-                    path: '${Routes.specieImage}/:images',
-                    name: Routes.specieImage,
+                    path: '${Routes.image}/:images',
+                    name: Routes.image,
                     parentNavigatorKey: parentNavigatorKey,
                     builder: (_, state) {
                       final images = state.pathParameters['images'];
@@ -243,22 +246,62 @@ final appRouter = GoRouter(
               ),
             ]),
         GoRoute(
-          path: Routes.indigenousCommunity,
-          name: Routes.indigenousCommunity,
+          path: Routes.communities,
+          name: Routes.communities,
           builder: (_, __) => const IndigenousCommunityPage(),
           routes: [
             GoRoute(
-              path: Routes.indigenousCommunitySearch,
-              name: Routes.indigenousCommunitySearch,
+              path: Routes.communitySearch,
+              name: Routes.communitySearch,
               parentNavigatorKey: parentNavigatorKey,
               builder: (_, __) => const IndigenousCommunitySearchPage(),
             ),
             GoRoute(
               path: ':id',
-              name: Routes.indigenousCommunityDetails,
+              name: Routes.communityDetails,
               builder: (_, state) {
                 final id = state.pathParameters['id'];
                 return IndigenousCommunityDetailsPage(id: id.toString());
+              },
+            ),
+            GoRoute(
+              name: Routes.communityImage,
+              path: '${Routes.image}/:images',
+              parentNavigatorKey: parentNavigatorKey,
+              builder: (_, state) {
+                final images = state.pathParameters['images'];
+                return ImageDetailsPage(images: images!.toString());
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: Routes.authors,
+          name: Routes.authors,
+          builder: (_, __) => const AuthorsPage(),
+          routes: [
+            GoRoute(
+              path: Routes.authorSearch,
+              name: Routes.authorSearch,
+              parentNavigatorKey: parentNavigatorKey,
+              builder: (_, __) => const AuthorSearchPage(),
+              //builder: (_, __) => const IndigenousCommunitySearchPage(),
+            ),
+            GoRoute(
+              path: ':id',
+              name: Routes.authorDetails,
+              builder: (_, state) {
+                final id = state.pathParameters['id'];
+                return AuthorDetailsPage(id: id.toString());
+              },
+            ),
+            GoRoute(
+              name: Routes.authorImage,
+              path: '${Routes.image}/:images',
+              parentNavigatorKey: parentNavigatorKey,
+              builder: (_, state) {
+                final images = state.pathParameters['images'];
+                return ImageDetailsPage(images: images!.toString());
               },
             ),
           ],

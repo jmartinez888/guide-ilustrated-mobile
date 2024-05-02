@@ -17,7 +17,7 @@ class Author with _$Author {
     @JsonKey(name: 'year_of_birth') String? yearOfBirth,
     @JsonKey(name: 'year_of_death') String? yearOfDeath,
     String? profession,
-    String? image,
+    List<String>? images,
     String? state,
     @SpeciesIntoClassToMap() @Default(null) List<Specie>? species,
   }) = _Author;

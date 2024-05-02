@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 
 class CustomGridCard extends StatelessWidget {
   const CustomGridCard({
@@ -46,7 +47,7 @@ class CustomGridCard extends StatelessWidget {
               child: image,
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: PaddingConfig.allL,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

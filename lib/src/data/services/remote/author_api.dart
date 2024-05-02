@@ -28,9 +28,11 @@ class AuthorApi {
           Uri.parse('$_baseUrl/authors/$pageKey/$numberOfPostsPerRequest'));
       if (response.statusCode == 200) {
         final responseList = jsonDecode(response.body);
-        final authorsIiap =
-            responseList.map((authorIiap) => AuthorIiap.fromJson(authorIiap)).toList();
-        final authors = authorsIiap['authors'].map((author) => _authorMapper.authorIiapToAuthor(author)).toList();
+        final authorsIiap = getAuthorIiapList(responseList['autores']);
+
+        final authors = authorsIiap
+            .map((author) => _authorMapper.authorIiapToAuthor(author))
+            .toList();
         return Either.right(authors);
       } else {
         return Either.left(HttpRequestFailureNotFound());
@@ -52,9 +54,11 @@ class AuthorApi {
       final response = await get(Uri.parse(
           '$_baseUrl/authors/search/$query/$pageKey/$numberOfPostsPerRequest'));
       final responseList = jsonDecode(response.body);
-      final authorsIiap =
-            responseList.map((authorIiap) => AuthorIiap.fromJson(authorIiap)).toList();
-        final authors = authorsIiap['authors'].map((author) => _authorMapper.authorIiapToAuthor(author)).toList();
+      final authorsIiap = getAuthorIiapList(responseList['authors']);
+
+      final authors = authorsIiap
+          .map((author) => _authorMapper.authorIiapToAuthor(author))
+          .toList();
 
       final isLastPage = authors.length < numberOfPostsPerRequest;
       if (isLastPage) {
@@ -75,10 +79,9 @@ class AuthorApi {
         return Either.left(HttpRequestFailure.notFound());
       }
       final responseBody = jsonDecode(response.body) as Map<String, dynamic>;
-        final authorIiap = AuthorIiap.fromJson(responseBody);
-        final author =
-            _authorMapper.authorIiapToAuthor(authorIiap);
-        return Either.right(author);
+      final authorIiap = AuthorIiap.fromJson(responseBody);
+      final author = _authorMapper.authorIiapToAuthor(authorIiap);
+      return Either.right(author);
     } catch (e) {
       if (e is SocketException || e is ClientException) {
         return Either.left(HttpRequestFailure.network());

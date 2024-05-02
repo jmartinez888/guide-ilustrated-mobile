@@ -8,6 +8,7 @@ import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/mixins/form_mixin.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
@@ -69,13 +70,12 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
-    // final isMobile = size.width < 600;
-    // final isTablet = size.width < 1200 && size.width >= 600;
-    // Size isDesktop = size.width >= 1200;
 
-    return Scaffold(
-      body: _mobileView(context),
+    return PopScope(
+      canPop: enabled,
+      child: Scaffold(
+        body: _mobileView(context),
+      ),
     );
   }
 
@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: PaddingConfig.allL,
                   child: Column(
                     children: [
                       const _HeaderLogo(),
@@ -122,7 +122,16 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                               const SizedBox(height: 16.0),
                               _passwordTextFormField(),
                               const SizedBox(height: 16.0),
-                              const _ForgotButtonLink(),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: enabled
+                                      ? () => context
+                                          .pushNamed(Routes.forgotPassword)
+                                      : null,
+                                  child: Text(texts.signIn.forgot_password),
+                                ),
+                              ),
                               const SizedBox(height: 16.0),
                               _loginButton(context),
                               const SizedBox(height: 16.0),
@@ -139,6 +148,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
             ],
           ),
         ),
+        if(enabled)
         const SafeArea(
           child: Padding(
             padding: EdgeInsets.only(left: 8.0, top: 8.0),
@@ -238,6 +248,9 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   void _validateCredentials({
     required BuildContext context,
   }) async {
+    if(!_hidePassword) {
+      _hidePassword = true;
+    }
     if (validateInInput == false) {
       validateInInput = true;
       enabled = true;
@@ -267,8 +280,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
           final message = failure.when(
             network: () => texts.userCredentialFailure.network,
             credential: () => texts.userCredentialFailure.credential,
-            disable: () =>
-                texts.userCredentialFailure.disable,
+            disable: () => texts.userCredentialFailure.disable,
             notRegistered: () => texts.userCredentialFailure.notRegistered,
             password: () => texts.userCredentialFailure.password,
             unknown: () => texts.userCredentialFailure.unknown,
@@ -298,9 +310,8 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                   context: context,
                   builder: (context) => CustomBottomSheet(
                     title: texts.signIn.verify_email,
-                    body:  [
-                      Text(
-                          texts.signIn.verify_email_more),
+                    body: [
+                      Text(texts.signIn.verify_email_more),
                     ],
                     floatingActionButton: FloatingActionButton(
                       onPressed: () => Navigator.maybePop(context),
@@ -317,53 +328,6 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
               }
             },
           );
-
-          /* final user = right.user;
-          final id = user?.uid;
-          if (id != null) {
-            final userData = await accountRepository.getUserData(id);
-            if (user?.emailVerified == true && userData.isNotEmpty) {
-              if (mounted) {
-              sessionController.setUser(user!.uid);
-                context.goNamed(Routes.species);
-              }
-            } else if (user?.emailVerified == true) {
-              final result = await accountRepository.createUser(
-                userId: id,
-                email: email,
-              );
-              result.when(
-                (failure) => customSnackBar(
-                  context: context,
-                  title: 'No se pudo crear el usuario',
-                  backgroundColor: colorScheme.error,
-                  large: true,
-                ),
-                (user) {
-                  if (mounted) {
-                    context.goNamed(Routes.species);
-                  }
-                },
-              );
-            } else {
-              if (mounted) {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) => CustomBottomSheet(
-                    title: 'Primero verifica tu correo electrónico',
-                    body: const [
-                      Text(
-                          'Debes verificar tu correo electrónico para poder ingresar'),
-                    ],
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () => Navigator.maybePop(context),
-                      child: const Icon(Icons.check_rounded),
-                    ),
-                  ),
-                );
-              }
-            }
-          } */
         },
       );
       enabled = true;
@@ -371,10 +335,6 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
     }
   }
 }
-
-// class _desktopView {}
-
-// class _tabletView {}
 
 class _RegisterButton extends StatelessWidget {
   const _RegisterButton({required this.enabled});
@@ -386,21 +346,6 @@ class _RegisterButton extends StatelessWidget {
     return TextButton(
       onPressed: enabled ? () => context.pushNamed(Routes.signUp) : null,
       child: Text(texts.signIn.new_),
-    );
-  }
-}
-
-class _ForgotButtonLink extends StatelessWidget {
-  const _ForgotButtonLink();
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => context.pushNamed(Routes.forgotPassword),
-        child: Text(texts.signIn.forgot_password),
-      ),
     );
   }
 }

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SpeciesDetailsState {
   Map<String, Specie> get mapOfId => throw _privateConstructorUsedError;
+  bool get expanded => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $SpeciesDetailsStateCopyWith<$Res> {
           SpeciesDetailsState value, $Res Function(SpeciesDetailsState) then) =
       _$SpeciesDetailsStateCopyWithImpl<$Res, SpeciesDetailsState>;
   @useResult
-  $Res call({Map<String, Specie> mapOfId, bool loading});
+  $Res call({Map<String, Specie> mapOfId, bool expanded, bool loading});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$SpeciesDetailsStateCopyWithImpl<$Res, $Val extends SpeciesDetailsState>
   @override
   $Res call({
     Object? mapOfId = null,
+    Object? expanded = null,
     Object? loading = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$SpeciesDetailsStateCopyWithImpl<$Res, $Val extends SpeciesDetailsState>
           ? _value.mapOfId
           : mapOfId // ignore: cast_nullable_to_non_nullable
               as Map<String, Specie>,
+      expanded: null == expanded
+          ? _value.expanded
+          : expanded // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$SpeciesDetailsStateImplCopyWith<$Res>
       __$$SpeciesDetailsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, Specie> mapOfId, bool loading});
+  $Res call({Map<String, Specie> mapOfId, bool expanded, bool loading});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$SpeciesDetailsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mapOfId = null,
+    Object? expanded = null,
     Object? loading = null,
   }) {
     return _then(_$SpeciesDetailsStateImpl(
@@ -92,6 +99,10 @@ class __$$SpeciesDetailsStateImplCopyWithImpl<$Res>
           ? _value._mapOfId
           : mapOfId // ignore: cast_nullable_to_non_nullable
               as Map<String, Specie>,
+      expanded: null == expanded
+          ? _value.expanded
+          : expanded // ignore: cast_nullable_to_non_nullable
+              as bool,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -104,7 +115,9 @@ class __$$SpeciesDetailsStateImplCopyWithImpl<$Res>
 
 class _$SpeciesDetailsStateImpl implements _SpeciesDetailsState {
   _$SpeciesDetailsStateImpl(
-      {final Map<String, Specie> mapOfId = const {}, this.loading = true})
+      {final Map<String, Specie> mapOfId = const {},
+      this.expanded = false,
+      this.loading = true})
       : _mapOfId = mapOfId;
 
   final Map<String, Specie> _mapOfId;
@@ -118,11 +131,14 @@ class _$SpeciesDetailsStateImpl implements _SpeciesDetailsState {
 
   @override
   @JsonKey()
+  final bool expanded;
+  @override
+  @JsonKey()
   final bool loading;
 
   @override
   String toString() {
-    return 'SpeciesDetailsState(mapOfId: $mapOfId, loading: $loading)';
+    return 'SpeciesDetailsState(mapOfId: $mapOfId, expanded: $expanded, loading: $loading)';
   }
 
   @override
@@ -131,12 +147,14 @@ class _$SpeciesDetailsStateImpl implements _SpeciesDetailsState {
         (other.runtimeType == runtimeType &&
             other is _$SpeciesDetailsStateImpl &&
             const DeepCollectionEquality().equals(other._mapOfId, _mapOfId) &&
+            (identical(other.expanded, expanded) ||
+                other.expanded == expanded) &&
             (identical(other.loading, loading) || other.loading == loading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_mapOfId), loading);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_mapOfId), expanded, loading);
 
   @JsonKey(ignore: true)
   @override
@@ -149,10 +167,13 @@ class _$SpeciesDetailsStateImpl implements _SpeciesDetailsState {
 abstract class _SpeciesDetailsState implements SpeciesDetailsState {
   factory _SpeciesDetailsState(
       {final Map<String, Specie> mapOfId,
+      final bool expanded,
       final bool loading}) = _$SpeciesDetailsStateImpl;
 
   @override
   Map<String, Specie> get mapOfId;
+  @override
+  bool get expanded;
   @override
   bool get loading;
   @override

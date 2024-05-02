@@ -5,15 +5,18 @@ import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:species/src/data/services/local/download_service.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
-import 'package:species/src/presentation/global/functions/download_media.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
+import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
 import 'package:species/src/presentation/global/sections/author_to_specie_section.dart';
 import 'package:species/src/presentation/global/sections/taxonomy_table_section.dart';
+import 'package:species/src/presentation/global/utils/conservation_states_helper/conservation_states_helper.dart';
 import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/card/simple_chip.dart';
@@ -39,6 +42,8 @@ class SpecieDetailSection extends StatefulWidget {
 class _SpecieDetailSectionState extends State<SpecieDetailSection> {
   SessionController get sessionController => context.read();
 
+  final download = DownloadService();
+
   late Map<String, dynamic> mainOpaqueColor;
 
   late Color mainColor;
@@ -51,47 +56,10 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
   late TextStyle bodyLarge;
   bool loadingDownload = false;
 
-  final fileDownloader = DownloadMedia();
-
   @override
   void initState() {
     super.initState();
     specie = widget.specie;
-  }
-
-  Future<void> downloadMedia({
-    required String url,
-    required String correctMessage,
-    required String errorMessage,
-  }) async {
-    setState(() => loadingDownload = true);
-    if (specie.images!.first.isNotEmpty) {
-      final saveImage = await fileDownloader.saveImage(specie.sound!);
-
-      if (mounted) {
-        if (saveImage != null) {
-          customSnackBar(
-            context: context,
-            title: correctMessage,
-          );
-          setState(() => loadingDownload = false);
-        } else {
-          customSnackBar(
-            context: context,
-            title: errorMessage,
-            error: true,
-          );
-          setState(() => loadingDownload = false);
-        }
-      }
-    } else {
-      customSnackBar(
-        context: context,
-        title: errorMessage,
-        error: true,
-      );
-      setState(() => loadingDownload = false);
-    }
   }
 
   @override
@@ -112,8 +80,9 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
           children: [
             specie.images != null && specie.images!.isNotEmpty
                 ? InkWell(
+                    borderRadius: BorderRadius.circular(16.0),
                     onTap: () => context.pushNamed(
-                      Routes.specieImage,
+                      Routes.image,
                       pathParameters: {
                         'images': jsonEncode(
                           specie.images,
@@ -169,15 +138,37 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                               ),
                             ),
                             if (specie.images != null &&
-                                specie.images!.isNotEmpty)
+                                specie.images!.isNotEmpty &&
+                                specie.images!.first.isNotEmpty)
                               PopupMenuItem(
                                 value: 1,
-                                onTap: () => downloadMedia(
-                                  url: specie.images!.first,
-                                  correctMessage: 'Imagen descargada',
-                                  errorMessage:
-                                      'No se pudo descargar la imagen',
-                                ),
+                                onTap: () async {
+                                  setState(() {
+                                    loadingDownload = true;
+                                  });
+                                  final result = await download
+                                      .download(specie.images!.first);
+                                  if (mounted) {
+                                    if (result != null) {
+                                      customSnackBar(
+                                        context: context,
+                                        title: result,
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    } else {
+                                      customSnackBar(
+                                        context: context,
+                                        error: true,
+                                        title: 'No se pudo descargar',
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    }
+                                  }
+                                },
                                 child: _simpleList(
                                     icon: Icons.image_rounded,
                                     text: 'Descargar imagen'),
@@ -186,12 +177,33 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                 specie.sound!.isNotEmpty)
                               PopupMenuItem(
                                 value: 1,
-                                onTap: () => downloadMedia(
-                                  url: specie.sound!,
-                                  correctMessage: 'Audio descargado',
-                                  errorMessage:
-                                      'No se pudo descargar el audio',
-                                ),
+                                onTap: () async {
+                                  setState(() {
+                                    loadingDownload = true;
+                                  });
+                                  final result =
+                                      await download.download(specie.sound!);
+                                  if (mounted) {
+                                    if (result != null) {
+                                      customSnackBar(
+                                        context: context,
+                                        title: result,
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    } else {
+                                      customSnackBar(
+                                        context: context,
+                                        error: true,
+                                        title: 'No se pudo descargar',
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    }
+                                  }
+                                },
                                 child: _simpleList(
                                     icon: Icons.volume_up_rounded,
                                     text: 'Descargar audio'),
@@ -259,9 +271,76 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                         onTap: () => showModalBottomSheet(
                             context: context,
                             builder: (context) => CustomBottomSheet(
-                                  title: conservationState.name,
+                                  automaticallyImplyLeading: true,
+                                  title: 'Estados de conservación',
                                   body: [
-                                    Text(''),
+                                    Material(
+                                      color: mainColor,
+                                      borderRadius: BorderRadius.circular(16.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: ListTile(
+                                            textColor: Colors.white,
+                                            leading: ImageGeneric(
+                                              conservationState.image!,
+                                              height: 56.0,
+                                              width: 56.0,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            title: Text(
+                                              conservationState.name != null
+                                                  ? conservationState.name!
+                                                  : 'Sin información',
+                                            ),
+                                            subtitle:
+                                                conservationState.description !=
+                                                        null
+                                                    ? Text(conservationState
+                                                        .description!)
+                                                    : null),
+                                      ),
+                                    ),
+                                    ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 8.0),
+                                      itemCount: ConservationStatesHelper
+                                              .allConservationStates()
+                                          .length,
+                                      itemBuilder: (_, index) {
+                                        final conservationStateHelper =
+                                            ConservationStatesHelper
+                                                .allConservationStates()[index];
+                                        return ListTile(
+                                          leading: SizedBox(
+                                            height: 56.0,
+                                            width: 120.0,
+                                            child: Wrap(
+                                              spacing: 8.0,
+                                              runSpacing: 8.0,
+                                              children:
+                                                  conservationStateHelper.images
+                                                      .map(
+                                                        (image) => ImageGeneric(
+                                                          image,
+                                                          height: 56.0,
+                                                          width: 56.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                            ),
+                                          ),
+                                          title: Text(
+                                              conservationStateHelper.name),
+                                          subtitle: Text(conservationStateHelper
+                                              .description),
+                                        );
+                                      },
+                                    ),
                                   ],
                                   floatingActionButton: const SizedBox(),
                                 )),
@@ -278,76 +357,81 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
               ),
           ],
         ),
-        rightChild: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.all(16.0),
-              sliver: SliverList.list(
-                children: [
-                  if (specie.name != null && specie.name!.isNotEmpty)
+        rightChild: PageStorage(
+          bucket: PersistenScrollPosition.bucketGlobal,
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            key: PageStorageKey('${specie.id}D'),
+            slivers: [
+              SliverPadding(
+                padding: PaddingConfig.allL,
+                sliver: SliverList.list(
+                  children: [
                     Text(
-                      specie.name!,
+                      specie.name != null && specie.name!.isNotEmpty
+                          ? specie.name!
+                          : 'Nombre no disponible',
                       style: titleLarge.copyWith(color: mainColor),
                     ),
-                  if (specie.scientificName != null &&
-                      specie.scientificName!.isNotEmpty)
                     Text(
-                      specie.scientificName!,
+                      specie.scientificName != null &&
+                              specie.scientificName!.isNotEmpty
+                          ? specie.scientificName!
+                          : 'Nombre científico no disponible',
                       style: titleMedium.copyWith(fontStyle: FontStyle.italic),
                     ),
-                  if (specie.sound != null && specie.sound!.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: CustomAudioBar(
-                        audioUrl: specie.sound!,
-                        backgroundColor: mainColor,
-                        progressBarColor: Colors.white,
-                      ),
-                    ),
-                  if (specie.year != null && specie.year!.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: SimpleChip(
+                    if (specie.sound != null && specie.sound!.isNotEmpty)
+                      Padding(
+                        padding: PaddingConfig.onlyTop,
+                        child: CustomAudioBar(
+                          audioUrl: specie.sound!,
                           backgroundColor: mainColor,
-                          label: 'Año: ${specie.year}',
+                          progressBarColor: Colors.white,
                         ),
                       ),
-                    ),
-                  if (specie.description != null &&
-                      specie.description!.isNotEmpty)
+                    if (specie.year != null && specie.year!.isNotEmpty)
+                      Padding(
+                        padding: PaddingConfig.onlyTop,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: SimpleChip(
+                            backgroundColor: mainColor,
+                            label: 'Año: ${specie.year}',
+                          ),
+                        ),
+                      ),
+                    if (specie.description != null &&
+                        specie.description!.isNotEmpty)
+                      Padding(
+                        padding: PaddingConfig.onlyTopL,
+                        child: Text(
+                          specie.description!.replaceAll('\t', ''),
+                          textAlign: TextAlign.start,
+                          style: bodyLarge,
+                        ),
+                      ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        specie.description!.replaceAll('\t', ''),
-                        textAlign: TextAlign.start,
-                        style: bodyLarge,
+                      padding: PaddingConfig.onlyTopL,
+                      child: TaxonomyTableSection(
+                        mainColor: mainColor,
+                        opaqueColor: opaqueColor,
+                        classC: specie.classC,
+                        family: specie.family,
+                        kingdom: specie.kingdom,
+                        order: specie.order,
+                        phylum: specie.phylum,
                       ),
                     ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: TaxonomyTableSection(
-                      mainColor: mainColor,
-                      opaqueColor: opaqueColor,
-                      classC: specie.classC,
-                      family: specie.family,
-                      kingdom: specie.kingdom,
-                      order: specie.order,
-                      phylum: specie.phylum,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            if (specie.authors != null && specie.authors!.isNotEmpty)
-              SliverPadding(
-                padding: const EdgeInsets.only(
-                    left: 16.0, right: 16.0, bottom: 100.0),
-                sliver: AuthorToSpecieSection(authors: specie.authors!),
-              ),
-          ],
+              if (specie.authors != null && specie.authors!.isNotEmpty)
+                SliverPadding(
+                  padding: PaddingConfig.allWithoutTopBottomSafeL,
+                  sliver: AuthorToSpecieSection(authors: specie.authors!),
+                ),
+            ],
+          ),
         ),
       ),
     );

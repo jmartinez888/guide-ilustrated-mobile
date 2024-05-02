@@ -1,20 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:species/src/presentation/global/colors.dart';
 
 class CustomExpansionTile extends StatefulWidget {
-  final String? title;
-  final Widget? content;
-  final Color? titleBackground;
-  final Color? border;
-  final Color? contentBackground;
   const CustomExpansionTile({
-    super.key,
-    this.title,
-    this.titleBackground,
-    this.content,
-    this.contentBackground,
-    this.border,
-  });
+    Key? key,
+    this.leading,
+    required this.title,
+    this.subtitle,
+    this.onExpansionChanged,
+    required this.child,
+    this.trailing,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8.0)),
+    this.elevation = 2.0,
+    this.initialElevation = 0.0,
+    this.initiallyExpanded = false,
+    this.initialPadding = EdgeInsets.zero,
+    this.finalPadding = const EdgeInsets.only(bottom: 6.0),
+    this.contentPadding,
+    this.baseColor,
+    this.expandedColor,
+    required this.titleBackgroundColor,
+    this.expandedTextColor,
+    this.duration = const Duration(milliseconds: 400),
+    this.elevationCurve = Curves.easeOut,
+    this.heightFactorCurve = Curves.easeIn,
+    this.turnsCurve = Curves.easeIn,
+    this.colorCurve = Curves.easeIn,
+    this.paddingCurve = Curves.easeIn,
+    this.isThreeLine = false,
+    this.shadowColor = const Color(0xffaaaaaa),
+    required this.sideColor,
+    this.animateTrailing = false,
+  }) : super(key: key);
+
+  final bool isThreeLine;
+  final Widget? leading;
+  final Widget title;
+  final Widget? subtitle;
+  final ValueChanged<bool>? onExpansionChanged;
+  final Widget child;
+  final Widget? trailing;
+  final bool animateTrailing;
+  final BorderRadiusGeometry borderRadius;
+  final Color sideColor;
+  final Color titleBackgroundColor;
+  final double elevation;
+  final double initialElevation;
+  final Color shadowColor;
+  final bool initiallyExpanded;
+  final EdgeInsetsGeometry initialPadding;
+  final EdgeInsetsGeometry finalPadding;
+  final EdgeInsetsGeometry? contentPadding;
+  final Color? baseColor;
+  final Color? expandedColor;
+  final Color? expandedTextColor;
+  final Duration duration;
+  final Curve elevationCurve;
+  final Curve heightFactorCurve;
+  final Curve turnsCurve;
+  final Curve colorCurve;
+  final Curve paddingCurve;
 
   @override
   State<CustomExpansionTile> createState() => _CustomExpansionTileState();
@@ -23,18 +67,38 @@ class CustomExpansionTile extends StatefulWidget {
 class _CustomExpansionTileState extends State<CustomExpansionTile>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation<double> _heightFactor;
+  late Animation<double> _elevation;
+  late Animation<Color?> _headerColor;
+  late Animation<Color?> _iconColor;
+  late Animation<Color?> _materialColor;
+  late Animation<EdgeInsets> _padding;
   late Animation<double> _iconTurns;
-  late CurvedAnimation _easeInAnimation;
   bool _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        duration: const Duration(milliseconds: 300), vsync: this);
-    _easeInAnimation =
-        CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+    _controller = AnimationController(duration: widget.duration, vsync: this);
+    _heightFactor =
+        _controller.drive(CurveTween(curve: widget.heightFactorCurve));
+    _headerColor = _controller
+        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
+    _iconColor = _controller
+        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
+    _materialColor = _controller
+        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
+    _elevation = _controller.drive(
+        Tween<double>(begin: widget.initialElevation, end: widget.elevation));
+    _padding = _controller.drive(
+      EdgeInsetsTween(
+          begin: widget.initialPadding as EdgeInsets?,
+          end: widget.finalPadding as EdgeInsets?),
+    );
+    _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(
+        CurvedAnimation(parent: _controller, curve: widget.turnsCurve));
+    _isExpanded = widget.initiallyExpanded;
+    if (_isExpanded) _controller.value = 1.0;
   }
 
   @override
@@ -43,86 +107,103 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     super.dispose();
   }
 
-  void _toggleExpansion() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-      if (_isExpanded) {
-        _controller.forward();
-      } else {
-        _controller.reverse();
-      }
-    });
+  void _setExpansion(bool shouldBeExpanded) {
+    if (shouldBeExpanded != _isExpanded) {
+      setState(() {
+        _isExpanded = shouldBeExpanded;
+        if (_isExpanded) {
+          _controller.forward();
+        } else {
+          _controller.reverse().then<void>((void value) {
+            if (!mounted) return;
+            setState(() {});
+          });
+        }
+        widget.onExpansionChanged?.call(_isExpanded);
+      });
+    }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final bool closed = !_isExpanded && _controller.isDismissed;
+  void expand() {
+    _setExpansion(true);
+  }
 
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-    final borderRadius = BorderRadius.circular(16.0);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: widget.contentBackground ?? CustomColors.background,
-        borderRadius: borderRadius,
-        border: Border.all(
-          width: 2,
-          color: widget.border ?? Colors.transparent,
-        ),
-      ),
-      child: AnimatedBuilder(
-        animation: _controller.view,
-        builder: (context, child) {
-          return Column(
+  void collapse() {
+    _setExpansion(false);
+  }
+
+  void toggleExpansion() {
+    _setExpansion(!_isExpanded);
+  }
+
+  Widget _buildChildren(BuildContext context, Widget? child) {
+    return Padding(
+      padding: _padding.value,
+      child: Material(
+        type: MaterialType.card,
+        color: _materialColor.value,
+        borderRadius: widget.borderRadius,
+        elevation: _elevation.value,
+        shadowColor: widget.shadowColor,
+        child: Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.0),
+            border: Border.all(
+              color: widget.sideColor,
+              width: 2.0,
+            ),
+          ),
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Material(
-                borderRadius: borderRadius,
-                color: widget.titleBackground ?? colorScheme.primary,
-                child: InkWell(
-                  borderRadius: borderRadius,
-                  onTap: _toggleExpansion,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.title ?? '',
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: textTheme.titleLarge
-                                ?.copyWith(color: colorScheme.onPrimary),
-                          ),
-                        ),
-                        const SizedBox(width: 8.0),
-                        RotationTransition(
-                          turns: _iconTurns,
-                          child: Icon(
-                            Icons.expand_more,
-                            color: colorScheme.onPrimary,
-                          ),
-                        )
-                      ],
+              InkWell(
+                customBorder:
+                    RoundedRectangleBorder(borderRadius: widget.borderRadius),
+                onTap: toggleExpansion,
+                child: ListTileTheme.merge(
+                  iconColor: Colors.white,
+                  textColor: Colors.white,
+                  child: Material(
+                    color: widget.titleBackgroundColor,
+                    child: ListTile(
+                      isThreeLine: widget.isThreeLine,
+                      contentPadding: widget.contentPadding,
+                      leading: widget.leading,
+                      title: widget.title,
+                      subtitle: widget.subtitle,
+                      trailing: RotationTransition(
+                        turns: _iconTurns,
+                        child: widget.trailing ??
+                            const Icon(
+                              Icons.expand_more,
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
                   ),
                 ),
               ),
               ClipRect(
                 child: Align(
-                  heightFactor: _easeInAnimation.value,
+                  heightFactor: _heightFactor.value,
                   child: child,
                 ),
               ),
             ],
-          );
-        },
-        child: closed ? null : widget.content,
+          ),
+        ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool closed = !_isExpanded && _controller.isDismissed;
+    return AnimatedBuilder(
+      animation: _controller.view,
+      builder: _buildChildren,
+      child: closed ? null : SizedBox(child: widget.child),
     );
   }
 }

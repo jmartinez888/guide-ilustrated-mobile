@@ -5,6 +5,8 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/domain/entities/community/community.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
+import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
 import 'package:species/src/presentation/global/sections/grid_loading.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
@@ -42,7 +44,7 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
             tooltip: 'Buscar',
             icon: Icons.search_rounded,
             onPressed: () {
-              context.pushNamed(Routes.indigenousCommunitySearch);
+              context.pushNamed(Routes.communitySearch);
             },
           ),
           const SizedBox(width: 8.0),
@@ -52,67 +54,95 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
         child: RefreshIndicator(
           onRefresh: () =>
               Future.sync(() => controllerRead.pagingController.refresh()),
-          child: PagedMasonryGridView<int, Community>(
-            padding: const EdgeInsets.all(16.0),
-            pagingController: controllerRead.pagingController,
-            key: const PageStorageKey('c'),
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            gridDelegateBuilder: (int childCount) {
-              return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: buildMultiGridsLarge(width),
-              );
-            },
-            physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
-            builderDelegate: PagedChildBuilderDelegate<Community>(
-              animateTransitions: true,
-              transitionDuration: const Duration(milliseconds: 400),
-              newPageProgressIndicatorBuilder: (_) =>
-                  const SkeletonConatiner(height: 320.0),
-              firstPageErrorIndicatorBuilder: (context) => MessageException(
-                onPressed: controllerRead.pagingController.refresh,
-                lottie: 'assets/lotties/error_data.json',
-              ),
-              noItemsFoundIndicatorBuilder: (context) => MessageException(
-                onPressed: controllerRead.pagingController.refresh,
-                text: 'Parece que no hay especies aquí',
-                lottie: 'assets/lotties/without_data.json',
-              ),
-              newPageErrorIndicatorBuilder: (context) => CustomGridCard(
-                onTap: controllerRead.pagingController.retryLastFailedRequest,
-                title: 'Algo salió mal, inténtalo de nuevo',
-                image: Padding(
-                  padding:
-                      const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-                  child: Lottie.asset('assets/lotties/error_data.json'),
-                ),
-              ),
-              firstPageProgressIndicatorBuilder: (_) =>
-                  const GridLoadingLarge(),
-              itemBuilder: (context, community, index) {
-                return CustomGridCard(
-                  onTap: () => context.pushNamed(
-                    Routes.indigenousCommunityDetails,
-                    pathParameters: {'id': community.id.toString()},
-                  ),
-                  mainColor: colorScheme.primary,
-                  opaqueColor: colorScheme.primaryContainer,
-                  image: CustomImageContainer(
-                    mainColor: colorScheme.primary,
-                    imageUrl: community.images != null && community.images!.isNotEmpty ? community.images!.first : null,
-                    heightImage: 232.0,
-                    fitImage: true,
-                  ),
-                  title: community.name,
-                  subtitle: community.description,
-                  fontStyle: FontStyle.italic,
+          child: PageStorage(
+            bucket: PersistenScrollPosition.bucketGlobal,
+            child: PagedMasonryGridView<int, Community>(
+              padding: const EdgeInsets.all(16.0),
+              pagingController: controllerRead.pagingController,
+              key: const PageStorageKey('c'),
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              gridDelegateBuilder: (int childCount) {
+                return SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: buildMultiGridsLarge(width),
                 );
               },
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              builderDelegate: PagedChildBuilderDelegate<Community>(
+                animateTransitions: true,
+                transitionDuration: const Duration(milliseconds: 400),
+                newPageProgressIndicatorBuilder: (_) =>
+                    const SkeletonConatiner(height: 320.0),
+                firstPageErrorIndicatorBuilder: (context) => _errorIndicator(
+                  onPressed: controllerRead.pagingController.refresh,
+                ),
+                noItemsFoundIndicatorBuilder: (context) => _errorIndicator(
+                  onPressed: controllerRead.pagingController.refresh,
+                  text: 'Parece que no hay autores aquí',
+                  lottie: 'assets/lotties/without_data.json',
+                ),
+                newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                  onTap: controllerRead.pagingController.retryLastFailedRequest,
+                  title: 'Algo salió mal, inténtalo de nuevo',
+                  image: Padding(
+                    padding: PaddingConfig.allWithoutBottomL,
+                    child: Lottie.asset('assets/lotties/error_data.json'),
+                  ),
+                ),
+                firstPageProgressIndicatorBuilder: (_) =>
+                    GridLoading(padding: PaddingConfig.allL),
+                itemBuilder: (context, community, index) {
+                  return CustomGridCard(
+                    onTap: () => context.pushNamed(
+                      Routes.communityDetails,
+                      pathParameters: {'id': community.id.toString()},
+                    ),
+                    mainColor: colorScheme.primary,
+                    opaqueColor: colorScheme.primaryContainer,
+                    image: CustomImageContainer(
+                      mainColor: colorScheme.primary,
+                      imageUrl: community.images != null &&
+                              community.images!.isNotEmpty
+                          ? community.images!.first
+                          : null,
+                      heightImage: 232.0,
+                      fitImage: true,
+                    ),
+                    title: community.name,
+                    subtitle: community.description != null &&
+                            community.description!.isNotEmpty &&
+                            !community.description!.startsWith('NA') &&
+                            !community.description!.startsWith('-') &&
+                            !community.description!.startsWith('N/A')
+                        ? community.description!.replaceAll('\t', '')
+                        : 'Nombre no disponible',
+                    maxLines: 2,
+                  );
+                },
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _errorIndicator({
+    String? text,
+    String? lottie,
+    required void Function() onPressed,
+  }) {
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      children: [
+        MessageException(
+          padding: PaddingConfig.all,
+          text: text,
+          onPressed: onPressed,
+          lottie: lottie ?? 'assets/lotties/error_data.json',
+        ),
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:species/src/domain/repositories/author/author_repository.dart';
 import 'package:species/src/presentation/global/state_notifier.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/controller/state/author_details_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/sub_routes/author_details/controller/state/author_details_state.dart';
 
 class AuthorDetailsController extends StateNotifier<AuthorDetailsState> {
   final AuthorRepository authorRepository;

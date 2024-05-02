@@ -18,6 +18,7 @@ class _AboutPageState extends State<AboutPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: const SizedBox(),
         title: Text(texts.aboutProject.title),
       ),
       body: Extend(

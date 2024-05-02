@@ -17,7 +17,9 @@ class AuthorMapper {
       yearOfBirth: author.yearOfBirth,
       yearOfDeath: author.yearOfDeath,
       profession: author.profession,
-      image: author.image,
+      images: author.image != null && author.image!.isNotEmpty
+          ? [author.image!]
+          : null,
       state: author.state,
       species: author.species != null && author.species!.isNotEmpty
           ? author.species!
