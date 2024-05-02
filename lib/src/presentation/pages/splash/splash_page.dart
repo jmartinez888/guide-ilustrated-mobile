@@ -74,7 +74,7 @@ class _SplashPageState extends State<SplashPage> {
                   context: context,
                   colorScheme: colorScheme,
                   textTheme: textTheme),
-              rightChildren: [second()],
+              /* rightChildren: [second()], */
             ),
           ],
         ),

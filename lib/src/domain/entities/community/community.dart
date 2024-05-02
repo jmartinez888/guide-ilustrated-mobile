@@ -5,6 +5,7 @@ part 'community.g.dart';
 
 @freezed
 class Community with _$Community {
+
   factory Community({
     required int id,
     String? name,
@@ -15,6 +16,5 @@ class Community with _$Community {
     String? state,
   }) = _Community;
 
-  factory Community.fromJson(Map<String, dynamic> json) =>
-      _$CommunityFromJson(json);
+  factory Community.fromJson(Map<String, dynamic> json) => _$CommunityFromJson(json);
 }

@@ -10,6 +10,6 @@
     "palms": "Palmeras",
     "deleteFavorite": "Quitar de favoritos",
     "saveFavorite": "Guardar en favoritos",
-    "orderName": "Ordenar por nombre común",
-    "orderScientificName": "Ordenar por nombre científico"
+    "orderName": "Nombre común",
+    "orderScientificName": "Nombre científico"
 }

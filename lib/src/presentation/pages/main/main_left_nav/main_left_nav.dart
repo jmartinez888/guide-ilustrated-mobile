@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
-
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/pages/main/main_left_nav/controller/main_left_nav_controller.dart';
@@ -16,47 +16,6 @@ class MainLeftNav extends StatefulWidget {
     required this.child,
   }) : super(key: key);
 
-  static const List<Map<String, dynamic>> _pageData = [
-    {
-      'title': 'Cuenta',
-      'content': [
-        {
-          'label': 'Perfil',
-          'icon_selected': Icons.account_circle_rounded,
-          'icon_unselected': Icons.account_circle_outlined,
-        },
-      ],
-    },
-    {
-      'title': 'Contenido',
-      'content': [
-        {
-          'label': 'Especies',
-          'icon_selected': CustomIcons.mono,
-        },
-        {
-          'label': 'Comunidades Indígenas',
-          'icon_selected': CustomIcons.choza,
-        },
-      ],
-    },
-    {
-      'title': 'Acerca de',
-      'content': [
-        {
-          'label': 'Staff',
-          'icon_selected': Icons.groups_rounded,
-          'icon_unselected': Icons.groups_outlined,
-        },
-        {
-          'label': 'Sobre la guía',
-          'icon_selected': Icons.info_rounded,
-          'icon_unselected': Icons.info_outlined,
-        },
-      ],
-    },
-  ];
-
   @override
   State<MainLeftNav> createState() => _MainLeftNavState();
 }
@@ -64,34 +23,6 @@ class MainLeftNav extends StatefulWidget {
 class _MainLeftNavState extends State<MainLeftNav> {
   SessionController get sessionController => context.read();
   LeftTabController get leftTabController => context.read();
-
-  List<Widget> _buildNavigationDrawerItems(BuildContext context) {
-    List<Widget> items = [];
-
-    for (var section in MainLeftNav._pageData) {
-      final textTheme = Theme.of(context).textTheme;
-      final colorScheme = Theme.of(context).colorScheme;
-      items.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Text(
-          section['title'],
-          style: textTheme.titleMedium?.copyWith(
-            color: colorScheme.primary,
-          ),
-        ),
-      ));
-
-      for (var content in section['content']) {
-        items.add(NavigationDrawerDestination(
-          selectedIcon: Icon(content['icon_selected']),
-          label: Text(content['label']),
-          icon: Icon(content['icon_unselected'] ?? content['icon_selected']),
-        ));
-      }
-    }
-
-    return items;
-  }
 
   @override
   void initState() {
@@ -104,10 +35,10 @@ class _MainLeftNavState extends State<MainLeftNav> {
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final LeftTabController controller = context.watch();
     final position = controller.state.position;
+
     return Scaffold(
       key: scaffoldKey,
       drawer: NavigationDrawer(
-        // selectedIndex: navigationShell.currentIndex,
         selectedIndex: position,
         onDestinationSelected: (index) {
           switch (index) {
@@ -128,19 +59,26 @@ class _MainLeftNavState extends State<MainLeftNav> {
               break;
             case 2:
               context.goNamed(
-                Routes.indigenousCommunity,
+                Routes.communities,
               );
               leftTabController.changeTab(index);
 
               break;
             case 3:
               context.goNamed(
-                Routes.staff,
+                Routes.authors,
               );
               leftTabController.changeTab(index);
 
               break;
             case 4:
+              context.goNamed(
+                Routes.staff,
+              );
+              leftTabController.changeTab(index);
+
+              break;
+            case 5:
               context.goNamed(
                 Routes.about,
               );
@@ -150,7 +88,38 @@ class _MainLeftNavState extends State<MainLeftNav> {
           }
           scaffoldKey.currentState?.openEndDrawer();
         },
-        children: _buildNavigationDrawerItems(context),
+        children: [
+          _title('Cuenta'),
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.account_circle_rounded),
+            label: Text('Perfil'),
+            icon: Icon(Icons.account_circle_outlined),
+          ),
+          _title('Contenido'),
+          const NavigationDrawerDestination(
+            label: Text('Especies'),
+            icon: Icon(CustomIcons.mono),
+          ),
+          const NavigationDrawerDestination(
+            label: Text('Comunidades Indígenas'),
+            icon: Icon(CustomIcons.choza),
+          ),
+          const NavigationDrawerDestination(
+            label: Text('Autores'),
+            icon: Icon(Icons.group_rounded),
+          ),
+          _title('Acerca de'),
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.groups_rounded),
+            label: Text('Staff'),
+            icon: Icon(Icons.groups_outlined),
+          ),
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.info_rounded),
+            label: Text('Sobre la guía'),
+            icon: Icon(Icons.info_outlined),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Stack(
@@ -166,6 +135,19 @@ class _MainLeftNavState extends State<MainLeftNav> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _title(String title) {
+    return Padding(
+      padding: PaddingConfig.asymetrict,
+      child: Text(
+        title,
+        style: Theme.of(context)
+            .textTheme
+            .titleMedium
+            ?.copyWith(color: Theme.of(context).colorScheme.primary),
       ),
     );
   }

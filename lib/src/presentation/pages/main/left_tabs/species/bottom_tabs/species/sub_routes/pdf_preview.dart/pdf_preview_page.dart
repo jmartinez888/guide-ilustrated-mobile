@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
 import 'package:provider/provider.dart';
+import 'package:species/src/data/services/local/pdf_service.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
-import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
+import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 
 class PdfPreviewPage extends StatefulWidget {
   final String specie;
@@ -29,6 +28,7 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
   late String pathIcon;
   SpecieRepository get specieRepository => context.read();
   String baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
+  final pdfService = PdfService();
 
   @override
   void initState() {
@@ -50,7 +50,6 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
 
         break;
       case 3:
-        mainColor = CustomColors.reptile;
         pathIcon = 'reptile';
 
         break;
@@ -77,391 +76,31 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
     }
   }
 
-  Future<Uint8List> makePdf() async {
-    final pdf = pw.Document();
-    final specieImage = await networkImage(
-        specie.images != null && specie.images!.isNotEmpty
-            ? specie.images!.first
-            : '');
-    final logoImage = pw.MemoryImage(
-      (await rootBundle.load('assets/images/logo.png')).buffer.asUint8List(),
-    );
-    final logoMinam = pw.MemoryImage(
-      (await rootBundle.load('assets/images/logo_minam.png'))
-          .buffer
-          .asUint8List(),
-    );
-    final logoIIAP = pw.MemoryImage(
-      (await rootBundle.load('assets/images/logoIIAP.jpg'))
-          .buffer
-          .asUint8List(),
-    );
-    final logoSpain = pw.MemoryImage(
-      (await rootBundle.load('assets/images/logo_spain.png'))
-          .buffer
-          .asUint8List(),
-    );
-
-    final specieIcon = pw.MemoryImage(
-      (await rootBundle.load('assets/icons/species/images_icons/$pathIcon.png'))
-          .buffer
-          .asUint8List(),
-    );
-
-    final hexValue = mainColor.value.toRadixString(16).substring(2);
-    final formattedHexValue = hexValue.padLeft(6, '0');
-
-    pdf.addPage(
-      pw.MultiPage(
-        margin: const pw.EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) => [
-          pw.Stack(
-            alignment: pw.Alignment.bottomCenter,
-            children: [
-              pw.Padding(
-                padding: const pw.EdgeInsets.only(bottom: 148.0),
-                child: pw.Column(
-                  mainAxisAlignment: pw.MainAxisAlignment.start,
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Row(
-                      children: [
-                        pw.Container(
-                          padding: const pw.EdgeInsets.only(right: 8.0),
-                          child: pw.Image(
-                            logoImage,
-                            height: 56.0,
-                            width: 56.0,
-                          ),
-                        ),
-                        pw.Column(
-                          children: [
-                            pw.Text(
-                              'AMAZONÍA',
-                              style: pw.TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: pw.FontWeight.bold,
-                              ),
-                            ),
-                            pw.Text(
-                              'Guía ilustrada de flora y fauna',
-                              style: pw.TextStyle(
-                                fontSize: 9.0,
-                                fontWeight: pw.FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    pw.Container(
-                      height: 8.0,
-                      width: double.infinity,
-                      color: PdfColor.fromHex('#005E80FF'),
-                    ),
-                    pw.Row(
-                      mainAxisSize: pw.MainAxisSize.min,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        pw.Column(
-                          mainAxisAlignment: pw.MainAxisAlignment.start,
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Container(
-                              color: PdfColor.fromHex(formattedHexValue),
-                              padding: const pw.EdgeInsets.all(16.0),
-                              child: pw.Column(
-                                children: [
-                                  pw.Image(
-                                    specieIcon,
-                                    height: 24.0,
-                                    width: 24.0,
-                                  ),
-                                  pw.Text(
-                                    specie.type!.name!,
-                                    style: pw.TextStyle(
-                                      color: PdfColor.fromHex('#ffffff'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            pw.SizedBox(width: 8.0),
-                          ],
-                        ),
-                        pw.Expanded(
-                          child: pw.Padding(
-                            padding: const pw.EdgeInsets.all(8.0),
-                            child: pw.Column(
-                              mainAxisAlignment: pw.MainAxisAlignment.center,
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              mainAxisSize: pw.MainAxisSize.max,
-                              children: [
-                                pw.Paragraph(
-                                  text: specie.name,
-                                  style: pw.TextStyle(
-                                    fontSize: 16.0,
-                                    color: PdfColor.fromHex(formattedHexValue),
-                                    fontWeight: pw.FontWeight.bold,
-                                  ),
-                                  margin: const pw.EdgeInsets.only(bottom: 8.0),
-                                ),
-                                pw.Paragraph(
-                                  text: specie.scientificName,
-                                  style: pw.TextStyle(
-                                    fontSize: 14.0,
-                                    fontStyle: pw.FontStyle.italic,
-                                  ),
-                                  margin: const pw.EdgeInsets.only(bottom: 8.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    pw.GridView(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      children: [
-                        pw.Column(
-                          mainAxisAlignment: pw.MainAxisAlignment.end,
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Padding(
-                              padding: const pw.EdgeInsets.only(bottom: 16.0),
-                              child: pw.Text(
-                                'Taxonomía:',
-                                style: pw.TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: pw.FontWeight.bold,
-                                  color: PdfColor.fromHex('#808080'),
-                                ),
-                              ),
-                            ),
-                            /* if (
-                                specie.kingdom != null &&
-                                specie.kingdom!.name != null &&
-                                specie.kingdom!.name!.isNotEmpty)
-                              pw.RichText(
-                                text: pw.TextSpan(
-                                  children: [
-                                    pw.TextSpan(
-                                      text: 'Reino:     ',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                    pw.TextSpan(
-                                      text: specie.kingdom!.name,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            if (
-                                specie.phylum != null &&
-                                specie.phylum!.name != null &&
-                                specie.phylum!.name!.isNotEmpty)
-                              pw.RichText(
-                                text: pw.TextSpan(
-                                  children: [
-                                    pw.TextSpan(
-                                      text: 'Filo:        ',
-                                      style: pw.TextStyle(
-                                          fontWeight: pw.FontWeight.bold,
-                                          fontSize: 12.0),
-                                    ),
-                                    pw.TextSpan(
-                                      text: specie.phylum!.name,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            if (
-                                specie.classC != null &&
-                                specie.classC!.name != null &&
-                                specie.classC!.name!.isNotEmpty)
-                              pw.RichText(
-                                text: pw.TextSpan(
-                                  children: [
-                                    pw.TextSpan(
-                                      text: 'Clase:     ',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                    pw.TextSpan(
-                                      text: specie.classC!.name,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            if (
-                                specie.order != null &&
-                                specie.order!.name != null &&
-                                specie.order!.name!.isNotEmpty)
-                              pw.RichText(
-                                text: pw.TextSpan(
-                                  children: [
-                                    pw.TextSpan(
-                                      text: 'Orden:    ',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                    pw.TextSpan(
-                                      text: specie.order!.name,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            if (
-                                specie.family != null &&
-                                specie.family!.name != null &&
-                                specie.family!.name!.isNotEmpty)
-                              pw.RichText(
-                                text: pw.TextSpan(
-                                  children: [
-                                    pw.TextSpan(
-                                      text: 'Familia:   ',
-                                      style: pw.TextStyle(
-                                        fontWeight: pw.FontWeight.bold,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                    pw.TextSpan(
-                                      text: specie.order!.name,
-                                    ), 
-                                  ],
-                                ),
-                              ),
-                                 */
-                          ],
-                        ),
-                        if (specie.images != null && specie.images!.isNotEmpty)
-                          pw.Container(
-                            width: double.infinity,
-                            height: 512.0,
-                            child: pw.Image(
-                              specieImage,
-                              fit: pw.BoxFit.contain,
-                            ),
-                          )
-                      ],
-                    ),
-                    pw.Padding(
-                      padding: const pw.EdgeInsets.only(bottom: 16.0, top: 8.0),
-                      child: pw.Text(
-                        'Decripción:',
-                        style: pw.TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: pw.FontWeight.bold,
-                          color: PdfColor.fromHex('#808080'),
-                        ),
-                      ),
-                    ),
-                    if (specie.description != null &&
-                        specie.description!.isNotEmpty)
-                      pw.Text(
-                        specie.description!.replaceAll('\t', ''),
-                        style: const pw.TextStyle(fontSize: 12.0),
-                      ),
-                  ],
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Extend(
+            child: SafeArea(
+              child: PdfPreview(
+                build: (context) => pdfService.makePdf(
+                  specie: specie,
+                  mainColor: mainColor.value.toRadixString(16).substring(2),
+                  opaqueColor: opaqueColor.value.toRadixString(16).substring(2),
+                  pathIcon: pathIcon,
                 ),
               ),
-              pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.center,
-                crossAxisAlignment: pw.CrossAxisAlignment.center,
-                children: [
-                  pw.Paragraph(
-                    text: 'Visita: $baseUrl/species/${specie.id}',
-                    style: pw.TextStyle(color: PdfColor.fromHex('#808080')),
-                    margin: pw.EdgeInsets.zero,
-                  ),
-                  pw.Container(
-                    color: PdfColor.fromHex('#2E9159'),
-                    height: 8.0,
-                  ),
-                  pw.SizedBox(
-                    height: 64.0,
-                    child: pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.Expanded(
-                          child: pw.Container(
-                            height: 40.0,
-                            color: PdfColor.fromHex('#ff0000'),
-                            child: pw.Image(
-                              logoMinam,
-                            ),
-                          ),
-                        ),
-                        pw.Expanded(
-                          child: pw.SizedBox(
-                            height: 40.0,
-                            child: pw.Row(
-                              children: [
-                                pw.Image(
-                                  logoIIAP,
-                                ),
-                                pw.Container(
-                                  height: 40.0,
-                                  padding: const pw.EdgeInsets.symmetric(
-                                      horizontal: 2.0, vertical: 4.0),
-                                  alignment: pw.Alignment.center,
-                                  color: PdfColor.fromHex('#000000'),
-                                  child: pw.Text(
-                                    'Insitiuto de Investigaciones\nde la Amazonía Peruana',
-                                    style: pw.TextStyle(
-                                      color: PdfColor.fromHex('#ffffff'),
-                                      fontSize: 9.0,
-                                      fontWeight: pw.FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        pw.Expanded(
-                          child: pw.Container(
-                            height: 40.0,
-                            color: PdfColor.fromHex('#0000ff'),
-                            child: pw.Image(
-                              logoSpain,
-                              height: 40.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            ),
+          ),
+          const Positioned(
+            left: 8.0,
+            top: 8.0,
+            child: SafeArea(child: CustomBackButton()),
           ),
         ],
       ),
     );
-    return pdf.save();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('PDF'),
-      ),
-      body: PdfPreview(
-        build: (context) => makePdf(),
-      ),
-    );
   }
-}

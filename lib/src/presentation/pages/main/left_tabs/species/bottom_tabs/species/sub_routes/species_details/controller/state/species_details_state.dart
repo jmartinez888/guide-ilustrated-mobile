@@ -7,6 +7,7 @@ part 'species_details_state.freezed.dart';
 class SpeciesDetailsState with _$SpeciesDetailsState {
   factory SpeciesDetailsState({
     @Default({}) Map<String, Specie> mapOfId,
+    @Default(false) bool expanded,
     @Default(true) bool loading,
   }) = _SpeciesDetailsState;
 }

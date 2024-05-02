@@ -18,7 +18,7 @@ class AmphibiansTabController extends StateNotifier<SpecieTabState> {
         final result = await specieRepository.getSpecies(
           numberOfPostsPerRequest: numberOfPostsPerRequest,
           pageNumber: pageKey,
-          type: 5,
+          type: 4,
           orderByName: state.orderByName,
           orderAsc: state.orderAsc,
         );

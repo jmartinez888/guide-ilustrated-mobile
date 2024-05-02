@@ -1,449 +1,438 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:species/src/data/services/local/download_service.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
-import 'package:species/src/domain/entities/kindom/kindom.dart';
-import 'package:species/src/domain/repositories/account/account_repository.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
+import 'package:species/src/domain/repositories/specie/specie_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
+import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
+import 'package:species/src/presentation/global/sections/author_to_specie_section.dart';
+import 'package:species/src/presentation/global/sections/taxonomy_table_section.dart';
+import 'package:species/src/presentation/global/utils/conservation_states_helper/conservation_states_helper.dart';
+import 'package:species/src/presentation/global/widgets/alerts/custom_bottom_sheet.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
-import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/global/widgets/card/simple_chip.dart';
+import 'package:species/src/presentation/global/widgets/images/image_generic.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/multimedia/custom_audio_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/global/widgets/responsives/grid_two_responsive.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
-import 'package:species/src/generated/translations.g.dart';
 
-class SpecieDetailsSection extends StatelessWidget {
+class SpecieDetailSection extends StatefulWidget {
   final Specie specie;
-  const SpecieDetailsSection({
+  const SpecieDetailSection({
     Key? key,
     required this.specie,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-    final Size size = MediaQuery.of(context).size;
-    late Map<String, dynamic> mainOpaqueColor;
-    late Color mainColor;
-    late Color opaqueColor;
+  State<SpecieDetailSection> createState() => _SpecieDetailSectionState();
+}
 
+class _SpecieDetailSectionState extends State<SpecieDetailSection> {
+  SessionController get sessionController => context.read();
+
+  final download = DownloadService();
+
+  late Map<String, dynamic> mainOpaqueColor;
+
+  late Color mainColor;
+  late Color opaqueColor;
+
+  late Specie specie;
+
+  late TextStyle titleLarge;
+  late TextStyle titleMedium;
+  late TextStyle bodyLarge;
+  bool loadingDownload = false;
+
+  @override
+  void initState() {
+    super.initState();
+    specie = widget.specie;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     mainOpaqueColor = getMainColorByInt(specie.type?.id ?? 0);
     mainColor = mainOpaqueColor['main'];
     opaqueColor = mainOpaqueColor['opaque'];
+    titleLarge = textTheme.titleLarge!;
+    titleMedium = textTheme.titleMedium!;
+    bodyLarge = textTheme.bodyLarge!;
+    final SessionController sessionControllerWatch = context.watch();
+    final sessionState = sessionControllerWatch.state;
 
-    return Scaffold(
-      body: Extend(
-        child: GridTwoResponsive(
-          leftChild: Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 48.0),
-                color: Colors.white,
-                child: CustomImageContainer(
-                  mainColor: mainColor,
-                  onTap: () {
-                    /* Specie specieFirebase =
-                        SpecieMapper.specieToSpecieFavorite(specie);
-                    final value = jsonEncode(specieFirebase.toJson());
-
-                    context.pushNamed(
-                      Routes.specieImage,
-                      pathParameters: {'specie': value},
-                    ); */
-                  },
-                  imageUrl: specie.images != null && specie.images!.isNotEmpty
-                      ? specie.images!.first
-                      : null,
-                  heightImage:
-                      size.height > size.width + 32.0 ? 288 : double.infinity,
-                ),
-              ),
-              if (specie.conservationStates != null &&
-                  specie.conservationStates!.isNotEmpty)
-                Positioned(
-                  left: 8.0,
-                  bottom: 8.0,
-                  child: Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
+    return Extend(
+      child: GridTwoResponsive(
+        leftChild: Stack(
+          children: [
+            specie.images != null && specie.images!.isNotEmpty
+                ? InkWell(
+                    borderRadius: BorderRadius.circular(16.0),
+                    onTap: () => context.pushNamed(
+                      Routes.image,
+                      pathParameters: {
+                        'images': jsonEncode(
+                          specie.images,
+                        ).toString(),
+                      },
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 40.0),
+                      child: ImageGeneric(
+                        backgroundColor: Colors.white,
+                        borderRadius: BorderRadius.circular(16.0),
+                        specie.images!.first,
+                        height: double.infinity,
+                        width: double.infinity,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  )
+                : const Icon(Icons.image_not_supported_rounded),
+            Positioned(
+              top: 8.0,
+              right: 8.0,
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
                     children: [
-                      for (var statusImage in specie.conservationStates!)
-                        CustomImageContainer(
-                          borderRadius: BorderRadius.zero,
-                          imageUrl: statusImage.image,
-                          mainColor: mainColor,
-                          heightImage: 40.0,
-                          width: 40.0,
+                      SizedBox(
+                        height: 40.0,
+                        width: 40.0,
+                        child: PopupMenuButton(
+                          enabled: !loadingDownload,
+                          tooltip: 'Descargar',
+                          offset: const Offset(0, 48.0),
+                          padding: const EdgeInsets.all(0.0),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value: 0,
+                              child: _simpleList(
+                                  icon: Icons.picture_as_pdf_rounded,
+                                  text: 'Generar PDF'),
+                              onTap: () => context.pushNamed(
+                                Routes.speciePdfPreview,
+                                pathParameters: {
+                                  'specie': jsonEncode(specie.toJson()),
+                                },
+                              ),
+                            ),
+                            if (specie.images != null &&
+                                specie.images!.isNotEmpty &&
+                                specie.images!.first.isNotEmpty)
+                              PopupMenuItem(
+                                value: 1,
+                                onTap: () async {
+                                  setState(() {
+                                    loadingDownload = true;
+                                  });
+                                  final result = await download
+                                      .download(specie.images!.first);
+                                  if (mounted) {
+                                    if (result != null) {
+                                      customSnackBar(
+                                        context: context,
+                                        title: result,
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    } else {
+                                      customSnackBar(
+                                        context: context,
+                                        error: true,
+                                        title: 'No se pudo descargar',
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    }
+                                  }
+                                },
+                                child: _simpleList(
+                                    icon: Icons.image_rounded,
+                                    text: 'Descargar imagen'),
+                              ),
+                            if (specie.sound != null &&
+                                specie.sound!.isNotEmpty)
+                              PopupMenuItem(
+                                value: 1,
+                                onTap: () async {
+                                  setState(() {
+                                    loadingDownload = true;
+                                  });
+                                  final result =
+                                      await download.download(specie.sound!);
+                                  if (mounted) {
+                                    if (result != null) {
+                                      customSnackBar(
+                                        context: context,
+                                        title: result,
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    } else {
+                                      customSnackBar(
+                                        context: context,
+                                        error: true,
+                                        title: 'No se pudo descargar',
+                                      );
+                                      setState(() {
+                                        loadingDownload = false;
+                                      });
+                                    }
+                                  }
+                                },
+                                child: _simpleList(
+                                    icon: Icons.volume_up_rounded,
+                                    text: 'Descargar audio'),
+                              ),
+                          ],
+                          icon: CircleAvatar(
+                            backgroundColor: mainColor,
+                            child: const Icon(Icons.download_rounded,
+                                color: Colors.white),
+                          ),
+                          surfaceTintColor: Colors.transparent,
+                        ),
+                      ),
+                      if (loadingDownload)
+                        CircularProgressIndicator(
+                          color: mainColor,
+                          backgroundColor: opaqueColor,
                         ),
                     ],
                   ),
-                ),
-              _ActionsForSpecieDetails(
-                context: context,
-                mainColor: mainColor,
-                specie: specie,
+                  CustomIconButton(
+                    tooltip: 'Compartir',
+                    icon: Icons.share,
+                    iconColor: Colors.white,
+                    backgroundColor: mainColor,
+                    onPressed: () => Share.share(
+                        '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}'),
+                  ),
+                  sessionState != null
+                      ? _FavoriteIcon(
+                          userId: sessionState,
+                          specie: specie,
+                          mainColor: mainColor,
+                          opaqueColor: opaqueColor,
+                        )
+                      : CustomIconButton(
+                          tooltip: texts.species.saveFavorite,
+                          icon: Icons.favorite_outline_rounded,
+                          iconColor: mainColor,
+                          onPressed: () {
+                            context.pushNamed(Routes.signIn);
+                          },
+                        ),
+                ],
               ),
-            ],
-          ),
-          rightChildren: [
-            if (specie.name != null && specie.name!.isNotEmpty)
-              Text(
-                specie.name!,
-                style: textTheme.titleLarge?.copyWith(color: mainColor),
-              ),
-            if (specie.scientificName != null &&
-                specie.scientificName!.isNotEmpty)
-              Text(
-                specie.scientificName!,
-                style: textTheme.titleMedium?.copyWith(
-                  color: colorScheme.onBackground,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            if (specie.sound != null && specie.sound!.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: CustomAudioBar(
-                  audioUrl: specie.sound!,
-                  backgroundColor: mainColor,
-                  progressBarColor: opaqueColor,
-                ),
-              ),
-            if (specie.authors != null && specie.authors!.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  texts.speciesDetails.authors,
-                  style: textTheme.titleLarge,
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            if (specie.authors != null && specie.authors!.isNotEmpty)
-              Text(
-                specie.authors!
-                    .where((author) => author.name != null)
-                    .map((author) => author.name!)
-                    .join(', '),
-                style: textTheme.titleMedium
-                    ?.copyWith(color: colorScheme.onSurfaceVariant),
-                textAlign: TextAlign.end,
-              ),
-            /* if (specie.taxonomy != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: _table(
-                  context: context,
-                  mainColor: mainColor,
-                  opaqueColor: opaqueColor,
-                  
-                ),
-              ), */
-            if (specie.description != null && specie.description!.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  specie.description!,
-                  textAlign: TextAlign.start,
-                  style: textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
+            ),
+            if (specie.conservationStates != null &&
+                specie.conservationStates!.isNotEmpty)
+              Positioned(
+                left: 8.0,
+                right: 8.0,
+                bottom: 8.0,
+                child: SizedBox(
+                  height: 40.0,
+                  child: ListView.separated(
+                    padding: const EdgeInsets.only(right: 128.0),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: specie.conservationStates!.length,
+                    separatorBuilder: (_, __) => const SizedBox(width: 4.0),
+                    itemBuilder: (_, index) {
+                      final conservationState =
+                          specie.conservationStates![index];
+                      return InkWell(
+                        onTap: () => showModalBottomSheet(
+                            context: context,
+                            builder: (context) => CustomBottomSheet(
+                                  automaticallyImplyLeading: true,
+                                  title: 'Estados de conservación',
+                                  body: [
+                                    Material(
+                                      color: mainColor,
+                                      borderRadius: BorderRadius.circular(16.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: ListTile(
+                                            textColor: Colors.white,
+                                            leading: ImageGeneric(
+                                              conservationState.image!,
+                                              height: 56.0,
+                                              width: 56.0,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            title: Text(
+                                              conservationState.name != null
+                                                  ? conservationState.name!
+                                                  : 'Sin información',
+                                            ),
+                                            subtitle:
+                                                conservationState.description !=
+                                                        null
+                                                    ? Text(conservationState
+                                                        .description!)
+                                                    : null),
+                                      ),
+                                    ),
+                                    ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 8.0),
+                                      itemCount: ConservationStatesHelper
+                                              .allConservationStates()
+                                          .length,
+                                      itemBuilder: (_, index) {
+                                        final conservationStateHelper =
+                                            ConservationStatesHelper
+                                                .allConservationStates()[index];
+                                        return ListTile(
+                                          leading: SizedBox(
+                                            height: 56.0,
+                                            width: 120.0,
+                                            child: Wrap(
+                                              spacing: 8.0,
+                                              runSpacing: 8.0,
+                                              children:
+                                                  conservationStateHelper.images
+                                                      .map(
+                                                        (image) => ImageGeneric(
+                                                          image,
+                                                          height: 56.0,
+                                                          width: 56.0,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                            ),
+                                          ),
+                                          title: Text(
+                                              conservationStateHelper.name),
+                                          subtitle: Text(conservationStateHelper
+                                              .description),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                  floatingActionButton: const SizedBox(),
+                                )),
+                        child: ImageGeneric(
+                          conservationState.image!,
+                          height: 40.0,
+                          width: 40.0,
+                          fit: BoxFit.contain,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-Widget _doubleListTile({
-  String? firstText,
-  String? secondText,
-  Color? divideColor,
-  Color? backgroundColor,
-  TextStyle? style,
-}) {
-  const padding = EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 8.0);
-  return Material(
-    color: backgroundColor ?? Colors.transparent,
-    child: Row(
-      children: [
-        if (firstText != null)
-          Expanded(
-            child: Container(
-              padding: padding,
-              child: Text(
-                firstText,
-                style: style,
-              ),
-            ),
-          ),
-        if (divideColor != null)
-          Container(
-            height: 24.0,
-            width: 1.5,
-            color: divideColor,
-          ),
-        if (secondText != null)
-          Expanded(
-            child: Container(
-              padding: padding,
-              child: Text(
-                secondText,
-                style: style,
-              ),
-            ),
-          ),
-      ],
-    ),
-  );
-}
-
-Widget _table({
-  required Color mainColor,
-  required Color opaqueColor,
-  required BuildContext context,
-  required Kingdom kingdom,
-}) {
-  final textTheme = Theme.of(context).textTheme;
-  final customDivider = Divider(
-    height: 1.5,
-    thickness: 1.5,
-    color: mainColor,
-    indent: 8.0,
-    endIndent: 8.0,
-  );
-  return Container(
-    clipBehavior: Clip.antiAlias,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(24.0),
-      border: Border.all(
-        width: 2,
-        color: mainColor,
-        strokeAlign: BorderSide.strokeAlignOutside,
-      ),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _doubleListTile(
-          firstText: texts.speciesDetails.taxonomicInfo,
-          backgroundColor: opaqueColor,
-          style: textTheme.titleLarge,
-        ),
-        Divider(
-          height: 2.0,
-          thickness: 2.0,
-          color: mainColor,
-        ),
-        /* _doubleListTile(
-          firstText: 'Reino',
-          secondText: kingdom.name ?? '-',
-          divideColor: mainColor,
-          style: textTheme.labelLarge,
-        ),
-        customDivider,
-        _doubleListTile(
-          firstText: texts.speciesDetails.filo,
-          secondText: taxonomy.phylum?.name ?? '-',
-          divideColor: mainColor,
-          style: textTheme.labelLarge,
-        ),
-        customDivider,
-        _doubleListTile(
-          firstText: texts.speciesDetails.classes,
-          secondText: taxonomy.classC?.name ?? '-',
-          divideColor: mainColor,
-          style: textTheme.labelLarge,
-        ),
-        customDivider,
-        _doubleListTile(
-          firstText: texts.speciesDetails.order,
-          secondText: taxonomy.order?.name ?? '-',
-          divideColor: mainColor,
-          style: textTheme.labelLarge,
-        ),
-        customDivider,
-        _doubleListTile(
-          firstText: texts.speciesDetails.family,
-          secondText: taxonomy.family?.name ?? '-',
-          divideColor: mainColor,
-          style: textTheme.labelLarge,
-        ), */
-      ],
-    ),
-  );
-}
-
-class _ActionsForSpecieDetails extends StatefulWidget {
-  final BuildContext context;
-  final Color mainColor;
-  final Specie specie;
-  const _ActionsForSpecieDetails({
-    required this.context,
-    required this.mainColor,
-    required this.specie,
-  });
-
-  @override
-  State<_ActionsForSpecieDetails> createState() =>
-      _ActionsForSpecieDetailsState();
-}
-
-class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
-  double? _progress;
-
-  late Stream<bool> isFavoriteStream;
-
-  @override
-  void initState() {
-    super.initState();
-    isFavoriteStream = FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection('favorites')
-        .doc(widget.specie.id.toString())
-        .snapshots()
-        .map((snapshot) => snapshot.exists);
-  }
-
-  final firebaseInstance = FirebaseAuth.instance;
-  FavoriteRepository get favoriteRepository => context.read();
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 8.0,
-      right: 16.0,
-      child: Wrap(
-        spacing: 8.0,
-        runSpacing: 8.0,
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              if (_progress != null)
-                const SizedBox(
-                  height: 40.0,
-                  width: 40.0,
-                  child: CircularProgressIndicator(),
-                ),
-              SizedBox(
-                height: 40.0,
-                width: 40.0,
-                child: PopupMenuButton(
-                  tooltip: texts.speciesDetails.download,
-                  offset: const Offset(0, 48.0),
-                  padding: const EdgeInsets.all(0.0),
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      value: 0,
-                      child: _simpleList(
-                          icon: Icons.picture_as_pdf_rounded,
-                          text: texts.speciesDetails.download),
-                      onTap: () => context.pushNamed(
-                        Routes.speciePdfPreview,
-                        pathParameters: {
-                          'specie': jsonEncode(widget.specie.toJson()),
-                        },
+        rightChild: PageStorage(
+          bucket: PersistenScrollPosition.bucketGlobal,
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            key: PageStorageKey('${specie.id}D'),
+            slivers: [
+              SliverPadding(
+                padding: PaddingConfig.allL,
+                sliver: SliverList.list(
+                  children: [
+                    Text(
+                      specie.name != null && specie.name!.isNotEmpty
+                          ? specie.name!
+                          : 'Nombre no disponible',
+                      style: titleLarge.copyWith(color: mainColor),
+                    ),
+                    Text(
+                      specie.scientificName != null &&
+                              specie.scientificName!.isNotEmpty
+                          ? specie.scientificName!
+                          : 'Nombre científico no disponible',
+                      style: titleMedium.copyWith(fontStyle: FontStyle.italic),
+                    ),
+                    if (specie.sound != null && specie.sound!.isNotEmpty)
+                      Padding(
+                        padding: PaddingConfig.onlyTop,
+                        child: CustomAudioBar(
+                          audioUrl: specie.sound!,
+                          backgroundColor: mainColor,
+                          progressBarColor: Colors.white,
+                        ),
+                      ),
+                    if (specie.year != null && specie.year!.isNotEmpty)
+                      Padding(
+                        padding: PaddingConfig.onlyTop,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: SimpleChip(
+                            backgroundColor: mainColor,
+                            label: 'Año: ${specie.year}',
+                          ),
+                        ),
+                      ),
+                    if (specie.description != null &&
+                        specie.description!.isNotEmpty)
+                      Padding(
+                        padding: PaddingConfig.onlyTopL,
+                        child: Text(
+                          specie.description!.replaceAll('\t', ''),
+                          textAlign: TextAlign.start,
+                          style: bodyLarge,
+                        ),
+                      ),
+                    Padding(
+                      padding: PaddingConfig.onlyTopL,
+                      child: TaxonomyTableSection(
+                        mainColor: mainColor,
+                        opaqueColor: opaqueColor,
+                        classC: specie.classC,
+                        family: specie.family,
+                        kingdom: specie.kingdom,
+                        order: specie.order,
+                        phylum: specie.phylum,
                       ),
                     ),
-                    if (widget.specie.images != null &&
-                        widget.specie.images!.isNotEmpty)
-                      PopupMenuItem(
-                        value: 1,
-                        child: _simpleList(
-                            icon: Icons.image_rounded,
-                            text: texts.speciesDetails.downloadImage),
-                        onTap: () => download(
-                            context: context,
-                            urlDownload: widget.specie.images!.first),
-                      ),
-                    if (widget.specie.sound != null &&
-                        widget.specie.sound!.isNotEmpty)
-                      PopupMenuItem(
-                        value: 1,
-                        child: _simpleList(
-                            icon: Icons.music_note_rounded,
-                            text: texts.speciesDetails.downloadAudio),
-                        onTap: () => download(
-                            context: context,
-                            urlDownload: widget.specie.sound!),
-                      ),
                   ],
-                  icon: CircleAvatar(
-                    backgroundColor: widget.mainColor,
-                    child:
-                        const Icon(Icons.download_rounded, color: Colors.white),
-                  ),
-                  surfaceTintColor: Colors.transparent,
                 ),
               ),
+              if (specie.authors != null && specie.authors!.isNotEmpty)
+                SliverPadding(
+                  padding: PaddingConfig.allWithoutTopBottomSafeL,
+                  sliver: AuthorToSpecieSection(authors: specie.authors!),
+                ),
             ],
           ),
-          CustomIconButton(
-            tooltip: texts.speciesDetails.share,
-            icon: Icons.share,
-            iconColor: Colors.white,
-            backgroundColor: widget.mainColor,
-            onPressed: () => Share.share(
-              widget.specie.name != null && widget.specie.name!.isNotEmpty
-                  ? '${texts.speciesDetails.shareAmazonInfo} ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}'
-                  : '${texts.speciesDetails.shareAmazon} https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}',
-            ),
-          ),
-          StreamBuilder<bool>(
-            stream: isFavoriteStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return SizedBox(
-                  height: 40.0,
-                  width: 40.0,
-                  child: CircularProgressIndicator(color: widget.mainColor),
-                );
-              }
-              final isFavorite = snapshot.data ?? false;
-
-              return CustomIconButton(
-                tooltip: isFavorite
-                    ? texts.speciesDetails.deleteFromFavorite
-                    : texts.speciesDetails.saveToFavorite,
-                icon: isFavorite
-                    ? Icons.favorite_rounded
-                    : Icons.favorite_outline_rounded,
-                iconColor: isFavorite ? Colors.white : widget.mainColor,
-                backgroundColor: isFavorite ? widget.mainColor : null,
-                onPressed: () {
-                  AccountRepository accountRepository = context.read();
-                  final result = accountRepository.acces();
-                  if (result) {
-                    isFavorite
-                        ? favoriteRepository.deleteSpecieFavorite(
-                            userId: firebaseInstance.currentUser!.uid,
-                            idSpecie: widget.specie.id)
-                        : favoriteRepository.saveSpecieFavorite(
-                            userId: firebaseInstance.currentUser!.uid,
-                            specie: widget.specie,
-                          );
-                  } else {
-                    context.pushNamed(Routes.signIn);
-                  }
-                },
-              );
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -461,34 +450,94 @@ class _ActionsForSpecieDetailsState extends State<_ActionsForSpecieDetails> {
           ),
         ],
       );
+}
 
-  Future<void> download({
-    required BuildContext context,
-    required String urlDownload,
-  }) async {
-    const permissionStorage = Permission.storage;
-    final status = await permissionStorage.status;
-    if (status.isDenied) {
-      await permissionStorage.request();
-    } else if (status.isGranted) {
-      {
-        FileDownloader.downloadFile(
-          url: urlDownload,
-          onDownloadError: (error) => customSnackBar(
-            title: texts.speciesDetails.errorDownload,
-            context: context,
-            error: true,
-          ),
-          onDownloadCompleted: (progress) {
-            setState(() => _progress = null);
-            customSnackBar(
-              title: texts.speciesDetails.successDownload,
-              context: context,
-            );
-          },
-          onProgress: (name, progress) => setState(() => _progress = progress),
+class _FavoriteIcon extends StatefulWidget {
+  final String userId;
+  final Specie specie;
+  final Color mainColor;
+  final Color opaqueColor;
+
+  const _FavoriteIcon({
+    required this.userId,
+    required this.specie,
+    required this.mainColor,
+    required this.opaqueColor,
+  });
+
+  @override
+  State<_FavoriteIcon> createState() => __FavoriteIconState();
+}
+
+class __FavoriteIconState extends State<_FavoriteIcon> {
+  FavoriteRepository get favoriteRepository => context.read();
+  SpecieRepository get specieRepository => context.read();
+  SessionController get sessionController => context.read();
+  SpeciesDetailsController get speciesDetailsController => context.read();
+
+  late Stream<bool> isFavoriteStream;
+  bool loading = false;
+  late int idSpecie;
+
+  @override
+  void initState() {
+    idSpecie = widget.specie.id;
+    isFavoriteStream = favoriteRepository.isFavorite(
+        userId: widget.userId, idSpecie: idSpecie);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<bool>(
+      stream: isFavoriteStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox();
+        }
+        final isFavorite = snapshot.data ?? false;
+
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            CustomIconButton(
+              tooltip: isFavorite
+                  ? texts.species.deleteFavorite
+                  : texts.species.saveFavorite,
+              icon: isFavorite
+                  ? Icons.favorite_rounded
+                  : Icons.favorite_outline_rounded,
+              iconColor: isFavorite ? Colors.white : widget.mainColor,
+              backgroundColor: isFavorite ? widget.mainColor : null,
+              onPressed: () async {
+                if (isFavorite) {
+                  setState(() => loading = true);
+                  await favoriteRepository.deleteSpecieFavorite(
+                      userId: widget.userId, idSpecie: idSpecie);
+                  if (mounted) {
+                    setState(() => loading = false);
+                  }
+                } else {
+                  setState(() => loading = true);
+                  await favoriteRepository.saveSpecieFavorite(
+                    userId: widget.userId,
+                    specie: speciesDetailsController
+                        .state.mapOfId[idSpecie.toString()]!,
+                  );
+                  if (mounted) {
+                    setState(() => loading = false);
+                  }
+                }
+              },
+            ),
+            if (loading)
+              CircularProgressIndicator(
+                color: widget.mainColor,
+                backgroundColor: Colors.white,
+              ),
+          ],
         );
-      }
-    }
+      },
+    );
   }
 }

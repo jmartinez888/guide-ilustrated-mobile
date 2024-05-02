@@ -2,9 +2,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/domain/entities/author/author.dart';
 import 'package:species/src/domain/repositories/author/author_repository.dart';
 import 'package:species/src/presentation/global/state_notifier.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/state/community_state.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/author/controller/state/author_state.dart';
 
-class AuthorController extends StateNotifier<CommunityState> {
+class AuthorController extends StateNotifier<AuthorState> {
   final AuthorRepository authorRepository;
   final PagingController<int, Author> pagingController;
   final int numberOfPostsPerRequest = 16;

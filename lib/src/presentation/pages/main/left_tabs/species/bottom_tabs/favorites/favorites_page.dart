@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remove_diacritic/remove_diacritic.dart';
@@ -15,6 +17,8 @@ import 'package:species/src/presentation/global/widgets/messages/custom_snack_ba
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:species/src/presentation/router/routes.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -113,8 +117,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   title: switchSearch
                       ? TextField(
                           focusNode: searchFocusNode,
-                          controller:
-                              searchTextController, // Asigna el TextEditingController
+                          controller: searchTextController,
                           onChanged: (value) =>
                               favoriteControllerRead.onSearchTexChanged(value),
                           decoration: const InputDecoration(
@@ -168,6 +171,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         final opaqueColor = getMainColors['opaque'];
 
                         return CardToSpeciesGrid(
+                          onTap: () => context.pushNamed(
+                            Routes.specieDetailsFavorite,
+                            pathParameters: {
+                              'specie': jsonEncode(specie.toJson()),
+                            },
+                          ),
                           specie: specie,
                           mainColor: mainColor,
                           opaqueColor: opaqueColor,

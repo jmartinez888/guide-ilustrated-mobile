@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:species/src/data/models/classes/community_iiap/community_iiap.dart';
+import 'package:species/src/domain/entities/community/community.dart';
 
 part 'community_state.freezed.dart';
 
@@ -7,7 +7,7 @@ part 'community_state.freezed.dart';
 class CommunityState with _$CommunityState {
 
   factory CommunityState({
-    @Default([]) List<CommunityIiap> communities,
+    @Default([]) List<Community> communities,
   }) = _CommunityState;
 
 }

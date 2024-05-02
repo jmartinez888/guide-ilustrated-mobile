@@ -48,20 +48,23 @@ class CommunityApi {
     }
   }
 
-  Future<void> getIndigenousCommunitiesSearchGeneral(
-      {required String query,
-      required int pageKey,
-      required int numberOfPostsPerRequest,
-      required PagingController pagingController}) async {
+  Future<void> getIndigenousCommunitiesSearchGeneral({
+    required String query,
+    required int pageKey,
+    required int numberOfPostsPerRequest,
+    required PagingController pagingController,
+  }) async {
     try {
       final response = await get(Uri.parse(
           '$_baseUrl/indigenous-community/search/general/$query/$pageKey/$numberOfPostsPerRequest'));
       final responseList = jsonDecode(response.body) as Map<String, dynamic>;
       final communitiesIiap =
           getCommunityIiapList(responseList['pueblosIndigenas']);
+
       final communities = communitiesIiap
           .map(
-            (community) => _communityMapper.communityIiapToCommunity(community),
+            (communityIiap) =>
+                _communityMapper.communityIiapToCommunity(communityIiap),
           )
           .toList();
 

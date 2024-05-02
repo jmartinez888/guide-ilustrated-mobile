@@ -6,11 +6,13 @@ class CustomBottomSheet extends StatelessWidget {
     this.title = '',
     this.body = const <Widget>[],
     this.floatingActionButton,
+    this.automaticallyImplyLeading = false,
   });
 
   final String? title;
   final List<Widget>? body;
   final Widget? floatingActionButton;
+  final bool automaticallyImplyLeading;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,8 @@ class CustomBottomSheet extends StatelessWidget {
         SizedBox(
           height: 56.0,
           child: AppBar(
-            automaticallyImplyLeading: false,
+            automaticallyImplyLeading: automaticallyImplyLeading,
+            leading: automaticallyImplyLeading ? const SizedBox() : null,
             title: Text(title!),
             actions: [
               IconButton(

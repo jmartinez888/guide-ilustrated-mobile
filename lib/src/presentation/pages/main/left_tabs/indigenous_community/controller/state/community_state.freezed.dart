@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CommunityState {
-  List<CommunityIiap> get communities => throw _privateConstructorUsedError;
+  List<Community> get communities => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CommunityStateCopyWith<CommunityState> get copyWith =>
@@ -29,7 +29,7 @@ abstract class $CommunityStateCopyWith<$Res> {
           CommunityState value, $Res Function(CommunityState) then) =
       _$CommunityStateCopyWithImpl<$Res, CommunityState>;
   @useResult
-  $Res call({List<CommunityIiap> communities});
+  $Res call({List<Community> communities});
 }
 
 /// @nodoc
@@ -51,7 +51,7 @@ class _$CommunityStateCopyWithImpl<$Res, $Val extends CommunityState>
       communities: null == communities
           ? _value.communities
           : communities // ignore: cast_nullable_to_non_nullable
-              as List<CommunityIiap>,
+              as List<Community>,
     ) as $Val);
   }
 }
@@ -64,7 +64,7 @@ abstract class _$$CommunityStateImplCopyWith<$Res>
       __$$CommunityStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CommunityIiap> communities});
+  $Res call({List<Community> communities});
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class __$$CommunityStateImplCopyWithImpl<$Res>
       communities: null == communities
           ? _value._communities
           : communities // ignore: cast_nullable_to_non_nullable
-              as List<CommunityIiap>,
+              as List<Community>,
     ));
   }
 }
@@ -92,13 +92,13 @@ class __$$CommunityStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CommunityStateImpl implements _CommunityState {
-  _$CommunityStateImpl({final List<CommunityIiap> communities = const []})
+  _$CommunityStateImpl({final List<Community> communities = const []})
       : _communities = communities;
 
-  final List<CommunityIiap> _communities;
+  final List<Community> _communities;
   @override
   @JsonKey()
-  List<CommunityIiap> get communities {
+  List<Community> get communities {
     if (_communities is EqualUnmodifiableListView) return _communities;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_communities);
@@ -131,11 +131,11 @@ class _$CommunityStateImpl implements _CommunityState {
 }
 
 abstract class _CommunityState implements CommunityState {
-  factory _CommunityState({final List<CommunityIiap> communities}) =
+  factory _CommunityState({final List<Community> communities}) =
       _$CommunityStateImpl;
 
   @override
-  List<CommunityIiap> get communities;
+  List<Community> get communities;
   @override
   @JsonKey(ignore: true)
   _$$CommunityStateImplCopyWith<_$CommunityStateImpl> get copyWith =>

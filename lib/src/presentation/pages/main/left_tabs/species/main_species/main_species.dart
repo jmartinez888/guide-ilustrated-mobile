@@ -15,9 +15,6 @@ class MainSpecies extends StatefulWidget {
     required this.child,
   });
 
-  
-  
-
   @override
   State<MainSpecies> createState() => _MainSpeciesState();
 }
@@ -25,40 +22,10 @@ class MainSpecies extends StatefulWidget {
 class _MainSpeciesState extends State<MainSpecies> {
   SessionController get sessionController => context.read();
   BottomTabPositionController get bottomTabPositionController => context.read();
-  late List<NavigationDestination> _navigationDestinations;
-
-  final List<Map<String, dynamic>> _pageData = [
-      {
-        'label': texts.bottomBar.home,
-        'icon_selected': Icons.home_rounded,
-        'icon_unselected': Icons.home_outlined,
-      },
-      {
-        'label': texts.bottomBar.search,
-        'icon_selected': Icons.search_rounded,
-      },
-      {
-        'label': texts.bottomBar.favorites,
-        'icon_selected': Icons.favorite_rounded,
-        'icon_unselected': Icons.favorite_outline,
-      },
-    ];
-  
 
   @override
   void initState() {
     bottomTabPositionController.changeTab(0);
-    _navigationDestinations = _pageData
-          .map(
-            (navigationDestionation) => NavigationDestination(
-              tooltip: navigationDestionation['label'],
-              selectedIcon: Icon(navigationDestionation['icon_selected']),
-              icon: Icon(navigationDestionation['icon_unselected'] ??
-                  navigationDestionation['icon_selected']),
-              label: navigationDestionation['label'],
-            ),
-          )
-          .toList();
     super.initState();
   }
 
@@ -79,7 +46,25 @@ class _MainSpeciesState extends State<MainSpecies> {
           child: CustomBottomNavBar(
             selectedIndex: position,
             onDestinationSelected: (index) => onDestinationSelected(index),
-            destinations: _navigationDestinations,
+            destinations: [
+              NavigationDestination(
+                tooltip: texts.bottomBar.home,
+                label: texts.bottomBar.home,
+                selectedIcon: const Icon(Icons.home_rounded),
+                icon: const Icon(Icons.home_outlined),
+              ),
+              NavigationDestination(
+                tooltip: texts.bottomBar.search,
+                label: texts.bottomBar.search,
+                icon: const Icon(Icons.search_rounded),
+              ),
+              NavigationDestination(
+                tooltip: texts.bottomBar.favorites,
+                label: texts.bottomBar.favorites,
+                selectedIcon: const Icon(Icons.favorite_rounded),
+                icon: const Icon(Icons.favorite_outline),
+              ),
+            ],
           ),
         ),
       ],

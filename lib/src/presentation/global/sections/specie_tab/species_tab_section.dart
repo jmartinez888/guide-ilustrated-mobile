@@ -1,11 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
@@ -13,6 +11,8 @@ import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
+import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
 import 'package:species/src/presentation/global/sections/grid_loading.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/sections/specie_tab/state/specie_tab_state.dart';
@@ -23,6 +23,9 @@ import 'package:species/src/presentation/global/widgets/messages/custom_snack_ba
 import 'package:species/src/presentation/global/widgets/skeleton/skeleton_container.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
+
+
+
 
 class SpeciesTabSection extends StatefulWidget {
   final int type;
@@ -53,6 +56,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
   late Color mainColor;
   late Color opaqueColor;
   SessionController get sessionController => context.read();
+  
 
   @override
   void initState() {
@@ -69,78 +73,84 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
     final double width = MediaQuery.of(context).size.width;
     final SessionController sessionControllerWatch = context.watch();
     final sessionState = sessionControllerWatch.state;
+    const paddingExclusive = EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 100.0);
 
     return Stack(
       children: [
         RefreshIndicator(
           onRefresh: widget.onRefresh,
           color: mainColor,
-          child: PagedMasonryGridView<int, Specie>(
-            padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 100.0),
-            key: PageStorageKey(widget.type),
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            gridDelegateBuilder: (int childCount) {
-              return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: buildMultiGrids(width),
-              );
-            },
-            pagingController: widget.pagingController,
-            physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
-            builderDelegate: PagedChildBuilderDelegate<Specie>(
-              animateTransitions: true,
-              transitionDuration: const Duration(milliseconds: 400),
-              newPageProgressIndicatorBuilder: (_) =>
-                  const SkeletonConatiner(height: 320.0),
-              firstPageErrorIndicatorBuilder: (context) => MessageException(
-                onPressed: widget.onRefresh,
-                lottie: 'assets/lotties/error_data.json',
-              ),
-              noItemsFoundIndicatorBuilder: (context) => MessageException(
-                onPressed: widget.onRefresh,
-                text: 'Parece que no hay especies aquí',
-                lottie: 'assets/lotties/without_data.json',
-              ),
-              newPageErrorIndicatorBuilder: (context) => CustomGridCard(
-                onTap: widget.retryLastFailedRequest,
-                title: 'Algo salió mal, inténtalo de nuevo',
-                image: Padding(
-                  padding:
-                      const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-                  child: Lottie.asset('assets/lotties/error_data.json'),
-                ),
-              ),
-              firstPageProgressIndicatorBuilder: (_) => const Padding(
-                padding: EdgeInsets.only(top: 40.0),
-                child: GridLoading(),
-              ),
-              itemBuilder: (context, specie, index) {
-                return CardToSpeciesGrid(
-                  specie: specie,
-                  mainColor: mainColor,
-                  opaqueColor: opaqueColor,
-                  onTap: () => context.pushNamed(
-                    Routes.specieDetails,
-                    pathParameters: {'id': specie.id.toString()},
-                  ),
-                  favoriteIcon: sessionState != null
-                      ? _FavoriteIcon(
-                          userId: sessionState,
-                          idSpecie: specie.id,
-                          mainColor: mainColor,
-                          opaqueColor: opaqueColor,
-                        )
-                      : CustomIconButton(
-                          tooltip: texts.species.saveFavorite,
-                          icon: Icons.favorite_outline_rounded,
-                          iconColor: mainColor,
-                          onPressed: () {
-                            context.pushNamed(Routes.signIn);
-                          },
-                        ),
+          child: PageStorage(
+            bucket: PersistenScrollPosition.bucketGlobal,
+            child: PagedMasonryGridView<int, Specie>(
+              padding: paddingExclusive,
+              key: PageStorageKey(widget.type),
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              gridDelegateBuilder: (int childCount) {
+                return SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: buildMultiGrids(width),
                 );
               },
+              pagingController: widget.pagingController,
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              builderDelegate: PagedChildBuilderDelegate<Specie>(
+                animateTransitions: true,
+                transitionDuration: const Duration(milliseconds: 400),
+                newPageProgressIndicatorBuilder: (_) =>
+                    const SkeletonConatiner(height: 320.0),
+                firstPageErrorIndicatorBuilder: (context) => MessageException(
+                  padding: paddingExclusive,
+                  onPressed: widget.onRefresh,
+                  lottie: 'assets/lotties/error_data.json',
+                ),
+                noItemsFoundIndicatorBuilder: (context) => MessageException(
+                  padding: paddingExclusive,
+                  onPressed: widget.onRefresh,
+                  text: 'Parece que no hay especies aquí',
+                  lottie: 'assets/lotties/without_data.json',
+                ),
+                newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                  onTap: widget.retryLastFailedRequest,
+                  title: 'Algo salió mal, inténtalo de nuevo',
+                  image: Padding(
+                    padding:
+                        PaddingConfig.allWithoutBottomL,
+                    child: Lottie.asset('assets/lotties/error_data.json'),
+                  ),
+                ),
+                firstPageProgressIndicatorBuilder: (_) => const GridLoading(
+                  littleGrid: true,
+                  padding: paddingExclusive,
+                ),
+                itemBuilder: (context, specie, index) {
+                  return CardToSpeciesGrid(
+                    specie: specie,
+                    mainColor: mainColor,
+                    opaqueColor: opaqueColor,
+                    onTap: () => context.pushNamed(
+                      Routes.specieDetails,
+                      pathParameters: {'id': specie.id.toString()},
+                    ),
+                    favoriteIcon: sessionState != null
+                        ? _FavoriteIcon(
+                            userId: sessionState,
+                            idSpecie: specie.id,
+                            mainColor: mainColor,
+                            opaqueColor: opaqueColor,
+                          )
+                        : CustomIconButton(
+                            tooltip: texts.species.saveFavorite,
+                            icon: Icons.favorite_outline_rounded,
+                            iconColor: mainColor,
+                            onPressed: () {
+                              context.pushNamed(Routes.signIn);
+                            },
+                          ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -150,8 +160,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
             reverse: true,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: PaddingConfig.asymetrict,
             children: [
               ElevatedButton.icon(
                 onPressed: widget.switchScientificName,
@@ -237,7 +246,10 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
       stream: isFavoriteStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox();
+          return CircularProgressIndicator(
+            color: widget.mainColor,
+            backgroundColor: Colors.white,
+          );
         }
         final isFavorite = snapshot.data ?? false;
 
@@ -288,7 +300,11 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
                 }
               },
             ),
-            if (loading) CircularProgressIndicator(color: widget.mainColor),
+            if (loading)
+              CircularProgressIndicator(
+                color: widget.mainColor,
+                backgroundColor: Colors.white,
+              ),
           ],
         );
       },

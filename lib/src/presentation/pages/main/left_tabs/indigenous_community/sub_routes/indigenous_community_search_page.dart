@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:species/src/data/models/classes/community_iiap/community_iiap.dart';
+import 'package:species/src/domain/entities/community/community.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
+import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
+import 'package:species/src/presentation/global/widgets/inputs/search_text_field.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
 import 'package:species/src/domain/repositories/community/community_repository.dart';
@@ -22,12 +25,14 @@ class _IndigenousCommunitySearchPageState
     extends State<IndigenousCommunitySearchPage> {
   CommunityRository get communityRepository => context.read();
   final int numberOfPostsPerRequest = 16;
-  final PagingController<int, CommunityIiap> _pagingController =
+  final PagingController<int, Community> _pagingController =
       PagingController(firstPageKey: 1);
   final searchController = TextEditingController();
+  FocusNode searchFocusNode = FocusNode();
 
   @override
   void initState() {
+    searchFocusNode.requestFocus();
     _pagingController.addPageRequestListener((pageKey) {
       communityRepository.getCommunitiesSearch(
         query: searchController.text.trim(),
@@ -50,17 +55,10 @@ class _IndigenousCommunitySearchPageState
     return Scaffold(
       appBar: AppBar(
         leading: const CustomBackButton(),
-        title: TextFormField(
+        title: SearchTextField(
           controller: searchController,
-          decoration: InputDecoration(
-            fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-            filled: true,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: BorderSide.none,
-            ),
-            hintText: 'Búscar comunidad indígena',
-          ),
+          focusNode: searchFocusNode,
+          hintText: 'Buscar comunidad indígena',
           onChanged: (value) => setState(() {
             searchController.text = value;
             _pagingController.refresh();
@@ -85,38 +83,49 @@ class _IndigenousCommunitySearchPageState
               onRefresh: () => Future.sync(() => _pagingController.refresh()),
               child: Extend(
                 min: true,
-                child: PagedListView<int, CommunityIiap>(
+                child: PagedListView<int, Community>(
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(16.0),
+                  padding: PaddingConfig.allL,
                   pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<CommunityIiap>(
-                    firstPageErrorIndicatorBuilder: (context) {
-                      return _errorIndicator(context);
-                    },
-                    noItemsFoundIndicatorBuilder: (context) {
-                      return _errorIndicator(context);
-                    },
-                    newPageErrorIndicatorBuilder: (context) {
-                      return _errorIndicator(context,
-                          text: 'Algo salió mal. Inténtalo de nuevo');
-                    },
+                  builderDelegate: PagedChildBuilderDelegate<Community>(
+                    firstPageErrorIndicatorBuilder: (context) =>
+                        _errorIndicator(
+                            onPressed: () => _pagingController.refresh(),
+                            lottie: 'assets/lotties/without_data.json'),
+                    noItemsFoundIndicatorBuilder: (context) => _errorIndicator(
+                      onPressed: () => _pagingController.refresh(),
+                      text: 'Parece que no hay comunidades aquí',
+                    ),
+                    newPageErrorIndicatorBuilder: (_) => ListTile(
+                      onTap: () => _pagingController.retryLastFailedRequest(),
+                      leading: Lottie.asset(
+                        'assets/lotties/error_data.json',
+                        width: 56.0,
+                        height: 56.0,
+                      ),
+                      title: const Text(
+                          'Algo salió mal, toca aquí para reintentar'),
+                      trailing: const Icon(Icons.refresh_rounded),
+                    ),
                     animateTransitions: true,
                     transitionDuration: const Duration(milliseconds: 400),
                     itemBuilder: (context, item, index) => ListTile(
                       onTap: () => context.goNamed(
-                        Routes.indigenousCommunityDetails,
+                        Routes.communityDetails,
                         pathParameters: {'id': item.id.toString()},
                       ),
                       leading: CustomImageContainer(
-                        imageUrl: item.image != null && item.image!.isNotEmpty
-                            ? item.image
+                        imageUrl: item.images != null &&
+                                item.images!.isNotEmpty &&
+                                item.images!.first.isNotEmpty
+                            ? item.images!.first
                             : 'assets/images/indigenous_community.jpg',
                         heightImage: 56.0,
                         width: 56.0,
                         fitImage: true,
                       ),
                       title: Text(item.name ?? 'Sin información'),
-                      subtitle: Text(item.description ?? 'SIn información',
+                      subtitle: Text(item.description ?? 'Sin información',
                           maxLines: 2),
                       trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                     ),
@@ -127,26 +136,17 @@ class _IndigenousCommunitySearchPageState
           : null,
     );
   }
-}
 
-Column _errorIndicator(BuildContext context, {String? text}) {
-  return Column(
-    children: [
-      Lottie.asset(
-        'assets/lotties/without_data.json',
-        width: 256.0,
-        height: 256.0,
-      ),
-      const SizedBox(height: 16.0),
-      SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: Text(
-          text ??
-              'No se encontraron especies relacionadas a tu búsqueda. Inténtalo de nuevo con otra comunidad indígena.',
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ],
-  );
+  Widget _errorIndicator({
+    String? text,
+    String? lottie,
+    required void Function() onPressed,
+  }) {
+    return MessageException(
+      padding: PaddingConfig.all,
+      text: text,
+      onPressed: onPressed,
+      lottie: lottie ?? 'assets/lotties/error_data.json',
+    );
+  }
 }

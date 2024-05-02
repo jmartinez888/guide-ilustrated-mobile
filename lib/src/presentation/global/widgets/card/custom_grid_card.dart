@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 
 class CustomGridCard extends StatelessWidget {
   const CustomGridCard({
@@ -8,19 +9,21 @@ class CustomGridCard extends StatelessWidget {
     this.subtitle,
     this.fontStyle,
     this.actions,
-    this.backgroundColor,
-    this.principalColor,
+    this.opaqueColor,
+    this.mainColor,
     this.image,
+    this.maxLines,
   }) : super(key: key);
 
   final Widget? image;
   final String? title;
-  final Color? principalColor;
+  final Color? mainColor;
   final String? subtitle;
   final FontStyle? fontStyle;
   final List<Widget>? actions;
-  final Color? backgroundColor;
+  final Color? opaqueColor;
   final void Function()? onTap;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +31,10 @@ class CustomGridCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     const borderRadius = BorderRadius.all(Radius.circular(16.0));
     return Material(
-      color: backgroundColor ?? colorScheme.onPrimary,
+      color: opaqueColor ?? colorScheme.onPrimary,
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
-        side: BorderSide(
-            color: principalColor ?? colorScheme.outline, width: 1.0),
+        side: BorderSide(color: mainColor ?? colorScheme.outline, width: 1.0),
       ),
       child: InkWell(
         onTap: onTap,
@@ -45,7 +47,7 @@ class CustomGridCard extends StatelessWidget {
               child: image,
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: PaddingConfig.allL,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,10 +55,10 @@ class CustomGridCard extends StatelessWidget {
                     Text(
                       title!,
                       style: textTheme.bodyLarge?.copyWith(
-                        color: principalColor ?? colorScheme.onSurface,
+                        color: mainColor ?? colorScheme.onSurface,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      maxLines: maxLines,
+                      overflow: maxLines != null ? TextOverflow.ellipsis : null,
                     ),
                   if (subtitle != null)
                     Text(
@@ -65,8 +67,8 @@ class CustomGridCard extends StatelessWidget {
                         color: colorScheme.onSurfaceVariant,
                         fontStyle: fontStyle,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      maxLines: maxLines,
+                      overflow: maxLines != null ? TextOverflow.ellipsis : null,
                     ),
                   if (actions != null)
                     Padding(

@@ -29,7 +29,7 @@ mixin _$Author {
   @JsonKey(name: 'year_of_death')
   String? get yearOfDeath => throw _privateConstructorUsedError;
   String? get profession => throw _privateConstructorUsedError;
-  String? get image => throw _privateConstructorUsedError;
+  List<String>? get images => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
   @SpeciesIntoClassToMap()
   List<Specie>? get species => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $AuthorCopyWith<$Res> {
       @JsonKey(name: 'year_of_birth') String? yearOfBirth,
       @JsonKey(name: 'year_of_death') String? yearOfDeath,
       String? profession,
-      String? image,
+      List<String>? images,
       String? state,
       @SpeciesIntoClassToMap() List<Specie>? species});
 }
@@ -77,7 +77,7 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
     Object? yearOfBirth = freezed,
     Object? yearOfDeath = freezed,
     Object? profession = freezed,
-    Object? image = freezed,
+    Object? images = freezed,
     Object? state = freezed,
     Object? species = freezed,
   }) {
@@ -110,10 +110,10 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
           ? _value.profession
           : profession // ignore: cast_nullable_to_non_nullable
               as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -141,7 +141,7 @@ abstract class _$$AuthorImplCopyWith<$Res> implements $AuthorCopyWith<$Res> {
       @JsonKey(name: 'year_of_birth') String? yearOfBirth,
       @JsonKey(name: 'year_of_death') String? yearOfDeath,
       String? profession,
-      String? image,
+      List<String>? images,
       String? state,
       @SpeciesIntoClassToMap() List<Specie>? species});
 }
@@ -164,7 +164,7 @@ class __$$AuthorImplCopyWithImpl<$Res>
     Object? yearOfBirth = freezed,
     Object? yearOfDeath = freezed,
     Object? profession = freezed,
-    Object? image = freezed,
+    Object? images = freezed,
     Object? state = freezed,
     Object? species = freezed,
   }) {
@@ -197,10 +197,10 @@ class __$$AuthorImplCopyWithImpl<$Res>
           ? _value.profession
           : profession // ignore: cast_nullable_to_non_nullable
               as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -224,10 +224,11 @@ class _$AuthorImpl implements _Author {
       @JsonKey(name: 'year_of_birth') this.yearOfBirth,
       @JsonKey(name: 'year_of_death') this.yearOfDeath,
       this.profession,
-      this.image,
+      final List<String>? images,
       this.state,
       @SpeciesIntoClassToMap() final List<Specie>? species = null})
-      : _species = species;
+      : _images = images,
+        _species = species;
 
   factory _$AuthorImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthorImplFromJson(json);
@@ -248,8 +249,16 @@ class _$AuthorImpl implements _Author {
   final String? yearOfDeath;
   @override
   final String? profession;
+  final List<String>? _images;
   @override
-  final String? image;
+  List<String>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? state;
   final List<Specie>? _species;
@@ -266,7 +275,7 @@ class _$AuthorImpl implements _Author {
 
   @override
   String toString() {
-    return 'Author(id: $id, name: $name, lastname: $lastname, biography: $biography, yearOfBirth: $yearOfBirth, yearOfDeath: $yearOfDeath, profession: $profession, image: $image, state: $state, species: $species)';
+    return 'Author(id: $id, name: $name, lastname: $lastname, biography: $biography, yearOfBirth: $yearOfBirth, yearOfDeath: $yearOfDeath, profession: $profession, images: $images, state: $state, species: $species)';
   }
 
   @override
@@ -286,7 +295,7 @@ class _$AuthorImpl implements _Author {
                 other.yearOfDeath == yearOfDeath) &&
             (identical(other.profession, profession) ||
                 other.profession == profession) &&
-            (identical(other.image, image) || other.image == image) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.state, state) || other.state == state) &&
             const DeepCollectionEquality().equals(other._species, _species));
   }
@@ -302,7 +311,7 @@ class _$AuthorImpl implements _Author {
       yearOfBirth,
       yearOfDeath,
       profession,
-      image,
+      const DeepCollectionEquality().hash(_images),
       state,
       const DeepCollectionEquality().hash(_species));
 
@@ -329,7 +338,7 @@ abstract class _Author implements Author {
       @JsonKey(name: 'year_of_birth') final String? yearOfBirth,
       @JsonKey(name: 'year_of_death') final String? yearOfDeath,
       final String? profession,
-      final String? image,
+      final List<String>? images,
       final String? state,
       @SpeciesIntoClassToMap() final List<Specie>? species}) = _$AuthorImpl;
 
@@ -352,7 +361,7 @@ abstract class _Author implements Author {
   @override
   String? get profession;
   @override
-  String? get image;
+  List<String>? get images;
   @override
   String? get state;
   @override

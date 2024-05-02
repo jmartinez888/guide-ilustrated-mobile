@@ -31,7 +31,7 @@ class _SpecieDetailsFavoritePageState extends State<SpecieDetailsFavoritePage> {
     return Scaffold(
       body: Stack(
         children: [
-          SpecieDetailsSection(specie: specie),
+          SpecieDetailSection(specie: specie),
           const Positioned(
             top: 8.0,
             left: 56.0,
