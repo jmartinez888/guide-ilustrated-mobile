@@ -1,13 +1,13 @@
 import 'package:species/src/data/models/classes/order_iiap/order_iiap.dart';
 import 'package:species/src/domain/entities/order/order.dart';
 
-class ClassMapper {
-  OrderC classIiapToClass(OrderIiap orderC) {
+class OrderMapper {
+  OrderC orderIiapToOrder(OrderIiap order) {
     return OrderC(
-      id: orderC.id,
-      name: orderC.name,
-      idClass: orderC.idClass,
-      state: orderC.state,
+      id: order.id,
+      name: order.name,
+      idClass: order.idClass,
+      state: order.state,
     );
   }
 }

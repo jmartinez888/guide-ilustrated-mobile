@@ -10,9 +10,17 @@ class PaddingConfig {
   static EdgeInsets onlyTop = const EdgeInsets.only(top: _num8);
   static EdgeInsets onlyTopL = const EdgeInsets.only(top: _num16);
 
-    static EdgeInsets onlyBottomS = const EdgeInsets.only(bottom: _num4);
+  static EdgeInsets onlyBottomS = const EdgeInsets.only(bottom: _num4);
   static EdgeInsets onlyBottom = const EdgeInsets.only(bottom: _num8);
   static EdgeInsets onlyBottomL = const EdgeInsets.only(bottom: _num16);
+
+  static EdgeInsets onlyRightS = const EdgeInsets.only(right: _num4);
+  static EdgeInsets onlyRight = const EdgeInsets.only(right: _num8);
+  static EdgeInsets onlyRightL = const EdgeInsets.only(right: _num16);
+
+  static EdgeInsets onlyLeftS = const EdgeInsets.only(left: _num4);
+  static EdgeInsets onlyLeft = const EdgeInsets.only(left: _num8);
+  static EdgeInsets onlyLeftL = const EdgeInsets.only(left: _num16);
 
   static EdgeInsets allS = const EdgeInsets.all(_num4);
   static EdgeInsets all = const EdgeInsets.all(_num8);

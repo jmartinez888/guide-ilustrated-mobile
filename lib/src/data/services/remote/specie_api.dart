@@ -66,7 +66,7 @@ class SpecieApi {
     int? family,
     int? conservationStatus,
     int? hasSound,
-    String query = '',
+    String? query,
     String? orderByName = '',
     String? orderType = '',
   }) async {
@@ -91,15 +91,20 @@ class SpecieApi {
 
       final responseList = jsonDecode(response.body) as Map<String, dynamic>;
 
-      List<Specie> postList = getSpecieList(responseList['species']);
+      List<SpecieIiap> postList = getSpecieIiapList(responseList['species']);
 
-      final isLatPage = postList.length < numberOfPostsPerRequest;
+      final species = postList
+          .map((specie) => _specieMapper.specieIiapToSpecie(specie))
+          .toList();
+
+
+      final isLatPage = species.length < numberOfPostsPerRequest;
 
       if (isLatPage) {
-        pagingController.appendLastPage(postList);
+        pagingController.appendLastPage(species);
       } else {
         final nextPageKey = pageKey + 1;
-        pagingController.appendPage(postList, nextPageKey);
+        pagingController.appendPage(species, nextPageKey);
       }
     } catch (e) {
       pagingController.error = e;

@@ -9,7 +9,7 @@ import 'package:species/src/data/mappers/community_mapper.dart';
 import 'package:species/src/data/mappers/conservation_state_mapper.dart';
 import 'package:species/src/data/mappers/family_mapper.dart';
 import 'package:species/src/data/mappers/kindom_mapper.dart';
-import 'package:species/src/data/mappers/order_maper.dart';
+import 'package:species/src/data/mappers/order_mapper.dart';
 import 'package:species/src/data/mappers/phylum_mapper.dart';
 import 'package:species/src/data/mappers/specie_for_author_mapper.dart';
 import 'package:species/src/data/mappers/specie_mapper.dart';

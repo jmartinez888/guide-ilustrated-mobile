@@ -20,8 +20,8 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/general/image_details/image_details_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/favorites_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/species_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/search_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/main_species/main_species.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/search/search_page.dart';
 import 'package:species/src/presentation/pages/main/main_left_nav/main_left_nav.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/profile/profile_page.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/staff/staff_page.dart';

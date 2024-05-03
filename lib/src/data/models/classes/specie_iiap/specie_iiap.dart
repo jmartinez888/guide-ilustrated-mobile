@@ -42,4 +42,3 @@ class SpecieIiap with _$SpecieIiap {
 List<SpecieIiap> getSpecieIiapList(List list) {
   return list.map((e) => SpecieIiap.fromJson(e)).toList();
 }
-
