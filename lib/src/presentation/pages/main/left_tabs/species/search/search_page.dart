@@ -15,10 +15,13 @@ import 'package:species/src/domain/repositories/order/order_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/domain/repositories/conservation_states/conservation_states_repository.dart';
 import 'package:species/src/domain/repositories/taxonomy/taxonomy_repository.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/search/filters/filters_options.dart';
+import 'package:species/src/presentation/global/widgets/inputs/search_text_field.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/species/search/filters/filters_options.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:species/src/generated/translations.g.dart';
 
 class SearchPage extends StatefulWidget {
@@ -38,7 +41,8 @@ class _SearchPageState extends State<SearchPage> {
   ClassRepository get classRepository => context.read();
   OrderRepository get orderRepository => context.read();
   FamilyRepository get familyRepository => context.read();
-  ConservationStatesRepository get stateOfConservationRepository => context.read();
+  ConservationStatesRepository get stateOfConservationRepository =>
+      context.read();
   final searchController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
@@ -97,9 +101,9 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
+    final width = MediaQuery.of(context).size.width;
 
-    return Column(
+    /* return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (isMobile) _appBar(context),
@@ -117,202 +121,209 @@ class _SearchPageState extends State<SearchPage> {
               Expanded(child: _listFilterOptions(context)),
             ],
           ),
-        _filterContent(context),
+        
       ],
+    ); */
+
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(() => _pagingController.refresh()),
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          _customSliverAppBar(
+            title: _searchTextField(),
+            subtitle: _listFilterOptions(context),
+            landscape: width <= 640 ? false : true,
+          ),
+          SliverPadding(
+            padding: PaddingConfig.allBottomSafeL,
+            sliver: _filterContent(context),
+          ),
+        ],
+      ),
     );
   }
 
-  Expanded _filterContent(BuildContext context) {
-    return Expanded(
-      child: RefreshIndicator(
-        onRefresh: () => Future.sync(() => _pagingController.refresh()),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: PagedListView<int, Specie>(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
-                pagingController: _pagingController,
-                builderDelegate: PagedChildBuilderDelegate<Specie>(
-                  firstPageErrorIndicatorBuilder: (context) {
-                    return _errorIndicator(context, onPressed: () {
-                      _pagingController.refresh();
-                    });
-                  },
-                  noItemsFoundIndicatorBuilder: (context) {
-                    return _errorIndicator(context, onPressed: () {
-                      _pagingController.refresh();
-                    });
-                  },
-                  newPageErrorIndicatorBuilder: (context) {
-                    return _errorIndicator(context,
-                        onPressed: () =>
-                            _pagingController.retryLastFailedRequest(),
-                        text: texts.searchPage.failedRequest);
-                  },
-                  animateTransitions: true,
-                  transitionDuration: const Duration(milliseconds: 400),
-                  itemBuilder: (context, item, index) => ListTile(
-                    onTap: () => context.pushNamed(
-                      Routes.specieDetails,
-                      pathParameters: {'id': item.id.toString()},
-                    ),
-                    leading: CustomImageContainer(
-                      imageUrl: item.images != null && item.images
-                      !.isNotEmpty ? item.images!.first : null,
-                      heightImage: 56.0,
-                      width: 56.0,
-                      fitImage: false,
-                    ),
-                    title: item.name != null && item.name!.isNotEmpty
-                        ? Text(item.name!)
-                        : null,
-                    subtitle: item.scientificName != null &&
-                            item.scientificName!.isNotEmpty
-                        ? Text(
-                            item.scientificName!,
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
-                            ),
-                          )
-                        : null,
-                    trailing: const Icon(Icons.chevron_right_rounded),
-                  ),
-                ),
-              ),
-            ),
-          ],
+  Widget _filterContent(BuildContext context) {
+    return PagedSliverList<int, Specie>(
+      pagingController: _pagingController,
+      builderDelegate: PagedChildBuilderDelegate<Specie>(
+        firstPageErrorIndicatorBuilder: (context) {
+          return _errorIndicator(context, onPressed: () {
+            _pagingController.refresh();
+          });
+        },
+        noItemsFoundIndicatorBuilder: (context) {
+          return _errorIndicator(context, onPressed: () {
+            _pagingController.refresh();
+          });
+        },
+        newPageErrorIndicatorBuilder: (context) {
+          return _errorIndicator(context,
+              onPressed: () => _pagingController.retryLastFailedRequest(),
+              text: texts.searchPage.failedRequest);
+        },
+        animateTransitions: true,
+        transitionDuration: const Duration(milliseconds: 400),
+        itemBuilder: (context, item, index) => ListTile(
+          onTap: () => context.pushNamed(
+            Routes.specieDetails,
+            pathParameters: {'id': item.id.toString()},
+          ),
+          leading: CustomImageContainer(
+            imageUrl: item.images != null && item.images!.isNotEmpty
+                ? item.images!.first
+                : null,
+            heightImage: 56.0,
+            width: 56.0,
+            fitImage: false,
+          ),
+          title: item.name != null && item.name!.isNotEmpty
+              ? Text(item.name!)
+              : null,
+          subtitle:
+              item.scientificName != null && item.scientificName!.isNotEmpty
+                  ? Text(
+                      item.scientificName!,
+                      style: const TextStyle(
+                        fontStyle: FontStyle.italic,
+                      ),
+                    )
+                  : null,
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
       ),
     );
   }
 
-  Container _listFilterOptions(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
-    return Container(
-      padding: EdgeInsets.only(top: isMobile ? 0 : 10),
-      height: 56,
+  Widget _listFilterOptions(BuildContext context) {
+    return SizedBox(
+      height: 56.0,
       width: double.infinity,
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        children: [
-          // ASC/DESC filter
-          _filterOptionButton(
-            context: context,
-            onPressed: () => _listByAlphabeticOrderDialog(context),
-            icon: Icons.view_list_rounded,
-            filterValue: orderByType == 'ASC'
-                ? 1
-                : orderByType == 'DESC'
-                    ? 2
-                    : null,
-            filterName: orderByType == 'ASC'
-                ? 'A-Z'
-                : orderByType == 'DESC'
-                    ? 'Z-A'
-                    : texts.searchPage.recentlyAdded,
-          ),
-
-          // Order by name filter
-          _filterOptionButton(
-            context: context,
-            onPressed: () => _listByNameOrderDialog(context),
-            filterValue: orderByName == 'vc_nombre'
-                ? 1
-                : orderByName == 'vc_nombre_cientifico'
-                    ? 2
-                    : null,
-            icon: Icons.sort_by_alpha_rounded,
-            filterName: orderByName == 'vc_nombre'
-                ? texts.searchPage.nameFilter.common
-                : orderByName == 'vc_nombre_cientifico'
-                    ? texts.searchPage.nameFilter.scientific
-                    : texts.searchPage.nameFilter.order,
-          ),
-
-          // Add class filter
-          _filterOptionButton(
-              context: context,
-              onPressed: () => _filterByClassDialog(context),
-              filterValue: selectedClass,
-              icon: Icons.class_rounded,
-              filterName: texts.searchPage.taxonomyFilter),
-
-          // Add order filter
-          if (selectedClass != null)
+      child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: PaddingConfig.symetrictHorizontalL,
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          children: [
+            // ASC/DESC filter
             _filterOptionButton(
               context: context,
-              onPressed: () => _filterByOrderDialog(context),
-              filterValue: selectedOrder,
-              icon: Icons.sort_rounded,
-              filterName: texts.searchPage.orderFilter,
+              onPressed: () => _listByAlphabeticOrderDialog(context),
+              icon: Icons.view_list_rounded,
+              filterValue: orderByType == 'ASC'
+                  ? 1
+                  : orderByType == 'DESC'
+                      ? 2
+                      : null,
+              filterName: orderByType == 'ASC'
+                  ? 'A-Z'
+                  : orderByType == 'DESC'
+                      ? 'Z-A'
+                      : texts.searchPage.recentlyAdded,
             ),
 
-          // Add family filter
-          if (selectedOrder != null)
+            // Order by name filter
             _filterOptionButton(
               context: context,
-              onPressed: () => _filterByFamilyDialog(context),
-              filterValue: selectedFamily,
-              icon: Icons.family_restroom_rounded,
-              filterName: texts.searchPage.familyFilter,
+              onPressed: () => _listByNameOrderDialog(context),
+              filterValue: orderByName == 'vc_nombre'
+                  ? 1
+                  : orderByName == 'vc_nombre_cientifico'
+                      ? 2
+                      : null,
+              icon: Icons.sort_by_alpha_rounded,
+              filterName: orderByName == 'vc_nombre'
+                  ? texts.searchPage.nameFilter.common
+                  : orderByName == 'vc_nombre_cientifico'
+                      ? texts.searchPage.nameFilter.scientific
+                      : texts.searchPage.nameFilter.order,
             ),
 
-          // Add sound filter
-          _filterOptionButton(
-            context: context,
-            onPressed: () => _filterBySoundDialog(context),
-            filterValue: hasSound,
-            icon: hasSound == 1
-                ? Icons.volume_up_rounded
-                : hasSound == 0
-                    ? Icons.volume_off_rounded
-                    : Icons.volume_up_rounded,
-            filterName: hasSound == 1
-                ? texts.searchPage.soundFilter.withSound
-                : hasSound == 0
-                    ? texts.searchPage.soundFilter.withoutSound
-                    : texts.searchPage.soundFilter.sound,
-          ),
+            // Add class filter
+            _filterOptionButton(
+                context: context,
+                onPressed: () => _filterByClassDialog(context),
+                filterValue: selectedClass,
+                icon: Icons.class_rounded,
+                filterName: texts.searchPage.taxonomyFilter),
 
-          // Add conservation status filter
-          _filterOptionButton(
-            context: context,
-            onPressed: () => _filterByConservationStatusDialog(context),
-            filterValue: selectedConservationStatus,
-            icon: Icons.eco_rounded,
-            filterName: texts.searchPage.conservationFilter,
-          ),
+            // Add order filter
+            if (selectedClass != null)
+              _filterOptionButton(
+                context: context,
+                onPressed: () => _filterByOrderDialog(context),
+                filterValue: selectedOrder,
+                icon: Icons.sort_rounded,
+                filterName: texts.searchPage.orderFilter,
+              ),
 
-          //Add category filter
-          _filterOptionButton(
+            // Add family filter
+            if (selectedOrder != null)
+              _filterOptionButton(
+                context: context,
+                onPressed: () => _filterByFamilyDialog(context),
+                filterValue: selectedFamily,
+                icon: Icons.family_restroom_rounded,
+                filterName: texts.searchPage.familyFilter,
+              ),
+
+            // Add sound filter
+            _filterOptionButton(
               context: context,
-              onPressed: () => _filterByCategoryDialog(context),
-              filterValue: taxonomyId,
-              icon: Icons.category_rounded,
-              filterName: taxonomyId == 1
-                  ? texts.searchPage.categoryFilter.birds
-                  : taxonomyId == 2
-                      ? texts.searchPage.categoryFilter.mammals
-                      : taxonomyId == 3
-                          ? texts.searchPage.categoryFilter.reptiles
-                          : taxonomyId == 4
-                              ? texts.searchPage.categoryFilter.amphibians
-                              : taxonomyId == 5
-                                  ? texts.searchPage.categoryFilter.fish
-                                  : taxonomyId == 6
-                                      ? texts.searchPage.categoryFilter.insects
-                                      : taxonomyId == 7
-                                          ? texts
-                                              .searchPage.categoryFilter.plants
-                                          : taxonomyId == 8
-                                              ? texts.searchPage.categoryFilter
-                                                  .palms
-                                              : texts.searchPage.categoryFilter
-                                                  .category),
-        ],
+              onPressed: () => _filterBySoundDialog(context),
+              filterValue: hasSound,
+              icon: hasSound == 1
+                  ? Icons.volume_up_rounded
+                  : hasSound == 0
+                      ? Icons.volume_off_rounded
+                      : Icons.volume_up_rounded,
+              filterName: hasSound == 1
+                  ? texts.searchPage.soundFilter.withSound
+                  : hasSound == 0
+                      ? texts.searchPage.soundFilter.withoutSound
+                      : texts.searchPage.soundFilter.sound,
+            ),
+
+            // Add conservation status filter
+            _filterOptionButton(
+              context: context,
+              onPressed: () => _filterByConservationStatusDialog(context),
+              filterValue: selectedConservationStatus,
+              icon: Icons.eco_rounded,
+              filterName: texts.searchPage.conservationFilter,
+            ),
+
+            //Add category filter
+            _filterOptionButton(
+                context: context,
+                onPressed: () => _filterByCategoryDialog(context),
+                filterValue: taxonomyId,
+                icon: Icons.category_rounded,
+                filterName: taxonomyId == 1
+                    ? texts.searchPage.categoryFilter.birds
+                    : taxonomyId == 2
+                        ? texts.searchPage.categoryFilter.mammals
+                        : taxonomyId == 3
+                            ? texts.searchPage.categoryFilter.reptiles
+                            : taxonomyId == 4
+                                ? texts.searchPage.categoryFilter.amphibians
+                                : taxonomyId == 5
+                                    ? texts.searchPage.categoryFilter.fish
+                                    : taxonomyId == 6
+                                        ? texts
+                                            .searchPage.categoryFilter.insects
+                                        : taxonomyId == 7
+                                            ? texts.searchPage.categoryFilter
+                                                .plants
+                                            : taxonomyId == 8
+                                                ? texts.searchPage
+                                                    .categoryFilter.palms
+                                                : texts.searchPage
+                                                    .categoryFilter.category),
+          ],
+        ),
       ),
     );
   }
@@ -349,35 +360,24 @@ class _SearchPageState extends State<SearchPage> {
         icon: Icons.filter_list_off_rounded);
   }
 
-  TextFormField _searchTextField() {
-    return TextFormField(
+  Widget _searchTextField() {
+    return SearchTextField(
       focusNode: _focusNode,
       onTapOutside: (event) => _focusNode.unfocus(),
       controller: searchController,
       textInputAction: TextInputAction.search,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-        fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-        filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide.none,
-        ),
-        hintText: texts.searchPage.searchSpecies,
-        prefixIcon: const Icon(Icons.search_rounded),
-        suffixIcon: searchController.text.isNotEmpty
-            ? IconButton(
-                tooltip: texts.searchPage.cleanSearch,
-                onPressed: () => setState(
-                      () {
-                        searchController.clear();
-                        _pagingController.refresh();
-                      },
-                    ),
-                icon: const Icon(Icons.clear_rounded))
-            : null,
-      ),
+      hintText: texts.searchPage.searchSpecies,
+      suffixIcon: searchController.text.isNotEmpty
+          ? IconButton(
+              tooltip: texts.searchPage.cleanSearch,
+              onPressed: () => setState(
+                    () {
+                      searchController.clear();
+                      _pagingController.refresh();
+                    },
+                  ),
+              icon: const Icon(Icons.clear_rounded))
+          : null,
       onChanged: (value) => setState(() {
         searchController.text = value;
         _pagingController.refresh();
@@ -452,8 +452,8 @@ class _SearchPageState extends State<SearchPage> {
       builder: (context) {
         return FutureBuilder<List<TaxonomyForSearchIiap>>(
           future: texonomyRepository.getTaxonomies(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<TaxonomyForSearchIiap>> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<List<TaxonomyForSearchIiap>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -732,6 +732,39 @@ Column _errorIndicator(BuildContext context,
         ),
       ),
     ],
+  );
+}
+
+Widget _customSliverAppBar({
+  required Widget title,
+  required Widget subtitle,
+  required bool landscape,
+}) {
+  const minHeight = 56.0;
+  const maxHeight = 112.0;
+
+  return SliverAppBar(
+    titleSpacing: 0.0,
+    leading: const SizedBox(),
+    leadingWidth: 0.0,
+    floating: true,
+    expandedHeight: landscape ? minHeight : maxHeight,
+    toolbarHeight: landscape ? minHeight : maxHeight,
+    collapsedHeight: landscape ? minHeight : maxHeight,
+    title: SizedBox(
+      height: landscape ? minHeight : maxHeight,
+      width: double.infinity,
+      child: StaggeredGrid.count(
+        crossAxisCount: landscape ? 2 : 1,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 56.0, right: !landscape ? 16.0 : 0.0),
+            child: title,
+          ),
+          subtitle,
+        ],
+      ),
+    ),
   );
 }
 
