@@ -20,6 +20,10 @@ _$AuthorImpl _$$AuthorImplFromJson(Map<String, dynamic> json) => _$AuthorImpl(
       species: _$JsonConverterFromJson<List<dynamic>, List<Specie>>(
               json['species'], const SpeciesIntoClassToMap().fromJson) ??
           null,
+      search: (json['search'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$AuthorImplToJson(_$AuthorImpl instance) =>
@@ -35,6 +39,7 @@ Map<String, dynamic> _$$AuthorImplToJson(_$AuthorImpl instance) =>
       'state': instance.state,
       'species': _$JsonConverterToJson<List<dynamic>, List<Specie>>(
           instance.species, const SpeciesIntoClassToMap().toJson),
+      'search': instance.search,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

@@ -52,6 +52,7 @@ mixin _$Specie {
   @FamilyMapIntoClass()
   Family? get family => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
+  List<String> get search => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,7 +84,8 @@ abstract class $SpecieCopyWith<$Res> {
       @JsonKey(name: 'class') @ClassMapIntoClass() ClassC? classC,
       @OrderMapIntoClass() OrderC? order,
       @FamilyMapIntoClass() Family? family,
-      String? state});
+      String? state,
+      List<String> search});
 
   $TypeCCopyWith<$Res>? get type;
   $KingdomCopyWith<$Res>? get kingdom;
@@ -124,6 +126,7 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     Object? order = freezed,
     Object? family = freezed,
     Object? state = freezed,
+    Object? search = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -198,6 +201,10 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String?,
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 
@@ -301,7 +308,8 @@ abstract class _$$SpecieImplCopyWith<$Res> implements $SpecieCopyWith<$Res> {
       @JsonKey(name: 'class') @ClassMapIntoClass() ClassC? classC,
       @OrderMapIntoClass() OrderC? order,
       @FamilyMapIntoClass() Family? family,
-      String? state});
+      String? state,
+      List<String> search});
 
   @override
   $TypeCCopyWith<$Res>? get type;
@@ -346,6 +354,7 @@ class __$$SpecieImplCopyWithImpl<$Res>
     Object? order = freezed,
     Object? family = freezed,
     Object? state = freezed,
+    Object? search = null,
   }) {
     return _then(_$SpecieImpl(
       id: null == id
@@ -420,6 +429,10 @@ class __$$SpecieImplCopyWithImpl<$Res>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String?,
+      search: null == search
+          ? _value._search
+          : search // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -447,10 +460,12 @@ class _$SpecieImpl implements _Specie {
       @JsonKey(name: 'class') @ClassMapIntoClass() this.classC = null,
       @OrderMapIntoClass() this.order = null,
       @FamilyMapIntoClass() this.family = null,
-      this.state})
+      this.state,
+      final List<String> search = const []})
       : _images = images,
         _conservationStates = conservationStates,
-        _authors = authors;
+        _authors = authors,
+        _search = search;
 
   factory _$SpecieImpl.fromJson(Map<String, dynamic> json) =>
       _$$SpecieImplFromJson(json);
@@ -535,10 +550,18 @@ class _$SpecieImpl implements _Specie {
   final Family? family;
   @override
   final String? state;
+  final List<String> _search;
+  @override
+  @JsonKey()
+  List<String> get search {
+    if (_search is EqualUnmodifiableListView) return _search;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_search);
+  }
 
   @override
   String toString() {
-    return 'Specie(id: $id, name: $name, scientificName: $scientificName, englishName: $englishName, year: $year, idFamily: $idFamily, images: $images, type: $type, sound: $sound, description: $description, conservationStates: $conservationStates, authors: $authors, kingdom: $kingdom, phylum: $phylum, classC: $classC, order: $order, family: $family, state: $state)';
+    return 'Specie(id: $id, name: $name, scientificName: $scientificName, englishName: $englishName, year: $year, idFamily: $idFamily, images: $images, type: $type, sound: $sound, description: $description, conservationStates: $conservationStates, authors: $authors, kingdom: $kingdom, phylum: $phylum, classC: $classC, order: $order, family: $family, state: $state, search: $search)';
   }
 
   @override
@@ -568,31 +591,34 @@ class _$SpecieImpl implements _Specie {
             (identical(other.classC, classC) || other.classC == classC) &&
             (identical(other.order, order) || other.order == order) &&
             (identical(other.family, family) || other.family == family) &&
-            (identical(other.state, state) || other.state == state));
+            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other._search, _search));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      scientificName,
-      englishName,
-      year,
-      idFamily,
-      const DeepCollectionEquality().hash(_images),
-      type,
-      sound,
-      description,
-      const DeepCollectionEquality().hash(_conservationStates),
-      const DeepCollectionEquality().hash(_authors),
-      kingdom,
-      phylum,
-      classC,
-      order,
-      family,
-      state);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        name,
+        scientificName,
+        englishName,
+        year,
+        idFamily,
+        const DeepCollectionEquality().hash(_images),
+        type,
+        sound,
+        description,
+        const DeepCollectionEquality().hash(_conservationStates),
+        const DeepCollectionEquality().hash(_authors),
+        kingdom,
+        phylum,
+        classC,
+        order,
+        family,
+        state,
+        const DeepCollectionEquality().hash(_search)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -629,7 +655,8 @@ abstract class _Specie implements Specie {
       @JsonKey(name: 'class') @ClassMapIntoClass() final ClassC? classC,
       @OrderMapIntoClass() final OrderC? order,
       @FamilyMapIntoClass() final Family? family,
-      final String? state}) = _$SpecieImpl;
+      final String? state,
+      final List<String> search}) = _$SpecieImpl;
 
   factory _Specie.fromJson(Map<String, dynamic> json) = _$SpecieImpl.fromJson;
 
@@ -682,6 +709,8 @@ abstract class _Specie implements Specie {
   Family? get family;
   @override
   String? get state;
+  @override
+  List<String> get search;
   @override
   @JsonKey(ignore: true)
   _$$SpecieImplCopyWith<_$SpecieImpl> get copyWith =>

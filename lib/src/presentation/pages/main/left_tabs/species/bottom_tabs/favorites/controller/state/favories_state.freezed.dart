@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$FavoritesState {
   String get searchText => throw _privateConstructorUsedError;
+  Timer? get searchTimer => throw _privateConstructorUsedError;
   bool get switchSearch => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,7 @@ abstract class $FavoritesStateCopyWith<$Res> {
           FavoritesState value, $Res Function(FavoritesState) then) =
       _$FavoritesStateCopyWithImpl<$Res, FavoritesState>;
   @useResult
-  $Res call({String searchText, bool switchSearch});
+  $Res call({String searchText, Timer? searchTimer, bool switchSearch});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$FavoritesStateCopyWithImpl<$Res, $Val extends FavoritesState>
   @override
   $Res call({
     Object? searchText = null,
+    Object? searchTimer = freezed,
     Object? switchSearch = null,
   }) {
     return _then(_value.copyWith(
@@ -54,6 +56,10 @@ class _$FavoritesStateCopyWithImpl<$Res, $Val extends FavoritesState>
           ? _value.searchText
           : searchText // ignore: cast_nullable_to_non_nullable
               as String,
+      searchTimer: freezed == searchTimer
+          ? _value.searchTimer
+          : searchTimer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
       switchSearch: null == switchSearch
           ? _value.switchSearch
           : switchSearch // ignore: cast_nullable_to_non_nullable
@@ -70,7 +76,7 @@ abstract class _$$FavoritesStateImplCopyWith<$Res>
       __$$FavoritesStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String searchText, bool switchSearch});
+  $Res call({String searchText, Timer? searchTimer, bool switchSearch});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$FavoritesStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? searchText = null,
+    Object? searchTimer = freezed,
     Object? switchSearch = null,
   }) {
     return _then(_$FavoritesStateImpl(
@@ -92,6 +99,10 @@ class __$$FavoritesStateImplCopyWithImpl<$Res>
           ? _value.searchText
           : searchText // ignore: cast_nullable_to_non_nullable
               as String,
+      searchTimer: freezed == searchTimer
+          ? _value.searchTimer
+          : searchTimer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
       switchSearch: null == switchSearch
           ? _value.switchSearch
           : switchSearch // ignore: cast_nullable_to_non_nullable
@@ -103,18 +114,21 @@ class __$$FavoritesStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$FavoritesStateImpl implements _FavoritesState {
-  _$FavoritesStateImpl({this.searchText = '', this.switchSearch = false});
+  _$FavoritesStateImpl(
+      {this.searchText = '', this.searchTimer, this.switchSearch = false});
 
   @override
   @JsonKey()
   final String searchText;
+  @override
+  final Timer? searchTimer;
   @override
   @JsonKey()
   final bool switchSearch;
 
   @override
   String toString() {
-    return 'FavoritesState(searchText: $searchText, switchSearch: $switchSearch)';
+    return 'FavoritesState(searchText: $searchText, searchTimer: $searchTimer, switchSearch: $switchSearch)';
   }
 
   @override
@@ -124,12 +138,15 @@ class _$FavoritesStateImpl implements _FavoritesState {
             other is _$FavoritesStateImpl &&
             (identical(other.searchText, searchText) ||
                 other.searchText == searchText) &&
+            (identical(other.searchTimer, searchTimer) ||
+                other.searchTimer == searchTimer) &&
             (identical(other.switchSearch, switchSearch) ||
                 other.switchSearch == switchSearch));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, searchText, switchSearch);
+  int get hashCode =>
+      Object.hash(runtimeType, searchText, searchTimer, switchSearch);
 
   @JsonKey(ignore: true)
   @override
@@ -140,11 +157,15 @@ class _$FavoritesStateImpl implements _FavoritesState {
 }
 
 abstract class _FavoritesState implements FavoritesState {
-  factory _FavoritesState({final String searchText, final bool switchSearch}) =
-      _$FavoritesStateImpl;
+  factory _FavoritesState(
+      {final String searchText,
+      final Timer? searchTimer,
+      final bool switchSearch}) = _$FavoritesStateImpl;
 
   @override
   String get searchText;
+  @override
+  Timer? get searchTimer;
   @override
   bool get switchSearch;
   @override

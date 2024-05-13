@@ -16,6 +16,10 @@ _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       state: json['state'] as String?,
+      search: (json['search'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
@@ -27,4 +31,5 @@ Map<String, dynamic> _$$CommunityImplToJson(_$CommunityImpl instance) =>
       'latitude': instance.latitude,
       'images': instance.images,
       'state': instance.state,
+      'search': instance.search,
     };

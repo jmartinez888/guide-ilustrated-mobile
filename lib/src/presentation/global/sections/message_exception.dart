@@ -23,7 +23,7 @@ class MessageException extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Padding(
+    return Container(
       padding: padding ?? EdgeInsets.zero,
       child: Extend(
         min: true,

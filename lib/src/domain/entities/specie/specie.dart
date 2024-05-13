@@ -47,6 +47,7 @@ class Specie with _$Specie {
     @FamilyMapIntoClass()
     @Default(null) Family? family,
     String? state,
+    @Default([]) List<String> search,
   }) = _Specie;
 
   factory Specie.fromJson(Map<String, dynamic> json) => _$SpecieFromJson(json);
