@@ -27,6 +27,7 @@ mixin _$Community {
   double? get latitude => throw _privateConstructorUsedError;
   List<String>? get images => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
+  List<String> get search => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $CommunityCopyWith<$Res> {
       double? longitude,
       double? latitude,
       List<String>? images,
-      String? state});
+      String? state,
+      List<String> search});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
     Object? latitude = freezed,
     Object? images = freezed,
     Object? state = freezed,
+    Object? search = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +102,10 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String?,
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -118,7 +125,8 @@ abstract class _$$CommunityImplCopyWith<$Res>
       double? longitude,
       double? latitude,
       List<String>? images,
-      String? state});
+      String? state,
+      List<String> search});
 }
 
 /// @nodoc
@@ -139,6 +147,7 @@ class __$$CommunityImplCopyWithImpl<$Res>
     Object? latitude = freezed,
     Object? images = freezed,
     Object? state = freezed,
+    Object? search = null,
   }) {
     return _then(_$CommunityImpl(
       id: null == id
@@ -169,6 +178,10 @@ class __$$CommunityImplCopyWithImpl<$Res>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as String?,
+      search: null == search
+          ? _value._search
+          : search // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -183,8 +196,10 @@ class _$CommunityImpl implements _Community {
       this.longitude,
       this.latitude,
       final List<String>? images,
-      this.state})
-      : _images = images;
+      this.state,
+      final List<String> search = const []})
+      : _images = images,
+        _search = search;
 
   factory _$CommunityImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommunityImplFromJson(json);
@@ -211,10 +226,18 @@ class _$CommunityImpl implements _Community {
 
   @override
   final String? state;
+  final List<String> _search;
+  @override
+  @JsonKey()
+  List<String> get search {
+    if (_search is EqualUnmodifiableListView) return _search;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_search);
+  }
 
   @override
   String toString() {
-    return 'Community(id: $id, name: $name, description: $description, longitude: $longitude, latitude: $latitude, images: $images, state: $state)';
+    return 'Community(id: $id, name: $name, description: $description, longitude: $longitude, latitude: $latitude, images: $images, state: $state, search: $search)';
   }
 
   @override
@@ -231,13 +254,22 @@ class _$CommunityImpl implements _Community {
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
-            (identical(other.state, state) || other.state == state));
+            (identical(other.state, state) || other.state == state) &&
+            const DeepCollectionEquality().equals(other._search, _search));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, longitude,
-      latitude, const DeepCollectionEquality().hash(_images), state);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      description,
+      longitude,
+      latitude,
+      const DeepCollectionEquality().hash(_images),
+      state,
+      const DeepCollectionEquality().hash(_search));
 
   @JsonKey(ignore: true)
   @override
@@ -261,7 +293,8 @@ abstract class _Community implements Community {
       final double? longitude,
       final double? latitude,
       final List<String>? images,
-      final String? state}) = _$CommunityImpl;
+      final String? state,
+      final List<String> search}) = _$CommunityImpl;
 
   factory _Community.fromJson(Map<String, dynamic> json) =
       _$CommunityImpl.fromJson;
@@ -280,6 +313,8 @@ abstract class _Community implements Community {
   List<String>? get images;
   @override
   String? get state;
+  @override
+  List<String> get search;
   @override
   @JsonKey(ignore: true)
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>

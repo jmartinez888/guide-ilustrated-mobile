@@ -33,6 +33,7 @@ mixin _$Author {
   String? get state => throw _privateConstructorUsedError;
   @SpeciesIntoClassToMap()
   List<Specie>? get species => throw _privateConstructorUsedError;
+  List<String> get search => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +55,8 @@ abstract class $AuthorCopyWith<$Res> {
       String? profession,
       List<String>? images,
       String? state,
-      @SpeciesIntoClassToMap() List<Specie>? species});
+      @SpeciesIntoClassToMap() List<Specie>? species,
+      List<String> search});
 }
 
 /// @nodoc
@@ -80,6 +82,7 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
     Object? images = freezed,
     Object? state = freezed,
     Object? species = freezed,
+    Object? search = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -122,6 +125,10 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
               as List<Specie>?,
+      search: null == search
+          ? _value.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -143,7 +150,8 @@ abstract class _$$AuthorImplCopyWith<$Res> implements $AuthorCopyWith<$Res> {
       String? profession,
       List<String>? images,
       String? state,
-      @SpeciesIntoClassToMap() List<Specie>? species});
+      @SpeciesIntoClassToMap() List<Specie>? species,
+      List<String> search});
 }
 
 /// @nodoc
@@ -167,6 +175,7 @@ class __$$AuthorImplCopyWithImpl<$Res>
     Object? images = freezed,
     Object? state = freezed,
     Object? species = freezed,
+    Object? search = null,
   }) {
     return _then(_$AuthorImpl(
       id: null == id
@@ -209,6 +218,10 @@ class __$$AuthorImplCopyWithImpl<$Res>
           ? _value._species
           : species // ignore: cast_nullable_to_non_nullable
               as List<Specie>?,
+      search: null == search
+          ? _value._search
+          : search // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -226,9 +239,11 @@ class _$AuthorImpl implements _Author {
       this.profession,
       final List<String>? images,
       this.state,
-      @SpeciesIntoClassToMap() final List<Specie>? species = null})
+      @SpeciesIntoClassToMap() final List<Specie>? species = null,
+      final List<String> search = const []})
       : _images = images,
-        _species = species;
+        _species = species,
+        _search = search;
 
   factory _$AuthorImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthorImplFromJson(json);
@@ -273,9 +288,18 @@ class _$AuthorImpl implements _Author {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String> _search;
+  @override
+  @JsonKey()
+  List<String> get search {
+    if (_search is EqualUnmodifiableListView) return _search;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_search);
+  }
+
   @override
   String toString() {
-    return 'Author(id: $id, name: $name, lastname: $lastname, biography: $biography, yearOfBirth: $yearOfBirth, yearOfDeath: $yearOfDeath, profession: $profession, images: $images, state: $state, species: $species)';
+    return 'Author(id: $id, name: $name, lastname: $lastname, biography: $biography, yearOfBirth: $yearOfBirth, yearOfDeath: $yearOfDeath, profession: $profession, images: $images, state: $state, species: $species, search: $search)';
   }
 
   @override
@@ -297,7 +321,8 @@ class _$AuthorImpl implements _Author {
                 other.profession == profession) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.state, state) || other.state == state) &&
-            const DeepCollectionEquality().equals(other._species, _species));
+            const DeepCollectionEquality().equals(other._species, _species) &&
+            const DeepCollectionEquality().equals(other._search, _search));
   }
 
   @JsonKey(ignore: true)
@@ -313,7 +338,8 @@ class _$AuthorImpl implements _Author {
       profession,
       const DeepCollectionEquality().hash(_images),
       state,
-      const DeepCollectionEquality().hash(_species));
+      const DeepCollectionEquality().hash(_species),
+      const DeepCollectionEquality().hash(_search));
 
   @JsonKey(ignore: true)
   @override
@@ -340,7 +366,8 @@ abstract class _Author implements Author {
       final String? profession,
       final List<String>? images,
       final String? state,
-      @SpeciesIntoClassToMap() final List<Specie>? species}) = _$AuthorImpl;
+      @SpeciesIntoClassToMap() final List<Specie>? species,
+      final List<String> search}) = _$AuthorImpl;
 
   factory _Author.fromJson(Map<String, dynamic> json) = _$AuthorImpl.fromJson;
 
@@ -367,6 +394,8 @@ abstract class _Author implements Author {
   @override
   @SpeciesIntoClassToMap()
   List<Specie>? get species;
+  @override
+  List<String> get search;
   @override
   @JsonKey(ignore: true)
   _$$AuthorImplCopyWith<_$AuthorImpl> get copyWith =>

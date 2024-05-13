@@ -17,10 +17,10 @@ class CustomGridCard extends StatelessWidget {
 
   final Widget? image;
   final String? title;
-  final Color? mainColor;
   final String? subtitle;
   final FontStyle? fontStyle;
   final List<Widget>? actions;
+  final Color? mainColor;
   final Color? opaqueColor;
   final void Function()? onTap;
   final int? maxLines;

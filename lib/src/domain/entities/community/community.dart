@@ -14,6 +14,7 @@ class Community with _$Community {
     double? latitude,
     List<String>? images,
     String? state,
+    @Default([]) List<String> search,
   }) = _Community;
 
   factory Community.fromJson(Map<String, dynamic> json) => _$CommunityFromJson(json);

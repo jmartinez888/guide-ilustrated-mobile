@@ -20,6 +20,7 @@ class Author with _$Author {
     List<String>? images,
     String? state,
     @SpeciesIntoClassToMap() @Default(null) List<Specie>? species,
+    @Default([]) List<String> search,
   }) = _Author;
 
   factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);

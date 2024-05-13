@@ -9,6 +9,8 @@ import 'package:species/src/data/mappers/type_mapper.dart';
 import 'package:species/src/data/models/classes/specie_iiap/specie_iiap.dart';
 import 'package:species/src/data/models/classes/type_iiap/type_iiap.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/presentation/global/functions/generate_search/generate_search.dart';
+import 'package:species/src/presentation/global/functions/validate_string/validate_string.dart';
 
 class SpecieMapper {
   final TypeMapper _typeMapper;
@@ -89,8 +91,16 @@ class SpecieMapper {
           : null,
       family: specie.taxonomy != null && specie.taxonomy!.family != null
           ? _familyMapper.familyIiapToFamily(specie.taxonomy!.family!)
-          : null, 
+          : null,
       state: specie.state,
+      search: GenerateSearch.generarBusquedas(
+        [
+          if(specie.name != null && specie.name!.isNotEmpty)
+          ValidateString.encode(specie.name!),
+          if(specie.scientificName != null && specie.scientificName!.isNotEmpty)
+          ValidateString.encode(specie.scientificName!),
+        ],
+      ),
     );
   }
 }

@@ -43,6 +43,10 @@ _$SpecieImpl _$$SpecieImplFromJson(Map<String, dynamic> json) => _$SpecieImpl(
           ? null
           : const FamilyMapIntoClass().fromJson(json['family']),
       state: json['state'] as String?,
+      search: (json['search'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$SpecieImplToJson(_$SpecieImpl instance) =>
@@ -75,6 +79,7 @@ Map<String, dynamic> _$$SpecieImplToJson(_$SpecieImpl instance) =>
       'family': _$JsonConverterToJson<dynamic, Family>(
           instance.family, const FamilyMapIntoClass().toJson),
       'state': instance.state,
+      'search': instance.search,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
