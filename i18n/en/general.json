@@ -1,0 +1,12 @@
+{
+    "back": "Back",
+    "close": "Close",
+    "clear": "Clear",
+    "search": "Search",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "error404Again": "Something went wrong, please try again",
+    "nameNotAvailable": "Name not available",
+    "lastnameNotAvailable": "Last name not available",
+    "descriptionNotAvailable": "Description not available"
+}

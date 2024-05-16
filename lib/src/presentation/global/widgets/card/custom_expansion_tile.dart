@@ -69,8 +69,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
   late AnimationController _controller;
   late Animation<double> _heightFactor;
   late Animation<double> _elevation;
-  late Animation<Color?> _headerColor;
-  late Animation<Color?> _iconColor;
   late Animation<Color?> _materialColor;
   late Animation<EdgeInsets> _padding;
   late Animation<double> _iconTurns;
@@ -82,10 +80,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     _controller = AnimationController(duration: widget.duration, vsync: this);
     _heightFactor =
         _controller.drive(CurveTween(curve: widget.heightFactorCurve));
-    _headerColor = _controller
-        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
-    _iconColor = _controller
-        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
     _materialColor = _controller
         .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
     _elevation = _controller.drive(

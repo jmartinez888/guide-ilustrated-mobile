@@ -1,12 +1,12 @@
 {
     "title": "Favoritos",
     "hintText": "Busca tu favorito",
-    "close": "Cerrar",
-    "search": "Buscar",
     "exceptionText": "Aún no hay especies aquí",
     "deleteFavorite": "Quitar de favoritos",
     "empty": "Empieza a marcar especies como favoritas para verlas aquí",
-    "error": "Hemos hecho cambios importantes, toca en 'Recuperar las especies' para actualizar la información",
+    "error": "Hemos hecho cambios importantes, toca en 'Recuperar las especies' para actualizar la información, asegurate tener conexión a internet",
     "canNot": "No se pudo realizar esta acción",
-    "reestoreSpecies": "Recuperar las especies"
+    "reestoreSpecies": "Recuperar las especies",
+    "withoutSpecies": "Todavía no tienes especies favoritas, puedes agregarlas desde la sección de especies",
+    "yeah": "!Se han restaurado todas tus especies favoritas!"
 }

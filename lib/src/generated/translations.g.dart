@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 1165 (233 per locale)
+/// Strings: 1230 (246 per locale)
 ///
-/// Built on 2024-05-14 at 22:41 UTC
+/// Built on 2024-05-16 at 23:54 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -152,13 +152,16 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsAboutProjectEn aboutProject = _TranslationsAboutProjectEn._(_root);
+	late final _TranslationsAuthorsEn authors = _TranslationsAuthorsEn._(_root);
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
+	late final _TranslationsCommunityEn community = _TranslationsCommunityEn._(_root);
 	late final _TranslationsDeleteAccountEn deleteAccount = _TranslationsDeleteAccountEn._(_root);
 	late final _TranslationsEditProfileEn editProfile = _TranslationsEditProfileEn._(_root);
 	late final _TranslationsErrorPageEn errorPage = _TranslationsErrorPageEn._(_root);
 	late final _TranslationsFavoritesEn favorites = _TranslationsFavoritesEn._(_root);
 	late final _TranslationsFilterOptionsEn filterOptions = _TranslationsFilterOptionsEn._(_root);
 	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
+	late final _TranslationsGeneralEn general = _TranslationsGeneralEn._(_root);
 	late final _TranslationsPdfPreviewPageEn pdfPreviewPage = _TranslationsPdfPreviewPageEn._(_root);
 	late final _TranslationsProfileEn profile = _TranslationsProfileEn._(_root);
 	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
@@ -192,6 +195,18 @@ class _TranslationsAboutProjectEn {
 	String get address => 'Iquitos - Nauta Road Km 4.5, Quistococha, San Juan Bautista District, Maynas, Loreto: ';
 }
 
+// Path: authors
+class _TranslationsAuthorsEn {
+	_TranslationsAuthorsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Authors';
+	String get withoutAuthors => 'It seems there are no authors here';
+	String get professionNotAvailable => 'Profession not available';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarEn {
 	_TranslationsBottomBarEn._(this._root);
@@ -202,6 +217,17 @@ class _TranslationsBottomBarEn {
 	String get home => 'Home';
 	String get search => 'Search';
 	String get favorites => 'Favorites';
+}
+
+// Path: community
+class _TranslationsCommunityEn {
+	_TranslationsCommunityEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Indigenous communities';
+	String get withoutCommunities => 'It seems there are no indigenous communities here';
 }
 
 // Path: deleteAccount
@@ -263,10 +289,14 @@ class _TranslationsFavoritesEn {
 	// Translations
 	String get title => 'Favorites';
 	String get hintText => 'Search your favorite';
-	String get close => 'Close';
-	String get search => 'Search';
-	String get exceptionText => 'No species here yet';
+	String get exceptionText => 'There are no species here yet';
 	String get deleteFavorite => 'Remove from favorites';
+	String get empty => 'Start marking species as favorites to see them here';
+	String get error => 'We have made significant changes, tap on \'Restore species\' to update the information, make sure you have an internet connection';
+	String get canNot => 'This action could not be performed';
+	String get reestoreSpecies => 'Restore species';
+	String get withoutSpecies => 'You don\'t have any favorite species yet, you can add them from the species section';
+	String get yeah => 'All your favorite species have been restored!';
 }
 
 // Path: filterOptions
@@ -303,6 +333,25 @@ class _TranslationsForgotPasswordEn {
 	String get clear => 'Clear';
 	String get message => 'Enter your email to send you an email where you can change your password:';
 	String get checkYourEmail => 'Check your email!';
+}
+
+// Path: general
+class _TranslationsGeneralEn {
+	_TranslationsGeneralEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get back => 'Back';
+	String get close => 'Close';
+	String get clear => 'Clear';
+	String get search => 'Search';
+	String get addToFavorites => 'Add to favorites';
+	String get removeFromFavorites => 'Remove from favorites';
+	String get error404Again => 'Something went wrong, please try again';
+	String get nameNotAvailable => 'Name not available';
+	String get lastnameNotAvailable => 'Last name not available';
+	String get descriptionNotAvailable => 'Description not available';
 }
 
 // Path: pdfPreviewPage
@@ -447,8 +496,6 @@ class _TranslationsSpeciesEn {
 	String get insects => 'Insects';
 	String get trees => 'Trees';
 	String get palms => 'Palms';
-	String get deleteFavorite => 'Remove from favorites';
-	String get saveFavorite => 'Save to favorites';
 	String get orderName => 'Common name';
 	String get orderScientificName => 'Scientific name';
 }
@@ -472,8 +519,6 @@ class _TranslationsSpeciesDetailsEn {
 	String get downloadImage => 'Download Image';
 	String get downloadAudio => 'Download Audio';
 	String get share => 'Share';
-	String get saveToFavorite => 'Save to Favorites';
-	String get deleteFromFavorite => 'Delete from Favorites';
 	String get errorDownload => 'Download Error';
 	String get successDownload => 'Download Success';
 	String get shareAmazonInfo => 'Share the beauty of the Amazon! Share this valuable information about.';
@@ -493,8 +538,6 @@ class _TranslationsSpeciesDetailsPageEn {
 	String get downloadAudio => 'Download audio';
 	String get share => 'Share';
 	String get generatePdf => 'Generate PDF';
-	String get deleteFavorite => 'Remove from favorites';
-	String get saveFavorite => 'Save to favorites';
 	String get attractiveMessage => 'Share the beauty of the Amazon! Share this valuable information about';
 	String get conservationStates => 'Conservation statuses';
 	String get noInformation => 'No information';
@@ -711,13 +754,16 @@ class _TranslationsEs implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectEs aboutProject = _TranslationsAboutProjectEs._(_root);
+	@override late final _TranslationsAuthorsEs authors = _TranslationsAuthorsEs._(_root);
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
+	@override late final _TranslationsCommunityEs community = _TranslationsCommunityEs._(_root);
 	@override late final _TranslationsDeleteAccountEs deleteAccount = _TranslationsDeleteAccountEs._(_root);
 	@override late final _TranslationsEditProfileEs editProfile = _TranslationsEditProfileEs._(_root);
 	@override late final _TranslationsErrorPageEs errorPage = _TranslationsErrorPageEs._(_root);
 	@override late final _TranslationsFavoritesEs favorites = _TranslationsFavoritesEs._(_root);
 	@override late final _TranslationsFilterOptionsEs filterOptions = _TranslationsFilterOptionsEs._(_root);
 	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
+	@override late final _TranslationsGeneralEs general = _TranslationsGeneralEs._(_root);
 	@override late final _TranslationsPdfPreviewPageEs pdfPreviewPage = _TranslationsPdfPreviewPageEs._(_root);
 	@override late final _TranslationsProfileEs profile = _TranslationsProfileEs._(_root);
 	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
@@ -751,6 +797,18 @@ class _TranslationsAboutProjectEs implements _TranslationsAboutProjectEn {
 	@override String get address => 'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 }
 
+// Path: authors
+class _TranslationsAuthorsEs implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Autores';
+	@override String get withoutAuthors => 'Parece que no hay autores aquí';
+	@override String get professionNotAvailable => 'Profesión no disponible';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarEs._(this._root);
@@ -761,6 +819,17 @@ class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	@override String get home => 'Inicio';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: community
+class _TranslationsCommunityEs implements _TranslationsCommunityEn {
+	_TranslationsCommunityEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Comunidades indígenas';
+	@override String get withoutCommunities => 'Parece que no hay comunidades indígenas aquí';
 }
 
 // Path: deleteAccount
@@ -822,10 +891,14 @@ class _TranslationsFavoritesEs implements _TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoritos';
 	@override String get hintText => 'Busca tu favorito';
-	@override String get close => 'Cerrar';
-	@override String get search => 'Buscar';
 	@override String get exceptionText => 'Aún no hay especies aquí';
 	@override String get deleteFavorite => 'Quitar de favoritos';
+	@override String get empty => 'Empieza a marcar especies como favoritas para verlas aquí';
+	@override String get error => 'Hemos hecho cambios importantes, toca en \'Recuperar las especies\' para actualizar la información, asegurate tener conexión a internet';
+	@override String get canNot => 'No se pudo realizar esta acción';
+	@override String get reestoreSpecies => 'Recuperar las especies';
+	@override String get withoutSpecies => 'Todavía no tienes especies favoritas, puedes agregarlas desde la sección de especies';
+	@override String get yeah => '!Se han restaurado todas tus especies favoritas!';
 }
 
 // Path: filterOptions
@@ -862,6 +935,25 @@ class _TranslationsForgotPasswordEs implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Limpiar';
 	@override String get message => 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 	@override String get checkYourEmail => '¡Revisa tu correo!';
+}
+
+// Path: general
+class _TranslationsGeneralEs implements _TranslationsGeneralEn {
+	_TranslationsGeneralEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Atrás';
+	@override String get close => 'Cerrar';
+	@override String get clear => 'Limpiar';
+	@override String get search => 'Buscar';
+	@override String get addToFavorites => 'Agregar a favoritos';
+	@override String get removeFromFavorites => 'Quitar de favoritos';
+	@override String get error404Again => 'Algo salió mal, inténtalo de nuevo';
+	@override String get nameNotAvailable => 'Nombre no disponible';
+	@override String get lastnameNotAvailable => 'Apellidos no disponibles';
+	@override String get descriptionNotAvailable => 'Descripción no disponible';
 }
 
 // Path: pdfPreviewPage
@@ -1006,8 +1098,6 @@ class _TranslationsSpeciesEs implements _TranslationsSpeciesEn {
 	@override String get insects => 'Insectos';
 	@override String get trees => 'Árboles';
 	@override String get palms => 'Palmeras';
-	@override String get deleteFavorite => 'Quitar de favoritos';
-	@override String get saveFavorite => 'Guardar en favoritos';
 	@override String get orderName => 'Nombre común';
 	@override String get orderScientificName => 'Nombre científico';
 }
@@ -1031,8 +1121,6 @@ class _TranslationsSpeciesDetailsEs implements _TranslationsSpeciesDetailsEn {
 	@override String get downloadImage => 'Descargar Imagen';
 	@override String get downloadAudio => 'Descargar Audio';
 	@override String get share => 'Compartir';
-	@override String get saveToFavorite => 'Guardar en Favoritos';
-	@override String get deleteFromFavorite => 'Eliminar de Favoritos';
 	@override String get errorDownload => 'Error al Descargar';
 	@override String get successDownload => 'Descarga Exitosa';
 	@override String get shareAmazonInfo => '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre.';
@@ -1052,8 +1140,6 @@ class _TranslationsSpeciesDetailsPageEs implements _TranslationsSpeciesDetailsPa
 	@override String get downloadAudio => 'Descargar audio';
 	@override String get share => 'Compartir';
 	@override String get generatePdf => 'Generar PDF';
-	@override String get deleteFavorite => 'Quitar de favoritos';
-	@override String get saveFavorite => 'Guardar en favoritos';
 	@override String get attractiveMessage => 'Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre';
 	@override String get conservationStates => 'Estados de conservación';
 	@override String get noInformation => 'Sin información';
@@ -1270,13 +1356,16 @@ class _TranslationsFr implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectFr aboutProject = _TranslationsAboutProjectFr._(_root);
+	@override late final _TranslationsAuthorsFr authors = _TranslationsAuthorsFr._(_root);
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
+	@override late final _TranslationsCommunityFr community = _TranslationsCommunityFr._(_root);
 	@override late final _TranslationsDeleteAccountFr deleteAccount = _TranslationsDeleteAccountFr._(_root);
 	@override late final _TranslationsEditProfileFr editProfile = _TranslationsEditProfileFr._(_root);
 	@override late final _TranslationsErrorPageFr errorPage = _TranslationsErrorPageFr._(_root);
 	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
 	@override late final _TranslationsFilterOptionsFr filterOptions = _TranslationsFilterOptionsFr._(_root);
 	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
+	@override late final _TranslationsGeneralFr general = _TranslationsGeneralFr._(_root);
 	@override late final _TranslationsPdfPreviewPageFr pdfPreviewPage = _TranslationsPdfPreviewPageFr._(_root);
 	@override late final _TranslationsProfileFr profile = _TranslationsProfileFr._(_root);
 	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
@@ -1310,6 +1399,18 @@ class _TranslationsAboutProjectFr implements _TranslationsAboutProjectEn {
 	@override String get address => 'Route Iquitos - Nauta Km 4.5, Quistococha, District de San Juan Bautista, Maynas, Loreto : ';
 }
 
+// Path: authors
+class _TranslationsAuthorsFr implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Auteurs';
+	@override String get withoutAuthors => 'Il semble qu\'il n\'y ait pas d\'auteurs ici';
+	@override String get professionNotAvailable => 'Profession non disponible';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarFr._(this._root);
@@ -1320,6 +1421,17 @@ class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	@override String get home => 'Accueil';
 	@override String get search => 'Rechercher';
 	@override String get favorites => 'Favoris';
+}
+
+// Path: community
+class _TranslationsCommunityFr implements _TranslationsCommunityEn {
+	_TranslationsCommunityFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Communautés autochtones';
+	@override String get withoutCommunities => 'Il semble qu\'il n\'y ait pas de communautés autochtones ici';
 }
 
 // Path: deleteAccount
@@ -1381,10 +1493,14 @@ class _TranslationsFavoritesFr implements _TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoris';
 	@override String get hintText => 'Recherchez votre favori';
-	@override String get close => 'Fermer';
-	@override String get search => 'Chercher';
-	@override String get exceptionText => 'Pas encore d\'espèces ici';
-	@override String get deleteFavorite => 'Supprimer des favoris';
+	@override String get exceptionText => 'Il n\'y a pas encore d\'espèces ici';
+	@override String get deleteFavorite => 'Retirer des favoris';
+	@override String get empty => 'Commencez à marquer des espèces comme favorites pour les voir ici';
+	@override String get error => 'Nous avons apporté des modifications importantes, appuyez sur \'Restaurer les espèces\' pour mettre à jour les informations, assurez-vous d\'avoir une connexion Internet';
+	@override String get canNot => 'Cette action n\'a pas pu être effectuée';
+	@override String get reestoreSpecies => 'Restaurer les espèces';
+	@override String get withoutSpecies => 'Vous n\'avez pas encore d\'espèces favorites, vous pouvez les ajouter depuis la section des espèces';
+	@override String get yeah => 'Toutes vos espèces favorites ont été restaurées!';
 }
 
 // Path: filterOptions
@@ -1421,6 +1537,25 @@ class _TranslationsForgotPasswordFr implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Effacer';
 	@override String get message => 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 	@override String get checkYourEmail => 'Vérifiez votre e-mail !';
+}
+
+// Path: general
+class _TranslationsGeneralFr implements _TranslationsGeneralEn {
+	_TranslationsGeneralFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Retour';
+	@override String get close => 'Fermer';
+	@override String get clear => 'Effacer';
+	@override String get search => 'Rechercher';
+	@override String get addToFavorites => 'Ajouter aux favoris';
+	@override String get removeFromFavorites => 'Retirer des favoris';
+	@override String get error404Again => 'Quelque chose s\'est mal passé, veuillez réessayer';
+	@override String get nameNotAvailable => 'Nom non disponible';
+	@override String get lastnameNotAvailable => 'Nom de famille non disponible';
+	@override String get descriptionNotAvailable => 'Description non disponible';
 }
 
 // Path: pdfPreviewPage
@@ -1556,19 +1691,17 @@ class _TranslationsSpeciesFr implements _TranslationsSpeciesEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Espécies';
-	@override String get birds => 'Aves';
-	@override String get mammals => 'Mamíferos';
-	@override String get reptiles => 'Répteis';
-	@override String get amphibians => 'Anfíbios';
-	@override String get fishes => 'Peixes';
-	@override String get insects => 'Insetos';
-	@override String get trees => 'Árvores';
-	@override String get palms => 'Palmeiras';
-	@override String get deleteFavorite => 'Remover dos favoritos';
-	@override String get saveFavorite => 'Salvar nos favoritos';
-	@override String get orderName => 'Nome Comum';
-	@override String get orderScientificName => 'Nome científico';
+	@override String get title => 'Espèces';
+	@override String get birds => 'Oiseaux';
+	@override String get mammals => 'Mammifères';
+	@override String get reptiles => 'Reptiles';
+	@override String get amphibians => 'Amphibiens';
+	@override String get fishes => 'Poissons';
+	@override String get insects => 'Insectes';
+	@override String get trees => 'Arbres';
+	@override String get palms => 'Palmiers';
+	@override String get orderName => 'Nom commun';
+	@override String get orderScientificName => 'Nom scientifique';
 }
 
 // Path: speciesDetails
@@ -1590,8 +1723,6 @@ class _TranslationsSpeciesDetailsFr implements _TranslationsSpeciesDetailsEn {
 	@override String get downloadImage => 'Télécharger l\'Image';
 	@override String get downloadAudio => 'Télécharger l\'Audio';
 	@override String get share => 'Partager';
-	@override String get saveToFavorite => 'Enregistrer dans les Favoris';
-	@override String get deleteFromFavorite => 'Supprimer des Favoris';
 	@override String get errorDownload => 'Erreur de Téléchargement';
 	@override String get successDownload => 'Téléchargement Réussi';
 	@override String get shareAmazonInfo => 'Partagez la beauté de l\'Amazonie ! Partagez ces précieuses informations sur.';
@@ -1611,8 +1742,6 @@ class _TranslationsSpeciesDetailsPageFr implements _TranslationsSpeciesDetailsPa
 	@override String get downloadAudio => 'Télécharger l\'audio';
 	@override String get share => 'Partager';
 	@override String get generatePdf => 'Générer PDF';
-	@override String get deleteFavorite => 'Retirer des favoris';
-	@override String get saveFavorite => 'Ajouter aux favoris';
 	@override String get attractiveMessage => 'Partagez la beauté de l\'Amazonie ! Partagez cette information précieuse sur';
 	@override String get conservationStates => 'Statuts de conservation';
 	@override String get noInformation => 'Pas d\'information';
@@ -1829,13 +1958,16 @@ class _TranslationsPt implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectPt aboutProject = _TranslationsAboutProjectPt._(_root);
+	@override late final _TranslationsAuthorsPt authors = _TranslationsAuthorsPt._(_root);
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
+	@override late final _TranslationsCommunityPt community = _TranslationsCommunityPt._(_root);
 	@override late final _TranslationsDeleteAccountPt deleteAccount = _TranslationsDeleteAccountPt._(_root);
 	@override late final _TranslationsEditProfilePt editProfile = _TranslationsEditProfilePt._(_root);
 	@override late final _TranslationsErrorPagePt errorPage = _TranslationsErrorPagePt._(_root);
 	@override late final _TranslationsFavoritesPt favorites = _TranslationsFavoritesPt._(_root);
 	@override late final _TranslationsFilterOptionsPt filterOptions = _TranslationsFilterOptionsPt._(_root);
 	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
+	@override late final _TranslationsGeneralPt general = _TranslationsGeneralPt._(_root);
 	@override late final _TranslationsPdfPreviewPagePt pdfPreviewPage = _TranslationsPdfPreviewPagePt._(_root);
 	@override late final _TranslationsProfilePt profile = _TranslationsProfilePt._(_root);
 	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
@@ -1869,6 +2001,18 @@ class _TranslationsAboutProjectPt implements _TranslationsAboutProjectEn {
 	@override String get address => 'Estrada Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 }
 
+// Path: authors
+class _TranslationsAuthorsPt implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Autores';
+	@override String get withoutAuthors => 'Parece que não há autores aqui';
+	@override String get professionNotAvailable => 'Profissão não disponível';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarPt._(this._root);
@@ -1879,6 +2023,17 @@ class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	@override String get home => 'Início';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: community
+class _TranslationsCommunityPt implements _TranslationsCommunityEn {
+	_TranslationsCommunityPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Comunidades indígenas';
+	@override String get withoutCommunities => 'Parece que não há comunidades indígenas aqui';
 }
 
 // Path: deleteAccount
@@ -1939,11 +2094,15 @@ class _TranslationsFavoritesPt implements _TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => 'Favoritos';
-	@override String get hintText => 'Procure o seu favorito';
-	@override String get close => 'Fechar';
-	@override String get search => 'Pesquisar';
+	@override String get hintText => 'Procure seu favorito';
 	@override String get exceptionText => 'Ainda não há espécies aqui';
 	@override String get deleteFavorite => 'Remover dos favoritos';
+	@override String get empty => 'Comece a marcar espécies como favoritas para vê-las aqui';
+	@override String get error => 'Fizemos mudanças importantes, toque em \'Restaurar as espécies\' para atualizar as informações, certifique-se de estar conectado à internet';
+	@override String get canNot => 'Não foi possível realizar esta ação';
+	@override String get reestoreSpecies => 'Restaurar as espécies';
+	@override String get withoutSpecies => 'Você ainda não tem espécies favoritas, pode adicioná-las na seção de espécies';
+	@override String get yeah => 'Todas as suas espécies favoritas foram restauradas!';
 }
 
 // Path: filterOptions
@@ -1980,6 +2139,25 @@ class _TranslationsForgotPasswordPt implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Limpar';
 	@override String get message => 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 	@override String get checkYourEmail => 'Verifique seu email!';
+}
+
+// Path: general
+class _TranslationsGeneralPt implements _TranslationsGeneralEn {
+	_TranslationsGeneralPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Voltar';
+	@override String get close => 'Fechar';
+	@override String get clear => 'Limpar';
+	@override String get search => 'Buscar';
+	@override String get addToFavorites => 'Adicionar aos favoritos';
+	@override String get removeFromFavorites => 'Remover dos favoritos';
+	@override String get error404Again => 'Algo deu errado, por favor tente novamente';
+	@override String get nameNotAvailable => 'Nome não disponível';
+	@override String get lastnameNotAvailable => 'Sobrenome não disponível';
+	@override String get descriptionNotAvailable => 'Descrição não disponível';
 }
 
 // Path: pdfPreviewPage
@@ -2124,8 +2302,6 @@ class _TranslationsSpeciesPt implements _TranslationsSpeciesEn {
 	@override String get insects => 'Insetos';
 	@override String get trees => 'Árvores';
 	@override String get palms => 'Palmeiras';
-	@override String get deleteFavorite => 'Remover dos favoritos';
-	@override String get saveFavorite => 'Salvar nos favoritos';
 	@override String get orderName => 'Nome comum';
 	@override String get orderScientificName => 'Nome científico';
 }
@@ -2149,8 +2325,6 @@ class _TranslationsSpeciesDetailsPt implements _TranslationsSpeciesDetailsEn {
 	@override String get downloadImage => 'Baixar Imagem';
 	@override String get downloadAudio => 'Baixar Áudio';
 	@override String get share => 'Compartilhar';
-	@override String get saveToFavorite => 'Salvar nos Favoritos';
-	@override String get deleteFromFavorite => 'Remover dos Favoritos';
 	@override String get errorDownload => 'Erro ao Baixar';
 	@override String get successDownload => 'Download Bem-Sucedido';
 	@override String get shareAmazonInfo => 'Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.';
@@ -2170,8 +2344,6 @@ class _TranslationsSpeciesDetailsPagePt implements _TranslationsSpeciesDetailsPa
 	@override String get downloadAudio => 'Baixar áudio';
 	@override String get share => 'Compartilhar';
 	@override String get generatePdf => 'Gerar PDF';
-	@override String get deleteFavorite => 'Remover dos favoritos';
-	@override String get saveFavorite => 'Salvar nos favoritos';
 	@override String get attractiveMessage => 'Compartilhe a beleza da Amazônia! Compartilhe esta valiosa informação sobre';
 	@override String get conservationStates => 'Estados de conservação';
 	@override String get noInformation => 'Sem informação';
@@ -2388,13 +2560,16 @@ class _TranslationsZh implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectZh aboutProject = _TranslationsAboutProjectZh._(_root);
+	@override late final _TranslationsAuthorsZh authors = _TranslationsAuthorsZh._(_root);
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
+	@override late final _TranslationsCommunityZh community = _TranslationsCommunityZh._(_root);
 	@override late final _TranslationsDeleteAccountZh deleteAccount = _TranslationsDeleteAccountZh._(_root);
 	@override late final _TranslationsEditProfileZh editProfile = _TranslationsEditProfileZh._(_root);
 	@override late final _TranslationsErrorPageZh errorPage = _TranslationsErrorPageZh._(_root);
 	@override late final _TranslationsFavoritesZh favorites = _TranslationsFavoritesZh._(_root);
 	@override late final _TranslationsFilterOptionsZh filterOptions = _TranslationsFilterOptionsZh._(_root);
 	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
+	@override late final _TranslationsGeneralZh general = _TranslationsGeneralZh._(_root);
 	@override late final _TranslationsPdfPreviewPageZh pdfPreviewPage = _TranslationsPdfPreviewPageZh._(_root);
 	@override late final _TranslationsProfileZh profile = _TranslationsProfileZh._(_root);
 	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
@@ -2428,6 +2603,18 @@ class _TranslationsAboutProjectZh implements _TranslationsAboutProjectEn {
 	@override String get address => '伊基托斯 - 瑙塔路4.5公里，奎斯托科查，圣胡安巴蒂斯塔区，迈纳斯，洛雷托：';
 }
 
+// Path: authors
+class _TranslationsAuthorsZh implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '作者';
+	@override String get withoutAuthors => '这里似乎没有作者';
+	@override String get professionNotAvailable => '职业不可用';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarZh._(this._root);
@@ -2438,6 +2625,17 @@ class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	@override String get home => '首页';
 	@override String get search => '搜索';
 	@override String get favorites => '收藏夹';
+}
+
+// Path: community
+class _TranslationsCommunityZh implements _TranslationsCommunityEn {
+	_TranslationsCommunityZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '土著社区';
+	@override String get withoutCommunities => '这里似乎没有土著社区';
 }
 
 // Path: deleteAccount
@@ -2498,11 +2696,15 @@ class _TranslationsFavoritesZh implements _TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => '收藏夹';
-	@override String get hintText => '查找您的收藏';
-	@override String get close => '关闭';
-	@override String get search => '搜索';
+	@override String get hintText => '搜索你的收藏';
 	@override String get exceptionText => '这里还没有物种';
 	@override String get deleteFavorite => '从收藏夹中删除';
+	@override String get empty => '开始将物种标记为收藏，以便在此查看';
+	@override String get error => '我们进行了重大更改，点击“恢复物种”以更新信息，请确保你已连接到互联网';
+	@override String get canNot => '无法执行此操作';
+	@override String get reestoreSpecies => '恢复物种';
+	@override String get withoutSpecies => '你还没有收藏的物种，可以从物种部分添加';
+	@override String get yeah => '你的所有收藏物种都已恢复！';
 }
 
 // Path: filterOptions
@@ -2539,6 +2741,25 @@ class _TranslationsForgotPasswordZh implements _TranslationsForgotPasswordEn {
 	@override String get clear => '清除';
 	@override String get message => '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 	@override String get checkYourEmail => '请检查您的邮箱！';
+}
+
+// Path: general
+class _TranslationsGeneralZh implements _TranslationsGeneralEn {
+	_TranslationsGeneralZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => '返回';
+	@override String get close => '关闭';
+	@override String get clear => '清除';
+	@override String get search => '搜索';
+	@override String get addToFavorites => '添加到收藏夹';
+	@override String get removeFromFavorites => '从收藏夹中删除';
+	@override String get error404Again => '出了点问题，请再试一次';
+	@override String get nameNotAvailable => '名称不可用';
+	@override String get lastnameNotAvailable => '姓氏不可用';
+	@override String get descriptionNotAvailable => '描述不可用';
 }
 
 // Path: pdfPreviewPage
@@ -2683,8 +2904,6 @@ class _TranslationsSpeciesZh implements _TranslationsSpeciesEn {
 	@override String get insects => '昆虫';
 	@override String get trees => '树木';
 	@override String get palms => '棕榈树';
-	@override String get deleteFavorite => '从收藏中移除';
-	@override String get saveFavorite => '保存到收藏夹';
 	@override String get orderName => '通用名';
 	@override String get orderScientificName => '科学名称';
 }
@@ -2708,8 +2927,6 @@ class _TranslationsSpeciesDetailsZh implements _TranslationsSpeciesDetailsEn {
 	@override String get downloadImage => '下载图片';
 	@override String get downloadAudio => '下载音频';
 	@override String get share => '分享';
-	@override String get saveToFavorite => '保存到收藏夹';
-	@override String get deleteFromFavorite => '从收藏夹中删除';
 	@override String get errorDownload => '下载错误';
 	@override String get successDownload => '下载成功';
 	@override String get shareAmazonInfo => '分享亚马逊的美丽！分享有关的宝贵信息.';
@@ -2729,8 +2946,6 @@ class _TranslationsSpeciesDetailsPageZh implements _TranslationsSpeciesDetailsPa
 	@override String get downloadAudio => '下载音频';
 	@override String get share => '分享';
 	@override String get generatePdf => '生成 PDF';
-	@override String get deleteFavorite => '移出收藏';
-	@override String get saveFavorite => '保存到收藏夹';
 	@override String get attractiveMessage => '分享亚马逊的美丽！分享这条有价值的信息';
 	@override String get conservationStates => '保护状态';
 	@override String get noInformation => '没有信息';
@@ -2940,9 +3155,14 @@ extension on Translations {
 			case 'aboutProject.contact': return 'Contact us';
 			case 'aboutProject.p4': return 'For more information about the project, contact the Peruvian Amazon Research Institute (IIAP) through the website: ';
 			case 'aboutProject.address': return 'Iquitos - Nauta Road Km 4.5, Quistococha, San Juan Bautista District, Maynas, Loreto: ';
+			case 'authors.title': return 'Authors';
+			case 'authors.withoutAuthors': return 'It seems there are no authors here';
+			case 'authors.professionNotAvailable': return 'Profession not available';
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
+			case 'community.title': return 'Indigenous communities';
+			case 'community.withoutCommunities': return 'It seems there are no indigenous communities here';
 			case 'deleteAccount.title': return 'Delete account';
 			case 'deleteAccount.userInfo': return 'User information:';
 			case 'deleteAccount.username': return 'Username';
@@ -2968,10 +3188,14 @@ extension on Translations {
 			case 'errorPage.go_back': return 'Back to species';
 			case 'favorites.title': return 'Favorites';
 			case 'favorites.hintText': return 'Search your favorite';
-			case 'favorites.close': return 'Close';
-			case 'favorites.search': return 'Search';
-			case 'favorites.exceptionText': return 'No species here yet';
+			case 'favorites.exceptionText': return 'There are no species here yet';
 			case 'favorites.deleteFavorite': return 'Remove from favorites';
+			case 'favorites.empty': return 'Start marking species as favorites to see them here';
+			case 'favorites.error': return 'We have made significant changes, tap on \'Restore species\' to update the information, make sure you have an internet connection';
+			case 'favorites.canNot': return 'This action could not be performed';
+			case 'favorites.reestoreSpecies': return 'Restore species';
+			case 'favorites.withoutSpecies': return 'You don\'t have any favorite species yet, you can add them from the species section';
+			case 'favorites.yeah': return 'All your favorite species have been restored!';
 			case 'filterOptions.listByAlphabethic': return 'List by alphabetical order';
 			case 'filterOptions.recentlyAdded': return 'Recently added';
 			case 'filterOptions.all': return 'All';
@@ -2994,6 +3218,16 @@ extension on Translations {
 			case 'forgotPassword.clear': return 'Clear';
 			case 'forgotPassword.message': return 'Enter your email to send you an email where you can change your password:';
 			case 'forgotPassword.checkYourEmail': return 'Check your email!';
+			case 'general.back': return 'Back';
+			case 'general.close': return 'Close';
+			case 'general.clear': return 'Clear';
+			case 'general.search': return 'Search';
+			case 'general.addToFavorites': return 'Add to favorites';
+			case 'general.removeFromFavorites': return 'Remove from favorites';
+			case 'general.error404Again': return 'Something went wrong, please try again';
+			case 'general.nameNotAvailable': return 'Name not available';
+			case 'general.lastnameNotAvailable': return 'Last name not available';
+			case 'general.descriptionNotAvailable': return 'Description not available';
 			case 'pdfPreviewPage.amazon': return 'Amazon';
 			case 'pdfPreviewPage.institute': return 'Research Institute of the Peruvian Amazon';
 			case 'pdfPreviewPage.title': return 'Illustrated Guide to Flora and Fauna';
@@ -3096,8 +3330,6 @@ extension on Translations {
 			case 'species.insects': return 'Insects';
 			case 'species.trees': return 'Trees';
 			case 'species.palms': return 'Palms';
-			case 'species.deleteFavorite': return 'Remove from favorites';
-			case 'species.saveFavorite': return 'Save to favorites';
 			case 'species.orderName': return 'Common name';
 			case 'species.orderScientificName': return 'Scientific name';
 			case 'speciesDetails.authors': return 'Authors';
@@ -3112,8 +3344,6 @@ extension on Translations {
 			case 'speciesDetails.downloadImage': return 'Download Image';
 			case 'speciesDetails.downloadAudio': return 'Download Audio';
 			case 'speciesDetails.share': return 'Share';
-			case 'speciesDetails.saveToFavorite': return 'Save to Favorites';
-			case 'speciesDetails.deleteFromFavorite': return 'Delete from Favorites';
 			case 'speciesDetails.errorDownload': return 'Download Error';
 			case 'speciesDetails.successDownload': return 'Download Success';
 			case 'speciesDetails.shareAmazonInfo': return 'Share the beauty of the Amazon! Share this valuable information about.';
@@ -3124,8 +3354,6 @@ extension on Translations {
 			case 'speciesDetailsPage.downloadAudio': return 'Download audio';
 			case 'speciesDetailsPage.share': return 'Share';
 			case 'speciesDetailsPage.generatePdf': return 'Generate PDF';
-			case 'speciesDetailsPage.deleteFavorite': return 'Remove from favorites';
-			case 'speciesDetailsPage.saveFavorite': return 'Save to favorites';
 			case 'speciesDetailsPage.attractiveMessage': return 'Share the beauty of the Amazon! Share this valuable information about';
 			case 'speciesDetailsPage.conservationStates': return 'Conservation statuses';
 			case 'speciesDetailsPage.noInformation': return 'No information';
@@ -3181,9 +3409,14 @@ extension on _TranslationsEs {
 			case 'aboutProject.contact': return 'Contáctanos';
 			case 'aboutProject.p4': return 'Para obtener más información sobre el proyecto, comunícate con el Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través del sitio web: ';
 			case 'aboutProject.address': return 'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
+			case 'authors.title': return 'Autores';
+			case 'authors.withoutAuthors': return 'Parece que no hay autores aquí';
+			case 'authors.professionNotAvailable': return 'Profesión no disponible';
 			case 'bottomBar.home': return 'Inicio';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'community.title': return 'Comunidades indígenas';
+			case 'community.withoutCommunities': return 'Parece que no hay comunidades indígenas aquí';
 			case 'deleteAccount.title': return 'Eliminar cuenta';
 			case 'deleteAccount.userInfo': return 'Información del usuario:';
 			case 'deleteAccount.username': return 'Nombre de usuario';
@@ -3209,10 +3442,14 @@ extension on _TranslationsEs {
 			case 'errorPage.go_back': return 'Volver a especies';
 			case 'favorites.title': return 'Favoritos';
 			case 'favorites.hintText': return 'Busca tu favorito';
-			case 'favorites.close': return 'Cerrar';
-			case 'favorites.search': return 'Buscar';
 			case 'favorites.exceptionText': return 'Aún no hay especies aquí';
 			case 'favorites.deleteFavorite': return 'Quitar de favoritos';
+			case 'favorites.empty': return 'Empieza a marcar especies como favoritas para verlas aquí';
+			case 'favorites.error': return 'Hemos hecho cambios importantes, toca en \'Recuperar las especies\' para actualizar la información, asegurate tener conexión a internet';
+			case 'favorites.canNot': return 'No se pudo realizar esta acción';
+			case 'favorites.reestoreSpecies': return 'Recuperar las especies';
+			case 'favorites.withoutSpecies': return 'Todavía no tienes especies favoritas, puedes agregarlas desde la sección de especies';
+			case 'favorites.yeah': return '!Se han restaurado todas tus especies favoritas!';
 			case 'filterOptions.listByAlphabethic': return 'Listar por orden alfabético';
 			case 'filterOptions.recentlyAdded': return 'Más reciente';
 			case 'filterOptions.all': return 'Todos';
@@ -3235,6 +3472,16 @@ extension on _TranslationsEs {
 			case 'forgotPassword.clear': return 'Limpiar';
 			case 'forgotPassword.message': return 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 			case 'forgotPassword.checkYourEmail': return '¡Revisa tu correo!';
+			case 'general.back': return 'Atrás';
+			case 'general.close': return 'Cerrar';
+			case 'general.clear': return 'Limpiar';
+			case 'general.search': return 'Buscar';
+			case 'general.addToFavorites': return 'Agregar a favoritos';
+			case 'general.removeFromFavorites': return 'Quitar de favoritos';
+			case 'general.error404Again': return 'Algo salió mal, inténtalo de nuevo';
+			case 'general.nameNotAvailable': return 'Nombre no disponible';
+			case 'general.lastnameNotAvailable': return 'Apellidos no disponibles';
+			case 'general.descriptionNotAvailable': return 'Descripción no disponible';
 			case 'pdfPreviewPage.amazon': return 'Amazonía';
 			case 'pdfPreviewPage.institute': return 'Instituto de Investigación de la Amazonía Peruana';
 			case 'pdfPreviewPage.title': return 'Guía ilustrada de flora y fauna';
@@ -3337,8 +3584,6 @@ extension on _TranslationsEs {
 			case 'species.insects': return 'Insectos';
 			case 'species.trees': return 'Árboles';
 			case 'species.palms': return 'Palmeras';
-			case 'species.deleteFavorite': return 'Quitar de favoritos';
-			case 'species.saveFavorite': return 'Guardar en favoritos';
 			case 'species.orderName': return 'Nombre común';
 			case 'species.orderScientificName': return 'Nombre científico';
 			case 'speciesDetails.authors': return 'Autores';
@@ -3353,8 +3598,6 @@ extension on _TranslationsEs {
 			case 'speciesDetails.downloadImage': return 'Descargar Imagen';
 			case 'speciesDetails.downloadAudio': return 'Descargar Audio';
 			case 'speciesDetails.share': return 'Compartir';
-			case 'speciesDetails.saveToFavorite': return 'Guardar en Favoritos';
-			case 'speciesDetails.deleteFromFavorite': return 'Eliminar de Favoritos';
 			case 'speciesDetails.errorDownload': return 'Error al Descargar';
 			case 'speciesDetails.successDownload': return 'Descarga Exitosa';
 			case 'speciesDetails.shareAmazonInfo': return '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre.';
@@ -3365,8 +3608,6 @@ extension on _TranslationsEs {
 			case 'speciesDetailsPage.downloadAudio': return 'Descargar audio';
 			case 'speciesDetailsPage.share': return 'Compartir';
 			case 'speciesDetailsPage.generatePdf': return 'Generar PDF';
-			case 'speciesDetailsPage.deleteFavorite': return 'Quitar de favoritos';
-			case 'speciesDetailsPage.saveFavorite': return 'Guardar en favoritos';
 			case 'speciesDetailsPage.attractiveMessage': return 'Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre';
 			case 'speciesDetailsPage.conservationStates': return 'Estados de conservación';
 			case 'speciesDetailsPage.noInformation': return 'Sin información';
@@ -3422,9 +3663,14 @@ extension on _TranslationsFr {
 			case 'aboutProject.contact': return 'Contactez-nous';
 			case 'aboutProject.p4': return 'Pour plus d\'informations sur le projet, contactez l\'Institut de Recherche de l\'Amazonie Péruvienne (IIAP) via le site web : ';
 			case 'aboutProject.address': return 'Route Iquitos - Nauta Km 4.5, Quistococha, District de San Juan Bautista, Maynas, Loreto : ';
+			case 'authors.title': return 'Auteurs';
+			case 'authors.withoutAuthors': return 'Il semble qu\'il n\'y ait pas d\'auteurs ici';
+			case 'authors.professionNotAvailable': return 'Profession non disponible';
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
+			case 'community.title': return 'Communautés autochtones';
+			case 'community.withoutCommunities': return 'Il semble qu\'il n\'y ait pas de communautés autochtones ici';
 			case 'deleteAccount.title': return 'Supprimer le compte';
 			case 'deleteAccount.userInfo': return 'Informations sur l\'utilisateur :';
 			case 'deleteAccount.username': return 'Nom d\'utilisateur';
@@ -3450,10 +3696,14 @@ extension on _TranslationsFr {
 			case 'errorPage.go_back': return 'Retour aux espèces';
 			case 'favorites.title': return 'Favoris';
 			case 'favorites.hintText': return 'Recherchez votre favori';
-			case 'favorites.close': return 'Fermer';
-			case 'favorites.search': return 'Chercher';
-			case 'favorites.exceptionText': return 'Pas encore d\'espèces ici';
-			case 'favorites.deleteFavorite': return 'Supprimer des favoris';
+			case 'favorites.exceptionText': return 'Il n\'y a pas encore d\'espèces ici';
+			case 'favorites.deleteFavorite': return 'Retirer des favoris';
+			case 'favorites.empty': return 'Commencez à marquer des espèces comme favorites pour les voir ici';
+			case 'favorites.error': return 'Nous avons apporté des modifications importantes, appuyez sur \'Restaurer les espèces\' pour mettre à jour les informations, assurez-vous d\'avoir une connexion Internet';
+			case 'favorites.canNot': return 'Cette action n\'a pas pu être effectuée';
+			case 'favorites.reestoreSpecies': return 'Restaurer les espèces';
+			case 'favorites.withoutSpecies': return 'Vous n\'avez pas encore d\'espèces favorites, vous pouvez les ajouter depuis la section des espèces';
+			case 'favorites.yeah': return 'Toutes vos espèces favorites ont été restaurées!';
 			case 'filterOptions.listByAlphabethic': return 'Trier par ordre alphabétique';
 			case 'filterOptions.recentlyAdded': return 'Plus récent';
 			case 'filterOptions.all': return 'Tout';
@@ -3476,6 +3726,16 @@ extension on _TranslationsFr {
 			case 'forgotPassword.clear': return 'Effacer';
 			case 'forgotPassword.message': return 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 			case 'forgotPassword.checkYourEmail': return 'Vérifiez votre e-mail !';
+			case 'general.back': return 'Retour';
+			case 'general.close': return 'Fermer';
+			case 'general.clear': return 'Effacer';
+			case 'general.search': return 'Rechercher';
+			case 'general.addToFavorites': return 'Ajouter aux favoris';
+			case 'general.removeFromFavorites': return 'Retirer des favoris';
+			case 'general.error404Again': return 'Quelque chose s\'est mal passé, veuillez réessayer';
+			case 'general.nameNotAvailable': return 'Nom non disponible';
+			case 'general.lastnameNotAvailable': return 'Nom de famille non disponible';
+			case 'general.descriptionNotAvailable': return 'Description non disponible';
 			case 'pdfPreviewPage.amazon': return 'Amazone';
 			case 'pdfPreviewPage.institute': return 'Institut de Recherche de l\'Amazonie Péruvienne';
 			case 'pdfPreviewPage.title': return 'Guide illustré de la flore et de la faune';
@@ -3569,19 +3829,17 @@ extension on _TranslationsFr {
 			case 'signUp.passwordNotMatch': return 'Mot de passe incorrect';
 			case 'signUp.unknown': return 'Erreur inconnue, veuillez réessayer plus tard';
 			case 'signUp.sendedEmail': return 'Un e-mail de confirmation a été envoyé à votre adresse e-mail';
-			case 'species.title': return 'Espécies';
-			case 'species.birds': return 'Aves';
-			case 'species.mammals': return 'Mamíferos';
-			case 'species.reptiles': return 'Répteis';
-			case 'species.amphibians': return 'Anfíbios';
-			case 'species.fishes': return 'Peixes';
-			case 'species.insects': return 'Insetos';
-			case 'species.trees': return 'Árvores';
-			case 'species.palms': return 'Palmeiras';
-			case 'species.deleteFavorite': return 'Remover dos favoritos';
-			case 'species.saveFavorite': return 'Salvar nos favoritos';
-			case 'species.orderName': return 'Nome Comum';
-			case 'species.orderScientificName': return 'Nome científico';
+			case 'species.title': return 'Espèces';
+			case 'species.birds': return 'Oiseaux';
+			case 'species.mammals': return 'Mammifères';
+			case 'species.reptiles': return 'Reptiles';
+			case 'species.amphibians': return 'Amphibiens';
+			case 'species.fishes': return 'Poissons';
+			case 'species.insects': return 'Insectes';
+			case 'species.trees': return 'Arbres';
+			case 'species.palms': return 'Palmiers';
+			case 'species.orderName': return 'Nom commun';
+			case 'species.orderScientificName': return 'Nom scientifique';
 			case 'speciesDetails.authors': return 'Auteurs';
 			case 'speciesDetails.taxonomicInfo': return 'Information Taxonomique';
 			case 'speciesDetails.kingdom': return 'Royaume';
@@ -3594,8 +3852,6 @@ extension on _TranslationsFr {
 			case 'speciesDetails.downloadImage': return 'Télécharger l\'Image';
 			case 'speciesDetails.downloadAudio': return 'Télécharger l\'Audio';
 			case 'speciesDetails.share': return 'Partager';
-			case 'speciesDetails.saveToFavorite': return 'Enregistrer dans les Favoris';
-			case 'speciesDetails.deleteFromFavorite': return 'Supprimer des Favoris';
 			case 'speciesDetails.errorDownload': return 'Erreur de Téléchargement';
 			case 'speciesDetails.successDownload': return 'Téléchargement Réussi';
 			case 'speciesDetails.shareAmazonInfo': return 'Partagez la beauté de l\'Amazonie ! Partagez ces précieuses informations sur.';
@@ -3606,8 +3862,6 @@ extension on _TranslationsFr {
 			case 'speciesDetailsPage.downloadAudio': return 'Télécharger l\'audio';
 			case 'speciesDetailsPage.share': return 'Partager';
 			case 'speciesDetailsPage.generatePdf': return 'Générer PDF';
-			case 'speciesDetailsPage.deleteFavorite': return 'Retirer des favoris';
-			case 'speciesDetailsPage.saveFavorite': return 'Ajouter aux favoris';
 			case 'speciesDetailsPage.attractiveMessage': return 'Partagez la beauté de l\'Amazonie ! Partagez cette information précieuse sur';
 			case 'speciesDetailsPage.conservationStates': return 'Statuts de conservation';
 			case 'speciesDetailsPage.noInformation': return 'Pas d\'information';
@@ -3663,9 +3917,14 @@ extension on _TranslationsPt {
 			case 'aboutProject.contact': return 'Entre em contato';
 			case 'aboutProject.p4': return 'Para mais informações sobre o projeto, entre em contato com o Instituto de Pesquisas da Amazônia Peruana (IIAP) através do site: ';
 			case 'aboutProject.address': return 'Estrada Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
+			case 'authors.title': return 'Autores';
+			case 'authors.withoutAuthors': return 'Parece que não há autores aqui';
+			case 'authors.professionNotAvailable': return 'Profissão não disponível';
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'community.title': return 'Comunidades indígenas';
+			case 'community.withoutCommunities': return 'Parece que não há comunidades indígenas aqui';
 			case 'deleteAccount.title': return 'Excluir conta';
 			case 'deleteAccount.userInfo': return 'Informações do usuário:';
 			case 'deleteAccount.username': return 'Nome de usuário';
@@ -3690,11 +3949,15 @@ extension on _TranslationsPt {
 			case 'errorPage.page_not_exist': return 'Esta página não existe mais';
 			case 'errorPage.go_back': return 'Voltar para espécies';
 			case 'favorites.title': return 'Favoritos';
-			case 'favorites.hintText': return 'Procure o seu favorito';
-			case 'favorites.close': return 'Fechar';
-			case 'favorites.search': return 'Pesquisar';
+			case 'favorites.hintText': return 'Procure seu favorito';
 			case 'favorites.exceptionText': return 'Ainda não há espécies aqui';
 			case 'favorites.deleteFavorite': return 'Remover dos favoritos';
+			case 'favorites.empty': return 'Comece a marcar espécies como favoritas para vê-las aqui';
+			case 'favorites.error': return 'Fizemos mudanças importantes, toque em \'Restaurar as espécies\' para atualizar as informações, certifique-se de estar conectado à internet';
+			case 'favorites.canNot': return 'Não foi possível realizar esta ação';
+			case 'favorites.reestoreSpecies': return 'Restaurar as espécies';
+			case 'favorites.withoutSpecies': return 'Você ainda não tem espécies favoritas, pode adicioná-las na seção de espécies';
+			case 'favorites.yeah': return 'Todas as suas espécies favoritas foram restauradas!';
 			case 'filterOptions.listByAlphabethic': return 'Listar por ordem alfabética';
 			case 'filterOptions.recentlyAdded': return 'Mais recente';
 			case 'filterOptions.all': return 'Todos';
@@ -3717,6 +3980,16 @@ extension on _TranslationsPt {
 			case 'forgotPassword.clear': return 'Limpar';
 			case 'forgotPassword.message': return 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 			case 'forgotPassword.checkYourEmail': return 'Verifique seu email!';
+			case 'general.back': return 'Voltar';
+			case 'general.close': return 'Fechar';
+			case 'general.clear': return 'Limpar';
+			case 'general.search': return 'Buscar';
+			case 'general.addToFavorites': return 'Adicionar aos favoritos';
+			case 'general.removeFromFavorites': return 'Remover dos favoritos';
+			case 'general.error404Again': return 'Algo deu errado, por favor tente novamente';
+			case 'general.nameNotAvailable': return 'Nome não disponível';
+			case 'general.lastnameNotAvailable': return 'Sobrenome não disponível';
+			case 'general.descriptionNotAvailable': return 'Descrição não disponível';
 			case 'pdfPreviewPage.amazon': return 'Amazonas';
 			case 'pdfPreviewPage.institute': return 'Instituto de Pesquisa da Amazônia Peruana';
 			case 'pdfPreviewPage.title': return 'Guia Ilustrado de Flora e Fauna';
@@ -3819,8 +4092,6 @@ extension on _TranslationsPt {
 			case 'species.insects': return 'Insetos';
 			case 'species.trees': return 'Árvores';
 			case 'species.palms': return 'Palmeiras';
-			case 'species.deleteFavorite': return 'Remover dos favoritos';
-			case 'species.saveFavorite': return 'Salvar nos favoritos';
 			case 'species.orderName': return 'Nome comum';
 			case 'species.orderScientificName': return 'Nome científico';
 			case 'speciesDetails.authors': return 'Autores';
@@ -3835,8 +4106,6 @@ extension on _TranslationsPt {
 			case 'speciesDetails.downloadImage': return 'Baixar Imagem';
 			case 'speciesDetails.downloadAudio': return 'Baixar Áudio';
 			case 'speciesDetails.share': return 'Compartilhar';
-			case 'speciesDetails.saveToFavorite': return 'Salvar nos Favoritos';
-			case 'speciesDetails.deleteFromFavorite': return 'Remover dos Favoritos';
 			case 'speciesDetails.errorDownload': return 'Erro ao Baixar';
 			case 'speciesDetails.successDownload': return 'Download Bem-Sucedido';
 			case 'speciesDetails.shareAmazonInfo': return 'Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.';
@@ -3847,8 +4116,6 @@ extension on _TranslationsPt {
 			case 'speciesDetailsPage.downloadAudio': return 'Baixar áudio';
 			case 'speciesDetailsPage.share': return 'Compartilhar';
 			case 'speciesDetailsPage.generatePdf': return 'Gerar PDF';
-			case 'speciesDetailsPage.deleteFavorite': return 'Remover dos favoritos';
-			case 'speciesDetailsPage.saveFavorite': return 'Salvar nos favoritos';
 			case 'speciesDetailsPage.attractiveMessage': return 'Compartilhe a beleza da Amazônia! Compartilhe esta valiosa informação sobre';
 			case 'speciesDetailsPage.conservationStates': return 'Estados de conservação';
 			case 'speciesDetailsPage.noInformation': return 'Sem informação';
@@ -3904,9 +4171,14 @@ extension on _TranslationsZh {
 			case 'aboutProject.contact': return '联系我们';
 			case 'aboutProject.p4': return '有关该项目的更多信息，请通过以下网站联系秘鲁亚马逊研究所（IIAP）：';
 			case 'aboutProject.address': return '伊基托斯 - 瑙塔路4.5公里，奎斯托科查，圣胡安巴蒂斯塔区，迈纳斯，洛雷托：';
+			case 'authors.title': return '作者';
+			case 'authors.withoutAuthors': return '这里似乎没有作者';
+			case 'authors.professionNotAvailable': return '职业不可用';
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';
+			case 'community.title': return '土著社区';
+			case 'community.withoutCommunities': return '这里似乎没有土著社区';
 			case 'deleteAccount.title': return '删除账户';
 			case 'deleteAccount.userInfo': return '用户信息：';
 			case 'deleteAccount.username': return '用户名';
@@ -3931,11 +4203,15 @@ extension on _TranslationsZh {
 			case 'errorPage.page_not_exist': return '该页面不存在';
 			case 'errorPage.go_back': return '返回物种';
 			case 'favorites.title': return '收藏夹';
-			case 'favorites.hintText': return '查找您的收藏';
-			case 'favorites.close': return '关闭';
-			case 'favorites.search': return '搜索';
+			case 'favorites.hintText': return '搜索你的收藏';
 			case 'favorites.exceptionText': return '这里还没有物种';
 			case 'favorites.deleteFavorite': return '从收藏夹中删除';
+			case 'favorites.empty': return '开始将物种标记为收藏，以便在此查看';
+			case 'favorites.error': return '我们进行了重大更改，点击“恢复物种”以更新信息，请确保你已连接到互联网';
+			case 'favorites.canNot': return '无法执行此操作';
+			case 'favorites.reestoreSpecies': return '恢复物种';
+			case 'favorites.withoutSpecies': return '你还没有收藏的物种，可以从物种部分添加';
+			case 'favorites.yeah': return '你的所有收藏物种都已恢复！';
 			case 'filterOptions.listByAlphabethic': return '按字母顺序列出';
 			case 'filterOptions.recentlyAdded': return '最近添加';
 			case 'filterOptions.all': return '全部';
@@ -3958,6 +4234,16 @@ extension on _TranslationsZh {
 			case 'forgotPassword.clear': return '清除';
 			case 'forgotPassword.message': return '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 			case 'forgotPassword.checkYourEmail': return '请检查您的邮箱！';
+			case 'general.back': return '返回';
+			case 'general.close': return '关闭';
+			case 'general.clear': return '清除';
+			case 'general.search': return '搜索';
+			case 'general.addToFavorites': return '添加到收藏夹';
+			case 'general.removeFromFavorites': return '从收藏夹中删除';
+			case 'general.error404Again': return '出了点问题，请再试一次';
+			case 'general.nameNotAvailable': return '名称不可用';
+			case 'general.lastnameNotAvailable': return '姓氏不可用';
+			case 'general.descriptionNotAvailable': return '描述不可用';
 			case 'pdfPreviewPage.amazon': return '亚马逊';
 			case 'pdfPreviewPage.institute': return '秘鲁亚马逊研究所';
 			case 'pdfPreviewPage.title': return '动植物图鉴';
@@ -4060,8 +4346,6 @@ extension on _TranslationsZh {
 			case 'species.insects': return '昆虫';
 			case 'species.trees': return '树木';
 			case 'species.palms': return '棕榈树';
-			case 'species.deleteFavorite': return '从收藏中移除';
-			case 'species.saveFavorite': return '保存到收藏夹';
 			case 'species.orderName': return '通用名';
 			case 'species.orderScientificName': return '科学名称';
 			case 'speciesDetails.authors': return '作者';
@@ -4076,8 +4360,6 @@ extension on _TranslationsZh {
 			case 'speciesDetails.downloadImage': return '下载图片';
 			case 'speciesDetails.downloadAudio': return '下载音频';
 			case 'speciesDetails.share': return '分享';
-			case 'speciesDetails.saveToFavorite': return '保存到收藏夹';
-			case 'speciesDetails.deleteFromFavorite': return '从收藏夹中删除';
 			case 'speciesDetails.errorDownload': return '下载错误';
 			case 'speciesDetails.successDownload': return '下载成功';
 			case 'speciesDetails.shareAmazonInfo': return '分享亚马逊的美丽！分享有关的宝贵信息.';
@@ -4088,8 +4370,6 @@ extension on _TranslationsZh {
 			case 'speciesDetailsPage.downloadAudio': return '下载音频';
 			case 'speciesDetailsPage.share': return '分享';
 			case 'speciesDetailsPage.generatePdf': return '生成 PDF';
-			case 'speciesDetailsPage.deleteFavorite': return '移出收藏';
-			case 'speciesDetailsPage.saveFavorite': return '保存到收藏夹';
 			case 'speciesDetailsPage.attractiveMessage': return '分享亚马逊的美丽！分享这条有价值的信息';
 			case 'speciesDetailsPage.conservationStates': return '保护状态';
 			case 'speciesDetailsPage.noInformation': return '没有信息';

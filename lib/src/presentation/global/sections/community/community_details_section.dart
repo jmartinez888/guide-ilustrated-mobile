@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
 import 'package:species/src/domain/entities/community/community.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/widgets/images/image_generic.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
@@ -85,7 +86,7 @@ class _CommunitySectionState extends State<CommunitySection> {
                             !community.name!.startsWith('-') &&
                             !community.name!.startsWith('N/A')
                         ? community.name!
-                        : 'Nombre no disponible',
+                        : texts.general.descriptionNotAvailable,
                     style: titleLarge.copyWith(color: mainColor),
                   ),
                   Padding(

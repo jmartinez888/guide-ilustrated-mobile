@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/domain/entities/author/author.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/sections/grid_loading.dart';
@@ -33,13 +34,13 @@ class _AuthorsPageState extends State<AuthorsPage> {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 40.0),
-          child: Text('Autores'),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 40.0),
+          child: Text(texts.authors.title),
         ),
         actions: [
           CustomIconButton(
-            tooltip: 'Buscar',
+            tooltip: texts.general.search,
             icon: Icons.search_rounded,
             onPressed: () {
               context.pushNamed(Routes.authorSearch);
@@ -75,12 +76,12 @@ class _AuthorsPageState extends State<AuthorsPage> {
               ),
               noItemsFoundIndicatorBuilder: (context) => _errorIndicator(
                 onPressed: controllerRead.pagingController.refresh,
-                text: 'Parece que no hay autores aquí',
+                text: texts.authors.withoutAuthors,
                 lottie: 'assets/lotties/without_data.json',
               ),
               newPageErrorIndicatorBuilder: (context) => CustomGridCard(
                 onTap: controllerRead.pagingController.retryLastFailedRequest,
-                title: 'Algo salió mal, inténtalo de nuevo',
+                title: texts.general.error404Again,
                 image: Padding(
                   padding:
                       const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
@@ -114,7 +115,7 @@ class _AuthorsPageState extends State<AuthorsPage> {
                           !author.profession!.startsWith('-') &&
                           !author.profession!.startsWith('N/A')
                       ? author.profession!
-                      : 'Profesión no disponible',
+                      : texts.authors.professionNotAvailable,
                 );
               },
             ),

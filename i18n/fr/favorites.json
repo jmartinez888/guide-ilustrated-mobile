@@ -1,8 +1,12 @@
 {
     "title": "Favoris",
     "hintText": "Recherchez votre favori",
-    "close": "Fermer",
-    "search": "Chercher",
-    "exceptionText": "Pas encore d'espèces ici",
-    "deleteFavorite": "Supprimer des favoris"
+    "exceptionText": "Il n'y a pas encore d'espèces ici",
+    "deleteFavorite": "Retirer des favoris",
+    "empty": "Commencez à marquer des espèces comme favorites pour les voir ici",
+    "error": "Nous avons apporté des modifications importantes, appuyez sur 'Restaurer les espèces' pour mettre à jour les informations, assurez-vous d'avoir une connexion Internet",
+    "canNot": "Cette action n'a pas pu être effectuée",
+    "reestoreSpecies": "Restaurer les espèces",
+    "withoutSpecies": "Vous n'avez pas encore d'espèces favorites, vous pouvez les ajouter depuis la section des espèces",
+    "yeah": "Toutes vos espèces favorites ont été restaurées!"
 }

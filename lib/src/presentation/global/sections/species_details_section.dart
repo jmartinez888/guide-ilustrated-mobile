@@ -244,7 +244,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                           opaqueColor: opaqueColor,
                         )
                       : CustomIconButton(
-                          tooltip: texts.speciesDetailsPage.saveFavorite,
+                          tooltip: texts.general.addToFavorites,
                           icon: Icons.favorite_outline_rounded,
                           iconColor: mainColor,
                           onPressed: () {
@@ -506,8 +506,8 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
           children: [
             CustomIconButton(
               tooltip: isFavorite
-                  ? texts.speciesDetailsPage.deleteFavorite
-                  : texts.speciesDetailsPage.saveFavorite,
+                  ? texts.general.removeFromFavorites
+                  : texts.general.addToFavorites,
               icon: isFavorite
                   ? Icons.favorite_rounded
                   : Icons.favorite_outline_rounded,

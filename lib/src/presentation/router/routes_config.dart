@@ -221,27 +221,6 @@ final appRouter = GoRouter(
                       );
                     },
                   ),
-                  GoRoute(
-                    redirect: (context, state) {
-                      AccountRepository accountRepository = context.read();
-                      final result = accountRepository.acces();
-
-                      if (result) {
-                        return null;
-                      } else {
-                        return '${Routes.species}/${Routes.signIn}';
-                      }
-                    },
-                    path: '${Routes.specieImageFavorite}/:specie',
-                    name: Routes.specieImageFavorite,
-                    parentNavigatorKey: parentNavigatorKey,
-                    builder: (_, state) {
-                      final specie = state.pathParameters['specie'];
-                      /* return ImageDetailsFavoritePage(
-                                specie: specie.toString()); */
-                      return SizedBox();
-                    },
-                  ),
                 ],
               ),
             ]),

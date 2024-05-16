@@ -1,15 +1,13 @@
 {
-        "title": "Espécies",
-        "birds": "Aves",
-        "mammals": "Mamíferos",
-        "reptiles": "Répteis",
-        "amphibians": "Anfíbios",
-        "fishes": "Peixes",
-        "insects": "Insetos",
-        "trees": "Árvores",
-        "palms": "Palmeiras",
-        "deleteFavorite": "Remover dos favoritos",
-        "saveFavorite": "Salvar nos favoritos",
-        "orderName": "Nome Comum",
-        "orderScientificName": "Nome científico"
-    }
+    "title": "Espèces",
+    "birds": "Oiseaux",
+    "mammals": "Mammifères",
+    "reptiles": "Reptiles",
+    "amphibians": "Amphibiens",
+    "fishes": "Poissons",
+    "insects": "Insectes",
+    "trees": "Arbres",
+    "palms": "Palmiers",
+    "orderName": "Nom commun",
+    "orderScientificName": "Nom scientifique"
+}
