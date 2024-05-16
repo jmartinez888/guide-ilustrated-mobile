@@ -6,14 +6,15 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:remove_diacritic/remove_diacritic.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
-import 'package:species/src/domain/entities/specie_error/specie_error.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/global/widgets/containers/custom_image_container.dart';
+import 'package:species/src/presentation/global/widgets/inputs/search_text_field.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/favorite_controller.dart';
@@ -31,18 +32,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
   SessionController get sessionController => context.read();
   FavoriteController get favoriteControllerRead => context.read();
   FavoriteRepository get favoriteRepository => context.read();
-  /* late Color mainColor;
-  late Color opaqueColor; */
   FocusNode searchFocusNode = FocusNode();
+  bool switchSearch = false;
+  bool interaction = true;
 
-  // Añade un TextEditingController y asigna el valor por defecto
   late TextEditingController searchController;
   String searchText = '';
   Timer? _searchTimer;
 
   @override
   void initState() {
-    // Inicializa el TextEditingController con el valor por defecto
+    print('🧨 ${sessionController.state!}');
     searchController =
         TextEditingController(text: favoriteControllerRead.state.searchText);
     super.initState();
@@ -75,116 +75,44 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final FavoriteController favoriteControllerWatch = context.watch();
-    // final searchText = favoriteControllerWatch.state.searchText;
-    final switchSearch = favoriteControllerWatch.state.switchSearch;
-
     return Scaffold(
       body: Column(
         children: [
           AppBar(
             leading: const SizedBox(),
-            /* title: switchSearch
-                ? TextField(
+            title: switchSearch
+                ? SearchTextField(
+                    focusNode: searchFocusNode,
                     controller: searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Buscar cliente por nombre, apellido o DNI',
-                      suffixIcon: IconButton(
-                        onPressed: searchController.text.isNotEmpty
-                            ? () {
-                                setState(() {
-                                  searchController.clear();
-                                  searchText = '';
-                                });
-                              }
-                            : null,
-                        icon: Icon(
-                          searchController.text.isNotEmpty
-                              ? Icons.clear_rounded
-                              : Icons.search_rounded,
-                        ),
-                      ),
-                    ),
+                    hintText: texts.favorites.hintText,
                     onChanged: (value) {
                       _startSearchTimer();
                     },
                   )
-                : const Text('Favoritos'), */
-            title: TextField(
-              controller: searchController,
-              decoration: InputDecoration(
-                hintText: 'Buscar especie favorita',
-                suffixIcon: IconButton(
-                  onPressed: searchController.text.isNotEmpty
-                      ? () {
-                          setState(() {
-                            searchController.clear();
-                            searchText = '';
-                          });
-                        }
-                      : null,
-                  icon: Icon(
-                    searchController.text.isNotEmpty
-                        ? Icons.clear_rounded
-                        : Icons.search_rounded,
-                  ),
-                ),
-              ),
-              onChanged: (value) {
-                _startSearchTimer();
-              },
-            ),
-            /* actions: [
+                : Text(texts.favorites.title),
+            actions: [
               IconButton(
-                tooltip: switchSearch ? 'Cerrar' : 'Buscar',
                 onPressed: () {
-                  favoriteControllerRead
-                      .switchSearch(favoriteControllerRead.state.switchSearch);
-                  if (favoriteControllerRead.state.switchSearch) {
-                    favoriteControllerRead
-                        .onSearchTexChanged(searchController.text);
+                  setState(() {
+                    switchSearch = !switchSearch;
                     searchFocusNode.requestFocus();
-                  } else {
-                    favoriteControllerRead.removeSearchValue();
-                    searchFocusNode.unfocus();
-                  }
+
+                    if (!switchSearch) {
+                      searchFocusNode.unfocus();
+                      searchController.clear();
+                      searchText = '';
+                    }
+                  });
                 },
                 icon: Icon(
-                  switchSearch ? Icons.clear_rounded : Icons.search_rounded,
+                  switchSearch ? Icons.close_rounded : Icons.search_rounded,
                 ),
               ),
-              const SizedBox(width: 8.0),
-            ], */
+            ],
           ),
-          /* Extend(
-            min: true,
-            child: TextField(
-              focusNode: searchFocusNode,
-              controller: searchTextController,
-              decoration: InputDecoration(
-                hintText: 'Buscar cliente por nombre, apellido o DNI',
-                suffixIcon: IconButton(
-                  onPressed: searchTextController.text.isNotEmpty
-                      ? () {
-                          favoriteControllerRead.removeSearchValue();
-                        }
-                      : null,
-                  icon: Icon(
-                    searchTextController.text.isNotEmpty
-                        ? Icons.clear_rounded
-                        : Icons.search_rounded,
-                  ),
-                ),
-              ),
-              onChanged: (value) =>
-                  favoriteControllerRead.onSearchTexChanged(value),
-            ),
-          ), */
           Expanded(
-            child: PaginateFirestore(
+            child: CustomPaginateFirestore(
               key: Key(searchText),
-              physics: const BouncingScrollPhysics(),
               query: searchText.isNotEmpty
                   ? FirebaseFirestore.instance
                       .collection('users')
@@ -201,11 +129,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   : FirebaseFirestore.instance
                       .collection('users')
                       .doc(sessionController.state)
-                      .collection('favorites').orderBy(
+                      .collection('favorites')
+                      .orderBy(
                         'name',
                         descending: false,
                       ),
-              itemBuilderType: PaginateBuilderType.listView,
+              /* itemBuilderType: PaginateBuilderType.listView,
               itemsPerPage: 16,
               isLive: true,
               separator: const SizedBox(height: 8.0),
@@ -215,12 +144,51 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 text:
                     'Empieza a marcar especies como favoritas para verlas aquí',
                 lottie: 'assets/lotties/without_data.json',
+              ), */
+              onError: (_) => MessageException(
+                text:
+                    'Hemos hecho cambios importantes, toca en "Recuperar las especies" para actualizar la información',
+                lottie: 'assets/lotties/update.json',
+                buttonText: 'Recuperar las especies',
+                onPressed: interaction
+                    ? () async {
+                        setState(() => interaction = false);
+                        final setFavoritesSpecies = await favoriteRepository
+                            .restoreUserSpeciesToFavorites(
+                                sessionController.state!);
+
+                        setFavoritesSpecies.when(
+                          (firebaseRequestFailure) {
+                            final message = firebaseRequestFailure.when(
+                              network: (message) => message,
+                              unknown: (message) => message,
+                              empty: (message) => message,
+                              denied: (message) => message,
+                              timeout: (message) => message,
+                            );
+                            setState(() => interaction = true);
+                            customSnackBar(
+                              context: context,
+                              title: message,
+                              error: true,
+                            );
+                          },
+                          (_) {
+                            if (mounted) {
+                              setState(() => interaction = true);
+                              customSnackBar(
+                                context: context,
+                                title:
+                                    'Se han restaurado tus especies favoritas',
+                                error: true,
+                              );
+                            }
+                          },
+                        );
+                      }
+                    : null,
               ),
-              onError: (_) => const MessageException(
-                text: 'Algo salió mal',
-                lottie: 'assets/lotties/error_data.json',
-              ),
-              bottomLoader: const Center(child: LinearProgressIndicator()),
+              //bottomLoader: const Center(child: LinearProgressIndicator()),
               itemBuilder: (context, snapshot, index) {
                 final Map<String, dynamic> json =
                     snapshot[index].data() as Map<String, dynamic>;
@@ -283,10 +251,93 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   ),
                 );
               },
+              onErrorWidget: MessageException(
+                text:
+                    'Hemos hecho cambios importantes, toca en "Recuperar las especies" para actualizar la información',
+                lottie: 'assets/lotties/update.json',
+                buttonText: 'Recuperar las especies',
+                onPressed: interaction
+                    ? () async {
+                        setState(() => interaction = false);
+                        final setFavoritesSpecies = await favoriteRepository
+                            .restoreUserSpeciesToFavorites(
+                                sessionController.state!);
+
+                        setFavoritesSpecies.when(
+                          (firebaseRequestFailure) {
+                            final message = firebaseRequestFailure.when(
+                              network: (message) => message,
+                              unknown: (message) => message,
+                              empty: (message) => message,
+                              denied: (message) => message,
+                              timeout: (message) => message,
+                            );
+                            setState(() => interaction = true);
+                            customSnackBar(
+                              context: context,
+                              title: message,
+                              error: true,
+                            );
+                          },
+                          (_) {
+                            if (mounted) {
+                              setState(() => interaction = true);
+                              customSnackBar(
+                                context: context,
+                                title:
+                                    'Se han restaurado tus especies favoritas',
+                              );
+                            }
+                          },
+                        );
+                      }
+                    : null,
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class CustomPaginateFirestore extends StatelessWidget {
+  final Query query;
+  final Widget Function(BuildContext, List<DocumentSnapshot<Object?>>, int)
+      itemBuilder;
+  final Widget Function(Exception)? onError;
+  final Widget onErrorWidget;
+
+  const CustomPaginateFirestore({
+    super.key,
+    required this.query,
+    required this.itemBuilder,
+    required this.onError,
+    required this.onErrorWidget,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PaginateFirestore(
+      query: query,
+      itemBuilder: (context, snapshot, index) {
+        try {
+          return itemBuilder(context, snapshot, index);
+        } catch (e) {
+          print('Error al crear la instancia de Specie: $e');
+          // Aquí puedes mostrar un mensaje de error o tomar otras acciones.
+          return onErrorWidget;
+        }
+      },
+      itemBuilderType: PaginateBuilderType.listView,
+      itemsPerPage: 16,
+      isLive: true,
+      separator: const SizedBox(height: 8.0),
+      padding: PaddingConfig.allBottomSafeL,
+      initialLoader: const Center(child: CircularProgressIndicator()),
+      onError: onError,
+
+      // ... otros parámetros de PaginateFirestore ...
     );
   }
 }
@@ -399,116 +450,51 @@ class FlexibleCard extends StatelessWidget {
         );
 
     return Material(
-        color: opaqueColor ?? colorScheme.onPrimary,
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: borderRadius,
-          side: BorderSide(color: mainColor ?? colorScheme.outline, width: 1.0),
-        ),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: borderRadius,
-          child: Stack(
-            children: [
-              width <= 640
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        leftWidget(width: double.infinity),
-                        rightWidget(),
-                      ],
-                    )
-                  : Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        leftWidget(),
-                        Expanded(
-                          child: rightWidget(extraMarging: true),
-                        ),
-                      ],
-                    ),
-              Positioned(
-                top: 8.0,
-                right: 8.0,
-                child: CustomIconButton(
-                  icon: Icons.favorite_rounded,
-                  iconColor: Colors.white,
-                  backgroundColor: mainColor,
-                  onPressed: deleteFavorite,
-                ),
-              ),
-            ],
-          ),
-        )
-
-        /* Wrap(
+      color: opaqueColor ?? colorScheme.onPrimary,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius,
+        side: BorderSide(color: mainColor ?? colorScheme.outline, width: 1.0),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: borderRadius,
+        child: Stack(
           children: [
-            SizedBox(
-              width: width <= 640 ? infinity : 320.0,
-              height: 256.0,
-              child: image,
-            ),
-            Padding(
-              padding: PaddingConfig.allL,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (title != null)
-                    Text(
-                      title!,
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: mainColor ?? colorScheme.onSurface,
+            width <= 640
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      leftWidget(width: double.infinity),
+                      rightWidget(),
+                    ],
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      leftWidget(),
+                      Expanded(
+                        child: rightWidget(extraMarging: true),
                       ),
-                      maxLines: maxLines,
-                      overflow: maxLines != null ? TextOverflow.ellipsis : null,
-                    ),
-                  if (subtitle != null)
-                    Text(
-                      subtitle!,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                        fontStyle: fontStyle,
-                      ),
-                      maxLines: maxLines,
-                      overflow: maxLines != null ? TextOverflow.ellipsis : null,
-                    ),
-                  if (description != null)
-                    if (description != null)
-                      Padding(
-                        padding: PaddingConfig.onlyTopS,
-                        child: Text(
-                          description!,
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: colorScheme.onSurfaceVariant),
-                          maxLines: maxLines,
-                          overflow:
-                              maxLines != null ? TextOverflow.ellipsis : null,
-                        ),
-                      ),
-                  if (actions != null)
-                    Padding(
-                      padding: PaddingConfig.onlyTop,
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: Wrap(
-                          runSpacing: 8.0,
-                          spacing: 8.0,
-                          alignment: WrapAlignment.end,
-                          children: actions!,
-                        ),
-                      ),
-                    ),
-                ],
+                    ],
+                  ),
+            Positioned(
+              top: 8.0,
+              right: 8.0,
+              child: CustomIconButton(
+                icon: Icons.favorite_rounded,
+                iconColor: Colors.white,
+                backgroundColor: mainColor,
+                onPressed: deleteFavorite,
               ),
             ),
           ],
         ),
-       */
-
-        );
+      ),
+    );
   }
 }
-
+/* 
 class SpecieErrorSection extends StatefulWidget {
   final String userId;
   const SpecieErrorSection({
@@ -585,3 +571,4 @@ class _SpecieErrorSectionState extends State<SpecieErrorSection> {
     );
   }
 }
+ */

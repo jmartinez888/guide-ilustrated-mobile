@@ -1,0 +1,22 @@
+{
+    "amazon": "Amazone",
+    "institute": "Institut de Recherche de l'Amazonie Péruvienne",
+    "title": "Guide illustré de la flore et de la faune",
+    "commonNameNotAvailable": "Nom commun non disponible",
+    "scientificNameNotAvailable": "Nom scientifique non disponible",
+    "author": "Auteur",
+    "authors": "Auteurs",
+    "imageNotAvailable": "Image non disponible",
+    "taxonomicInformation": "Informations taxonomiques",
+    "kingdom": "Règne",
+    "phylum": "Embranchement",
+    "class_": "Classe",
+    "order": "Ordre",
+    "family": "Famille",
+    "authorInformation": "Informations sur l'auteur",
+    "name": "Prénom",
+    "lastname": "Nom",
+    "profession": "Profession",
+    "bornIn": "Né en",
+    "diedIn": "Décédé en"
+}

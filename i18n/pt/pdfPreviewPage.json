@@ -1,0 +1,22 @@
+{
+    "amazon": "Amazonas",
+    "institute": "Instituto de Pesquisa da Amazônia Peruana",
+    "title": "Guia Ilustrado de Flora e Fauna",
+    "commonNameNotAvailable": "Nome comum não disponível",
+    "scientificNameNotAvailable": "Nome científico não disponível",
+    "author": "Autor",
+    "authors": "Autores",
+    "imageNotAvailable": "Imagem não disponível",
+    "taxonomicInformation": "Informação taxonômica",
+    "kingdom": "Reino",
+    "phylum": "Filo",
+    "class_": "Classe",
+    "order": "Ordem",
+    "family": "Família",
+    "authorInformation": "Informação do autor",
+    "name": "Nome",
+    "lastname": "Sobrenome",
+    "profession": "Profissão",
+    "bornIn": "Nasceu em",
+    "diedIn": "Faleceu em"
+}

@@ -1,7 +1,9 @@
 {
-    "errorSnack": "Erreur lors du chargement des données de l'utilisateur",
+    "errorSnack": "Erreur lors du chargement des données utilisateur",
     "title": "Modifier le profil",
     "save": "Enregistrer",
-    "saving": "Enregistrement en cours...",
-    "errorSaving": "Erreur lors de l'enregistrement des données du profil"
+    "saving": "Enregistrement...",
+    "errorSaving": "Erreur lors de l'enregistrement des données du profil",
+    "selectImage": "Sélectionnez une photo de profil",
+    "errorSave": "Erreur lors de l'enregistrement du profil"
 }

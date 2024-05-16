@@ -3,5 +3,7 @@
     "title": "Editar perfil",
     "save": "Salvar",
     "saving": "Salvando...",
-    "errorSaving": "Erro ao salvar os dados do perfil"
+    "errorSaving": "Erro ao salvar os dados do perfil",
+    "selectImage": "Selecione uma imagem de perfil",
+    "errorSave": "Erro ao salvar o perfil"
 }

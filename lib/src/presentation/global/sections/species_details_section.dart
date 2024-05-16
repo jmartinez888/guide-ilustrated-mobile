@@ -121,7 +121,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                         width: 40.0,
                         child: PopupMenuButton(
                           enabled: !loadingDownload,
-                          tooltip: 'Descargar',
+                          tooltip: texts.speciesDetailsPage.download,
                           offset: const Offset(0, 48.0),
                           padding: const EdgeInsets.all(0.0),
                           itemBuilder: (context) => [
@@ -129,7 +129,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                               value: 0,
                               child: _simpleList(
                                   icon: Icons.picture_as_pdf_rounded,
-                                  text: 'Generar PDF'),
+                                  text: texts.speciesDetailsPage.generatePdf),
                               onTap: () => context.pushNamed(
                                 Routes.speciePdfPreview,
                                 pathParameters: {
@@ -161,7 +161,8 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                       customSnackBar(
                                         context: context,
                                         error: true,
-                                        title: 'No se pudo descargar',
+                                        title: texts
+                                            .speciesDetailsPage.errorDownload,
                                       );
                                       setState(() {
                                         loadingDownload = false;
@@ -170,8 +171,9 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                   }
                                 },
                                 child: _simpleList(
-                                    icon: Icons.image_rounded,
-                                    text: 'Descargar imagen'),
+                                  icon: Icons.image_rounded,
+                                  text: texts.speciesDetailsPage.downloadImage,
+                                ),
                               ),
                             if (specie.sound != null &&
                                 specie.sound!.isNotEmpty)
@@ -196,7 +198,8 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                       customSnackBar(
                                         context: context,
                                         error: true,
-                                        title: 'No se pudo descargar',
+                                        title: texts
+                                            .speciesDetailsPage.errorDownload,
                                       );
                                       setState(() {
                                         loadingDownload = false;
@@ -205,8 +208,9 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                   }
                                 },
                                 child: _simpleList(
-                                    icon: Icons.volume_up_rounded,
-                                    text: 'Descargar audio'),
+                                  icon: Icons.volume_up_rounded,
+                                  text: texts.speciesDetailsPage.downloadAudio,
+                                ),
                               ),
                           ],
                           icon: CircleAvatar(
@@ -225,12 +229,12 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                     ],
                   ),
                   CustomIconButton(
-                    tooltip: 'Compartir',
+                    tooltip: texts.speciesDetailsPage.share,
                     icon: Icons.share,
                     iconColor: Colors.white,
                     backgroundColor: mainColor,
                     onPressed: () => Share.share(
-                        '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}'),
+                        '¡${texts.speciesDetailsPage.attractiveMessage} ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}!'),
                   ),
                   sessionState != null
                       ? _FavoriteIcon(
@@ -240,7 +244,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                           opaqueColor: opaqueColor,
                         )
                       : CustomIconButton(
-                          tooltip: texts.species.saveFavorite,
+                          tooltip: texts.speciesDetailsPage.saveFavorite,
                           icon: Icons.favorite_outline_rounded,
                           iconColor: mainColor,
                           onPressed: () {
@@ -272,7 +276,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                             context: context,
                             builder: (context) => CustomBottomSheet(
                                   automaticallyImplyLeading: true,
-                                  title: 'Estados de conservación',
+                                  title: texts.speciesDetailsPage.attractiveMessage,
                                   body: [
                                     Material(
                                       color: mainColor,
@@ -291,7 +295,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                             title: Text(
                                               conservationState.name != null
                                                   ? conservationState.name!
-                                                  : 'Sin información',
+                                                  : texts.speciesDetailsPage.noInformation,
                                             ),
                                             subtitle:
                                                 conservationState.description !=
@@ -370,14 +374,14 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                     Text(
                       specie.name != null && specie.name!.isNotEmpty
                           ? specie.name!
-                          : 'Nombre no disponible',
+                          : texts.speciesDetailsPage.nameNotAvailable,
                       style: titleLarge.copyWith(color: mainColor),
                     ),
                     Text(
                       specie.scientificName != null &&
                               specie.scientificName!.isNotEmpty
                           ? specie.scientificName!
-                          : 'Nombre científico no disponible',
+                          : texts.speciesDetailsPage.scientificNameNotAvailable,
                       style: titleMedium.copyWith(fontStyle: FontStyle.italic),
                     ),
                     if (specie.sound != null && specie.sound!.isNotEmpty)
@@ -396,7 +400,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                           alignment: Alignment.centerRight,
                           child: SimpleChip(
                             backgroundColor: mainColor,
-                            label: 'Año: ${specie.year}',
+                            label: '${texts.speciesDetailsPage.year}: ${specie.year}',
                           ),
                         ),
                       ),
@@ -502,8 +506,8 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
           children: [
             CustomIconButton(
               tooltip: isFavorite
-                  ? texts.species.deleteFavorite
-                  : texts.species.saveFavorite,
+                  ? texts.speciesDetailsPage.deleteFavorite
+                  : texts.speciesDetailsPage.saveFavorite,
               icon: isFavorite
                   ? Icons.favorite_rounded
                   : Icons.favorite_outline_rounded,

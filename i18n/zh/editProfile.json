@@ -2,6 +2,8 @@
     "errorSnack": "加载用户数据时出错",
     "title": "编辑个人资料",
     "save": "保存",
-    "saving": "保存中...",
-    "errorSaving": "保存个人资料数据时出错"
+    "saving": "正在保存...",
+    "errorSaving": "保存个人资料数据时出错",
+    "selectImage": "选择个人资料图片",
+    "errorSave": "保存个人资料时出错"
 }

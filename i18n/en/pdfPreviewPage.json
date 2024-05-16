@@ -1,0 +1,22 @@
+{
+    "amazon": "Amazon",
+    "institute": "Research Institute of the Peruvian Amazon",
+    "title": "Illustrated Guide to Flora and Fauna",
+    "commonNameNotAvailable": "Common name not available",
+    "scientificNameNotAvailable": "Scientific name not available",
+    "author": "Author",
+    "authors": "Authors",
+    "imageNotAvailable": "Image not available",
+    "taxonomicInformation": "Taxonomic information",
+    "kingdom": "Kingdom",
+    "phylum": "Phylum",
+    "class_": "Class",
+    "order": "Order",
+    "family": "Family",
+    "authorInformation": "Author information",
+    "name": "Name",
+    "lastname": "Last name",
+    "profession": "Profession",
+    "bornIn": "Born in",
+    "diedIn": "Died in"
+}

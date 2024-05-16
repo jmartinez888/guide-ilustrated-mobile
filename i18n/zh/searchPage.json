@@ -35,5 +35,7 @@
     "notResultsContent": "未找到结果。请尝试另一种搜索",
     "errorFetchingSpecies": "未找到与您的搜索相关的物种。 请尝试使用其他类别，排序或科。",
     "acceptText": "接受",
-    "updateText": "更新"
+    "updateText": "更新",
+    "aToZ": "阿-贼德",
+    "zToA": "贼德-阿"
 }

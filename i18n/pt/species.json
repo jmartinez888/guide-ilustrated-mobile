@@ -8,8 +8,8 @@
         "insects": "Insetos",
         "trees": "Árvores",
         "palms": "Palmeiras",
-        "deleteFavorite": "Remover dos Favoritos",
-        "saveFavorite": "Salvar nos Favoritos",
-        "orderName": "Ordenar por Nome Comum",
-        "orderScientificName": "Ordenar por Nome Científico"
+        "deleteFavorite": "Remover dos favoritos",
+        "saveFavorite": "Salvar nos favoritos",
+        "orderName": "Nome comum",
+        "orderScientificName": "Nome científico"
     }

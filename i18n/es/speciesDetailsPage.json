@@ -1,0 +1,16 @@
+{
+    "download": "Descargar",
+    "errorDownload": "No se pudo descargar",
+    "downloadImage": "Descargar imagen",
+    "downloadAudio": "Descargar audio",
+    "share": "Compartir",
+    "generatePdf": "Generar PDF",
+    "deleteFavorite": "Quitar de favoritos",
+    "saveFavorite": "Guardar en favoritos",
+    "attractiveMessage": "Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre",
+    "conservationStates": "Estados de conservación",
+    "noInformation": "Sin información",
+    "nameNotAvailable": "Nombre no disponible",
+    "scientificNameNotAvailable": "Nombre científico no disponible",
+    "year": "Año"
+}

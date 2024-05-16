@@ -55,8 +55,8 @@ class ListAlphabeticOrder extends StatelessWidget {
 
 class AlphabeticOrderOptions extends StatelessWidget {
   final List<AphabeticOrderOption> orderOptions = [
-    AphabeticOrderOption('A-Z', 'ASC'),
-    AphabeticOrderOption('Z-A', 'DESC'),
+    AphabeticOrderOption(texts.searchPage.aToZ, 'ASC'),
+    AphabeticOrderOption(texts.searchPage.zToA, 'DESC'),
     AphabeticOrderOption(texts.filterOptions.recentlyAdded, null),
   ];
 

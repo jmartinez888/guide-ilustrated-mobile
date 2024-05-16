@@ -4,5 +4,6 @@
     "save": "Guardar",
     "saving": "Guardando...",
     "errorSaving": "Error al guardar los datos del perfil",
-    "selectImage": "Seleccione una imagen de perfil"
+    "selectImage": "Seleccione una imagen de perfil",
+    "errorSave": "Error al guardar el perfil"
 }

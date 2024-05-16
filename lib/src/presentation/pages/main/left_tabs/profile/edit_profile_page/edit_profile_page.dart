@@ -124,11 +124,8 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
               const SizedBox(height: 16.0),
               ProfileForm(
                 action: FilledButton.icon(
-                  onPressed: enabled
-                      ? () => _saveProfile(
-                            context: context,
-                          )
-                      : null,
+                  onPressed:
+                      enabled ? () => _saveProfile(context: context) : null,
                   icon: enabled
                       ? const Icon(Icons.save)
                       : const SizedBox(
@@ -214,7 +211,7 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
         if (mounted) {
           customSnackBar(
             context: context,
-            title: 'Error al guardar el perfil',
+            title: texts.editProfile.errorSave,
             error: true,
           );
         }

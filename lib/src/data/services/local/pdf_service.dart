@@ -8,6 +8,7 @@ import 'package:species/src/domain/entities/kindom/kindom.dart';
 import 'package:species/src/domain/entities/order/order.dart';
 import 'package:species/src/domain/entities/phylum/phylum.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class PdfService {
   static const String _baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
@@ -70,20 +71,17 @@ class PdfService {
     pdf.addPage(
       pw.MultiPage(
         header: (_) => pw.Padding(
-          padding: const pw.EdgeInsets.only(bottom: 8.0),
-          child: _listTile(
-          leading: pw.Image(
-            logoImage,
-            height: 56.0,
-            width: 40.0,
-            fit: pw.BoxFit.fill,
-          ),
-          title: _textLarge('AMAZONÍA'),
-          subtitle: _text(
-            'Guía ilustrada de flora y fauna',
-          ),
-        )
-        ),
+            padding: const pw.EdgeInsets.only(bottom: 8.0),
+            child: _listTile(
+              leading: pw.Image(
+                logoImage,
+                height: 56.0,
+                width: 40.0,
+                fit: pw.BoxFit.fill,
+              ),
+              title: _textLarge(texts.pdfPreviewPage.amazon),
+              subtitle: _text(texts.pdfPreviewPage.title),
+            )),
         footer: (_) => pw.Column(
           mainAxisAlignment: pw.MainAxisAlignment.center,
           crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -125,7 +123,7 @@ class PdfService {
                               color: PdfColor.fromHex('#9E9E9E'),
                             ),
                             child: _textSmall(
-                              'Insitiuto de Investigación de la Amazonía Peruana',
+                              texts.pdfPreviewPage.institute,
                               color: '#ffffff',
                             ),
                           ),
@@ -171,14 +169,14 @@ class PdfService {
               ),
               title: _textLarge(
                 specie.name?.replaceAll('”', '"').replaceAll('“', '"') ??
-                    'Nombre común no disponible',
+                    texts.pdfPreviewPage.commonNameNotAvailable,
                 color: formattedHexValue,
               ),
               subtitle: _text(
                 specie.scientificName
                         ?.replaceAll('”', '"')
                         .replaceAll('“', '"') ??
-                    'Nombre científico no disponible',
+                    texts.pdfPreviewPage.scientificNameNotAvailable,
                 fontStyle: pw.FontStyle.italic,
               ),
             ),
@@ -252,7 +250,7 @@ class PdfService {
             pw.Padding(
               padding: const pw.EdgeInsets.only(top: 16.0, bottom: 8.0),
               child: _textLarge(
-                specie.authors!.length > 1 ? 'Autores' : 'Autor',
+                specie.authors!.length > 1 ? texts.pdfPreviewPage.authors : texts.pdfPreviewPage.author,
                 color: '#348A29',
               ),
             ),
@@ -279,7 +277,7 @@ class PdfService {
                                         fit: pw.BoxFit.contain,
                                       ),
                                     )
-                                  : _text('La imagen no está disponible'),
+                                  : _text(texts.pdfPreviewPage.imageNotAvailable),
                             ),
                           ),
                         ),
@@ -416,7 +414,7 @@ class PdfService {
         mainAxisSize: pw.MainAxisSize.min,
         children: [
           doubleListTile(
-            firstText: 'Información taxonómica',
+            firstText: texts.pdfPreviewPage.taxonomicInformation,
             hexBackgroundColor: hexOpaqueColor,
             textColor: hexMainColor,
           ),
@@ -426,31 +424,31 @@ class PdfService {
             color: PdfColor.fromHex(hexMainColor),
           ),
           doubleListTile(
-            firstText: 'Reino',
+            firstText: texts.pdfPreviewPage.kingdom,
             secondText: kingdom?.name ?? '-',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Filo',
+            firstText: texts.pdfPreviewPage.phylum,
             secondText: phylum?.name ?? '-',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Clase',
+            firstText: texts.pdfPreviewPage.class_,
             secondText: classC?.name ?? '-',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Orden',
+            firstText: texts.pdfPreviewPage.order,
             secondText: order?.name ?? '-',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Familia',
+            firstText: texts.pdfPreviewPage.family,
             secondText: family?.name ?? '-',
             hexDivideColor: hexMainColor,
           ),
@@ -540,7 +538,7 @@ class PdfService {
         mainAxisSize: pw.MainAxisSize.min,
         children: [
           doubleListTile(
-            firstText: 'Información del autor',
+            firstText: texts.pdfPreviewPage.authorInformation,
             hexBackgroundColor: hexOpaqueColor,
             textColor: hexMainColor,
           ),
@@ -550,34 +548,34 @@ class PdfService {
             color: PdfColor.fromHex(hexMainColor),
           ),
           doubleListTile(
-            firstText: 'Nombre',
+            firstText: texts.pdfPreviewPage.name,
             secondText:
-                '${name != null && name.isNotEmpty && !name.startsWith('NA') && !name.startsWith('-') && !name.startsWith('N/A') ? name : 'Nombre no disponible'} ',
+                '${name != null && name.isNotEmpty && !name.startsWith('NA') && !name.startsWith('-') && !name.startsWith('N/A') ? name : '-'} ',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Apellidos',
+            firstText: texts.pdfPreviewPage.lastname,
             secondText:
-                '${lastname != null && lastname.isNotEmpty && !lastname.startsWith('NA') && !lastname.startsWith('-') && !lastname.startsWith('N/A') ? lastname : 'Apellidos no disponible'} ',
+                '${lastname != null && lastname.isNotEmpty && !lastname.startsWith('NA') && !lastname.startsWith('-') && !lastname.startsWith('N/A') ? lastname : '-'} ',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Profesión',
-            secondText: proffesion ?? 'profesión no disponible',
+            firstText: texts.pdfPreviewPage.profession,
+            secondText: proffesion ?? '-',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Nació en',
-            secondText: yearOfBirth ?? 'fecha no disponible',
+            firstText: texts.pdfPreviewPage.bornIn,
+            secondText: yearOfBirth ?? '-',
             hexDivideColor: hexMainColor,
           ),
           customDivider(hexMainColor),
           doubleListTile(
-            firstText: 'Falleció en',
-            secondText: yearOfDeath ?? 'fecha no disponible',
+            firstText: texts.pdfPreviewPage.diedIn,
+            secondText: yearOfDeath ?? '-',
             hexDivideColor: hexMainColor,
           ),
         ],

@@ -1,0 +1,22 @@
+{
+    "amazon": "亚马逊",
+    "institute": "秘鲁亚马逊研究所",
+    "title": "动植物图鉴",
+    "commonNameNotAvailable": "常用名称不可用",
+    "scientificNameNotAvailable": "学名不可用",
+    "author": "作者",
+    "authors": "作者们",
+    "imageNotAvailable": "图片不可用",
+    "taxonomicInformation": "分类信息",
+    "kingdom": "界",
+    "phylum": "门",
+    "class_": "纲",
+    "order": "目",
+    "family": "科",
+    "authorInformation": "作者信息",
+    "name": "名字",
+    "lastname": "姓氏",
+    "profession": "职业",
+    "bornIn": "出生于",
+    "diedIn": "逝世于"
+}
