@@ -5,6 +5,7 @@ import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/entities/specie_error/specie_error.dart';
 import 'package:species/src/domain/failures/firebase_request/firebase_request_failure.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class FavoriteRepositoryImpl implements FavoriteRepository {
   final FavoriteApi _favoriteApi;
@@ -45,8 +46,8 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
   }
 
   @override
-  Future<Either<FirebaseRequestFailure, List<Specie>>> restoreUserSpeciesToFavorites(
-      String userId) async {
+  Future<Either<FirebaseRequestFailure, List<Specie>>>
+      restoreUserSpeciesToFavorites(String userId) async {
     final getSpeciesError = await _favoriteApi.getSpeciesError(userId: userId);
 
     FirebaseRequestFailure? firebaseRequestFailureValue;
@@ -83,13 +84,13 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
         httpRequestFailure.when(
           network: () => firebaseRequestFailureValue =
               FirebaseRequestFailure.network(
-                  'Error de conexión al obtener tus especies favoritas'),
+                  texts.favoriteRepository.getSpeciesNetworkError),
           unknown: () => firebaseRequestFailureValue =
               FirebaseRequestFailure.unknown(
-                  'Error desconocido al obtener tus especies favoritas'),
+                  texts.favoriteRepository.getSpeciesUnknownError),
           notFound: () => firebaseRequestFailureValue =
               FirebaseRequestFailure.empty(
-                  'Error desconocido al obtener tus especies favoritas'),
+                  texts.favoriteRepository.getSpeciesEmptyError),
         );
       },
       (speciesToUpdateFinal) => specieToUpdate.addAll(speciesToUpdateFinal),
@@ -115,10 +116,10 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
         uploadDataForFirstTimeFailure.when(
           network: () => firebaseRequestFailureValue =
               FirebaseRequestFailure.network(
-                  'Error de conexión al actualizar tus especies favoritas'),
+                  texts.favoriteRepository.updateSpeciesNetworkError),
           unknow: () => firebaseRequestFailureValue =
               FirebaseRequestFailure.network(
-                  'Error de conexión al actualizar tus especies favoritas'),
+                  texts.favoriteRepository.updateSpeciesUnknownError)
         );
       },
       (finalSpecies) => specieToUpdate = [...finalSpecies],

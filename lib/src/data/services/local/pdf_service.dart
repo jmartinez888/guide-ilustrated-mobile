@@ -229,7 +229,7 @@ class PdfService {
             pw.Align(
               alignment: pw.Alignment.centerRight,
               child: _containerColor(
-                child: _text('Año: ${specie.year!}', color: '#ffffff'),
+                child: _text('${texts.pdfPreviewPage.year}: ${specie.year!}', color: '#ffffff'),
                 color: formattedHexValue,
                 padding: const pw.EdgeInsets.symmetric(
                     vertical: 8.0, horizontal: 16.0),

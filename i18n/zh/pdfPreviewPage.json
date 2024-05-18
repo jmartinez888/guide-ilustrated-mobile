@@ -18,5 +18,6 @@
     "lastname": "姓氏",
     "profession": "职业",
     "bornIn": "出生于",
-    "diedIn": "逝世于"
+    "diedIn": "逝世于",
+    "year": "年"
 }

@@ -36,10 +36,8 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 40.0),
-          child: Text('Comunidades Indígenas'),
-        ),
+        leading: const SizedBox(),
+        title: Text(texts.community.title),
         actions: [
           CustomIconButton(
             tooltip: texts.general.search,

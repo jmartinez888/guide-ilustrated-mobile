@@ -276,7 +276,7 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                             context: context,
                             builder: (context) => CustomBottomSheet(
                                   automaticallyImplyLeading: true,
-                                  title: texts.speciesDetailsPage.attractiveMessage,
+                                  title: texts.speciesDetails.conservationStatus,
                                   body: [
                                     Material(
                                       color: mainColor,

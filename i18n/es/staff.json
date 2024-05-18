@@ -1,0 +1,23 @@
+{
+    "title": "Team",
+    "coordinationTeam": "Coordination team",
+    "editorialCoordination": "Editorial coordination",
+    "reviewCommittee": "Review committee",
+    "textReview": "Text review:",
+    "birdReview": "Bird review:",
+    "fishReview": "Fish review:",
+    "insectReview": "Insect review:",
+    "plantReview": "Plant review:",
+    "mapMaking": "Map making:",
+    "illustrations": "Illustrations:",
+    "sounds": "Sounds",
+    "birds": "Birds",
+    "monkeys": "Monkeys",
+    "amphibians": "Amphibians",
+    "developmentTeam": "Development team",
+    "technicalLeader": "Technical leader",
+    "mobileDeveloper": "Mobile developer",
+    "developmentFrontend": "Frontend developer",
+    "developmentBackend": "Backend developer",
+    "briefcase": "Portfolio"
+}

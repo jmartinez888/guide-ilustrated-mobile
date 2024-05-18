@@ -1,0 +1,7 @@
+{
+    "getSpeciesNetworkError": "Erreur de réseau lors de la récupération de vos espèces favorites",
+    "getSpeciesUnknownError": "Erreur inconnue lors de la récupération de vos espèces favorites",
+    "getSpeciesEmptyError": "Certaines de vos espèces favorites n'ont pas été trouvées",
+    "updateSpeciesNetworkError": "Erreur de réseau lors de la mise à jour de vos espèces favorites",
+    "updateSpeciesUnknownError": "Erreur inconnue lors de la mise à jour de vos espèces favorites"
+}

@@ -18,5 +18,6 @@
     "lastname": "Apellidos",
     "profession": "Profesión",
     "bornIn": "Nació en",
-    "diedIn": "Falleció en"
+    "diedIn": "Falleció en",
+    "year": "Año"
 }

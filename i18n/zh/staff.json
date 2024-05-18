@@ -1,0 +1,23 @@
+{
+    "title": "工作团队",
+    "coordinationTeam": "协调团队",
+    "editorialCoordination": "编辑协调",
+    "reviewCommittee": "审查委员会",
+    "textReview": "文本审查：",
+    "birdReview": "鸟类审查：",
+    "fishReview": "鱼类审查：",
+    "insectReview": "昆虫审查：",
+    "plantReview": "植物审查：",
+    "mapMaking": "地图制作：",
+    "illustrations": "插图：",
+    "sounds": "声音",
+    "birds": "鸟类",
+    "monkeys": "猴子",
+    "amphibians": "两栖动物",
+    "developmentTeam": "开发团队",
+    "technicalLeader": "技术负责人",
+    "mobileDeveloper": "移动开发人员",
+    "developmentFrontend": "前端开发人员",
+    "developmentBackend": "后端开发人员",
+    "briefcase": "作品集"
+}

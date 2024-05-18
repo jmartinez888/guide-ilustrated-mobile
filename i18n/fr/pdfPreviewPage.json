@@ -18,5 +18,6 @@
     "lastname": "Nom",
     "profession": "Profession",
     "bornIn": "Né en",
-    "diedIn": "Décédé en"
+    "diedIn": "Décédé en",
+    "year": "Année"
 }

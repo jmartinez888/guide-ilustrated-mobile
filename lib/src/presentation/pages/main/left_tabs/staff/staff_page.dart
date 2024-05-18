@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:species/src/generated/translations.g.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StaffPage extends StatelessWidget {
@@ -9,22 +11,27 @@ class StaffPage extends StatelessWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
-        const SliverAppBar(title: Text('Equipo de trabajo'), pinned: true),
+        SliverAppBar(
+          automaticallyImplyLeading: false,
+          leading: const SizedBox(),
+          title: Text(texts.staff.title),
+          floating: true,
+        ),
         SliverToBoxAdapter(
             child: Column(
           children: [
-            _titleSection(context, 'EQUIPO DE COORDINACIÓN'),
+            _titleSection(context, texts.staff.coordinationTeam),
             const SizedBox(height: 8.0),
-            _subtitleSection(context, 'COORDINACIÓN EDITORIAL'),
+            _subtitleSection(context, texts.staff.editorialCoordination),
             _text('Manuel Martín Brañas;\nJuan José Bellido Collahuacho'),
           ],
         )),
         SliverToBoxAdapter(
-          child: _subtitleSection(context, 'COMITÉ REVISOR'),
+          child: _subtitleSection(context, texts.staff.reviewCommittee),
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: PaddingConfig.allL,
             child: Wrap(
               alignment: WrapAlignment.center,
               spacing: 16.0,
@@ -33,7 +40,7 @@ class StaffPage extends StatelessWidget {
                 SizedBox(
                     child: Column(
                   children: [
-                    _reviewerTitle(context, 'Revisión de textos:'),
+                    _reviewerTitle(context, texts.staff.textReview),
                     _text(
                         'Manuel Martín Brañas, IIAP;\nJuan José Bellido Collahuacho, IIAP.'),
                     _reviewerTitle(context, 'Revisión anfibios y reptiles:'),
@@ -43,16 +50,16 @@ class StaffPage extends StatelessWidget {
                 SizedBox(
                     child: Column(
                   children: [
-                    _reviewerTitle(context, 'Revisión aves:'),
+                    _reviewerTitle(context, texts.staff.birdReview),
                     _text('José Álvarez Alonso, MINAM;\nJuan Díaz Alván, UCP.'),
-                    _reviewerTitle(context, 'Revisión peces:'),
+                    _reviewerTitle(context, texts.staff.fishReview),
                     _text(
                         'Carmen Rosa García Dávila, IIAP;\nKevin Morgan Ruíz Tafur, IIAP.'),
                   ],
                 )),
                 SizedBox(
                   child: Column(children: [
-                    _reviewerTitle(context, 'Revisión insectos:'),
+                    _reviewerTitle(context, texts.staff.insectReview),
                     _text(
                         'Joel Bardales Vásquez, IIAP;\nWalter Leonardo Vásquez Mora, UNAP.'),
                     _reviewerTitle(context, 'Revisión palmeras:'),
@@ -61,7 +68,7 @@ class StaffPage extends StatelessWidget {
                 ),
                 SizedBox(
                   child: Column(children: [
-                    _reviewerTitle(context, 'Revisión plantas:'),
+                    _reviewerTitle(context, texts.staff.plantReview),
                     _text(
                         'Nállarett Dávila Cardozo, IIAP;\nRicardo Zárate Gómez, IIAP;\nElsa Renjifo Salgado, IIAP.'),
                     _reviewerTitle(context, 'Revisión mamíferos:'),
@@ -70,7 +77,7 @@ class StaffPage extends StatelessWidget {
                 ),
                 SizedBox(
                   child: Column(children: [
-                    _reviewerTitle(context, 'Elaboración de mapas:'),
+                    _reviewerTitle(context, texts.staff.mapMaking),
                     _text(
                         'Juan José Palacios Vega,\nLizardo Fachín Malaverri.'),
                   ]),
@@ -82,15 +89,16 @@ class StaffPage extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              _subtitleSection(context, 'ILUSTRACIONES'),
+              _subtitleSection(context, texts.staff.illustrations),
               const SizedBox(height: 8.0),
               _text(
                   'Jaime Choclote Martínez;\n Nicolás Farroñay Kanaffo y Javier Vela.'),
             ],
           ),
         ),
-        SliverToBoxAdapter(child: _subtitleSection(context, 'SONIDOS')),
-        SliverToBoxAdapter(child: _reviewerTitle(context, 'Aves')),
+        SliverToBoxAdapter(
+            child: _subtitleSection(context, texts.staff.sounds)),
+        SliverToBoxAdapter(child: _reviewerTitle(context, texts.staff.birds)),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -150,14 +158,14 @@ class StaffPage extends StatelessWidget {
                 SizedBox(
                     child: Column(
                   children: [
-                    _reviewerTitle(context, 'Monos'),
+                    _reviewerTitle(context, texts.staff.monkeys),
                     _text('Roberta Aralla'),
                   ],
                 )),
                 SizedBox(
                     child: Column(
                   children: [
-                    _reviewerTitle(context, 'Anfibios'),
+                    _reviewerTitle(context, texts.staff.amphibians),
                     _text('José Manuel Padial;\nGiussepe Gagliardi Urrutia.'),
                   ],
                 )),
@@ -169,7 +177,7 @@ class StaffPage extends StatelessWidget {
         SliverToBoxAdapter(
             child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: _titleSection(context, 'EQUIPO DE DESARROLLO'),
+          child: _titleSection(context, texts.staff.developmentTeam),
         )),
         SliverToBoxAdapter(
           child: Padding(
@@ -181,54 +189,54 @@ class StaffPage extends StatelessWidget {
               children: [
                 _staffProfile(
                   context,
-                  role: 'Líder técnico',
+                  role: texts.staff.technicalLeader,
                   name: 'Jhon Charlie Martinez Carranza',
                   image: 'assets/staff/jhon.jpg',
                   github: 'https://github.com/jmartinez888',
                 ),
                 _staffProfile(
                   context,
-                  role: 'Desarrollador móvil',
+                  role: texts.staff.mobileDeveloper,
                   name: 'Edson Isaias Sánchez Chota',
                   image: 'assets/staff/edson.jpg',
                   github: 'https://github.com/edisaiassan',
                 ),
                 _staffProfile(context,
-                    role: 'Desarrollador móvil',
+                    role: texts.staff.mobileDeveloper,
                     name: 'Jorge Antonio Del Aguila Malafaya',
                     image: 'assets/staff/antonio.jpg',
                     github: 'https://github.com/JorgeAntonio'),
                 _staffProfile(
                   context,
-                  role: 'Desarrollador frontend',
+                  role: texts.staff.developmentFrontend,
                   name: 'Santos Panaifo José Jefferson',
                   image: 'assets/staff/santos.png',
                   github: 'https://github.com/daylerjeff199906',
                 ),
                 _staffProfile(
                   context,
-                  role: 'Desarrollador frontend',
+                  role: texts.staff.developmentFrontend,
                   name: 'Danny Dávila Daza',
                   image: 'assets/staff/danny.jpeg',
                   github: 'https://github.com/Danny-da',
                 ),
                 _staffProfile(
                   context,
-                  role: 'Desarrollador frontend',
+                  role: texts.staff.developmentFrontend,
                   name: 'Josue Franco Soria Ponce',
                   image: 'assets/staff/josue.png',
                   github: 'https://github.com/franquito3',
                 ),
                 _staffProfile(
                   context,
-                  role: 'Desarrollador backend',
+                  role: texts.staff.developmentBackend,
                   name: 'Piero Eleví Frías Mori',
                   image: 'assets/staff/piero.jpg',
                   github: 'https://github.com/PieroFrias',
                 ),
                 _staffProfile(
                   context,
-                  role: 'Desarrollador backend',
+                  role: texts.staff.developmentBackend,
                   name: 'Anthony Scott Ramirez Sias',
                   image: 'assets/staff/scott.png',
                   github: 'https://github.com/Scott-Ramirez',
@@ -300,7 +308,7 @@ class StaffPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: PaddingConfig.onlyBottom,
             child: CircleAvatar(
               radius: 50,
               backgroundImage: image != null ? Image.asset(image).image : null,
@@ -318,7 +326,7 @@ class StaffPage extends StatelessWidget {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: PaddingConfig.symetrictHorizontal,
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -335,8 +343,8 @@ class StaffPage extends StatelessWidget {
               children: [
                 Image.asset('assets/icons/github.png', width: 24),
                 const SizedBox(width: 8),
-                const Text('Portafolio',
-                    style: TextStyle(
+                Text(texts.staff.briefcase,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
                         fontSize: 12)),

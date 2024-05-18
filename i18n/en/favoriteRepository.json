@@ -1,0 +1,7 @@
+{
+    "getSpeciesNetworkError": "Network error while fetching your favorite species",
+    "getSpeciesUnknownError": "Unknown error while fetching your favorite species",
+    "getSpeciesEmptyError": "Some of your favorite species were not found",
+    "updateSpeciesNetworkError": "Network error while updating your favorite species",
+    "updateSpeciesUnknownError": "Unknown error while updating your favorite species"
+}
