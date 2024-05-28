@@ -24,9 +24,6 @@ import 'package:species/src/presentation/global/widgets/skeleton/skeleton_contai
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/sub_routes/species_details/controller/species_details_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
-
-
-
 class SpeciesTabSection extends StatefulWidget {
   final int type;
   final SpecieTabState state;
@@ -89,7 +86,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
               mainAxisSpacing: 8.0,
               gridDelegateBuilder: (int childCount) {
                 return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: buildMultiGrids(width),
+                  crossAxisCount: buildMultiGrids(width)
                 );
               },
               pagingController: widget.pagingController,
@@ -101,11 +98,13 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                 newPageProgressIndicatorBuilder: (_) =>
                     const SkeletonConatiner(height: 320.0),
                 firstPageErrorIndicatorBuilder: (context) => MessageException(
+                  mainColor: mainColor,
                   padding: paddingExclusive,
                   onPressed: widget.onRefresh,
                   lottie: 'assets/lotties/error_data.json',
                 ),
                 noItemsFoundIndicatorBuilder: (context) => MessageException(
+                  mainColor: mainColor,
                   padding: paddingExclusive,
                   onPressed: widget.onRefresh,
                   text: 'Parece que no hay especies aquí',

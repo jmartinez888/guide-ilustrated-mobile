@@ -1,4 +1,6 @@
 {
+    "title": "Amazônia",
+    "subtitle": "Guia Ilustrado de Flora e Fauna",
     "back": "Voltar",
     "close": "Fechar",
     "clear": "Limpar",
@@ -8,5 +10,7 @@
     "error404Again": "Algo deu errado, por favor tente novamente",
     "nameNotAvailable": "Nome não disponível",
     "lastnameNotAvailable": "Sobrenome não disponível",
-    "descriptionNotAvailable": "Descrição não disponível"
+    "descriptionNotAvailable": "Descrição não disponível",
+    "somethingWentWrong": "Algo deu errado, por favor tente novamente",
+    "refresh": "Atualizar"
 }

@@ -1,12 +1,16 @@
 {
+    "title": "Amazonie",
+    "subtitle": "Guide Illustré de la Flore et de la Faune",
     "back": "Retour",
     "close": "Fermer",
     "clear": "Effacer",
     "search": "Rechercher",
     "addToFavorites": "Ajouter aux favoris",
     "removeFromFavorites": "Retirer des favoris",
-    "error404Again": "Quelque chose s'est mal passé, veuillez réessayer",
+    "error404Again": "Quelque chose a mal tourné, veuillez réessayer",
     "nameNotAvailable": "Nom non disponible",
     "lastnameNotAvailable": "Nom de famille non disponible",
-    "descriptionNotAvailable": "Description non disponible"
+    "descriptionNotAvailable": "Description non disponible",
+    "somethingWentWrong": "Quelque chose a mal tourné, veuillez réessayer",
+    "refresh": "Actualiser"
 }

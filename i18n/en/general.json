@@ -1,12 +1,16 @@
 {
+    "title": "Amazon",
+    "subtitle": "Illustrated Guide to Flora and Fauna",
     "back": "Back",
     "close": "Close",
     "clear": "Clear",
     "search": "Search",
-    "addToFavorites": "Add to favorites",
-    "removeFromFavorites": "Remove from favorites",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
     "error404Again": "Something went wrong, please try again",
     "nameNotAvailable": "Name not available",
     "lastnameNotAvailable": "Last name not available",
-    "descriptionNotAvailable": "Description not available"
+    "descriptionNotAvailable": "Description not available",
+    "somethingWentWrong": "Something went wrong, please try again",
+    "refresh": "Refresh"
 }

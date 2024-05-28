@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 1540 (308 per locale)
+/// Strings: 1560 (312 per locale)
 ///
-/// Built on 2024-05-18 at 00:34 UTC
+/// Built on 2024-05-28 at 02:27 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -378,16 +378,20 @@ class _TranslationsGeneralEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get title => 'Amazon';
+	String get subtitle => 'Illustrated Guide to Flora and Fauna';
 	String get back => 'Back';
 	String get close => 'Close';
 	String get clear => 'Clear';
 	String get search => 'Search';
-	String get addToFavorites => 'Add to favorites';
-	String get removeFromFavorites => 'Remove from favorites';
+	String get addToFavorites => 'Add to Favorites';
+	String get removeFromFavorites => 'Remove from Favorites';
 	String get error404Again => 'Something went wrong, please try again';
 	String get nameNotAvailable => 'Name not available';
 	String get lastnameNotAvailable => 'Last name not available';
 	String get descriptionNotAvailable => 'Description not available';
+	String get somethingWentWrong => 'Something went wrong, please try again';
+	String get refresh => 'Refresh';
 }
 
 // Path: pdfPreviewPage
@@ -1072,6 +1076,8 @@ class _TranslationsGeneralEs implements _TranslationsGeneralEn {
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => 'Amazonía';
+	@override String get subtitle => 'Guía Ilustrada de Flora y Fauna';
 	@override String get back => 'Atrás';
 	@override String get close => 'Cerrar';
 	@override String get clear => 'Limpiar';
@@ -1082,6 +1088,8 @@ class _TranslationsGeneralEs implements _TranslationsGeneralEn {
 	@override String get nameNotAvailable => 'Nombre no disponible';
 	@override String get lastnameNotAvailable => 'Apellidos no disponibles';
 	@override String get descriptionNotAvailable => 'Descripción no disponible';
+	@override String get somethingWentWrong => 'Algo salió mal, inténtalo de nuevo';
+	@override String get refresh => 'Actualizar';
 }
 
 // Path: pdfPreviewPage
@@ -1766,16 +1774,20 @@ class _TranslationsGeneralFr implements _TranslationsGeneralEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => 'Amazonie';
+	@override String get subtitle => 'Guide Illustré de la Flore et de la Faune';
 	@override String get back => 'Retour';
 	@override String get close => 'Fermer';
 	@override String get clear => 'Effacer';
 	@override String get search => 'Rechercher';
 	@override String get addToFavorites => 'Ajouter aux favoris';
 	@override String get removeFromFavorites => 'Retirer des favoris';
-	@override String get error404Again => 'Quelque chose s\'est mal passé, veuillez réessayer';
+	@override String get error404Again => 'Quelque chose a mal tourné, veuillez réessayer';
 	@override String get nameNotAvailable => 'Nom non disponible';
 	@override String get lastnameNotAvailable => 'Nom de famille non disponible';
 	@override String get descriptionNotAvailable => 'Description non disponible';
+	@override String get somethingWentWrong => 'Quelque chose a mal tourné, veuillez réessayer';
+	@override String get refresh => 'Actualiser';
 }
 
 // Path: pdfPreviewPage
@@ -2460,6 +2472,8 @@ class _TranslationsGeneralPt implements _TranslationsGeneralEn {
 	@override final _TranslationsPt _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => 'Amazônia';
+	@override String get subtitle => 'Guia Ilustrado de Flora e Fauna';
 	@override String get back => 'Voltar';
 	@override String get close => 'Fechar';
 	@override String get clear => 'Limpar';
@@ -2470,6 +2484,8 @@ class _TranslationsGeneralPt implements _TranslationsGeneralEn {
 	@override String get nameNotAvailable => 'Nome não disponível';
 	@override String get lastnameNotAvailable => 'Sobrenome não disponível';
 	@override String get descriptionNotAvailable => 'Descrição não disponível';
+	@override String get somethingWentWrong => 'Algo deu errado, por favor tente novamente';
+	@override String get refresh => 'Atualizar';
 }
 
 // Path: pdfPreviewPage
@@ -3154,16 +3170,20 @@ class _TranslationsGeneralZh implements _TranslationsGeneralEn {
 	@override final _TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get title => '亚马逊';
+	@override String get subtitle => '动植物图解指南';
 	@override String get back => '返回';
 	@override String get close => '关闭';
 	@override String get clear => '清除';
 	@override String get search => '搜索';
 	@override String get addToFavorites => '添加到收藏夹';
-	@override String get removeFromFavorites => '从收藏夹中删除';
-	@override String get error404Again => '出了点问题，请再试一次';
-	@override String get nameNotAvailable => '名称不可用';
+	@override String get removeFromFavorites => '从收藏夹中移除';
+	@override String get error404Again => '出错了，请再试一次';
+	@override String get nameNotAvailable => '姓名不可用';
 	@override String get lastnameNotAvailable => '姓氏不可用';
 	@override String get descriptionNotAvailable => '描述不可用';
+	@override String get somethingWentWrong => '出错了，请再试一次';
+	@override String get refresh => '刷新';
 }
 
 // Path: pdfPreviewPage
@@ -3693,16 +3713,20 @@ extension on Translations {
 			case 'forgotPassword.clear': return 'Clear';
 			case 'forgotPassword.message': return 'Enter your email to send you an email where you can change your password:';
 			case 'forgotPassword.checkYourEmail': return 'Check your email!';
+			case 'general.title': return 'Amazon';
+			case 'general.subtitle': return 'Illustrated Guide to Flora and Fauna';
 			case 'general.back': return 'Back';
 			case 'general.close': return 'Close';
 			case 'general.clear': return 'Clear';
 			case 'general.search': return 'Search';
-			case 'general.addToFavorites': return 'Add to favorites';
-			case 'general.removeFromFavorites': return 'Remove from favorites';
+			case 'general.addToFavorites': return 'Add to Favorites';
+			case 'general.removeFromFavorites': return 'Remove from Favorites';
 			case 'general.error404Again': return 'Something went wrong, please try again';
 			case 'general.nameNotAvailable': return 'Name not available';
 			case 'general.lastnameNotAvailable': return 'Last name not available';
 			case 'general.descriptionNotAvailable': return 'Description not available';
+			case 'general.somethingWentWrong': return 'Something went wrong, please try again';
+			case 'general.refresh': return 'Refresh';
 			case 'pdfPreviewPage.amazon': return 'Amazon';
 			case 'pdfPreviewPage.institute': return 'Research Institute of the Peruvian Amazon';
 			case 'pdfPreviewPage.title': return 'Illustrated Guide to Flora and Fauna';
@@ -4009,6 +4033,8 @@ extension on _TranslationsEs {
 			case 'forgotPassword.clear': return 'Limpiar';
 			case 'forgotPassword.message': return 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 			case 'forgotPassword.checkYourEmail': return '¡Revisa tu correo!';
+			case 'general.title': return 'Amazonía';
+			case 'general.subtitle': return 'Guía Ilustrada de Flora y Fauna';
 			case 'general.back': return 'Atrás';
 			case 'general.close': return 'Cerrar';
 			case 'general.clear': return 'Limpiar';
@@ -4019,6 +4045,8 @@ extension on _TranslationsEs {
 			case 'general.nameNotAvailable': return 'Nombre no disponible';
 			case 'general.lastnameNotAvailable': return 'Apellidos no disponibles';
 			case 'general.descriptionNotAvailable': return 'Descripción no disponible';
+			case 'general.somethingWentWrong': return 'Algo salió mal, inténtalo de nuevo';
+			case 'general.refresh': return 'Actualizar';
 			case 'pdfPreviewPage.amazon': return 'Amazonía';
 			case 'pdfPreviewPage.institute': return 'Instituto de Investigación de la Amazonía Peruana';
 			case 'pdfPreviewPage.title': return 'Guía ilustrada de flora y fauna';
@@ -4325,16 +4353,20 @@ extension on _TranslationsFr {
 			case 'forgotPassword.clear': return 'Effacer';
 			case 'forgotPassword.message': return 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 			case 'forgotPassword.checkYourEmail': return 'Vérifiez votre e-mail !';
+			case 'general.title': return 'Amazonie';
+			case 'general.subtitle': return 'Guide Illustré de la Flore et de la Faune';
 			case 'general.back': return 'Retour';
 			case 'general.close': return 'Fermer';
 			case 'general.clear': return 'Effacer';
 			case 'general.search': return 'Rechercher';
 			case 'general.addToFavorites': return 'Ajouter aux favoris';
 			case 'general.removeFromFavorites': return 'Retirer des favoris';
-			case 'general.error404Again': return 'Quelque chose s\'est mal passé, veuillez réessayer';
+			case 'general.error404Again': return 'Quelque chose a mal tourné, veuillez réessayer';
 			case 'general.nameNotAvailable': return 'Nom non disponible';
 			case 'general.lastnameNotAvailable': return 'Nom de famille non disponible';
 			case 'general.descriptionNotAvailable': return 'Description non disponible';
+			case 'general.somethingWentWrong': return 'Quelque chose a mal tourné, veuillez réessayer';
+			case 'general.refresh': return 'Actualiser';
 			case 'pdfPreviewPage.amazon': return 'Amazone';
 			case 'pdfPreviewPage.institute': return 'Institut de Recherche de l\'Amazonie Péruvienne';
 			case 'pdfPreviewPage.title': return 'Guide illustré de la flore et de la faune';
@@ -4641,6 +4673,8 @@ extension on _TranslationsPt {
 			case 'forgotPassword.clear': return 'Limpar';
 			case 'forgotPassword.message': return 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 			case 'forgotPassword.checkYourEmail': return 'Verifique seu email!';
+			case 'general.title': return 'Amazônia';
+			case 'general.subtitle': return 'Guia Ilustrado de Flora e Fauna';
 			case 'general.back': return 'Voltar';
 			case 'general.close': return 'Fechar';
 			case 'general.clear': return 'Limpar';
@@ -4651,6 +4685,8 @@ extension on _TranslationsPt {
 			case 'general.nameNotAvailable': return 'Nome não disponível';
 			case 'general.lastnameNotAvailable': return 'Sobrenome não disponível';
 			case 'general.descriptionNotAvailable': return 'Descrição não disponível';
+			case 'general.somethingWentWrong': return 'Algo deu errado, por favor tente novamente';
+			case 'general.refresh': return 'Atualizar';
 			case 'pdfPreviewPage.amazon': return 'Amazonas';
 			case 'pdfPreviewPage.institute': return 'Instituto de Pesquisa da Amazônia Peruana';
 			case 'pdfPreviewPage.title': return 'Guia Ilustrado de Flora e Fauna';
@@ -4957,16 +4993,20 @@ extension on _TranslationsZh {
 			case 'forgotPassword.clear': return '清除';
 			case 'forgotPassword.message': return '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 			case 'forgotPassword.checkYourEmail': return '请检查您的邮箱！';
+			case 'general.title': return '亚马逊';
+			case 'general.subtitle': return '动植物图解指南';
 			case 'general.back': return '返回';
 			case 'general.close': return '关闭';
 			case 'general.clear': return '清除';
 			case 'general.search': return '搜索';
 			case 'general.addToFavorites': return '添加到收藏夹';
-			case 'general.removeFromFavorites': return '从收藏夹中删除';
-			case 'general.error404Again': return '出了点问题，请再试一次';
-			case 'general.nameNotAvailable': return '名称不可用';
+			case 'general.removeFromFavorites': return '从收藏夹中移除';
+			case 'general.error404Again': return '出错了，请再试一次';
+			case 'general.nameNotAvailable': return '姓名不可用';
 			case 'general.lastnameNotAvailable': return '姓氏不可用';
 			case 'general.descriptionNotAvailable': return '描述不可用';
+			case 'general.somethingWentWrong': return '出错了，请再试一次';
+			case 'general.refresh': return '刷新';
 			case 'pdfPreviewPage.amazon': return '亚马逊';
 			case 'pdfPreviewPage.institute': return '秘鲁亚马逊研究所';
 			case 'pdfPreviewPage.title': return '动植物图鉴';
