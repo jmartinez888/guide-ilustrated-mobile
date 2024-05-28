@@ -1,0 +1,12 @@
+{
+    "back": "Retour",
+    "close": "Fermer",
+    "clear": "Effacer",
+    "search": "Rechercher",
+    "addToFavorites": "Ajouter aux favoris",
+    "removeFromFavorites": "Retirer des favoris",
+    "error404Again": "Quelque chose s'est mal passé, veuillez réessayer",
+    "nameNotAvailable": "Nom non disponible",
+    "lastnameNotAvailable": "Nom de famille non disponible",
+    "descriptionNotAvailable": "Description non disponible"
+}

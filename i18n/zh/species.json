@@ -8,8 +8,6 @@
         "insects": "昆虫",
         "trees": "树木",
         "palms": "棕榈树",
-        "deleteFavorite": "从收藏中移除",
-        "saveFavorite": "保存到收藏夹",
-        "orderName": "按普通名称排序",
-        "orderScientificName": "按学名排序"
+        "orderName": "通用名",
+        "orderScientificName": "科学名称"
     }

@@ -1,0 +1,12 @@
+{
+    "back": "返回",
+    "close": "关闭",
+    "clear": "清除",
+    "search": "搜索",
+    "addToFavorites": "添加到收藏夹",
+    "removeFromFavorites": "从收藏夹中删除",
+    "error404Again": "出了点问题，请再试一次",
+    "nameNotAvailable": "名称不可用",
+    "lastnameNotAvailable": "姓氏不可用",
+    "descriptionNotAvailable": "描述不可用"
+}

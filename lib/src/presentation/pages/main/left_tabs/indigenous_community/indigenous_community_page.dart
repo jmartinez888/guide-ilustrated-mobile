@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/domain/entities/community/community.dart';
+import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/functions/build_multi_grids.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
@@ -35,13 +36,11 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 40.0),
-          child: Text('Comunidades Indígenas'),
-        ),
+        leading: const SizedBox(),
+        title: Text(texts.community.title),
         actions: [
           CustomIconButton(
-            tooltip: 'Buscar',
+            tooltip: texts.general.search,
             icon: Icons.search_rounded,
             onPressed: () {
               context.pushNamed(Routes.communitySearch);
@@ -79,12 +78,12 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
                 ),
                 noItemsFoundIndicatorBuilder: (context) => _errorIndicator(
                   onPressed: controllerRead.pagingController.refresh,
-                  text: 'Parece que no hay autores aquí',
+                  text: texts.community.withoutCommunities,
                   lottie: 'assets/lotties/without_data.json',
                 ),
                 newPageErrorIndicatorBuilder: (context) => CustomGridCard(
                   onTap: controllerRead.pagingController.retryLastFailedRequest,
-                  title: 'Algo salió mal, inténtalo de nuevo',
+                  title: texts.general.error404Again,
                   image: Padding(
                     padding: PaddingConfig.allWithoutBottomL,
                     child: Lottie.asset('assets/lotties/error_data.json'),
@@ -116,7 +115,7 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
                             !community.description!.startsWith('-') &&
                             !community.description!.startsWith('N/A')
                         ? community.description!.replaceAll('\t', '')
-                        : 'Nombre no disponible',
+                        : texts.general.nameNotAvailable,
                     maxLines: 2,
                   );
                 },

@@ -102,5 +102,4 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
       ),
     );
   }
-
-  }
+}

@@ -1,8 +1,12 @@
 {
     "title": "Favorites",
     "hintText": "Search your favorite",
-    "close": "Close",
-    "search": "Search",
-    "exceptionText": "No species here yet",
-    "deleteFavorite": "Remove from favorites"
+    "exceptionText": "There are no species here yet",
+    "deleteFavorite": "Remove from favorites",
+    "empty": "Start marking species as favorites to see them here",
+    "error": "We have made significant changes, tap on 'Restore species' to update the information, make sure you have an internet connection",
+    "canNot": "This action could not be performed",
+    "reestoreSpecies": "Restore species",
+    "withoutSpecies": "You don't have any favorite species yet, you can add them from the species section",
+    "yeah": "All your favorite species have been restored!"
 }

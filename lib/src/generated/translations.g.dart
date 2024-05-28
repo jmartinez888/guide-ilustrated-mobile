@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 966 (193 per locale)
+/// Strings: 1540 (308 per locale)
 ///
-/// Built on 2024-04-04 at 22:48 UTC
+/// Built on 2024-05-18 at 00:34 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -152,18 +152,27 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsAboutProjectEn aboutProject = _TranslationsAboutProjectEn._(_root);
+	late final _TranslationsAuthorsEn authors = _TranslationsAuthorsEn._(_root);
 	late final _TranslationsBottomBarEn bottomBar = _TranslationsBottomBarEn._(_root);
+	late final _TranslationsCommunityEn community = _TranslationsCommunityEn._(_root);
 	late final _TranslationsDeleteAccountEn deleteAccount = _TranslationsDeleteAccountEn._(_root);
+	late final _TranslationsDrawerEn drawer = _TranslationsDrawerEn._(_root);
 	late final _TranslationsEditProfileEn editProfile = _TranslationsEditProfileEn._(_root);
+	late final _TranslationsErrorPageEn errorPage = _TranslationsErrorPageEn._(_root);
+	late final _TranslationsFavoriteRepositoryEn favoriteRepository = _TranslationsFavoriteRepositoryEn._(_root);
 	late final _TranslationsFavoritesEn favorites = _TranslationsFavoritesEn._(_root);
 	late final _TranslationsFilterOptionsEn filterOptions = _TranslationsFilterOptionsEn._(_root);
 	late final _TranslationsForgotPasswordEn forgotPassword = _TranslationsForgotPasswordEn._(_root);
+	late final _TranslationsGeneralEn general = _TranslationsGeneralEn._(_root);
+	late final _TranslationsPdfPreviewPageEn pdfPreviewPage = _TranslationsPdfPreviewPageEn._(_root);
 	late final _TranslationsProfileEn profile = _TranslationsProfileEn._(_root);
 	late final _TranslationsSearchPageEn searchPage = _TranslationsSearchPageEn._(_root);
 	late final _TranslationsSignInEn signIn = _TranslationsSignInEn._(_root);
 	late final _TranslationsSignUpEn signUp = _TranslationsSignUpEn._(_root);
 	late final _TranslationsSpeciesEn species = _TranslationsSpeciesEn._(_root);
 	late final _TranslationsSpeciesDetailsEn speciesDetails = _TranslationsSpeciesDetailsEn._(_root);
+	late final _TranslationsSpeciesDetailsPageEn speciesDetailsPage = _TranslationsSpeciesDetailsPageEn._(_root);
+	late final _TranslationsStaffEn staff = _TranslationsStaffEn._(_root);
 	late final _TranslationsUserCredentialFailureEn userCredentialFailure = _TranslationsUserCredentialFailureEn._(_root);
 	late final _TranslationsValidatorEn validator = _TranslationsValidatorEn._(_root);
 }
@@ -189,6 +198,18 @@ class _TranslationsAboutProjectEn {
 	String get address => 'Iquitos - Nauta Road Km 4.5, Quistococha, San Juan Bautista District, Maynas, Loreto: ';
 }
 
+// Path: authors
+class _TranslationsAuthorsEn {
+	_TranslationsAuthorsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Authors';
+	String get withoutAuthors => 'It seems there are no authors here';
+	String get professionNotAvailable => 'Profession not available';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarEn {
 	_TranslationsBottomBarEn._(this._root);
@@ -199,6 +220,17 @@ class _TranslationsBottomBarEn {
 	String get home => 'Home';
 	String get search => 'Search';
 	String get favorites => 'Favorites';
+}
+
+// Path: community
+class _TranslationsCommunityEn {
+	_TranslationsCommunityEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Indigenous communities';
+	String get withoutCommunities => 'It seems there are no indigenous communities here';
 }
 
 // Path: deleteAccount
@@ -224,6 +256,25 @@ class _TranslationsDeleteAccountEn {
 	String get notRegistered => 'Not registered';
 }
 
+// Path: drawer
+class _TranslationsDrawerEn {
+	_TranslationsDrawerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get account => 'Account';
+	String get profile => 'Profile';
+	String get content => 'Content';
+	String get species => 'Species';
+	String get communities => 'Indigenous communities';
+	String get authors => 'Authors';
+	String get about => 'About';
+	String get staff => 'Staff';
+	String get aboutGuide => 'About the guide';
+	String get menu => 'Menu';
+}
+
 // Path: editProfile
 class _TranslationsEditProfileEn {
 	_TranslationsEditProfileEn._(this._root);
@@ -232,10 +283,37 @@ class _TranslationsEditProfileEn {
 
 	// Translations
 	String get errorSnack => 'Error loading user data';
-	String get title => 'Edit profile';
+	String get title => 'Edit Profile';
 	String get save => 'Save';
 	String get saving => 'Saving...';
 	String get errorSaving => 'Error saving profile data';
+	String get selectImage => 'Select a profile picture';
+	String get errorSave => 'Error saving profile';
+}
+
+// Path: errorPage
+class _TranslationsErrorPageEn {
+	_TranslationsErrorPageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get page_not_exist => 'This page no longer exists';
+	String get go_back => 'Back to species';
+}
+
+// Path: favoriteRepository
+class _TranslationsFavoriteRepositoryEn {
+	_TranslationsFavoriteRepositoryEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get getSpeciesNetworkError => 'Network error while fetching your favorite species';
+	String get getSpeciesUnknownError => 'Unknown error while fetching your favorite species';
+	String get getSpeciesEmptyError => 'Some of your favorite species were not found';
+	String get updateSpeciesNetworkError => 'Network error while updating your favorite species';
+	String get updateSpeciesUnknownError => 'Unknown error while updating your favorite species';
 }
 
 // Path: favorites
@@ -247,10 +325,14 @@ class _TranslationsFavoritesEn {
 	// Translations
 	String get title => 'Favorites';
 	String get hintText => 'Search your favorite';
-	String get close => 'Close';
-	String get search => 'Search';
-	String get exceptionText => 'No species here yet';
+	String get exceptionText => 'There are no species here yet';
 	String get deleteFavorite => 'Remove from favorites';
+	String get empty => 'Start marking species as favorites to see them here';
+	String get error => 'We have made significant changes, tap on \'Restore species\' to update the information, make sure you have an internet connection';
+	String get canNot => 'This action could not be performed';
+	String get reestoreSpecies => 'Restore species';
+	String get withoutSpecies => 'You don\'t have any favorite species yet, you can add them from the species section';
+	String get yeah => 'All your favorite species have been restored!';
 }
 
 // Path: filterOptions
@@ -287,6 +369,55 @@ class _TranslationsForgotPasswordEn {
 	String get clear => 'Clear';
 	String get message => 'Enter your email to send you an email where you can change your password:';
 	String get checkYourEmail => 'Check your email!';
+}
+
+// Path: general
+class _TranslationsGeneralEn {
+	_TranslationsGeneralEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get back => 'Back';
+	String get close => 'Close';
+	String get clear => 'Clear';
+	String get search => 'Search';
+	String get addToFavorites => 'Add to favorites';
+	String get removeFromFavorites => 'Remove from favorites';
+	String get error404Again => 'Something went wrong, please try again';
+	String get nameNotAvailable => 'Name not available';
+	String get lastnameNotAvailable => 'Last name not available';
+	String get descriptionNotAvailable => 'Description not available';
+}
+
+// Path: pdfPreviewPage
+class _TranslationsPdfPreviewPageEn {
+	_TranslationsPdfPreviewPageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get amazon => 'Amazon';
+	String get institute => 'Research Institute of the Peruvian Amazon';
+	String get title => 'Illustrated Guide to Flora and Fauna';
+	String get commonNameNotAvailable => 'Common name not available';
+	String get scientificNameNotAvailable => 'Scientific name not available';
+	String get author => 'Author';
+	String get authors => 'Authors';
+	String get imageNotAvailable => 'Image not available';
+	String get taxonomicInformation => 'Taxonomic information';
+	String get kingdom => 'Kingdom';
+	String get phylum => 'Phylum';
+	String get class_ => 'Class';
+	String get order => 'Order';
+	String get family => 'Family';
+	String get authorInformation => 'Author information';
+	String get name => 'Name';
+	String get lastname => 'Last name';
+	String get profession => 'Profession';
+	String get bornIn => 'Born in';
+	String get diedIn => 'Died in';
+	String get year => 'Year';
 }
 
 // Path: profile
@@ -337,6 +468,8 @@ class _TranslationsSearchPageEn {
 	String get errorFetchingSpecies => 'No species found related to your search. Please try again with another class, order, or family.';
 	String get acceptText => 'Accept';
 	String get updateText => 'Update';
+	String get aToZ => 'A-Z';
+	String get zToA => 'Z-A';
 }
 
 // Path: signIn
@@ -400,10 +533,8 @@ class _TranslationsSpeciesEn {
 	String get insects => 'Insects';
 	String get trees => 'Trees';
 	String get palms => 'Palms';
-	String get deleteFavorite => 'Remove from Favorites';
-	String get saveFavorite => 'Save to Favorites';
-	String get orderName => 'Sort by Common Name';
-	String get orderScientificName => 'Sort by Scientific Name';
+	String get orderName => 'Common name';
+	String get orderScientificName => 'Scientific name';
 }
 
 // Path: speciesDetails
@@ -416,7 +547,7 @@ class _TranslationsSpeciesDetailsEn {
 	String get authors => 'Authors';
 	String get taxonomicInfo => 'Taxonomic Information';
 	String get kingdom => 'Kingdom';
-	String get filo => 'Phylum';
+	String get phylum => 'Phylum';
 	String get classes => 'Class';
 	String get order => 'Order';
 	String get family => 'Family';
@@ -425,12 +556,86 @@ class _TranslationsSpeciesDetailsEn {
 	String get downloadImage => 'Download Image';
 	String get downloadAudio => 'Download Audio';
 	String get share => 'Share';
-	String get saveToFavorite => 'Save to Favorites';
-	String get deleteFromFavorite => 'Delete from Favorites';
 	String get errorDownload => 'Download Error';
-	String get successDownload => 'Download Success';
+	String get successDownload => 'Download Successful!';
 	String get shareAmazonInfo => 'Share the beauty of the Amazon! Share this valuable information about.';
 	String get shareAmazon => 'Share the beauty of the Amazon!';
+	String get conservationStatus => 'Conservation Status';
+	String get extinct => 'Extinct';
+	String get extinctDescription => 'The species no longer exists in the wild';
+	String get extinctWild => 'Extinct in the Wild';
+	String get extinctWildDescription => 'The species only exists in captivity';
+	String get criticallyEndangered => 'Critically Endangered';
+	String get criticallyEndangeredDescription => 'The species has an extremely high risk of extinction in the wild';
+	String get endangered => 'Endangered';
+	String get endangeredDescription => 'The species has a very high risk of extinction in the wild';
+	String get vulnerable => 'Vulnerable';
+	String get vulnerableDescription => 'The species has a high risk of extinction in the wild';
+	String get almostThreatened => 'Almost Threatened';
+	String get almostThreatenedDescription => 'The species is not endangered, but could be in the future';
+	String get minorConcern => 'Minor Concern';
+	String get minorConcernDescription => 'The species is not endangered';
+	String get insufficientData => 'Insufficient Data';
+	String get insufficientDataDescription => 'There is not enough information to assess the extinction risk of the species';
+	String get notRated => 'Not Rated';
+	String get notRatedDescription => 'The species has not been evaluated by the IUCN';
+	String get appendix1 => 'Appendix I';
+	String get appendix1Description => 'All species facing extinction. Trade in specimens of these species is permitted only in exceptional circumstances';
+	String get appendix2 => 'Appendix II';
+	String get appendix2Description => 'Species not necessarily threatened with extinction, but whose trade must be controlled in order to avoid use incompatible with their survival';
+	String get appendix3 => 'Appendix III';
+	String get appendix3Description => 'Species that are protected in at least one country, which has asked for assistance from other CITES Parties in controlling trade in the species';
+}
+
+// Path: speciesDetailsPage
+class _TranslationsSpeciesDetailsPageEn {
+	_TranslationsSpeciesDetailsPageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get download => 'Download';
+	String get errorDownload => 'Could not download';
+	String get downloadImage => 'Download image';
+	String get downloadAudio => 'Download audio';
+	String get share => 'Share';
+	String get generatePdf => 'Generate PDF';
+	String get attractiveMessage => 'Share the beauty of the Amazon! Share this valuable information about';
+	String get conservationStates => 'Conservation statuses';
+	String get noInformation => 'No information';
+	String get nameNotAvailable => 'Name not available';
+	String get scientificNameNotAvailable => 'Scientific name not available';
+	String get year => 'Year';
+}
+
+// Path: staff
+class _TranslationsStaffEn {
+	_TranslationsStaffEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Team';
+	String get coordinationTeam => 'Coordination team';
+	String get editorialCoordination => 'Editorial coordination';
+	String get reviewCommittee => 'Review committee';
+	String get textReview => 'Text review:';
+	String get birdReview => 'Bird review:';
+	String get fishReview => 'Fish review:';
+	String get insectReview => 'Insect review:';
+	String get plantReview => 'Plant review:';
+	String get mapMaking => 'Map making:';
+	String get illustrations => 'Illustrations:';
+	String get sounds => 'Sounds';
+	String get birds => 'Birds';
+	String get monkeys => 'Monkeys';
+	String get amphibians => 'Amphibians';
+	String get developmentTeam => 'Development team';
+	String get technicalLeader => 'Technical leader';
+	String get mobileDeveloper => 'Mobile developer';
+	String get developmentFrontend => 'Frontend developer';
+	String get developmentBackend => 'Backend developer';
+	String get briefcase => 'Portfolio';
 }
 
 // Path: userCredentialFailure
@@ -641,18 +846,27 @@ class _TranslationsEs implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectEs aboutProject = _TranslationsAboutProjectEs._(_root);
+	@override late final _TranslationsAuthorsEs authors = _TranslationsAuthorsEs._(_root);
 	@override late final _TranslationsBottomBarEs bottomBar = _TranslationsBottomBarEs._(_root);
+	@override late final _TranslationsCommunityEs community = _TranslationsCommunityEs._(_root);
 	@override late final _TranslationsDeleteAccountEs deleteAccount = _TranslationsDeleteAccountEs._(_root);
+	@override late final _TranslationsDrawerEs drawer = _TranslationsDrawerEs._(_root);
 	@override late final _TranslationsEditProfileEs editProfile = _TranslationsEditProfileEs._(_root);
+	@override late final _TranslationsErrorPageEs errorPage = _TranslationsErrorPageEs._(_root);
+	@override late final _TranslationsFavoriteRepositoryEs favoriteRepository = _TranslationsFavoriteRepositoryEs._(_root);
 	@override late final _TranslationsFavoritesEs favorites = _TranslationsFavoritesEs._(_root);
 	@override late final _TranslationsFilterOptionsEs filterOptions = _TranslationsFilterOptionsEs._(_root);
 	@override late final _TranslationsForgotPasswordEs forgotPassword = _TranslationsForgotPasswordEs._(_root);
+	@override late final _TranslationsGeneralEs general = _TranslationsGeneralEs._(_root);
+	@override late final _TranslationsPdfPreviewPageEs pdfPreviewPage = _TranslationsPdfPreviewPageEs._(_root);
 	@override late final _TranslationsProfileEs profile = _TranslationsProfileEs._(_root);
 	@override late final _TranslationsSearchPageEs searchPage = _TranslationsSearchPageEs._(_root);
 	@override late final _TranslationsSignInEs signIn = _TranslationsSignInEs._(_root);
 	@override late final _TranslationsSignUpEs signUp = _TranslationsSignUpEs._(_root);
 	@override late final _TranslationsSpeciesEs species = _TranslationsSpeciesEs._(_root);
 	@override late final _TranslationsSpeciesDetailsEs speciesDetails = _TranslationsSpeciesDetailsEs._(_root);
+	@override late final _TranslationsSpeciesDetailsPageEs speciesDetailsPage = _TranslationsSpeciesDetailsPageEs._(_root);
+	@override late final _TranslationsStaffEs staff = _TranslationsStaffEs._(_root);
 	@override late final _TranslationsUserCredentialFailureEs userCredentialFailure = _TranslationsUserCredentialFailureEs._(_root);
 	@override late final _TranslationsValidatorEs validator = _TranslationsValidatorEs._(_root);
 }
@@ -678,6 +892,18 @@ class _TranslationsAboutProjectEs implements _TranslationsAboutProjectEn {
 	@override String get address => 'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 }
 
+// Path: authors
+class _TranslationsAuthorsEs implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Autores';
+	@override String get withoutAuthors => 'Parece que no hay autores aquí';
+	@override String get professionNotAvailable => 'Profesión no disponible';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarEs._(this._root);
@@ -685,9 +911,20 @@ class _TranslationsBottomBarEs implements _TranslationsBottomBarEn {
 	@override final _TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get home => 'inicio';
+	@override String get home => 'Inicio';
 	@override String get search => 'Buscar';
-	@override String get favorites => 'favoritos';
+	@override String get favorites => 'Favoritos';
+}
+
+// Path: community
+class _TranslationsCommunityEs implements _TranslationsCommunityEn {
+	_TranslationsCommunityEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Comunidades indígenas';
+	@override String get withoutCommunities => 'Parece que no hay comunidades indígenas aquí';
 }
 
 // Path: deleteAccount
@@ -713,6 +950,25 @@ class _TranslationsDeleteAccountEs implements _TranslationsDeleteAccountEn {
 	@override String get notRegistered => 'No registrado';
 }
 
+// Path: drawer
+class _TranslationsDrawerEs implements _TranslationsDrawerEn {
+	_TranslationsDrawerEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get account => 'Cuenta';
+	@override String get profile => 'Perfil';
+	@override String get content => 'Contenido';
+	@override String get species => 'Especies';
+	@override String get communities => 'Comunidades indígenas';
+	@override String get authors => 'Autores';
+	@override String get about => 'Acerca de';
+	@override String get staff => 'Staff';
+	@override String get aboutGuide => 'Sobre la guía';
+	@override String get menu => 'Menú';
+}
+
 // Path: editProfile
 class _TranslationsEditProfileEs implements _TranslationsEditProfileEn {
 	_TranslationsEditProfileEs._(this._root);
@@ -726,6 +982,32 @@ class _TranslationsEditProfileEs implements _TranslationsEditProfileEn {
 	@override String get saving => 'Guardando...';
 	@override String get errorSaving => 'Error al guardar los datos del perfil';
 	@override String get selectImage => 'Seleccione una imagen de perfil';
+	@override String get errorSave => 'Error al guardar el perfil';
+}
+
+// Path: errorPage
+class _TranslationsErrorPageEs implements _TranslationsErrorPageEn {
+	_TranslationsErrorPageEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get page_not_exist => 'Esta página ya no existe';
+	@override String get go_back => 'Volver a especies';
+}
+
+// Path: favoriteRepository
+class _TranslationsFavoriteRepositoryEs implements _TranslationsFavoriteRepositoryEn {
+	_TranslationsFavoriteRepositoryEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get getSpeciesNetworkError => 'Error de conexión al obtener tus especies favoritas';
+	@override String get getSpeciesUnknownError => 'Error desconocido al obtener tus especies favoritas';
+	@override String get getSpeciesEmptyError => 'Algunas de tus especies favoritas no se encontraron';
+	@override String get updateSpeciesNetworkError => 'Error de conexión al actualizar tus especies favoritas';
+	@override String get updateSpeciesUnknownError => 'Error desconocido al actualizar tus especies favoritas';
 }
 
 // Path: favorites
@@ -737,10 +1019,14 @@ class _TranslationsFavoritesEs implements _TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoritos';
 	@override String get hintText => 'Busca tu favorito';
-	@override String get close => 'Cerrar';
-	@override String get search => 'Buscar';
 	@override String get exceptionText => 'Aún no hay especies aquí';
 	@override String get deleteFavorite => 'Quitar de favoritos';
+	@override String get empty => 'Empieza a marcar especies como favoritas para verlas aquí';
+	@override String get error => 'Hemos hecho cambios importantes, toca en \'Recuperar las especies\' para actualizar la información, asegurate tener conexión a internet';
+	@override String get canNot => 'No se pudo realizar esta acción';
+	@override String get reestoreSpecies => 'Recuperar las especies';
+	@override String get withoutSpecies => 'Todavía no tienes especies favoritas, puedes agregarlas desde la sección de especies';
+	@override String get yeah => '!Se han restaurado todas tus especies favoritas!';
 }
 
 // Path: filterOptions
@@ -777,6 +1063,55 @@ class _TranslationsForgotPasswordEs implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Limpiar';
 	@override String get message => 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 	@override String get checkYourEmail => '¡Revisa tu correo!';
+}
+
+// Path: general
+class _TranslationsGeneralEs implements _TranslationsGeneralEn {
+	_TranslationsGeneralEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Atrás';
+	@override String get close => 'Cerrar';
+	@override String get clear => 'Limpiar';
+	@override String get search => 'Buscar';
+	@override String get addToFavorites => 'Agregar a favoritos';
+	@override String get removeFromFavorites => 'Quitar de favoritos';
+	@override String get error404Again => 'Algo salió mal, inténtalo de nuevo';
+	@override String get nameNotAvailable => 'Nombre no disponible';
+	@override String get lastnameNotAvailable => 'Apellidos no disponibles';
+	@override String get descriptionNotAvailable => 'Descripción no disponible';
+}
+
+// Path: pdfPreviewPage
+class _TranslationsPdfPreviewPageEs implements _TranslationsPdfPreviewPageEn {
+	_TranslationsPdfPreviewPageEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get amazon => 'Amazonía';
+	@override String get institute => 'Instituto de Investigación de la Amazonía Peruana';
+	@override String get title => 'Guía ilustrada de flora y fauna';
+	@override String get commonNameNotAvailable => 'Nombre común no disponible';
+	@override String get scientificNameNotAvailable => 'Nombre científico no disponible';
+	@override String get author => 'Autor';
+	@override String get authors => 'Autores';
+	@override String get imageNotAvailable => 'Imagen no está disponible';
+	@override String get taxonomicInformation => 'Información taxonómica';
+	@override String get kingdom => 'Reino';
+	@override String get phylum => 'Filo';
+	@override String get class_ => 'Clase';
+	@override String get order => 'Orden';
+	@override String get family => 'Familia';
+	@override String get authorInformation => 'Información del autor';
+	@override String get name => 'Nombre';
+	@override String get lastname => 'Apellidos';
+	@override String get profession => 'Profesión';
+	@override String get bornIn => 'Nació en';
+	@override String get diedIn => 'Falleció en';
+	@override String get year => 'Año';
 }
 
 // Path: profile
@@ -827,6 +1162,8 @@ class _TranslationsSearchPageEs implements _TranslationsSearchPageEn {
 	@override String get errorFetchingSpecies => 'No se encontraron especies relacionadas con tu búsqueda. Por favor, intenta nuevamente con otra clase, orden o familia.';
 	@override String get acceptText => 'Aceptar';
 	@override String get updateText => 'Actualizar';
+	@override String get aToZ => 'A-Z';
+	@override String get zToA => 'Z-A';
 }
 
 // Path: signIn
@@ -890,8 +1227,6 @@ class _TranslationsSpeciesEs implements _TranslationsSpeciesEn {
 	@override String get insects => 'Insectos';
 	@override String get trees => 'Árboles';
 	@override String get palms => 'Palmeras';
-	@override String get deleteFavorite => 'Quitar de favoritos';
-	@override String get saveFavorite => 'Guardar en favoritos';
 	@override String get orderName => 'Nombre común';
 	@override String get orderScientificName => 'Nombre científico';
 }
@@ -904,23 +1239,97 @@ class _TranslationsSpeciesDetailsEs implements _TranslationsSpeciesDetailsEn {
 
 	// Translations
 	@override String get authors => 'Autores';
-	@override String get taxonomicInfo => 'Información Taxonómica';
+	@override String get taxonomicInfo => 'Información taxonómica';
 	@override String get kingdom => 'Reino';
-	@override String get filo => 'Filo';
+	@override String get phylum => 'Filo';
 	@override String get classes => 'Clase';
 	@override String get order => 'Orden';
 	@override String get family => 'Familia';
 	@override String get download => 'Descargar';
 	@override String get generatePdf => 'Generar PDF';
-	@override String get downloadImage => 'Descargar Imagen';
-	@override String get downloadAudio => 'Descargar Audio';
+	@override String get downloadImage => 'Descargar imagen';
+	@override String get downloadAudio => 'Descargar audio';
 	@override String get share => 'Compartir';
-	@override String get saveToFavorite => 'Guardar en Favoritos';
-	@override String get deleteFromFavorite => 'Eliminar de Favoritos';
-	@override String get errorDownload => 'Error al Descargar';
-	@override String get successDownload => 'Descarga Exitosa';
+	@override String get errorDownload => 'Error al descargar';
+	@override String get successDownload => '¡Descarga exitosa!';
 	@override String get shareAmazonInfo => '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre.';
 	@override String get shareAmazon => '¡Comparte la belleza de la Amazonía!';
+	@override String get conservationStatus => 'Estados de conservación';
+	@override String get extinct => 'Extinto';
+	@override String get extinctDescription => 'La especie ya no existe en la naturaleza';
+	@override String get extinctWild => 'Extinto en estado silvestre';
+	@override String get extinctWildDescription => 'La especie solo existe en cautiverio';
+	@override String get criticallyEndangered => 'En peligro crítico';
+	@override String get criticallyEndangeredDescription => 'La especie tiene un riesgo extremadamente alto de extinción en la naturaleza';
+	@override String get endangered => 'En peligro';
+	@override String get endangeredDescription => 'La especie tiene un riesgo muy alto de extinción en la naturaleza';
+	@override String get vulnerable => 'Vulnerable';
+	@override String get vulnerableDescription => 'La especie tiene un riesgo alto de extinción en la naturaleza';
+	@override String get almostThreatened => 'Casi amenazado';
+	@override String get almostThreatenedDescription => 'La especie no está en peligro de extinción, pero podría estarlo en el futuro';
+	@override String get minorConcern => 'Preocupación menor';
+	@override String get minorConcernDescription => 'La especie no está en peligro de extinción';
+	@override String get insufficientData => 'Datos insuficientes';
+	@override String get insufficientDataDescription => 'No hay suficiente información para evaluar el riesgo de extinción de la especie';
+	@override String get notRated => 'No evaluado';
+	@override String get notRatedDescription => 'La especie no ha sido evaluada por la UICN';
+	@override String get appendix1 => 'Apéndice I';
+	@override String get appendix1Description => 'Todas las especies en peligro de extinción. El comercio de especímenes de esas especies se autoriza solamente bajo circunstancias excepcionales';
+	@override String get appendix2 => 'Apéndice II';
+	@override String get appendix2Description => 'Especies que no se encuentran necesariamente en peligro de extinción, pero cuyo comercio debe controlarse a fin de evitar una utilización incompatible con su supervivencia';
+	@override String get appendix3 => 'Apéndice III';
+	@override String get appendix3Description => 'Especies que están protegidas al menos en un país, el cual ha solicitado la asistencia de otras Partes en la CITES para controlar su comercio';
+}
+
+// Path: speciesDetailsPage
+class _TranslationsSpeciesDetailsPageEs implements _TranslationsSpeciesDetailsPageEn {
+	_TranslationsSpeciesDetailsPageEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get download => 'Descargar';
+	@override String get errorDownload => 'No se pudo descargar';
+	@override String get downloadImage => 'Descargar imagen';
+	@override String get downloadAudio => 'Descargar audio';
+	@override String get share => 'Compartir';
+	@override String get generatePdf => 'Generar PDF';
+	@override String get attractiveMessage => 'Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre';
+	@override String get conservationStates => 'Estados de conservación';
+	@override String get noInformation => 'Sin información';
+	@override String get nameNotAvailable => 'Nombre no disponible';
+	@override String get scientificNameNotAvailable => 'Nombre científico no disponible';
+	@override String get year => 'Año';
+}
+
+// Path: staff
+class _TranslationsStaffEs implements _TranslationsStaffEn {
+	_TranslationsStaffEs._(this._root);
+
+	@override final _TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Team';
+	@override String get coordinationTeam => 'Coordination team';
+	@override String get editorialCoordination => 'Editorial coordination';
+	@override String get reviewCommittee => 'Review committee';
+	@override String get textReview => 'Text review:';
+	@override String get birdReview => 'Bird review:';
+	@override String get fishReview => 'Fish review:';
+	@override String get insectReview => 'Insect review:';
+	@override String get plantReview => 'Plant review:';
+	@override String get mapMaking => 'Map making:';
+	@override String get illustrations => 'Illustrations:';
+	@override String get sounds => 'Sounds';
+	@override String get birds => 'Birds';
+	@override String get monkeys => 'Monkeys';
+	@override String get amphibians => 'Amphibians';
+	@override String get developmentTeam => 'Development team';
+	@override String get technicalLeader => 'Technical leader';
+	@override String get mobileDeveloper => 'Mobile developer';
+	@override String get developmentFrontend => 'Frontend developer';
+	@override String get developmentBackend => 'Backend developer';
+	@override String get briefcase => 'Portfolio';
 }
 
 // Path: userCredentialFailure
@@ -1131,18 +1540,27 @@ class _TranslationsFr implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectFr aboutProject = _TranslationsAboutProjectFr._(_root);
+	@override late final _TranslationsAuthorsFr authors = _TranslationsAuthorsFr._(_root);
 	@override late final _TranslationsBottomBarFr bottomBar = _TranslationsBottomBarFr._(_root);
+	@override late final _TranslationsCommunityFr community = _TranslationsCommunityFr._(_root);
 	@override late final _TranslationsDeleteAccountFr deleteAccount = _TranslationsDeleteAccountFr._(_root);
+	@override late final _TranslationsDrawerFr drawer = _TranslationsDrawerFr._(_root);
 	@override late final _TranslationsEditProfileFr editProfile = _TranslationsEditProfileFr._(_root);
+	@override late final _TranslationsErrorPageFr errorPage = _TranslationsErrorPageFr._(_root);
+	@override late final _TranslationsFavoriteRepositoryFr favoriteRepository = _TranslationsFavoriteRepositoryFr._(_root);
 	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
 	@override late final _TranslationsFilterOptionsFr filterOptions = _TranslationsFilterOptionsFr._(_root);
 	@override late final _TranslationsForgotPasswordFr forgotPassword = _TranslationsForgotPasswordFr._(_root);
+	@override late final _TranslationsGeneralFr general = _TranslationsGeneralFr._(_root);
+	@override late final _TranslationsPdfPreviewPageFr pdfPreviewPage = _TranslationsPdfPreviewPageFr._(_root);
 	@override late final _TranslationsProfileFr profile = _TranslationsProfileFr._(_root);
 	@override late final _TranslationsSearchPageFr searchPage = _TranslationsSearchPageFr._(_root);
 	@override late final _TranslationsSignInFr signIn = _TranslationsSignInFr._(_root);
 	@override late final _TranslationsSignUpFr signUp = _TranslationsSignUpFr._(_root);
 	@override late final _TranslationsSpeciesFr species = _TranslationsSpeciesFr._(_root);
 	@override late final _TranslationsSpeciesDetailsFr speciesDetails = _TranslationsSpeciesDetailsFr._(_root);
+	@override late final _TranslationsSpeciesDetailsPageFr speciesDetailsPage = _TranslationsSpeciesDetailsPageFr._(_root);
+	@override late final _TranslationsStaffFr staff = _TranslationsStaffFr._(_root);
 	@override late final _TranslationsUserCredentialFailureFr userCredentialFailure = _TranslationsUserCredentialFailureFr._(_root);
 	@override late final _TranslationsValidatorFr validator = _TranslationsValidatorFr._(_root);
 }
@@ -1168,6 +1586,18 @@ class _TranslationsAboutProjectFr implements _TranslationsAboutProjectEn {
 	@override String get address => 'Route Iquitos - Nauta Km 4.5, Quistococha, District de San Juan Bautista, Maynas, Loreto : ';
 }
 
+// Path: authors
+class _TranslationsAuthorsFr implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Auteurs';
+	@override String get withoutAuthors => 'Il semble qu\'il n\'y ait pas d\'auteurs ici';
+	@override String get professionNotAvailable => 'Profession non disponible';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarFr._(this._root);
@@ -1178,6 +1608,17 @@ class _TranslationsBottomBarFr implements _TranslationsBottomBarEn {
 	@override String get home => 'Accueil';
 	@override String get search => 'Rechercher';
 	@override String get favorites => 'Favoris';
+}
+
+// Path: community
+class _TranslationsCommunityFr implements _TranslationsCommunityEn {
+	_TranslationsCommunityFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Communautés autochtones';
+	@override String get withoutCommunities => 'Il semble qu\'il n\'y ait pas de communautés autochtones ici';
 }
 
 // Path: deleteAccount
@@ -1203,6 +1644,25 @@ class _TranslationsDeleteAccountFr implements _TranslationsDeleteAccountEn {
 	@override String get notRegistered => 'Non inscrit';
 }
 
+// Path: drawer
+class _TranslationsDrawerFr implements _TranslationsDrawerEn {
+	_TranslationsDrawerFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get account => 'Compte';
+	@override String get profile => 'Profil';
+	@override String get content => 'Contenu';
+	@override String get species => 'Espèces';
+	@override String get communities => 'Communautés autochtones';
+	@override String get authors => 'Auteurs';
+	@override String get about => 'À propos';
+	@override String get staff => 'Équipe';
+	@override String get aboutGuide => 'À propos du guide';
+	@override String get menu => 'Menu';
+}
+
 // Path: editProfile
 class _TranslationsEditProfileFr implements _TranslationsEditProfileEn {
 	_TranslationsEditProfileFr._(this._root);
@@ -1210,11 +1670,38 @@ class _TranslationsEditProfileFr implements _TranslationsEditProfileEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get errorSnack => 'Erreur lors du chargement des données de l\'utilisateur';
+	@override String get errorSnack => 'Erreur lors du chargement des données utilisateur';
 	@override String get title => 'Modifier le profil';
 	@override String get save => 'Enregistrer';
-	@override String get saving => 'Enregistrement en cours...';
+	@override String get saving => 'Enregistrement...';
 	@override String get errorSaving => 'Erreur lors de l\'enregistrement des données du profil';
+	@override String get selectImage => 'Sélectionnez une photo de profil';
+	@override String get errorSave => 'Erreur lors de l\'enregistrement du profil';
+}
+
+// Path: errorPage
+class _TranslationsErrorPageFr implements _TranslationsErrorPageEn {
+	_TranslationsErrorPageFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get page_not_exist => 'Cette page n\'existe plus';
+	@override String get go_back => 'Retour aux espèces';
+}
+
+// Path: favoriteRepository
+class _TranslationsFavoriteRepositoryFr implements _TranslationsFavoriteRepositoryEn {
+	_TranslationsFavoriteRepositoryFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get getSpeciesNetworkError => 'Erreur de réseau lors de la récupération de vos espèces favorites';
+	@override String get getSpeciesUnknownError => 'Erreur inconnue lors de la récupération de vos espèces favorites';
+	@override String get getSpeciesEmptyError => 'Certaines de vos espèces favorites n\'ont pas été trouvées';
+	@override String get updateSpeciesNetworkError => 'Erreur de réseau lors de la mise à jour de vos espèces favorites';
+	@override String get updateSpeciesUnknownError => 'Erreur inconnue lors de la mise à jour de vos espèces favorites';
 }
 
 // Path: favorites
@@ -1226,10 +1713,14 @@ class _TranslationsFavoritesFr implements _TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoris';
 	@override String get hintText => 'Recherchez votre favori';
-	@override String get close => 'Fermer';
-	@override String get search => 'Chercher';
-	@override String get exceptionText => 'Pas encore d\'espèces ici';
-	@override String get deleteFavorite => 'Supprimer des favoris';
+	@override String get exceptionText => 'Il n\'y a pas encore d\'espèces ici';
+	@override String get deleteFavorite => 'Retirer des favoris';
+	@override String get empty => 'Commencez à marquer des espèces comme favorites pour les voir ici';
+	@override String get error => 'Nous avons apporté des modifications importantes, appuyez sur \'Restaurer les espèces\' pour mettre à jour les informations, assurez-vous d\'avoir une connexion Internet';
+	@override String get canNot => 'Cette action n\'a pas pu être effectuée';
+	@override String get reestoreSpecies => 'Restaurer les espèces';
+	@override String get withoutSpecies => 'Vous n\'avez pas encore d\'espèces favorites, vous pouvez les ajouter depuis la section des espèces';
+	@override String get yeah => 'Toutes vos espèces favorites ont été restaurées!';
 }
 
 // Path: filterOptions
@@ -1266,6 +1757,55 @@ class _TranslationsForgotPasswordFr implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Effacer';
 	@override String get message => 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 	@override String get checkYourEmail => 'Vérifiez votre e-mail !';
+}
+
+// Path: general
+class _TranslationsGeneralFr implements _TranslationsGeneralEn {
+	_TranslationsGeneralFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Retour';
+	@override String get close => 'Fermer';
+	@override String get clear => 'Effacer';
+	@override String get search => 'Rechercher';
+	@override String get addToFavorites => 'Ajouter aux favoris';
+	@override String get removeFromFavorites => 'Retirer des favoris';
+	@override String get error404Again => 'Quelque chose s\'est mal passé, veuillez réessayer';
+	@override String get nameNotAvailable => 'Nom non disponible';
+	@override String get lastnameNotAvailable => 'Nom de famille non disponible';
+	@override String get descriptionNotAvailable => 'Description non disponible';
+}
+
+// Path: pdfPreviewPage
+class _TranslationsPdfPreviewPageFr implements _TranslationsPdfPreviewPageEn {
+	_TranslationsPdfPreviewPageFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get amazon => 'Amazone';
+	@override String get institute => 'Institut de Recherche de l\'Amazonie Péruvienne';
+	@override String get title => 'Guide illustré de la flore et de la faune';
+	@override String get commonNameNotAvailable => 'Nom commun non disponible';
+	@override String get scientificNameNotAvailable => 'Nom scientifique non disponible';
+	@override String get author => 'Auteur';
+	@override String get authors => 'Auteurs';
+	@override String get imageNotAvailable => 'Image non disponible';
+	@override String get taxonomicInformation => 'Informations taxonomiques';
+	@override String get kingdom => 'Règne';
+	@override String get phylum => 'Embranchement';
+	@override String get class_ => 'Classe';
+	@override String get order => 'Ordre';
+	@override String get family => 'Famille';
+	@override String get authorInformation => 'Informations sur l\'auteur';
+	@override String get name => 'Prénom';
+	@override String get lastname => 'Nom';
+	@override String get profession => 'Profession';
+	@override String get bornIn => 'Né en';
+	@override String get diedIn => 'Décédé en';
+	@override String get year => 'Année';
 }
 
 // Path: profile
@@ -1316,6 +1856,8 @@ class _TranslationsSearchPageFr implements _TranslationsSearchPageEn {
 	@override String get errorFetchingSpecies => 'Aucune espèce trouvée liée à votre recherche. Veuillez réessayer avec une autre classe, ordre ou famille.';
 	@override String get acceptText => 'Accepter';
 	@override String get updateText => 'Mettre à jour';
+	@override String get aToZ => 'A-Z';
+	@override String get zToA => 'Z-A';
 }
 
 // Path: signIn
@@ -1370,19 +1912,17 @@ class _TranslationsSpeciesFr implements _TranslationsSpeciesEn {
 	@override final _TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Espécies';
-	@override String get birds => 'Aves';
-	@override String get mammals => 'Mamíferos';
-	@override String get reptiles => 'Répteis';
-	@override String get amphibians => 'Anfíbios';
-	@override String get fishes => 'Peixes';
-	@override String get insects => 'Insetos';
-	@override String get trees => 'Árvores';
-	@override String get palms => 'Palmeiras';
-	@override String get deleteFavorite => 'Remover dos Favoritos';
-	@override String get saveFavorite => 'Salvar nos Favoritos';
-	@override String get orderName => 'Ordenar por Nome Comum';
-	@override String get orderScientificName => 'Ordenar por Nome Científico';
+	@override String get title => 'Espèces';
+	@override String get birds => 'Oiseaux';
+	@override String get mammals => 'Mammifères';
+	@override String get reptiles => 'Reptiles';
+	@override String get amphibians => 'Amphibiens';
+	@override String get fishes => 'Poissons';
+	@override String get insects => 'Insectes';
+	@override String get trees => 'Arbres';
+	@override String get palms => 'Palmiers';
+	@override String get orderName => 'Nom commun';
+	@override String get orderScientificName => 'Nom scientifique';
 }
 
 // Path: speciesDetails
@@ -1393,23 +1933,97 @@ class _TranslationsSpeciesDetailsFr implements _TranslationsSpeciesDetailsEn {
 
 	// Translations
 	@override String get authors => 'Auteurs';
-	@override String get taxonomicInfo => 'Information Taxonomique';
-	@override String get kingdom => 'Royaume';
-	@override String get filo => 'Phylum';
+	@override String get taxonomicInfo => 'Informations Taxonomiques';
+	@override String get kingdom => 'Règne';
+	@override String get phylum => 'Phylum';
 	@override String get classes => 'Classe';
 	@override String get order => 'Ordre';
 	@override String get family => 'Famille';
 	@override String get download => 'Télécharger';
-	@override String get generatePdf => 'Générer PDF';
-	@override String get downloadImage => 'Télécharger l\'Image';
-	@override String get downloadAudio => 'Télécharger l\'Audio';
+	@override String get generatePdf => 'Générer un PDF';
+	@override String get downloadImage => 'Télécharger l\'image';
+	@override String get downloadAudio => 'Télécharger l\'audio';
 	@override String get share => 'Partager';
-	@override String get saveToFavorite => 'Enregistrer dans les Favoris';
-	@override String get deleteFromFavorite => 'Supprimer des Favoris';
 	@override String get errorDownload => 'Erreur de Téléchargement';
-	@override String get successDownload => 'Téléchargement Réussi';
+	@override String get successDownload => 'Téléchargement réussi !';
 	@override String get shareAmazonInfo => 'Partagez la beauté de l\'Amazonie ! Partagez ces précieuses informations sur.';
 	@override String get shareAmazon => 'Partagez la beauté de l\'Amazonie !';
+	@override String get conservationStatus => 'Statut de Conservation';
+	@override String get extinct => 'Éteint';
+	@override String get extinctDescription => 'L\'espèce n\'existe plus à l\'état sauvage';
+	@override String get extinctWild => 'Éteint dans la Nature';
+	@override String get extinctWildDescription => 'L\'espèce n\'existe plus qu\'en captivité';
+	@override String get criticallyEndangered => 'En Danger Critique';
+	@override String get criticallyEndangeredDescription => 'L\'espèce présente un risque extrêmement élevé d\'extinction dans la nature';
+	@override String get endangered => 'En Danger';
+	@override String get endangeredDescription => 'L\'espèce présente un risque très élevé d\'extinction dans la nature';
+	@override String get vulnerable => 'Vulnérable';
+	@override String get vulnerableDescription => 'L\'espèce présente un risque élevé d\'extinction dans la nature';
+	@override String get almostThreatened => 'Quasi Menacé';
+	@override String get almostThreatenedDescription => 'L\'espèce n\'est pas en danger, mais pourrait l\'être à l\'avenir';
+	@override String get minorConcern => 'Préoccupation Mineure';
+	@override String get minorConcernDescription => 'L\'espèce n\'est pas en danger d\'extinction';
+	@override String get insufficientData => 'Données Insuffisantes';
+	@override String get insufficientDataDescription => 'Il n\'y a pas suffisamment d\'informations pour évaluer le risque d\'extinction de l\'espèce';
+	@override String get notRated => 'Non Évalué';
+	@override String get notRatedDescription => 'L\'espèce n\'a pas été évaluée par l\'UICN';
+	@override String get appendix1 => 'Annexe I';
+	@override String get appendix1Description => 'Toutes les espèces menacées d\'extinction. Le commerce des spécimens de ces espèces n\'est autorisé que dans des circonstances exceptionnelles';
+	@override String get appendix2 => 'Annexe II';
+	@override String get appendix2Description => 'Espèces non nécessairement menacées d\'extinction, mais dont le commerce doit être contrôlé afin d\'éviter une utilisation incompatible avec leur survie';
+	@override String get appendix3 => 'Annexe III';
+	@override String get appendix3Description => 'Espèces protégées dans au moins un pays, qui ont demandé l\'assistance d\'autres Parties de la CITES pour contrôler le commerce de l\'espèce';
+}
+
+// Path: speciesDetailsPage
+class _TranslationsSpeciesDetailsPageFr implements _TranslationsSpeciesDetailsPageEn {
+	_TranslationsSpeciesDetailsPageFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get download => 'Télécharger';
+	@override String get errorDownload => 'Téléchargement impossible';
+	@override String get downloadImage => 'Télécharger l\'image';
+	@override String get downloadAudio => 'Télécharger l\'audio';
+	@override String get share => 'Partager';
+	@override String get generatePdf => 'Générer PDF';
+	@override String get attractiveMessage => 'Partagez la beauté de l\'Amazonie ! Partagez cette information précieuse sur';
+	@override String get conservationStates => 'Statuts de conservation';
+	@override String get noInformation => 'Pas d\'information';
+	@override String get nameNotAvailable => 'Nom non disponible';
+	@override String get scientificNameNotAvailable => 'Nom scientifique non disponible';
+	@override String get year => 'Année';
+}
+
+// Path: staff
+class _TranslationsStaffFr implements _TranslationsStaffEn {
+	_TranslationsStaffFr._(this._root);
+
+	@override final _TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Équipe de travail';
+	@override String get coordinationTeam => 'Équipe de coordination';
+	@override String get editorialCoordination => 'Coordination éditoriale';
+	@override String get reviewCommittee => 'Comité de révision';
+	@override String get textReview => 'Révision de textes :';
+	@override String get birdReview => 'Révision des oiseaux :';
+	@override String get fishReview => 'Révision des poissons :';
+	@override String get insectReview => 'Révision des insectes :';
+	@override String get plantReview => 'Révision des plantes :';
+	@override String get mapMaking => 'Élaboration des cartes :';
+	@override String get illustrations => 'Illustrations :';
+	@override String get sounds => 'Sons';
+	@override String get birds => 'Oiseaux';
+	@override String get monkeys => 'Singes';
+	@override String get amphibians => 'Amphibiens';
+	@override String get developmentTeam => 'Équipe de développement';
+	@override String get technicalLeader => 'Responsable technique';
+	@override String get mobileDeveloper => 'Développeur mobile';
+	@override String get developmentFrontend => 'Développeur frontend';
+	@override String get developmentBackend => 'Développeur backend';
+	@override String get briefcase => 'Portefeuille';
 }
 
 // Path: userCredentialFailure
@@ -1620,18 +2234,27 @@ class _TranslationsPt implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectPt aboutProject = _TranslationsAboutProjectPt._(_root);
+	@override late final _TranslationsAuthorsPt authors = _TranslationsAuthorsPt._(_root);
 	@override late final _TranslationsBottomBarPt bottomBar = _TranslationsBottomBarPt._(_root);
+	@override late final _TranslationsCommunityPt community = _TranslationsCommunityPt._(_root);
 	@override late final _TranslationsDeleteAccountPt deleteAccount = _TranslationsDeleteAccountPt._(_root);
+	@override late final _TranslationsDrawerPt drawer = _TranslationsDrawerPt._(_root);
 	@override late final _TranslationsEditProfilePt editProfile = _TranslationsEditProfilePt._(_root);
+	@override late final _TranslationsErrorPagePt errorPage = _TranslationsErrorPagePt._(_root);
+	@override late final _TranslationsFavoriteRepositoryPt favoriteRepository = _TranslationsFavoriteRepositoryPt._(_root);
 	@override late final _TranslationsFavoritesPt favorites = _TranslationsFavoritesPt._(_root);
 	@override late final _TranslationsFilterOptionsPt filterOptions = _TranslationsFilterOptionsPt._(_root);
 	@override late final _TranslationsForgotPasswordPt forgotPassword = _TranslationsForgotPasswordPt._(_root);
+	@override late final _TranslationsGeneralPt general = _TranslationsGeneralPt._(_root);
+	@override late final _TranslationsPdfPreviewPagePt pdfPreviewPage = _TranslationsPdfPreviewPagePt._(_root);
 	@override late final _TranslationsProfilePt profile = _TranslationsProfilePt._(_root);
 	@override late final _TranslationsSearchPagePt searchPage = _TranslationsSearchPagePt._(_root);
 	@override late final _TranslationsSignInPt signIn = _TranslationsSignInPt._(_root);
 	@override late final _TranslationsSignUpPt signUp = _TranslationsSignUpPt._(_root);
 	@override late final _TranslationsSpeciesPt species = _TranslationsSpeciesPt._(_root);
 	@override late final _TranslationsSpeciesDetailsPt speciesDetails = _TranslationsSpeciesDetailsPt._(_root);
+	@override late final _TranslationsSpeciesDetailsPagePt speciesDetailsPage = _TranslationsSpeciesDetailsPagePt._(_root);
+	@override late final _TranslationsStaffPt staff = _TranslationsStaffPt._(_root);
 	@override late final _TranslationsUserCredentialFailurePt userCredentialFailure = _TranslationsUserCredentialFailurePt._(_root);
 	@override late final _TranslationsValidatorPt validator = _TranslationsValidatorPt._(_root);
 }
@@ -1657,6 +2280,18 @@ class _TranslationsAboutProjectPt implements _TranslationsAboutProjectEn {
 	@override String get address => 'Estrada Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
 }
 
+// Path: authors
+class _TranslationsAuthorsPt implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Autores';
+	@override String get withoutAuthors => 'Parece que não há autores aqui';
+	@override String get professionNotAvailable => 'Profissão não disponível';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarPt._(this._root);
@@ -1667,6 +2302,17 @@ class _TranslationsBottomBarPt implements _TranslationsBottomBarEn {
 	@override String get home => 'Início';
 	@override String get search => 'Buscar';
 	@override String get favorites => 'Favoritos';
+}
+
+// Path: community
+class _TranslationsCommunityPt implements _TranslationsCommunityEn {
+	_TranslationsCommunityPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Comunidades indígenas';
+	@override String get withoutCommunities => 'Parece que não há comunidades indígenas aqui';
 }
 
 // Path: deleteAccount
@@ -1692,6 +2338,25 @@ class _TranslationsDeleteAccountPt implements _TranslationsDeleteAccountEn {
 	@override String get notRegistered => 'Não registrado';
 }
 
+// Path: drawer
+class _TranslationsDrawerPt implements _TranslationsDrawerEn {
+	_TranslationsDrawerPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get account => 'Conta';
+	@override String get profile => 'Perfil';
+	@override String get content => 'Conteúdo';
+	@override String get species => 'Espécies';
+	@override String get communities => 'Comunidades indígenas';
+	@override String get authors => 'Autores';
+	@override String get about => 'Sobre';
+	@override String get staff => 'Equipe';
+	@override String get aboutGuide => 'Sobre o guia';
+	@override String get menu => 'Menu';
+}
+
 // Path: editProfile
 class _TranslationsEditProfilePt implements _TranslationsEditProfileEn {
 	_TranslationsEditProfilePt._(this._root);
@@ -1704,6 +2369,33 @@ class _TranslationsEditProfilePt implements _TranslationsEditProfileEn {
 	@override String get save => 'Salvar';
 	@override String get saving => 'Salvando...';
 	@override String get errorSaving => 'Erro ao salvar os dados do perfil';
+	@override String get selectImage => 'Selecione uma imagem de perfil';
+	@override String get errorSave => 'Erro ao salvar o perfil';
+}
+
+// Path: errorPage
+class _TranslationsErrorPagePt implements _TranslationsErrorPageEn {
+	_TranslationsErrorPagePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get page_not_exist => 'Esta página não existe mais';
+	@override String get go_back => 'Voltar para espécies';
+}
+
+// Path: favoriteRepository
+class _TranslationsFavoriteRepositoryPt implements _TranslationsFavoriteRepositoryEn {
+	_TranslationsFavoriteRepositoryPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get getSpeciesNetworkError => 'Erro de rede ao buscar suas espécies favoritas';
+	@override String get getSpeciesUnknownError => 'Erro desconhecido ao buscar suas espécies favoritas';
+	@override String get getSpeciesEmptyError => 'Algumas de suas espécies favoritas não foram encontradas';
+	@override String get updateSpeciesNetworkError => 'Erro de rede ao atualizar suas espécies favoritas';
+	@override String get updateSpeciesUnknownError => 'Erro desconhecido ao atualizar suas espécies favoritas';
 }
 
 // Path: favorites
@@ -1714,11 +2406,15 @@ class _TranslationsFavoritesPt implements _TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => 'Favoritos';
-	@override String get hintText => 'Procure o seu favorito';
-	@override String get close => 'Fechar';
-	@override String get search => 'Pesquisar';
+	@override String get hintText => 'Procure seu favorito';
 	@override String get exceptionText => 'Ainda não há espécies aqui';
 	@override String get deleteFavorite => 'Remover dos favoritos';
+	@override String get empty => 'Comece a marcar espécies como favoritas para vê-las aqui';
+	@override String get error => 'Fizemos mudanças importantes, toque em \'Restaurar as espécies\' para atualizar as informações, certifique-se de estar conectado à internet';
+	@override String get canNot => 'Não foi possível realizar esta ação';
+	@override String get reestoreSpecies => 'Restaurar as espécies';
+	@override String get withoutSpecies => 'Você ainda não tem espécies favoritas, pode adicioná-las na seção de espécies';
+	@override String get yeah => 'Todas as suas espécies favoritas foram restauradas!';
 }
 
 // Path: filterOptions
@@ -1755,6 +2451,55 @@ class _TranslationsForgotPasswordPt implements _TranslationsForgotPasswordEn {
 	@override String get clear => 'Limpar';
 	@override String get message => 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 	@override String get checkYourEmail => 'Verifique seu email!';
+}
+
+// Path: general
+class _TranslationsGeneralPt implements _TranslationsGeneralEn {
+	_TranslationsGeneralPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Voltar';
+	@override String get close => 'Fechar';
+	@override String get clear => 'Limpar';
+	@override String get search => 'Buscar';
+	@override String get addToFavorites => 'Adicionar aos favoritos';
+	@override String get removeFromFavorites => 'Remover dos favoritos';
+	@override String get error404Again => 'Algo deu errado, por favor tente novamente';
+	@override String get nameNotAvailable => 'Nome não disponível';
+	@override String get lastnameNotAvailable => 'Sobrenome não disponível';
+	@override String get descriptionNotAvailable => 'Descrição não disponível';
+}
+
+// Path: pdfPreviewPage
+class _TranslationsPdfPreviewPagePt implements _TranslationsPdfPreviewPageEn {
+	_TranslationsPdfPreviewPagePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get amazon => 'Amazonas';
+	@override String get institute => 'Instituto de Pesquisa da Amazônia Peruana';
+	@override String get title => 'Guia Ilustrado de Flora e Fauna';
+	@override String get commonNameNotAvailable => 'Nome comum não disponível';
+	@override String get scientificNameNotAvailable => 'Nome científico não disponível';
+	@override String get author => 'Autor';
+	@override String get authors => 'Autores';
+	@override String get imageNotAvailable => 'Imagem não disponível';
+	@override String get taxonomicInformation => 'Informação taxonômica';
+	@override String get kingdom => 'Reino';
+	@override String get phylum => 'Filo';
+	@override String get class_ => 'Classe';
+	@override String get order => 'Ordem';
+	@override String get family => 'Família';
+	@override String get authorInformation => 'Informação do autor';
+	@override String get name => 'Nome';
+	@override String get lastname => 'Sobrenome';
+	@override String get profession => 'Profissão';
+	@override String get bornIn => 'Nasceu em';
+	@override String get diedIn => 'Faleceu em';
+	@override String get year => 'Ano';
 }
 
 // Path: profile
@@ -1805,6 +2550,8 @@ class _TranslationsSearchPagePt implements _TranslationsSearchPageEn {
 	@override String get errorFetchingSpecies => 'Nenhuma espécie encontrada relacionada à sua busca. Por favor, tente novamente com outra classe, ordem ou família.';
 	@override String get acceptText => 'Aceitar';
 	@override String get updateText => 'Atualizar';
+	@override String get aToZ => 'A-Z';
+	@override String get zToA => 'Z-A';
 }
 
 // Path: signIn
@@ -1868,10 +2615,8 @@ class _TranslationsSpeciesPt implements _TranslationsSpeciesEn {
 	@override String get insects => 'Insetos';
 	@override String get trees => 'Árvores';
 	@override String get palms => 'Palmeiras';
-	@override String get deleteFavorite => 'Remover dos Favoritos';
-	@override String get saveFavorite => 'Salvar nos Favoritos';
-	@override String get orderName => 'Ordenar por Nome Comum';
-	@override String get orderScientificName => 'Ordenar por Nome Científico';
+	@override String get orderName => 'Nome comum';
+	@override String get orderScientificName => 'Nome científico';
 }
 
 // Path: speciesDetails
@@ -1884,7 +2629,7 @@ class _TranslationsSpeciesDetailsPt implements _TranslationsSpeciesDetailsEn {
 	@override String get authors => 'Autores';
 	@override String get taxonomicInfo => 'Informação Taxonômica';
 	@override String get kingdom => 'Reino';
-	@override String get filo => 'Filo';
+	@override String get phylum => 'Filo';
 	@override String get classes => 'Classe';
 	@override String get order => 'Ordem';
 	@override String get family => 'Família';
@@ -1893,12 +2638,86 @@ class _TranslationsSpeciesDetailsPt implements _TranslationsSpeciesDetailsEn {
 	@override String get downloadImage => 'Baixar Imagem';
 	@override String get downloadAudio => 'Baixar Áudio';
 	@override String get share => 'Compartilhar';
-	@override String get saveToFavorite => 'Salvar nos Favoritos';
-	@override String get deleteFromFavorite => 'Remover dos Favoritos';
 	@override String get errorDownload => 'Erro ao Baixar';
-	@override String get successDownload => 'Download Bem-Sucedido';
-	@override String get shareAmazonInfo => 'Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.';
+	@override String get successDownload => 'Download bem-sucedido!';
+	@override String get shareAmazonInfo => 'Compartilhe a beleza da Amazônia! Compartilhe estas valiosas informações sobre.';
 	@override String get shareAmazon => 'Compartilhe a beleza da Amazônia!';
+	@override String get conservationStatus => 'Status de Conservação';
+	@override String get extinct => 'Extinto';
+	@override String get extinctDescription => 'A espécie não existe mais na natureza';
+	@override String get extinctWild => 'Extinto na Natureza';
+	@override String get extinctWildDescription => 'A espécie só existe em cativeiro';
+	@override String get criticallyEndangered => 'Criticamente em Perigo';
+	@override String get criticallyEndangeredDescription => 'A espécie tem um risco extremamente alto de extinção na natureza';
+	@override String get endangered => 'Em Perigo';
+	@override String get endangeredDescription => 'A espécie tem um risco muito alto de extinção na natureza';
+	@override String get vulnerable => 'Vulnerável';
+	@override String get vulnerableDescription => 'A espécie tem um alto risco de extinção na natureza';
+	@override String get almostThreatened => 'Quase Ameaçado';
+	@override String get almostThreatenedDescription => 'A espécie não está ameaçada, mas poderia estar no futuro';
+	@override String get minorConcern => 'Preocupação Menor';
+	@override String get minorConcernDescription => 'A espécie não está em perigo de extinção';
+	@override String get insufficientData => 'Dados Insuficientes';
+	@override String get insufficientDataDescription => 'Não há informações suficientes para avaliar o risco de extinção da espécie';
+	@override String get notRated => 'Não Avaliado';
+	@override String get notRatedDescription => 'A espécie não foi avaliada pela IUCN';
+	@override String get appendix1 => 'Apêndice I';
+	@override String get appendix1Description => 'Todas as espécies ameaçadas de extinção. O comércio de exemplares dessas espécies é permitido apenas em circunstâncias excepcionais';
+	@override String get appendix2 => 'Apêndice II';
+	@override String get appendix2Description => 'Espécies não necessariamente ameaçadas de extinção, mas cujo comércio deve ser controlado para evitar um uso incompatível com sua sobrevivência';
+	@override String get appendix3 => 'Apêndice III';
+	@override String get appendix3Description => 'Espécies protegidas em pelo menos um país, que solicitou assistência de outras Partes da CITES para controlar o comércio da espécie';
+}
+
+// Path: speciesDetailsPage
+class _TranslationsSpeciesDetailsPagePt implements _TranslationsSpeciesDetailsPageEn {
+	_TranslationsSpeciesDetailsPagePt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get download => 'Baixar';
+	@override String get errorDownload => 'Não foi possível baixar';
+	@override String get downloadImage => 'Baixar imagem';
+	@override String get downloadAudio => 'Baixar áudio';
+	@override String get share => 'Compartilhar';
+	@override String get generatePdf => 'Gerar PDF';
+	@override String get attractiveMessage => 'Compartilhe a beleza da Amazônia! Compartilhe esta valiosa informação sobre';
+	@override String get conservationStates => 'Estados de conservação';
+	@override String get noInformation => 'Sem informação';
+	@override String get nameNotAvailable => 'Nome não disponível';
+	@override String get scientificNameNotAvailable => 'Nome científico não disponível';
+	@override String get year => 'Ano';
+}
+
+// Path: staff
+class _TranslationsStaffPt implements _TranslationsStaffEn {
+	_TranslationsStaffPt._(this._root);
+
+	@override final _TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Equipe de trabalho';
+	@override String get coordinationTeam => 'Equipe de coordenação';
+	@override String get editorialCoordination => 'Coordenação editorial';
+	@override String get reviewCommittee => 'Comitê de revisão';
+	@override String get textReview => 'Revisão de textos:';
+	@override String get birdReview => 'Revisão de aves:';
+	@override String get fishReview => 'Revisão de peixes:';
+	@override String get insectReview => 'Revisão de insetos:';
+	@override String get plantReview => 'Revisão de plantas:';
+	@override String get mapMaking => 'Elaboração de mapas:';
+	@override String get illustrations => 'Ilustrações:';
+	@override String get sounds => 'Sons';
+	@override String get birds => 'Aves';
+	@override String get monkeys => 'Macacos';
+	@override String get amphibians => 'Anfíbios';
+	@override String get developmentTeam => 'Equipe de desenvolvimento';
+	@override String get technicalLeader => 'Líder técnico';
+	@override String get mobileDeveloper => 'Desenvolvedor móvel';
+	@override String get developmentFrontend => 'Desenvolvedor frontend';
+	@override String get developmentBackend => 'Desenvolvedor backend';
+	@override String get briefcase => 'Portfólio';
 }
 
 // Path: userCredentialFailure
@@ -2109,18 +2928,27 @@ class _TranslationsZh implements Translations {
 
 	// Translations
 	@override late final _TranslationsAboutProjectZh aboutProject = _TranslationsAboutProjectZh._(_root);
+	@override late final _TranslationsAuthorsZh authors = _TranslationsAuthorsZh._(_root);
 	@override late final _TranslationsBottomBarZh bottomBar = _TranslationsBottomBarZh._(_root);
+	@override late final _TranslationsCommunityZh community = _TranslationsCommunityZh._(_root);
 	@override late final _TranslationsDeleteAccountZh deleteAccount = _TranslationsDeleteAccountZh._(_root);
+	@override late final _TranslationsDrawerZh drawer = _TranslationsDrawerZh._(_root);
 	@override late final _TranslationsEditProfileZh editProfile = _TranslationsEditProfileZh._(_root);
+	@override late final _TranslationsErrorPageZh errorPage = _TranslationsErrorPageZh._(_root);
+	@override late final _TranslationsFavoriteRepositoryZh favoriteRepository = _TranslationsFavoriteRepositoryZh._(_root);
 	@override late final _TranslationsFavoritesZh favorites = _TranslationsFavoritesZh._(_root);
 	@override late final _TranslationsFilterOptionsZh filterOptions = _TranslationsFilterOptionsZh._(_root);
 	@override late final _TranslationsForgotPasswordZh forgotPassword = _TranslationsForgotPasswordZh._(_root);
+	@override late final _TranslationsGeneralZh general = _TranslationsGeneralZh._(_root);
+	@override late final _TranslationsPdfPreviewPageZh pdfPreviewPage = _TranslationsPdfPreviewPageZh._(_root);
 	@override late final _TranslationsProfileZh profile = _TranslationsProfileZh._(_root);
 	@override late final _TranslationsSearchPageZh searchPage = _TranslationsSearchPageZh._(_root);
 	@override late final _TranslationsSignInZh signIn = _TranslationsSignInZh._(_root);
 	@override late final _TranslationsSignUpZh signUp = _TranslationsSignUpZh._(_root);
 	@override late final _TranslationsSpeciesZh species = _TranslationsSpeciesZh._(_root);
 	@override late final _TranslationsSpeciesDetailsZh speciesDetails = _TranslationsSpeciesDetailsZh._(_root);
+	@override late final _TranslationsSpeciesDetailsPageZh speciesDetailsPage = _TranslationsSpeciesDetailsPageZh._(_root);
+	@override late final _TranslationsStaffZh staff = _TranslationsStaffZh._(_root);
 	@override late final _TranslationsUserCredentialFailureZh userCredentialFailure = _TranslationsUserCredentialFailureZh._(_root);
 	@override late final _TranslationsValidatorZh validator = _TranslationsValidatorZh._(_root);
 }
@@ -2146,6 +2974,18 @@ class _TranslationsAboutProjectZh implements _TranslationsAboutProjectEn {
 	@override String get address => '伊基托斯 - 瑙塔路4.5公里，奎斯托科查，圣胡安巴蒂斯塔区，迈纳斯，洛雷托：';
 }
 
+// Path: authors
+class _TranslationsAuthorsZh implements _TranslationsAuthorsEn {
+	_TranslationsAuthorsZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '作者';
+	@override String get withoutAuthors => '这里似乎没有作者';
+	@override String get professionNotAvailable => '职业不可用';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	_TranslationsBottomBarZh._(this._root);
@@ -2156,6 +2996,17 @@ class _TranslationsBottomBarZh implements _TranslationsBottomBarEn {
 	@override String get home => '首页';
 	@override String get search => '搜索';
 	@override String get favorites => '收藏夹';
+}
+
+// Path: community
+class _TranslationsCommunityZh implements _TranslationsCommunityEn {
+	_TranslationsCommunityZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '土著社区';
+	@override String get withoutCommunities => '这里似乎没有土著社区';
 }
 
 // Path: deleteAccount
@@ -2181,6 +3032,25 @@ class _TranslationsDeleteAccountZh implements _TranslationsDeleteAccountEn {
 	@override String get notRegistered => '未注册';
 }
 
+// Path: drawer
+class _TranslationsDrawerZh implements _TranslationsDrawerEn {
+	_TranslationsDrawerZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get account => '账户';
+	@override String get profile => '个人资料';
+	@override String get content => '内容';
+	@override String get species => '物种';
+	@override String get communities => '土著社区';
+	@override String get authors => '作者';
+	@override String get about => '关于';
+	@override String get staff => '工作人员';
+	@override String get aboutGuide => '关于指南';
+	@override String get menu => '菜单';
+}
+
 // Path: editProfile
 class _TranslationsEditProfileZh implements _TranslationsEditProfileEn {
 	_TranslationsEditProfileZh._(this._root);
@@ -2191,8 +3061,35 @@ class _TranslationsEditProfileZh implements _TranslationsEditProfileEn {
 	@override String get errorSnack => '加载用户数据时出错';
 	@override String get title => '编辑个人资料';
 	@override String get save => '保存';
-	@override String get saving => '保存中...';
+	@override String get saving => '正在保存...';
 	@override String get errorSaving => '保存个人资料数据时出错';
+	@override String get selectImage => '选择个人资料图片';
+	@override String get errorSave => '保存个人资料时出错';
+}
+
+// Path: errorPage
+class _TranslationsErrorPageZh implements _TranslationsErrorPageEn {
+	_TranslationsErrorPageZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get page_not_exist => '该页面不存在';
+	@override String get go_back => '返回物种';
+}
+
+// Path: favoriteRepository
+class _TranslationsFavoriteRepositoryZh implements _TranslationsFavoriteRepositoryEn {
+	_TranslationsFavoriteRepositoryZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get getSpeciesNetworkError => '获取你收藏的物种时网络错误';
+	@override String get getSpeciesUnknownError => '获取你收藏的物种时未知错误';
+	@override String get getSpeciesEmptyError => '没有找到你收藏的某些物种';
+	@override String get updateSpeciesNetworkError => '更新你收藏的物种时网络错误';
+	@override String get updateSpeciesUnknownError => '更新你收藏的物种时未知错误';
 }
 
 // Path: favorites
@@ -2203,11 +3100,15 @@ class _TranslationsFavoritesZh implements _TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => '收藏夹';
-	@override String get hintText => '查找您的收藏';
-	@override String get close => '关闭';
-	@override String get search => '搜索';
+	@override String get hintText => '搜索你的收藏';
 	@override String get exceptionText => '这里还没有物种';
 	@override String get deleteFavorite => '从收藏夹中删除';
+	@override String get empty => '开始将物种标记为收藏，以便在此查看';
+	@override String get error => '我们进行了重大更改，点击“恢复物种”以更新信息，请确保你已连接到互联网';
+	@override String get canNot => '无法执行此操作';
+	@override String get reestoreSpecies => '恢复物种';
+	@override String get withoutSpecies => '你还没有收藏的物种，可以从物种部分添加';
+	@override String get yeah => '你的所有收藏物种都已恢复！';
 }
 
 // Path: filterOptions
@@ -2244,6 +3145,55 @@ class _TranslationsForgotPasswordZh implements _TranslationsForgotPasswordEn {
 	@override String get clear => '清除';
 	@override String get message => '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 	@override String get checkYourEmail => '请检查您的邮箱！';
+}
+
+// Path: general
+class _TranslationsGeneralZh implements _TranslationsGeneralEn {
+	_TranslationsGeneralZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => '返回';
+	@override String get close => '关闭';
+	@override String get clear => '清除';
+	@override String get search => '搜索';
+	@override String get addToFavorites => '添加到收藏夹';
+	@override String get removeFromFavorites => '从收藏夹中删除';
+	@override String get error404Again => '出了点问题，请再试一次';
+	@override String get nameNotAvailable => '名称不可用';
+	@override String get lastnameNotAvailable => '姓氏不可用';
+	@override String get descriptionNotAvailable => '描述不可用';
+}
+
+// Path: pdfPreviewPage
+class _TranslationsPdfPreviewPageZh implements _TranslationsPdfPreviewPageEn {
+	_TranslationsPdfPreviewPageZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get amazon => '亚马逊';
+	@override String get institute => '秘鲁亚马逊研究所';
+	@override String get title => '动植物图鉴';
+	@override String get commonNameNotAvailable => '常用名称不可用';
+	@override String get scientificNameNotAvailable => '学名不可用';
+	@override String get author => '作者';
+	@override String get authors => '作者们';
+	@override String get imageNotAvailable => '图片不可用';
+	@override String get taxonomicInformation => '分类信息';
+	@override String get kingdom => '界';
+	@override String get phylum => '门';
+	@override String get class_ => '纲';
+	@override String get order => '目';
+	@override String get family => '科';
+	@override String get authorInformation => '作者信息';
+	@override String get name => '名字';
+	@override String get lastname => '姓氏';
+	@override String get profession => '职业';
+	@override String get bornIn => '出生于';
+	@override String get diedIn => '逝世于';
+	@override String get year => '年';
 }
 
 // Path: profile
@@ -2294,6 +3244,8 @@ class _TranslationsSearchPageZh implements _TranslationsSearchPageEn {
 	@override String get errorFetchingSpecies => '未找到与您的搜索相关的物种。 请尝试使用其他类别，排序或科。';
 	@override String get acceptText => '接受';
 	@override String get updateText => '更新';
+	@override String get aToZ => '阿-贼德';
+	@override String get zToA => '贼德-阿';
 }
 
 // Path: signIn
@@ -2357,10 +3309,8 @@ class _TranslationsSpeciesZh implements _TranslationsSpeciesEn {
 	@override String get insects => '昆虫';
 	@override String get trees => '树木';
 	@override String get palms => '棕榈树';
-	@override String get deleteFavorite => '从收藏中移除';
-	@override String get saveFavorite => '保存到收藏夹';
-	@override String get orderName => '按普通名称排序';
-	@override String get orderScientificName => '按学名排序';
+	@override String get orderName => '通用名';
+	@override String get orderScientificName => '科学名称';
 }
 
 // Path: speciesDetails
@@ -2372,22 +3322,96 @@ class _TranslationsSpeciesDetailsZh implements _TranslationsSpeciesDetailsEn {
 	// Translations
 	@override String get authors => '作者';
 	@override String get taxonomicInfo => '分类信息';
-	@override String get kingdom => '王国';
-	@override String get filo => '门';
-	@override String get classes => '类';
+	@override String get kingdom => '界';
+	@override String get phylum => '门';
+	@override String get classes => '纲';
 	@override String get order => '目';
 	@override String get family => '科';
 	@override String get download => '下载';
-	@override String get generatePdf => '生成 PDF';
+	@override String get generatePdf => '生成PDF';
 	@override String get downloadImage => '下载图片';
 	@override String get downloadAudio => '下载音频';
 	@override String get share => '分享';
-	@override String get saveToFavorite => '保存到收藏夹';
-	@override String get deleteFromFavorite => '从收藏夹中删除';
-	@override String get errorDownload => '下载错误';
-	@override String get successDownload => '下载成功';
-	@override String get shareAmazonInfo => '分享亚马逊的美丽！分享有关的宝贵信息.';
+	@override String get errorDownload => '下载出错';
+	@override String get successDownload => '下载成功！';
+	@override String get shareAmazonInfo => '分享亚马逊的美丽！分享这些宝贵的信息。';
 	@override String get shareAmazon => '分享亚马逊的美丽！';
+	@override String get conservationStatus => '保护状况';
+	@override String get extinct => '灭绝';
+	@override String get extinctDescription => '该物种已不复存在于自然界';
+	@override String get extinctWild => '野外灭绝';
+	@override String get extinctWildDescription => '该物种仅存在于圈养环境中';
+	@override String get criticallyEndangered => '濒危';
+	@override String get criticallyEndangeredDescription => '该物种在自然环境中面临极高的灭绝风险';
+	@override String get endangered => '濒危';
+	@override String get endangeredDescription => '该物种在自然环境中面临很高的灭绝风险';
+	@override String get vulnerable => '易危';
+	@override String get vulnerableDescription => '该物种在自然环境中面临较高的灭绝风险';
+	@override String get almostThreatened => '濒临威胁';
+	@override String get almostThreatenedDescription => '该物种目前没有受到威胁，但未来可能受到威胁';
+	@override String get minorConcern => '轻度关注';
+	@override String get minorConcernDescription => '该物种并未濒危';
+	@override String get insufficientData => '数据不足';
+	@override String get insufficientDataDescription => '没有足够的信息来评估该物种的灭绝风险';
+	@override String get notRated => '未评定';
+	@override String get notRatedDescription => '该物种尚未被IUCN评定';
+	@override String get appendix1 => '附录 I';
+	@override String get appendix1Description => '所有濒危物种。这些物种的标本交易仅在特殊情况下允许';
+	@override String get appendix2 => '附录 II';
+	@override String get appendix2Description => '非必然濒危的物种，但其交易必须受到控制，以避免与其生存不相容的使用';
+	@override String get appendix3 => '附录 III';
+	@override String get appendix3Description => '在至少一个国家受到保护的物种，该国家请求CITES其他缔约方协助控制该物种的贸易';
+}
+
+// Path: speciesDetailsPage
+class _TranslationsSpeciesDetailsPageZh implements _TranslationsSpeciesDetailsPageEn {
+	_TranslationsSpeciesDetailsPageZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get download => '下载';
+	@override String get errorDownload => '无法下载';
+	@override String get downloadImage => '下载图片';
+	@override String get downloadAudio => '下载音频';
+	@override String get share => '分享';
+	@override String get generatePdf => '生成 PDF';
+	@override String get attractiveMessage => '分享亚马逊的美丽！分享这条有价值的信息';
+	@override String get conservationStates => '保护状态';
+	@override String get noInformation => '没有信息';
+	@override String get nameNotAvailable => '名称不可用';
+	@override String get scientificNameNotAvailable => '学名不可用';
+	@override String get year => '年';
+}
+
+// Path: staff
+class _TranslationsStaffZh implements _TranslationsStaffEn {
+	_TranslationsStaffZh._(this._root);
+
+	@override final _TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '工作团队';
+	@override String get coordinationTeam => '协调团队';
+	@override String get editorialCoordination => '编辑协调';
+	@override String get reviewCommittee => '审查委员会';
+	@override String get textReview => '文本审查：';
+	@override String get birdReview => '鸟类审查：';
+	@override String get fishReview => '鱼类审查：';
+	@override String get insectReview => '昆虫审查：';
+	@override String get plantReview => '植物审查：';
+	@override String get mapMaking => '地图制作：';
+	@override String get illustrations => '插图：';
+	@override String get sounds => '声音';
+	@override String get birds => '鸟类';
+	@override String get monkeys => '猴子';
+	@override String get amphibians => '两栖动物';
+	@override String get developmentTeam => '开发团队';
+	@override String get technicalLeader => '技术负责人';
+	@override String get mobileDeveloper => '移动开发人员';
+	@override String get developmentFrontend => '前端开发人员';
+	@override String get developmentBackend => '后端开发人员';
+	@override String get briefcase => '作品集';
 }
 
 // Path: userCredentialFailure
@@ -2591,9 +3615,14 @@ extension on Translations {
 			case 'aboutProject.contact': return 'Contact us';
 			case 'aboutProject.p4': return 'For more information about the project, contact the Peruvian Amazon Research Institute (IIAP) through the website: ';
 			case 'aboutProject.address': return 'Iquitos - Nauta Road Km 4.5, Quistococha, San Juan Bautista District, Maynas, Loreto: ';
+			case 'authors.title': return 'Authors';
+			case 'authors.withoutAuthors': return 'It seems there are no authors here';
+			case 'authors.professionNotAvailable': return 'Profession not available';
 			case 'bottomBar.home': return 'Home';
 			case 'bottomBar.search': return 'Search';
 			case 'bottomBar.favorites': return 'Favorites';
+			case 'community.title': return 'Indigenous communities';
+			case 'community.withoutCommunities': return 'It seems there are no indigenous communities here';
 			case 'deleteAccount.title': return 'Delete account';
 			case 'deleteAccount.userInfo': return 'User information:';
 			case 'deleteAccount.username': return 'Username';
@@ -2608,17 +3637,40 @@ extension on Translations {
 			case 'deleteAccount.information': return 'Are you sure you want to delete your account? This action is irreversible. Enter your password to confirm.';
 			case 'deleteAccount.accountDeleted': return 'Account deleted successfully';
 			case 'deleteAccount.notRegistered': return 'Not registered';
+			case 'drawer.account': return 'Account';
+			case 'drawer.profile': return 'Profile';
+			case 'drawer.content': return 'Content';
+			case 'drawer.species': return 'Species';
+			case 'drawer.communities': return 'Indigenous communities';
+			case 'drawer.authors': return 'Authors';
+			case 'drawer.about': return 'About';
+			case 'drawer.staff': return 'Staff';
+			case 'drawer.aboutGuide': return 'About the guide';
+			case 'drawer.menu': return 'Menu';
 			case 'editProfile.errorSnack': return 'Error loading user data';
-			case 'editProfile.title': return 'Edit profile';
+			case 'editProfile.title': return 'Edit Profile';
 			case 'editProfile.save': return 'Save';
 			case 'editProfile.saving': return 'Saving...';
 			case 'editProfile.errorSaving': return 'Error saving profile data';
+			case 'editProfile.selectImage': return 'Select a profile picture';
+			case 'editProfile.errorSave': return 'Error saving profile';
+			case 'errorPage.page_not_exist': return 'This page no longer exists';
+			case 'errorPage.go_back': return 'Back to species';
+			case 'favoriteRepository.getSpeciesNetworkError': return 'Network error while fetching your favorite species';
+			case 'favoriteRepository.getSpeciesUnknownError': return 'Unknown error while fetching your favorite species';
+			case 'favoriteRepository.getSpeciesEmptyError': return 'Some of your favorite species were not found';
+			case 'favoriteRepository.updateSpeciesNetworkError': return 'Network error while updating your favorite species';
+			case 'favoriteRepository.updateSpeciesUnknownError': return 'Unknown error while updating your favorite species';
 			case 'favorites.title': return 'Favorites';
 			case 'favorites.hintText': return 'Search your favorite';
-			case 'favorites.close': return 'Close';
-			case 'favorites.search': return 'Search';
-			case 'favorites.exceptionText': return 'No species here yet';
+			case 'favorites.exceptionText': return 'There are no species here yet';
 			case 'favorites.deleteFavorite': return 'Remove from favorites';
+			case 'favorites.empty': return 'Start marking species as favorites to see them here';
+			case 'favorites.error': return 'We have made significant changes, tap on \'Restore species\' to update the information, make sure you have an internet connection';
+			case 'favorites.canNot': return 'This action could not be performed';
+			case 'favorites.reestoreSpecies': return 'Restore species';
+			case 'favorites.withoutSpecies': return 'You don\'t have any favorite species yet, you can add them from the species section';
+			case 'favorites.yeah': return 'All your favorite species have been restored!';
 			case 'filterOptions.listByAlphabethic': return 'List by alphabetical order';
 			case 'filterOptions.recentlyAdded': return 'Recently added';
 			case 'filterOptions.all': return 'All';
@@ -2641,6 +3693,37 @@ extension on Translations {
 			case 'forgotPassword.clear': return 'Clear';
 			case 'forgotPassword.message': return 'Enter your email to send you an email where you can change your password:';
 			case 'forgotPassword.checkYourEmail': return 'Check your email!';
+			case 'general.back': return 'Back';
+			case 'general.close': return 'Close';
+			case 'general.clear': return 'Clear';
+			case 'general.search': return 'Search';
+			case 'general.addToFavorites': return 'Add to favorites';
+			case 'general.removeFromFavorites': return 'Remove from favorites';
+			case 'general.error404Again': return 'Something went wrong, please try again';
+			case 'general.nameNotAvailable': return 'Name not available';
+			case 'general.lastnameNotAvailable': return 'Last name not available';
+			case 'general.descriptionNotAvailable': return 'Description not available';
+			case 'pdfPreviewPage.amazon': return 'Amazon';
+			case 'pdfPreviewPage.institute': return 'Research Institute of the Peruvian Amazon';
+			case 'pdfPreviewPage.title': return 'Illustrated Guide to Flora and Fauna';
+			case 'pdfPreviewPage.commonNameNotAvailable': return 'Common name not available';
+			case 'pdfPreviewPage.scientificNameNotAvailable': return 'Scientific name not available';
+			case 'pdfPreviewPage.author': return 'Author';
+			case 'pdfPreviewPage.authors': return 'Authors';
+			case 'pdfPreviewPage.imageNotAvailable': return 'Image not available';
+			case 'pdfPreviewPage.taxonomicInformation': return 'Taxonomic information';
+			case 'pdfPreviewPage.kingdom': return 'Kingdom';
+			case 'pdfPreviewPage.phylum': return 'Phylum';
+			case 'pdfPreviewPage.class_': return 'Class';
+			case 'pdfPreviewPage.order': return 'Order';
+			case 'pdfPreviewPage.family': return 'Family';
+			case 'pdfPreviewPage.authorInformation': return 'Author information';
+			case 'pdfPreviewPage.name': return 'Name';
+			case 'pdfPreviewPage.lastname': return 'Last name';
+			case 'pdfPreviewPage.profession': return 'Profession';
+			case 'pdfPreviewPage.bornIn': return 'Born in';
+			case 'pdfPreviewPage.diedIn': return 'Died in';
+			case 'pdfPreviewPage.year': return 'Year';
 			case 'profile.title': return 'My Profile';
 			case 'profile.logout': return 'Logout';
 			case 'profile.favorites': return 'My favorites';
@@ -2685,6 +3768,8 @@ extension on Translations {
 			case 'searchPage.errorFetchingSpecies': return 'No species found related to your search. Please try again with another class, order, or family.';
 			case 'searchPage.acceptText': return 'Accept';
 			case 'searchPage.updateText': return 'Update';
+			case 'searchPage.aToZ': return 'A-Z';
+			case 'searchPage.zToA': return 'Z-A';
 			case 'signIn.title': return 'Amazon';
 			case 'signIn.subtitle': return 'Illustrated Guide to Flora and Fauna';
 			case 'signIn.email': return 'E-Mail';
@@ -2721,14 +3806,12 @@ extension on Translations {
 			case 'species.insects': return 'Insects';
 			case 'species.trees': return 'Trees';
 			case 'species.palms': return 'Palms';
-			case 'species.deleteFavorite': return 'Remove from Favorites';
-			case 'species.saveFavorite': return 'Save to Favorites';
-			case 'species.orderName': return 'Sort by Common Name';
-			case 'species.orderScientificName': return 'Sort by Scientific Name';
+			case 'species.orderName': return 'Common name';
+			case 'species.orderScientificName': return 'Scientific name';
 			case 'speciesDetails.authors': return 'Authors';
 			case 'speciesDetails.taxonomicInfo': return 'Taxonomic Information';
 			case 'speciesDetails.kingdom': return 'Kingdom';
-			case 'speciesDetails.filo': return 'Phylum';
+			case 'speciesDetails.phylum': return 'Phylum';
 			case 'speciesDetails.classes': return 'Class';
 			case 'speciesDetails.order': return 'Order';
 			case 'speciesDetails.family': return 'Family';
@@ -2737,12 +3820,68 @@ extension on Translations {
 			case 'speciesDetails.downloadImage': return 'Download Image';
 			case 'speciesDetails.downloadAudio': return 'Download Audio';
 			case 'speciesDetails.share': return 'Share';
-			case 'speciesDetails.saveToFavorite': return 'Save to Favorites';
-			case 'speciesDetails.deleteFromFavorite': return 'Delete from Favorites';
 			case 'speciesDetails.errorDownload': return 'Download Error';
-			case 'speciesDetails.successDownload': return 'Download Success';
+			case 'speciesDetails.successDownload': return 'Download Successful!';
 			case 'speciesDetails.shareAmazonInfo': return 'Share the beauty of the Amazon! Share this valuable information about.';
 			case 'speciesDetails.shareAmazon': return 'Share the beauty of the Amazon!';
+			case 'speciesDetails.conservationStatus': return 'Conservation Status';
+			case 'speciesDetails.extinct': return 'Extinct';
+			case 'speciesDetails.extinctDescription': return 'The species no longer exists in the wild';
+			case 'speciesDetails.extinctWild': return 'Extinct in the Wild';
+			case 'speciesDetails.extinctWildDescription': return 'The species only exists in captivity';
+			case 'speciesDetails.criticallyEndangered': return 'Critically Endangered';
+			case 'speciesDetails.criticallyEndangeredDescription': return 'The species has an extremely high risk of extinction in the wild';
+			case 'speciesDetails.endangered': return 'Endangered';
+			case 'speciesDetails.endangeredDescription': return 'The species has a very high risk of extinction in the wild';
+			case 'speciesDetails.vulnerable': return 'Vulnerable';
+			case 'speciesDetails.vulnerableDescription': return 'The species has a high risk of extinction in the wild';
+			case 'speciesDetails.almostThreatened': return 'Almost Threatened';
+			case 'speciesDetails.almostThreatenedDescription': return 'The species is not endangered, but could be in the future';
+			case 'speciesDetails.minorConcern': return 'Minor Concern';
+			case 'speciesDetails.minorConcernDescription': return 'The species is not endangered';
+			case 'speciesDetails.insufficientData': return 'Insufficient Data';
+			case 'speciesDetails.insufficientDataDescription': return 'There is not enough information to assess the extinction risk of the species';
+			case 'speciesDetails.notRated': return 'Not Rated';
+			case 'speciesDetails.notRatedDescription': return 'The species has not been evaluated by the IUCN';
+			case 'speciesDetails.appendix1': return 'Appendix I';
+			case 'speciesDetails.appendix1Description': return 'All species facing extinction. Trade in specimens of these species is permitted only in exceptional circumstances';
+			case 'speciesDetails.appendix2': return 'Appendix II';
+			case 'speciesDetails.appendix2Description': return 'Species not necessarily threatened with extinction, but whose trade must be controlled in order to avoid use incompatible with their survival';
+			case 'speciesDetails.appendix3': return 'Appendix III';
+			case 'speciesDetails.appendix3Description': return 'Species that are protected in at least one country, which has asked for assistance from other CITES Parties in controlling trade in the species';
+			case 'speciesDetailsPage.download': return 'Download';
+			case 'speciesDetailsPage.errorDownload': return 'Could not download';
+			case 'speciesDetailsPage.downloadImage': return 'Download image';
+			case 'speciesDetailsPage.downloadAudio': return 'Download audio';
+			case 'speciesDetailsPage.share': return 'Share';
+			case 'speciesDetailsPage.generatePdf': return 'Generate PDF';
+			case 'speciesDetailsPage.attractiveMessage': return 'Share the beauty of the Amazon! Share this valuable information about';
+			case 'speciesDetailsPage.conservationStates': return 'Conservation statuses';
+			case 'speciesDetailsPage.noInformation': return 'No information';
+			case 'speciesDetailsPage.nameNotAvailable': return 'Name not available';
+			case 'speciesDetailsPage.scientificNameNotAvailable': return 'Scientific name not available';
+			case 'speciesDetailsPage.year': return 'Year';
+			case 'staff.title': return 'Team';
+			case 'staff.coordinationTeam': return 'Coordination team';
+			case 'staff.editorialCoordination': return 'Editorial coordination';
+			case 'staff.reviewCommittee': return 'Review committee';
+			case 'staff.textReview': return 'Text review:';
+			case 'staff.birdReview': return 'Bird review:';
+			case 'staff.fishReview': return 'Fish review:';
+			case 'staff.insectReview': return 'Insect review:';
+			case 'staff.plantReview': return 'Plant review:';
+			case 'staff.mapMaking': return 'Map making:';
+			case 'staff.illustrations': return 'Illustrations:';
+			case 'staff.sounds': return 'Sounds';
+			case 'staff.birds': return 'Birds';
+			case 'staff.monkeys': return 'Monkeys';
+			case 'staff.amphibians': return 'Amphibians';
+			case 'staff.developmentTeam': return 'Development team';
+			case 'staff.technicalLeader': return 'Technical leader';
+			case 'staff.mobileDeveloper': return 'Mobile developer';
+			case 'staff.developmentFrontend': return 'Frontend developer';
+			case 'staff.developmentBackend': return 'Backend developer';
+			case 'staff.briefcase': return 'Portfolio';
 			case 'userCredentialFailure.network': return 'Check your internet connection';
 			case 'userCredentialFailure.credential': return 'Incorrect credentials';
 			case 'userCredentialFailure.disable': return 'This account has been disabled, please try again later';
@@ -2792,9 +3931,14 @@ extension on _TranslationsEs {
 			case 'aboutProject.contact': return 'Contáctanos';
 			case 'aboutProject.p4': return 'Para obtener más información sobre el proyecto, comunícate con el Instituto de Investigaciones de la Amazonía Peruana (IIAP) a través del sitio web: ';
 			case 'aboutProject.address': return 'Carretera Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
-			case 'bottomBar.home': return 'inicio';
+			case 'authors.title': return 'Autores';
+			case 'authors.withoutAuthors': return 'Parece que no hay autores aquí';
+			case 'authors.professionNotAvailable': return 'Profesión no disponible';
+			case 'bottomBar.home': return 'Inicio';
 			case 'bottomBar.search': return 'Buscar';
-			case 'bottomBar.favorites': return 'favoritos';
+			case 'bottomBar.favorites': return 'Favoritos';
+			case 'community.title': return 'Comunidades indígenas';
+			case 'community.withoutCommunities': return 'Parece que no hay comunidades indígenas aquí';
 			case 'deleteAccount.title': return 'Eliminar cuenta';
 			case 'deleteAccount.userInfo': return 'Información del usuario:';
 			case 'deleteAccount.username': return 'Nombre de usuario';
@@ -2809,18 +3953,40 @@ extension on _TranslationsEs {
 			case 'deleteAccount.information': return '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible. Ingresa tu contraseña para confirmar.';
 			case 'deleteAccount.accountDeleted': return 'Cuenta eliminada exitosamente';
 			case 'deleteAccount.notRegistered': return 'No registrado';
+			case 'drawer.account': return 'Cuenta';
+			case 'drawer.profile': return 'Perfil';
+			case 'drawer.content': return 'Contenido';
+			case 'drawer.species': return 'Especies';
+			case 'drawer.communities': return 'Comunidades indígenas';
+			case 'drawer.authors': return 'Autores';
+			case 'drawer.about': return 'Acerca de';
+			case 'drawer.staff': return 'Staff';
+			case 'drawer.aboutGuide': return 'Sobre la guía';
+			case 'drawer.menu': return 'Menú';
 			case 'editProfile.errorSnack': return 'Error al cargar los datos del usuario';
 			case 'editProfile.title': return 'Editar perfil';
 			case 'editProfile.save': return 'Guardar';
 			case 'editProfile.saving': return 'Guardando...';
 			case 'editProfile.errorSaving': return 'Error al guardar los datos del perfil';
 			case 'editProfile.selectImage': return 'Seleccione una imagen de perfil';
+			case 'editProfile.errorSave': return 'Error al guardar el perfil';
+			case 'errorPage.page_not_exist': return 'Esta página ya no existe';
+			case 'errorPage.go_back': return 'Volver a especies';
+			case 'favoriteRepository.getSpeciesNetworkError': return 'Error de conexión al obtener tus especies favoritas';
+			case 'favoriteRepository.getSpeciesUnknownError': return 'Error desconocido al obtener tus especies favoritas';
+			case 'favoriteRepository.getSpeciesEmptyError': return 'Algunas de tus especies favoritas no se encontraron';
+			case 'favoriteRepository.updateSpeciesNetworkError': return 'Error de conexión al actualizar tus especies favoritas';
+			case 'favoriteRepository.updateSpeciesUnknownError': return 'Error desconocido al actualizar tus especies favoritas';
 			case 'favorites.title': return 'Favoritos';
 			case 'favorites.hintText': return 'Busca tu favorito';
-			case 'favorites.close': return 'Cerrar';
-			case 'favorites.search': return 'Buscar';
 			case 'favorites.exceptionText': return 'Aún no hay especies aquí';
 			case 'favorites.deleteFavorite': return 'Quitar de favoritos';
+			case 'favorites.empty': return 'Empieza a marcar especies como favoritas para verlas aquí';
+			case 'favorites.error': return 'Hemos hecho cambios importantes, toca en \'Recuperar las especies\' para actualizar la información, asegurate tener conexión a internet';
+			case 'favorites.canNot': return 'No se pudo realizar esta acción';
+			case 'favorites.reestoreSpecies': return 'Recuperar las especies';
+			case 'favorites.withoutSpecies': return 'Todavía no tienes especies favoritas, puedes agregarlas desde la sección de especies';
+			case 'favorites.yeah': return '!Se han restaurado todas tus especies favoritas!';
 			case 'filterOptions.listByAlphabethic': return 'Listar por orden alfabético';
 			case 'filterOptions.recentlyAdded': return 'Más reciente';
 			case 'filterOptions.all': return 'Todos';
@@ -2843,6 +4009,37 @@ extension on _TranslationsEs {
 			case 'forgotPassword.clear': return 'Limpiar';
 			case 'forgotPassword.message': return 'Ingrese su email para enviarle un correo donde podrá cambiar su contraseña:';
 			case 'forgotPassword.checkYourEmail': return '¡Revisa tu correo!';
+			case 'general.back': return 'Atrás';
+			case 'general.close': return 'Cerrar';
+			case 'general.clear': return 'Limpiar';
+			case 'general.search': return 'Buscar';
+			case 'general.addToFavorites': return 'Agregar a favoritos';
+			case 'general.removeFromFavorites': return 'Quitar de favoritos';
+			case 'general.error404Again': return 'Algo salió mal, inténtalo de nuevo';
+			case 'general.nameNotAvailable': return 'Nombre no disponible';
+			case 'general.lastnameNotAvailable': return 'Apellidos no disponibles';
+			case 'general.descriptionNotAvailable': return 'Descripción no disponible';
+			case 'pdfPreviewPage.amazon': return 'Amazonía';
+			case 'pdfPreviewPage.institute': return 'Instituto de Investigación de la Amazonía Peruana';
+			case 'pdfPreviewPage.title': return 'Guía ilustrada de flora y fauna';
+			case 'pdfPreviewPage.commonNameNotAvailable': return 'Nombre común no disponible';
+			case 'pdfPreviewPage.scientificNameNotAvailable': return 'Nombre científico no disponible';
+			case 'pdfPreviewPage.author': return 'Autor';
+			case 'pdfPreviewPage.authors': return 'Autores';
+			case 'pdfPreviewPage.imageNotAvailable': return 'Imagen no está disponible';
+			case 'pdfPreviewPage.taxonomicInformation': return 'Información taxonómica';
+			case 'pdfPreviewPage.kingdom': return 'Reino';
+			case 'pdfPreviewPage.phylum': return 'Filo';
+			case 'pdfPreviewPage.class_': return 'Clase';
+			case 'pdfPreviewPage.order': return 'Orden';
+			case 'pdfPreviewPage.family': return 'Familia';
+			case 'pdfPreviewPage.authorInformation': return 'Información del autor';
+			case 'pdfPreviewPage.name': return 'Nombre';
+			case 'pdfPreviewPage.lastname': return 'Apellidos';
+			case 'pdfPreviewPage.profession': return 'Profesión';
+			case 'pdfPreviewPage.bornIn': return 'Nació en';
+			case 'pdfPreviewPage.diedIn': return 'Falleció en';
+			case 'pdfPreviewPage.year': return 'Año';
 			case 'profile.title': return 'Mi perfil';
 			case 'profile.logout': return 'Cerrar sesión';
 			case 'profile.favorites': return 'Mis favoritos';
@@ -2887,6 +4084,8 @@ extension on _TranslationsEs {
 			case 'searchPage.errorFetchingSpecies': return 'No se encontraron especies relacionadas con tu búsqueda. Por favor, intenta nuevamente con otra clase, orden o familia.';
 			case 'searchPage.acceptText': return 'Aceptar';
 			case 'searchPage.updateText': return 'Actualizar';
+			case 'searchPage.aToZ': return 'A-Z';
+			case 'searchPage.zToA': return 'Z-A';
 			case 'signIn.title': return 'Amazonía';
 			case 'signIn.subtitle': return 'Guía ilustrada de flora y fauna';
 			case 'signIn.email': return 'E-Mail';
@@ -2923,28 +4122,82 @@ extension on _TranslationsEs {
 			case 'species.insects': return 'Insectos';
 			case 'species.trees': return 'Árboles';
 			case 'species.palms': return 'Palmeras';
-			case 'species.deleteFavorite': return 'Quitar de favoritos';
-			case 'species.saveFavorite': return 'Guardar en favoritos';
 			case 'species.orderName': return 'Nombre común';
 			case 'species.orderScientificName': return 'Nombre científico';
 			case 'speciesDetails.authors': return 'Autores';
-			case 'speciesDetails.taxonomicInfo': return 'Información Taxonómica';
+			case 'speciesDetails.taxonomicInfo': return 'Información taxonómica';
 			case 'speciesDetails.kingdom': return 'Reino';
-			case 'speciesDetails.filo': return 'Filo';
+			case 'speciesDetails.phylum': return 'Filo';
 			case 'speciesDetails.classes': return 'Clase';
 			case 'speciesDetails.order': return 'Orden';
 			case 'speciesDetails.family': return 'Familia';
 			case 'speciesDetails.download': return 'Descargar';
 			case 'speciesDetails.generatePdf': return 'Generar PDF';
-			case 'speciesDetails.downloadImage': return 'Descargar Imagen';
-			case 'speciesDetails.downloadAudio': return 'Descargar Audio';
+			case 'speciesDetails.downloadImage': return 'Descargar imagen';
+			case 'speciesDetails.downloadAudio': return 'Descargar audio';
 			case 'speciesDetails.share': return 'Compartir';
-			case 'speciesDetails.saveToFavorite': return 'Guardar en Favoritos';
-			case 'speciesDetails.deleteFromFavorite': return 'Eliminar de Favoritos';
-			case 'speciesDetails.errorDownload': return 'Error al Descargar';
-			case 'speciesDetails.successDownload': return 'Descarga Exitosa';
+			case 'speciesDetails.errorDownload': return 'Error al descargar';
+			case 'speciesDetails.successDownload': return '¡Descarga exitosa!';
 			case 'speciesDetails.shareAmazonInfo': return '¡Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre.';
 			case 'speciesDetails.shareAmazon': return '¡Comparte la belleza de la Amazonía!';
+			case 'speciesDetails.conservationStatus': return 'Estados de conservación';
+			case 'speciesDetails.extinct': return 'Extinto';
+			case 'speciesDetails.extinctDescription': return 'La especie ya no existe en la naturaleza';
+			case 'speciesDetails.extinctWild': return 'Extinto en estado silvestre';
+			case 'speciesDetails.extinctWildDescription': return 'La especie solo existe en cautiverio';
+			case 'speciesDetails.criticallyEndangered': return 'En peligro crítico';
+			case 'speciesDetails.criticallyEndangeredDescription': return 'La especie tiene un riesgo extremadamente alto de extinción en la naturaleza';
+			case 'speciesDetails.endangered': return 'En peligro';
+			case 'speciesDetails.endangeredDescription': return 'La especie tiene un riesgo muy alto de extinción en la naturaleza';
+			case 'speciesDetails.vulnerable': return 'Vulnerable';
+			case 'speciesDetails.vulnerableDescription': return 'La especie tiene un riesgo alto de extinción en la naturaleza';
+			case 'speciesDetails.almostThreatened': return 'Casi amenazado';
+			case 'speciesDetails.almostThreatenedDescription': return 'La especie no está en peligro de extinción, pero podría estarlo en el futuro';
+			case 'speciesDetails.minorConcern': return 'Preocupación menor';
+			case 'speciesDetails.minorConcernDescription': return 'La especie no está en peligro de extinción';
+			case 'speciesDetails.insufficientData': return 'Datos insuficientes';
+			case 'speciesDetails.insufficientDataDescription': return 'No hay suficiente información para evaluar el riesgo de extinción de la especie';
+			case 'speciesDetails.notRated': return 'No evaluado';
+			case 'speciesDetails.notRatedDescription': return 'La especie no ha sido evaluada por la UICN';
+			case 'speciesDetails.appendix1': return 'Apéndice I';
+			case 'speciesDetails.appendix1Description': return 'Todas las especies en peligro de extinción. El comercio de especímenes de esas especies se autoriza solamente bajo circunstancias excepcionales';
+			case 'speciesDetails.appendix2': return 'Apéndice II';
+			case 'speciesDetails.appendix2Description': return 'Especies que no se encuentran necesariamente en peligro de extinción, pero cuyo comercio debe controlarse a fin de evitar una utilización incompatible con su supervivencia';
+			case 'speciesDetails.appendix3': return 'Apéndice III';
+			case 'speciesDetails.appendix3Description': return 'Especies que están protegidas al menos en un país, el cual ha solicitado la asistencia de otras Partes en la CITES para controlar su comercio';
+			case 'speciesDetailsPage.download': return 'Descargar';
+			case 'speciesDetailsPage.errorDownload': return 'No se pudo descargar';
+			case 'speciesDetailsPage.downloadImage': return 'Descargar imagen';
+			case 'speciesDetailsPage.downloadAudio': return 'Descargar audio';
+			case 'speciesDetailsPage.share': return 'Compartir';
+			case 'speciesDetailsPage.generatePdf': return 'Generar PDF';
+			case 'speciesDetailsPage.attractiveMessage': return 'Comparte la belleza de la Amazonía! Comparte esta valiosa información sobre';
+			case 'speciesDetailsPage.conservationStates': return 'Estados de conservación';
+			case 'speciesDetailsPage.noInformation': return 'Sin información';
+			case 'speciesDetailsPage.nameNotAvailable': return 'Nombre no disponible';
+			case 'speciesDetailsPage.scientificNameNotAvailable': return 'Nombre científico no disponible';
+			case 'speciesDetailsPage.year': return 'Año';
+			case 'staff.title': return 'Team';
+			case 'staff.coordinationTeam': return 'Coordination team';
+			case 'staff.editorialCoordination': return 'Editorial coordination';
+			case 'staff.reviewCommittee': return 'Review committee';
+			case 'staff.textReview': return 'Text review:';
+			case 'staff.birdReview': return 'Bird review:';
+			case 'staff.fishReview': return 'Fish review:';
+			case 'staff.insectReview': return 'Insect review:';
+			case 'staff.plantReview': return 'Plant review:';
+			case 'staff.mapMaking': return 'Map making:';
+			case 'staff.illustrations': return 'Illustrations:';
+			case 'staff.sounds': return 'Sounds';
+			case 'staff.birds': return 'Birds';
+			case 'staff.monkeys': return 'Monkeys';
+			case 'staff.amphibians': return 'Amphibians';
+			case 'staff.developmentTeam': return 'Development team';
+			case 'staff.technicalLeader': return 'Technical leader';
+			case 'staff.mobileDeveloper': return 'Mobile developer';
+			case 'staff.developmentFrontend': return 'Frontend developer';
+			case 'staff.developmentBackend': return 'Backend developer';
+			case 'staff.briefcase': return 'Portfolio';
 			case 'userCredentialFailure.network': return 'Comprueba tu conexión a internet';
 			case 'userCredentialFailure.credential': return 'Credenciales incorrectas';
 			case 'userCredentialFailure.disable': return 'Esta cuenta ha sido desactivada, inténtelo más tarde';
@@ -2994,9 +4247,14 @@ extension on _TranslationsFr {
 			case 'aboutProject.contact': return 'Contactez-nous';
 			case 'aboutProject.p4': return 'Pour plus d\'informations sur le projet, contactez l\'Institut de Recherche de l\'Amazonie Péruvienne (IIAP) via le site web : ';
 			case 'aboutProject.address': return 'Route Iquitos - Nauta Km 4.5, Quistococha, District de San Juan Bautista, Maynas, Loreto : ';
+			case 'authors.title': return 'Auteurs';
+			case 'authors.withoutAuthors': return 'Il semble qu\'il n\'y ait pas d\'auteurs ici';
+			case 'authors.professionNotAvailable': return 'Profession non disponible';
 			case 'bottomBar.home': return 'Accueil';
 			case 'bottomBar.search': return 'Rechercher';
 			case 'bottomBar.favorites': return 'Favoris';
+			case 'community.title': return 'Communautés autochtones';
+			case 'community.withoutCommunities': return 'Il semble qu\'il n\'y ait pas de communautés autochtones ici';
 			case 'deleteAccount.title': return 'Supprimer le compte';
 			case 'deleteAccount.userInfo': return 'Informations sur l\'utilisateur :';
 			case 'deleteAccount.username': return 'Nom d\'utilisateur';
@@ -3011,17 +4269,40 @@ extension on _TranslationsFr {
 			case 'deleteAccount.information': return 'Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible. Entrez votre mot de passe pour confirmer.';
 			case 'deleteAccount.accountDeleted': return 'Compte supprimé avec succès';
 			case 'deleteAccount.notRegistered': return 'Non inscrit';
-			case 'editProfile.errorSnack': return 'Erreur lors du chargement des données de l\'utilisateur';
+			case 'drawer.account': return 'Compte';
+			case 'drawer.profile': return 'Profil';
+			case 'drawer.content': return 'Contenu';
+			case 'drawer.species': return 'Espèces';
+			case 'drawer.communities': return 'Communautés autochtones';
+			case 'drawer.authors': return 'Auteurs';
+			case 'drawer.about': return 'À propos';
+			case 'drawer.staff': return 'Équipe';
+			case 'drawer.aboutGuide': return 'À propos du guide';
+			case 'drawer.menu': return 'Menu';
+			case 'editProfile.errorSnack': return 'Erreur lors du chargement des données utilisateur';
 			case 'editProfile.title': return 'Modifier le profil';
 			case 'editProfile.save': return 'Enregistrer';
-			case 'editProfile.saving': return 'Enregistrement en cours...';
+			case 'editProfile.saving': return 'Enregistrement...';
 			case 'editProfile.errorSaving': return 'Erreur lors de l\'enregistrement des données du profil';
+			case 'editProfile.selectImage': return 'Sélectionnez une photo de profil';
+			case 'editProfile.errorSave': return 'Erreur lors de l\'enregistrement du profil';
+			case 'errorPage.page_not_exist': return 'Cette page n\'existe plus';
+			case 'errorPage.go_back': return 'Retour aux espèces';
+			case 'favoriteRepository.getSpeciesNetworkError': return 'Erreur de réseau lors de la récupération de vos espèces favorites';
+			case 'favoriteRepository.getSpeciesUnknownError': return 'Erreur inconnue lors de la récupération de vos espèces favorites';
+			case 'favoriteRepository.getSpeciesEmptyError': return 'Certaines de vos espèces favorites n\'ont pas été trouvées';
+			case 'favoriteRepository.updateSpeciesNetworkError': return 'Erreur de réseau lors de la mise à jour de vos espèces favorites';
+			case 'favoriteRepository.updateSpeciesUnknownError': return 'Erreur inconnue lors de la mise à jour de vos espèces favorites';
 			case 'favorites.title': return 'Favoris';
 			case 'favorites.hintText': return 'Recherchez votre favori';
-			case 'favorites.close': return 'Fermer';
-			case 'favorites.search': return 'Chercher';
-			case 'favorites.exceptionText': return 'Pas encore d\'espèces ici';
-			case 'favorites.deleteFavorite': return 'Supprimer des favoris';
+			case 'favorites.exceptionText': return 'Il n\'y a pas encore d\'espèces ici';
+			case 'favorites.deleteFavorite': return 'Retirer des favoris';
+			case 'favorites.empty': return 'Commencez à marquer des espèces comme favorites pour les voir ici';
+			case 'favorites.error': return 'Nous avons apporté des modifications importantes, appuyez sur \'Restaurer les espèces\' pour mettre à jour les informations, assurez-vous d\'avoir une connexion Internet';
+			case 'favorites.canNot': return 'Cette action n\'a pas pu être effectuée';
+			case 'favorites.reestoreSpecies': return 'Restaurer les espèces';
+			case 'favorites.withoutSpecies': return 'Vous n\'avez pas encore d\'espèces favorites, vous pouvez les ajouter depuis la section des espèces';
+			case 'favorites.yeah': return 'Toutes vos espèces favorites ont été restaurées!';
 			case 'filterOptions.listByAlphabethic': return 'Trier par ordre alphabétique';
 			case 'filterOptions.recentlyAdded': return 'Plus récent';
 			case 'filterOptions.all': return 'Tout';
@@ -3044,6 +4325,37 @@ extension on _TranslationsFr {
 			case 'forgotPassword.clear': return 'Effacer';
 			case 'forgotPassword.message': return 'Entrez votre adresse e-mail pour recevoir un e-mail vous permettant de changer votre mot de passe :';
 			case 'forgotPassword.checkYourEmail': return 'Vérifiez votre e-mail !';
+			case 'general.back': return 'Retour';
+			case 'general.close': return 'Fermer';
+			case 'general.clear': return 'Effacer';
+			case 'general.search': return 'Rechercher';
+			case 'general.addToFavorites': return 'Ajouter aux favoris';
+			case 'general.removeFromFavorites': return 'Retirer des favoris';
+			case 'general.error404Again': return 'Quelque chose s\'est mal passé, veuillez réessayer';
+			case 'general.nameNotAvailable': return 'Nom non disponible';
+			case 'general.lastnameNotAvailable': return 'Nom de famille non disponible';
+			case 'general.descriptionNotAvailable': return 'Description non disponible';
+			case 'pdfPreviewPage.amazon': return 'Amazone';
+			case 'pdfPreviewPage.institute': return 'Institut de Recherche de l\'Amazonie Péruvienne';
+			case 'pdfPreviewPage.title': return 'Guide illustré de la flore et de la faune';
+			case 'pdfPreviewPage.commonNameNotAvailable': return 'Nom commun non disponible';
+			case 'pdfPreviewPage.scientificNameNotAvailable': return 'Nom scientifique non disponible';
+			case 'pdfPreviewPage.author': return 'Auteur';
+			case 'pdfPreviewPage.authors': return 'Auteurs';
+			case 'pdfPreviewPage.imageNotAvailable': return 'Image non disponible';
+			case 'pdfPreviewPage.taxonomicInformation': return 'Informations taxonomiques';
+			case 'pdfPreviewPage.kingdom': return 'Règne';
+			case 'pdfPreviewPage.phylum': return 'Embranchement';
+			case 'pdfPreviewPage.class_': return 'Classe';
+			case 'pdfPreviewPage.order': return 'Ordre';
+			case 'pdfPreviewPage.family': return 'Famille';
+			case 'pdfPreviewPage.authorInformation': return 'Informations sur l\'auteur';
+			case 'pdfPreviewPage.name': return 'Prénom';
+			case 'pdfPreviewPage.lastname': return 'Nom';
+			case 'pdfPreviewPage.profession': return 'Profession';
+			case 'pdfPreviewPage.bornIn': return 'Né en';
+			case 'pdfPreviewPage.diedIn': return 'Décédé en';
+			case 'pdfPreviewPage.year': return 'Année';
 			case 'profile.title': return 'Mon profil';
 			case 'profile.logout': return 'Déconnexion';
 			case 'profile.favorites': return 'Mes favoris';
@@ -3088,6 +4400,8 @@ extension on _TranslationsFr {
 			case 'searchPage.errorFetchingSpecies': return 'Aucune espèce trouvée liée à votre recherche. Veuillez réessayer avec une autre classe, ordre ou famille.';
 			case 'searchPage.acceptText': return 'Accepter';
 			case 'searchPage.updateText': return 'Mettre à jour';
+			case 'searchPage.aToZ': return 'A-Z';
+			case 'searchPage.zToA': return 'Z-A';
 			case 'signIn.title': return 'Forêt amazonienne';
 			case 'signIn.subtitle': return 'Guide illustré de la flore et de la faune';
 			case 'signIn.email': return 'E-Mail';
@@ -3115,37 +4429,91 @@ extension on _TranslationsFr {
 			case 'signUp.passwordNotMatch': return 'Mot de passe incorrect';
 			case 'signUp.unknown': return 'Erreur inconnue, veuillez réessayer plus tard';
 			case 'signUp.sendedEmail': return 'Un e-mail de confirmation a été envoyé à votre adresse e-mail';
-			case 'species.title': return 'Espécies';
-			case 'species.birds': return 'Aves';
-			case 'species.mammals': return 'Mamíferos';
-			case 'species.reptiles': return 'Répteis';
-			case 'species.amphibians': return 'Anfíbios';
-			case 'species.fishes': return 'Peixes';
-			case 'species.insects': return 'Insetos';
-			case 'species.trees': return 'Árvores';
-			case 'species.palms': return 'Palmeiras';
-			case 'species.deleteFavorite': return 'Remover dos Favoritos';
-			case 'species.saveFavorite': return 'Salvar nos Favoritos';
-			case 'species.orderName': return 'Ordenar por Nome Comum';
-			case 'species.orderScientificName': return 'Ordenar por Nome Científico';
+			case 'species.title': return 'Espèces';
+			case 'species.birds': return 'Oiseaux';
+			case 'species.mammals': return 'Mammifères';
+			case 'species.reptiles': return 'Reptiles';
+			case 'species.amphibians': return 'Amphibiens';
+			case 'species.fishes': return 'Poissons';
+			case 'species.insects': return 'Insectes';
+			case 'species.trees': return 'Arbres';
+			case 'species.palms': return 'Palmiers';
+			case 'species.orderName': return 'Nom commun';
+			case 'species.orderScientificName': return 'Nom scientifique';
 			case 'speciesDetails.authors': return 'Auteurs';
-			case 'speciesDetails.taxonomicInfo': return 'Information Taxonomique';
-			case 'speciesDetails.kingdom': return 'Royaume';
-			case 'speciesDetails.filo': return 'Phylum';
+			case 'speciesDetails.taxonomicInfo': return 'Informations Taxonomiques';
+			case 'speciesDetails.kingdom': return 'Règne';
+			case 'speciesDetails.phylum': return 'Phylum';
 			case 'speciesDetails.classes': return 'Classe';
 			case 'speciesDetails.order': return 'Ordre';
 			case 'speciesDetails.family': return 'Famille';
 			case 'speciesDetails.download': return 'Télécharger';
-			case 'speciesDetails.generatePdf': return 'Générer PDF';
-			case 'speciesDetails.downloadImage': return 'Télécharger l\'Image';
-			case 'speciesDetails.downloadAudio': return 'Télécharger l\'Audio';
+			case 'speciesDetails.generatePdf': return 'Générer un PDF';
+			case 'speciesDetails.downloadImage': return 'Télécharger l\'image';
+			case 'speciesDetails.downloadAudio': return 'Télécharger l\'audio';
 			case 'speciesDetails.share': return 'Partager';
-			case 'speciesDetails.saveToFavorite': return 'Enregistrer dans les Favoris';
-			case 'speciesDetails.deleteFromFavorite': return 'Supprimer des Favoris';
 			case 'speciesDetails.errorDownload': return 'Erreur de Téléchargement';
-			case 'speciesDetails.successDownload': return 'Téléchargement Réussi';
+			case 'speciesDetails.successDownload': return 'Téléchargement réussi !';
 			case 'speciesDetails.shareAmazonInfo': return 'Partagez la beauté de l\'Amazonie ! Partagez ces précieuses informations sur.';
 			case 'speciesDetails.shareAmazon': return 'Partagez la beauté de l\'Amazonie !';
+			case 'speciesDetails.conservationStatus': return 'Statut de Conservation';
+			case 'speciesDetails.extinct': return 'Éteint';
+			case 'speciesDetails.extinctDescription': return 'L\'espèce n\'existe plus à l\'état sauvage';
+			case 'speciesDetails.extinctWild': return 'Éteint dans la Nature';
+			case 'speciesDetails.extinctWildDescription': return 'L\'espèce n\'existe plus qu\'en captivité';
+			case 'speciesDetails.criticallyEndangered': return 'En Danger Critique';
+			case 'speciesDetails.criticallyEndangeredDescription': return 'L\'espèce présente un risque extrêmement élevé d\'extinction dans la nature';
+			case 'speciesDetails.endangered': return 'En Danger';
+			case 'speciesDetails.endangeredDescription': return 'L\'espèce présente un risque très élevé d\'extinction dans la nature';
+			case 'speciesDetails.vulnerable': return 'Vulnérable';
+			case 'speciesDetails.vulnerableDescription': return 'L\'espèce présente un risque élevé d\'extinction dans la nature';
+			case 'speciesDetails.almostThreatened': return 'Quasi Menacé';
+			case 'speciesDetails.almostThreatenedDescription': return 'L\'espèce n\'est pas en danger, mais pourrait l\'être à l\'avenir';
+			case 'speciesDetails.minorConcern': return 'Préoccupation Mineure';
+			case 'speciesDetails.minorConcernDescription': return 'L\'espèce n\'est pas en danger d\'extinction';
+			case 'speciesDetails.insufficientData': return 'Données Insuffisantes';
+			case 'speciesDetails.insufficientDataDescription': return 'Il n\'y a pas suffisamment d\'informations pour évaluer le risque d\'extinction de l\'espèce';
+			case 'speciesDetails.notRated': return 'Non Évalué';
+			case 'speciesDetails.notRatedDescription': return 'L\'espèce n\'a pas été évaluée par l\'UICN';
+			case 'speciesDetails.appendix1': return 'Annexe I';
+			case 'speciesDetails.appendix1Description': return 'Toutes les espèces menacées d\'extinction. Le commerce des spécimens de ces espèces n\'est autorisé que dans des circonstances exceptionnelles';
+			case 'speciesDetails.appendix2': return 'Annexe II';
+			case 'speciesDetails.appendix2Description': return 'Espèces non nécessairement menacées d\'extinction, mais dont le commerce doit être contrôlé afin d\'éviter une utilisation incompatible avec leur survie';
+			case 'speciesDetails.appendix3': return 'Annexe III';
+			case 'speciesDetails.appendix3Description': return 'Espèces protégées dans au moins un pays, qui ont demandé l\'assistance d\'autres Parties de la CITES pour contrôler le commerce de l\'espèce';
+			case 'speciesDetailsPage.download': return 'Télécharger';
+			case 'speciesDetailsPage.errorDownload': return 'Téléchargement impossible';
+			case 'speciesDetailsPage.downloadImage': return 'Télécharger l\'image';
+			case 'speciesDetailsPage.downloadAudio': return 'Télécharger l\'audio';
+			case 'speciesDetailsPage.share': return 'Partager';
+			case 'speciesDetailsPage.generatePdf': return 'Générer PDF';
+			case 'speciesDetailsPage.attractiveMessage': return 'Partagez la beauté de l\'Amazonie ! Partagez cette information précieuse sur';
+			case 'speciesDetailsPage.conservationStates': return 'Statuts de conservation';
+			case 'speciesDetailsPage.noInformation': return 'Pas d\'information';
+			case 'speciesDetailsPage.nameNotAvailable': return 'Nom non disponible';
+			case 'speciesDetailsPage.scientificNameNotAvailable': return 'Nom scientifique non disponible';
+			case 'speciesDetailsPage.year': return 'Année';
+			case 'staff.title': return 'Équipe de travail';
+			case 'staff.coordinationTeam': return 'Équipe de coordination';
+			case 'staff.editorialCoordination': return 'Coordination éditoriale';
+			case 'staff.reviewCommittee': return 'Comité de révision';
+			case 'staff.textReview': return 'Révision de textes :';
+			case 'staff.birdReview': return 'Révision des oiseaux :';
+			case 'staff.fishReview': return 'Révision des poissons :';
+			case 'staff.insectReview': return 'Révision des insectes :';
+			case 'staff.plantReview': return 'Révision des plantes :';
+			case 'staff.mapMaking': return 'Élaboration des cartes :';
+			case 'staff.illustrations': return 'Illustrations :';
+			case 'staff.sounds': return 'Sons';
+			case 'staff.birds': return 'Oiseaux';
+			case 'staff.monkeys': return 'Singes';
+			case 'staff.amphibians': return 'Amphibiens';
+			case 'staff.developmentTeam': return 'Équipe de développement';
+			case 'staff.technicalLeader': return 'Responsable technique';
+			case 'staff.mobileDeveloper': return 'Développeur mobile';
+			case 'staff.developmentFrontend': return 'Développeur frontend';
+			case 'staff.developmentBackend': return 'Développeur backend';
+			case 'staff.briefcase': return 'Portefeuille';
 			case 'userCredentialFailure.network': return 'Vérifiez votre connexion internet';
 			case 'userCredentialFailure.credential': return 'Identifiants incorrects';
 			case 'userCredentialFailure.disable': return 'Ce compte a été désactivé, veuillez réessayer ultérieurement';
@@ -3195,9 +4563,14 @@ extension on _TranslationsPt {
 			case 'aboutProject.contact': return 'Entre em contato';
 			case 'aboutProject.p4': return 'Para mais informações sobre o projeto, entre em contato com o Instituto de Pesquisas da Amazônia Peruana (IIAP) através do site: ';
 			case 'aboutProject.address': return 'Estrada Iquitos - Nauta Km 4.5, Quistococha, Distrito de San Juan Bautista, Maynas, Loreto: ';
+			case 'authors.title': return 'Autores';
+			case 'authors.withoutAuthors': return 'Parece que não há autores aqui';
+			case 'authors.professionNotAvailable': return 'Profissão não disponível';
 			case 'bottomBar.home': return 'Início';
 			case 'bottomBar.search': return 'Buscar';
 			case 'bottomBar.favorites': return 'Favoritos';
+			case 'community.title': return 'Comunidades indígenas';
+			case 'community.withoutCommunities': return 'Parece que não há comunidades indígenas aqui';
 			case 'deleteAccount.title': return 'Excluir conta';
 			case 'deleteAccount.userInfo': return 'Informações do usuário:';
 			case 'deleteAccount.username': return 'Nome de usuário';
@@ -3212,17 +4585,40 @@ extension on _TranslationsPt {
 			case 'deleteAccount.information': return 'Tem certeza de que deseja excluir sua conta? Esta ação é irreversível. Digite sua senha para confirmar.';
 			case 'deleteAccount.accountDeleted': return 'Conta excluída com sucesso';
 			case 'deleteAccount.notRegistered': return 'Não registrado';
+			case 'drawer.account': return 'Conta';
+			case 'drawer.profile': return 'Perfil';
+			case 'drawer.content': return 'Conteúdo';
+			case 'drawer.species': return 'Espécies';
+			case 'drawer.communities': return 'Comunidades indígenas';
+			case 'drawer.authors': return 'Autores';
+			case 'drawer.about': return 'Sobre';
+			case 'drawer.staff': return 'Equipe';
+			case 'drawer.aboutGuide': return 'Sobre o guia';
+			case 'drawer.menu': return 'Menu';
 			case 'editProfile.errorSnack': return 'Erro ao carregar os dados do usuário';
 			case 'editProfile.title': return 'Editar perfil';
 			case 'editProfile.save': return 'Salvar';
 			case 'editProfile.saving': return 'Salvando...';
 			case 'editProfile.errorSaving': return 'Erro ao salvar os dados do perfil';
+			case 'editProfile.selectImage': return 'Selecione uma imagem de perfil';
+			case 'editProfile.errorSave': return 'Erro ao salvar o perfil';
+			case 'errorPage.page_not_exist': return 'Esta página não existe mais';
+			case 'errorPage.go_back': return 'Voltar para espécies';
+			case 'favoriteRepository.getSpeciesNetworkError': return 'Erro de rede ao buscar suas espécies favoritas';
+			case 'favoriteRepository.getSpeciesUnknownError': return 'Erro desconhecido ao buscar suas espécies favoritas';
+			case 'favoriteRepository.getSpeciesEmptyError': return 'Algumas de suas espécies favoritas não foram encontradas';
+			case 'favoriteRepository.updateSpeciesNetworkError': return 'Erro de rede ao atualizar suas espécies favoritas';
+			case 'favoriteRepository.updateSpeciesUnknownError': return 'Erro desconhecido ao atualizar suas espécies favoritas';
 			case 'favorites.title': return 'Favoritos';
-			case 'favorites.hintText': return 'Procure o seu favorito';
-			case 'favorites.close': return 'Fechar';
-			case 'favorites.search': return 'Pesquisar';
+			case 'favorites.hintText': return 'Procure seu favorito';
 			case 'favorites.exceptionText': return 'Ainda não há espécies aqui';
 			case 'favorites.deleteFavorite': return 'Remover dos favoritos';
+			case 'favorites.empty': return 'Comece a marcar espécies como favoritas para vê-las aqui';
+			case 'favorites.error': return 'Fizemos mudanças importantes, toque em \'Restaurar as espécies\' para atualizar as informações, certifique-se de estar conectado à internet';
+			case 'favorites.canNot': return 'Não foi possível realizar esta ação';
+			case 'favorites.reestoreSpecies': return 'Restaurar as espécies';
+			case 'favorites.withoutSpecies': return 'Você ainda não tem espécies favoritas, pode adicioná-las na seção de espécies';
+			case 'favorites.yeah': return 'Todas as suas espécies favoritas foram restauradas!';
 			case 'filterOptions.listByAlphabethic': return 'Listar por ordem alfabética';
 			case 'filterOptions.recentlyAdded': return 'Mais recente';
 			case 'filterOptions.all': return 'Todos';
@@ -3245,6 +4641,37 @@ extension on _TranslationsPt {
 			case 'forgotPassword.clear': return 'Limpar';
 			case 'forgotPassword.message': return 'Digite seu email para enviar um email onde você pode alterar sua senha:';
 			case 'forgotPassword.checkYourEmail': return 'Verifique seu email!';
+			case 'general.back': return 'Voltar';
+			case 'general.close': return 'Fechar';
+			case 'general.clear': return 'Limpar';
+			case 'general.search': return 'Buscar';
+			case 'general.addToFavorites': return 'Adicionar aos favoritos';
+			case 'general.removeFromFavorites': return 'Remover dos favoritos';
+			case 'general.error404Again': return 'Algo deu errado, por favor tente novamente';
+			case 'general.nameNotAvailable': return 'Nome não disponível';
+			case 'general.lastnameNotAvailable': return 'Sobrenome não disponível';
+			case 'general.descriptionNotAvailable': return 'Descrição não disponível';
+			case 'pdfPreviewPage.amazon': return 'Amazonas';
+			case 'pdfPreviewPage.institute': return 'Instituto de Pesquisa da Amazônia Peruana';
+			case 'pdfPreviewPage.title': return 'Guia Ilustrado de Flora e Fauna';
+			case 'pdfPreviewPage.commonNameNotAvailable': return 'Nome comum não disponível';
+			case 'pdfPreviewPage.scientificNameNotAvailable': return 'Nome científico não disponível';
+			case 'pdfPreviewPage.author': return 'Autor';
+			case 'pdfPreviewPage.authors': return 'Autores';
+			case 'pdfPreviewPage.imageNotAvailable': return 'Imagem não disponível';
+			case 'pdfPreviewPage.taxonomicInformation': return 'Informação taxonômica';
+			case 'pdfPreviewPage.kingdom': return 'Reino';
+			case 'pdfPreviewPage.phylum': return 'Filo';
+			case 'pdfPreviewPage.class_': return 'Classe';
+			case 'pdfPreviewPage.order': return 'Ordem';
+			case 'pdfPreviewPage.family': return 'Família';
+			case 'pdfPreviewPage.authorInformation': return 'Informação do autor';
+			case 'pdfPreviewPage.name': return 'Nome';
+			case 'pdfPreviewPage.lastname': return 'Sobrenome';
+			case 'pdfPreviewPage.profession': return 'Profissão';
+			case 'pdfPreviewPage.bornIn': return 'Nasceu em';
+			case 'pdfPreviewPage.diedIn': return 'Faleceu em';
+			case 'pdfPreviewPage.year': return 'Ano';
 			case 'profile.title': return 'Meu perfil';
 			case 'profile.logout': return 'Sair';
 			case 'profile.favorites': return 'Meus favoritos';
@@ -3289,6 +4716,8 @@ extension on _TranslationsPt {
 			case 'searchPage.errorFetchingSpecies': return 'Nenhuma espécie encontrada relacionada à sua busca. Por favor, tente novamente com outra classe, ordem ou família.';
 			case 'searchPage.acceptText': return 'Aceitar';
 			case 'searchPage.updateText': return 'Atualizar';
+			case 'searchPage.aToZ': return 'A-Z';
+			case 'searchPage.zToA': return 'Z-A';
 			case 'signIn.title': return 'Floresta Amazônica';
 			case 'signIn.subtitle': return 'Guia Ilustrado de Flora e Fauna';
 			case 'signIn.email': return 'E-Mail';
@@ -3325,14 +4754,12 @@ extension on _TranslationsPt {
 			case 'species.insects': return 'Insetos';
 			case 'species.trees': return 'Árvores';
 			case 'species.palms': return 'Palmeiras';
-			case 'species.deleteFavorite': return 'Remover dos Favoritos';
-			case 'species.saveFavorite': return 'Salvar nos Favoritos';
-			case 'species.orderName': return 'Ordenar por Nome Comum';
-			case 'species.orderScientificName': return 'Ordenar por Nome Científico';
+			case 'species.orderName': return 'Nome comum';
+			case 'species.orderScientificName': return 'Nome científico';
 			case 'speciesDetails.authors': return 'Autores';
 			case 'speciesDetails.taxonomicInfo': return 'Informação Taxonômica';
 			case 'speciesDetails.kingdom': return 'Reino';
-			case 'speciesDetails.filo': return 'Filo';
+			case 'speciesDetails.phylum': return 'Filo';
 			case 'speciesDetails.classes': return 'Classe';
 			case 'speciesDetails.order': return 'Ordem';
 			case 'speciesDetails.family': return 'Família';
@@ -3341,12 +4768,68 @@ extension on _TranslationsPt {
 			case 'speciesDetails.downloadImage': return 'Baixar Imagem';
 			case 'speciesDetails.downloadAudio': return 'Baixar Áudio';
 			case 'speciesDetails.share': return 'Compartilhar';
-			case 'speciesDetails.saveToFavorite': return 'Salvar nos Favoritos';
-			case 'speciesDetails.deleteFromFavorite': return 'Remover dos Favoritos';
 			case 'speciesDetails.errorDownload': return 'Erro ao Baixar';
-			case 'speciesDetails.successDownload': return 'Download Bem-Sucedido';
-			case 'speciesDetails.shareAmazonInfo': return 'Compartilhe a beleza da Amazônia! Compartilhe estas informações valiosas sobre.';
+			case 'speciesDetails.successDownload': return 'Download bem-sucedido!';
+			case 'speciesDetails.shareAmazonInfo': return 'Compartilhe a beleza da Amazônia! Compartilhe estas valiosas informações sobre.';
 			case 'speciesDetails.shareAmazon': return 'Compartilhe a beleza da Amazônia!';
+			case 'speciesDetails.conservationStatus': return 'Status de Conservação';
+			case 'speciesDetails.extinct': return 'Extinto';
+			case 'speciesDetails.extinctDescription': return 'A espécie não existe mais na natureza';
+			case 'speciesDetails.extinctWild': return 'Extinto na Natureza';
+			case 'speciesDetails.extinctWildDescription': return 'A espécie só existe em cativeiro';
+			case 'speciesDetails.criticallyEndangered': return 'Criticamente em Perigo';
+			case 'speciesDetails.criticallyEndangeredDescription': return 'A espécie tem um risco extremamente alto de extinção na natureza';
+			case 'speciesDetails.endangered': return 'Em Perigo';
+			case 'speciesDetails.endangeredDescription': return 'A espécie tem um risco muito alto de extinção na natureza';
+			case 'speciesDetails.vulnerable': return 'Vulnerável';
+			case 'speciesDetails.vulnerableDescription': return 'A espécie tem um alto risco de extinção na natureza';
+			case 'speciesDetails.almostThreatened': return 'Quase Ameaçado';
+			case 'speciesDetails.almostThreatenedDescription': return 'A espécie não está ameaçada, mas poderia estar no futuro';
+			case 'speciesDetails.minorConcern': return 'Preocupação Menor';
+			case 'speciesDetails.minorConcernDescription': return 'A espécie não está em perigo de extinção';
+			case 'speciesDetails.insufficientData': return 'Dados Insuficientes';
+			case 'speciesDetails.insufficientDataDescription': return 'Não há informações suficientes para avaliar o risco de extinção da espécie';
+			case 'speciesDetails.notRated': return 'Não Avaliado';
+			case 'speciesDetails.notRatedDescription': return 'A espécie não foi avaliada pela IUCN';
+			case 'speciesDetails.appendix1': return 'Apêndice I';
+			case 'speciesDetails.appendix1Description': return 'Todas as espécies ameaçadas de extinção. O comércio de exemplares dessas espécies é permitido apenas em circunstâncias excepcionais';
+			case 'speciesDetails.appendix2': return 'Apêndice II';
+			case 'speciesDetails.appendix2Description': return 'Espécies não necessariamente ameaçadas de extinção, mas cujo comércio deve ser controlado para evitar um uso incompatível com sua sobrevivência';
+			case 'speciesDetails.appendix3': return 'Apêndice III';
+			case 'speciesDetails.appendix3Description': return 'Espécies protegidas em pelo menos um país, que solicitou assistência de outras Partes da CITES para controlar o comércio da espécie';
+			case 'speciesDetailsPage.download': return 'Baixar';
+			case 'speciesDetailsPage.errorDownload': return 'Não foi possível baixar';
+			case 'speciesDetailsPage.downloadImage': return 'Baixar imagem';
+			case 'speciesDetailsPage.downloadAudio': return 'Baixar áudio';
+			case 'speciesDetailsPage.share': return 'Compartilhar';
+			case 'speciesDetailsPage.generatePdf': return 'Gerar PDF';
+			case 'speciesDetailsPage.attractiveMessage': return 'Compartilhe a beleza da Amazônia! Compartilhe esta valiosa informação sobre';
+			case 'speciesDetailsPage.conservationStates': return 'Estados de conservação';
+			case 'speciesDetailsPage.noInformation': return 'Sem informação';
+			case 'speciesDetailsPage.nameNotAvailable': return 'Nome não disponível';
+			case 'speciesDetailsPage.scientificNameNotAvailable': return 'Nome científico não disponível';
+			case 'speciesDetailsPage.year': return 'Ano';
+			case 'staff.title': return 'Equipe de trabalho';
+			case 'staff.coordinationTeam': return 'Equipe de coordenação';
+			case 'staff.editorialCoordination': return 'Coordenação editorial';
+			case 'staff.reviewCommittee': return 'Comitê de revisão';
+			case 'staff.textReview': return 'Revisão de textos:';
+			case 'staff.birdReview': return 'Revisão de aves:';
+			case 'staff.fishReview': return 'Revisão de peixes:';
+			case 'staff.insectReview': return 'Revisão de insetos:';
+			case 'staff.plantReview': return 'Revisão de plantas:';
+			case 'staff.mapMaking': return 'Elaboração de mapas:';
+			case 'staff.illustrations': return 'Ilustrações:';
+			case 'staff.sounds': return 'Sons';
+			case 'staff.birds': return 'Aves';
+			case 'staff.monkeys': return 'Macacos';
+			case 'staff.amphibians': return 'Anfíbios';
+			case 'staff.developmentTeam': return 'Equipe de desenvolvimento';
+			case 'staff.technicalLeader': return 'Líder técnico';
+			case 'staff.mobileDeveloper': return 'Desenvolvedor móvel';
+			case 'staff.developmentFrontend': return 'Desenvolvedor frontend';
+			case 'staff.developmentBackend': return 'Desenvolvedor backend';
+			case 'staff.briefcase': return 'Portfólio';
 			case 'userCredentialFailure.network': return 'Verifique sua conexão com a internet';
 			case 'userCredentialFailure.credential': return 'Credenciais incorretas';
 			case 'userCredentialFailure.disable': return 'Esta conta foi desativada, tente novamente mais tarde';
@@ -3396,9 +4879,14 @@ extension on _TranslationsZh {
 			case 'aboutProject.contact': return '联系我们';
 			case 'aboutProject.p4': return '有关该项目的更多信息，请通过以下网站联系秘鲁亚马逊研究所（IIAP）：';
 			case 'aboutProject.address': return '伊基托斯 - 瑙塔路4.5公里，奎斯托科查，圣胡安巴蒂斯塔区，迈纳斯，洛雷托：';
+			case 'authors.title': return '作者';
+			case 'authors.withoutAuthors': return '这里似乎没有作者';
+			case 'authors.professionNotAvailable': return '职业不可用';
 			case 'bottomBar.home': return '首页';
 			case 'bottomBar.search': return '搜索';
 			case 'bottomBar.favorites': return '收藏夹';
+			case 'community.title': return '土著社区';
+			case 'community.withoutCommunities': return '这里似乎没有土著社区';
 			case 'deleteAccount.title': return '删除账户';
 			case 'deleteAccount.userInfo': return '用户信息：';
 			case 'deleteAccount.username': return '用户名';
@@ -3413,17 +4901,40 @@ extension on _TranslationsZh {
 			case 'deleteAccount.information': return '您确定要删除您的账户吗？此操作不可逆。请输入您的密码进行确认。';
 			case 'deleteAccount.accountDeleted': return '账户删除成功';
 			case 'deleteAccount.notRegistered': return '未注册';
+			case 'drawer.account': return '账户';
+			case 'drawer.profile': return '个人资料';
+			case 'drawer.content': return '内容';
+			case 'drawer.species': return '物种';
+			case 'drawer.communities': return '土著社区';
+			case 'drawer.authors': return '作者';
+			case 'drawer.about': return '关于';
+			case 'drawer.staff': return '工作人员';
+			case 'drawer.aboutGuide': return '关于指南';
+			case 'drawer.menu': return '菜单';
 			case 'editProfile.errorSnack': return '加载用户数据时出错';
 			case 'editProfile.title': return '编辑个人资料';
 			case 'editProfile.save': return '保存';
-			case 'editProfile.saving': return '保存中...';
+			case 'editProfile.saving': return '正在保存...';
 			case 'editProfile.errorSaving': return '保存个人资料数据时出错';
+			case 'editProfile.selectImage': return '选择个人资料图片';
+			case 'editProfile.errorSave': return '保存个人资料时出错';
+			case 'errorPage.page_not_exist': return '该页面不存在';
+			case 'errorPage.go_back': return '返回物种';
+			case 'favoriteRepository.getSpeciesNetworkError': return '获取你收藏的物种时网络错误';
+			case 'favoriteRepository.getSpeciesUnknownError': return '获取你收藏的物种时未知错误';
+			case 'favoriteRepository.getSpeciesEmptyError': return '没有找到你收藏的某些物种';
+			case 'favoriteRepository.updateSpeciesNetworkError': return '更新你收藏的物种时网络错误';
+			case 'favoriteRepository.updateSpeciesUnknownError': return '更新你收藏的物种时未知错误';
 			case 'favorites.title': return '收藏夹';
-			case 'favorites.hintText': return '查找您的收藏';
-			case 'favorites.close': return '关闭';
-			case 'favorites.search': return '搜索';
+			case 'favorites.hintText': return '搜索你的收藏';
 			case 'favorites.exceptionText': return '这里还没有物种';
 			case 'favorites.deleteFavorite': return '从收藏夹中删除';
+			case 'favorites.empty': return '开始将物种标记为收藏，以便在此查看';
+			case 'favorites.error': return '我们进行了重大更改，点击“恢复物种”以更新信息，请确保你已连接到互联网';
+			case 'favorites.canNot': return '无法执行此操作';
+			case 'favorites.reestoreSpecies': return '恢复物种';
+			case 'favorites.withoutSpecies': return '你还没有收藏的物种，可以从物种部分添加';
+			case 'favorites.yeah': return '你的所有收藏物种都已恢复！';
 			case 'filterOptions.listByAlphabethic': return '按字母顺序列出';
 			case 'filterOptions.recentlyAdded': return '最近添加';
 			case 'filterOptions.all': return '全部';
@@ -3446,6 +4957,37 @@ extension on _TranslationsZh {
 			case 'forgotPassword.clear': return '清除';
 			case 'forgotPassword.message': return '请输入您的电子邮件以发送一封邮件，您可以在其中更改您的密码：';
 			case 'forgotPassword.checkYourEmail': return '请检查您的邮箱！';
+			case 'general.back': return '返回';
+			case 'general.close': return '关闭';
+			case 'general.clear': return '清除';
+			case 'general.search': return '搜索';
+			case 'general.addToFavorites': return '添加到收藏夹';
+			case 'general.removeFromFavorites': return '从收藏夹中删除';
+			case 'general.error404Again': return '出了点问题，请再试一次';
+			case 'general.nameNotAvailable': return '名称不可用';
+			case 'general.lastnameNotAvailable': return '姓氏不可用';
+			case 'general.descriptionNotAvailable': return '描述不可用';
+			case 'pdfPreviewPage.amazon': return '亚马逊';
+			case 'pdfPreviewPage.institute': return '秘鲁亚马逊研究所';
+			case 'pdfPreviewPage.title': return '动植物图鉴';
+			case 'pdfPreviewPage.commonNameNotAvailable': return '常用名称不可用';
+			case 'pdfPreviewPage.scientificNameNotAvailable': return '学名不可用';
+			case 'pdfPreviewPage.author': return '作者';
+			case 'pdfPreviewPage.authors': return '作者们';
+			case 'pdfPreviewPage.imageNotAvailable': return '图片不可用';
+			case 'pdfPreviewPage.taxonomicInformation': return '分类信息';
+			case 'pdfPreviewPage.kingdom': return '界';
+			case 'pdfPreviewPage.phylum': return '门';
+			case 'pdfPreviewPage.class_': return '纲';
+			case 'pdfPreviewPage.order': return '目';
+			case 'pdfPreviewPage.family': return '科';
+			case 'pdfPreviewPage.authorInformation': return '作者信息';
+			case 'pdfPreviewPage.name': return '名字';
+			case 'pdfPreviewPage.lastname': return '姓氏';
+			case 'pdfPreviewPage.profession': return '职业';
+			case 'pdfPreviewPage.bornIn': return '出生于';
+			case 'pdfPreviewPage.diedIn': return '逝世于';
+			case 'pdfPreviewPage.year': return '年';
 			case 'profile.title': return '我的个人资料';
 			case 'profile.logout': return '退出';
 			case 'profile.favorites': return '我的收藏';
@@ -3490,6 +5032,8 @@ extension on _TranslationsZh {
 			case 'searchPage.errorFetchingSpecies': return '未找到与您的搜索相关的物种。 请尝试使用其他类别，排序或科。';
 			case 'searchPage.acceptText': return '接受';
 			case 'searchPage.updateText': return '更新';
+			case 'searchPage.aToZ': return '阿-贼德';
+			case 'searchPage.zToA': return '贼德-阿';
 			case 'signIn.title': return '亚马逊雨林';
 			case 'signIn.subtitle': return '植物和动物图鉴';
 			case 'signIn.email': return '电子邮件';
@@ -3526,28 +5070,82 @@ extension on _TranslationsZh {
 			case 'species.insects': return '昆虫';
 			case 'species.trees': return '树木';
 			case 'species.palms': return '棕榈树';
-			case 'species.deleteFavorite': return '从收藏中移除';
-			case 'species.saveFavorite': return '保存到收藏夹';
-			case 'species.orderName': return '按普通名称排序';
-			case 'species.orderScientificName': return '按学名排序';
+			case 'species.orderName': return '通用名';
+			case 'species.orderScientificName': return '科学名称';
 			case 'speciesDetails.authors': return '作者';
 			case 'speciesDetails.taxonomicInfo': return '分类信息';
-			case 'speciesDetails.kingdom': return '王国';
-			case 'speciesDetails.filo': return '门';
-			case 'speciesDetails.classes': return '类';
+			case 'speciesDetails.kingdom': return '界';
+			case 'speciesDetails.phylum': return '门';
+			case 'speciesDetails.classes': return '纲';
 			case 'speciesDetails.order': return '目';
 			case 'speciesDetails.family': return '科';
 			case 'speciesDetails.download': return '下载';
-			case 'speciesDetails.generatePdf': return '生成 PDF';
+			case 'speciesDetails.generatePdf': return '生成PDF';
 			case 'speciesDetails.downloadImage': return '下载图片';
 			case 'speciesDetails.downloadAudio': return '下载音频';
 			case 'speciesDetails.share': return '分享';
-			case 'speciesDetails.saveToFavorite': return '保存到收藏夹';
-			case 'speciesDetails.deleteFromFavorite': return '从收藏夹中删除';
-			case 'speciesDetails.errorDownload': return '下载错误';
-			case 'speciesDetails.successDownload': return '下载成功';
-			case 'speciesDetails.shareAmazonInfo': return '分享亚马逊的美丽！分享有关的宝贵信息.';
+			case 'speciesDetails.errorDownload': return '下载出错';
+			case 'speciesDetails.successDownload': return '下载成功！';
+			case 'speciesDetails.shareAmazonInfo': return '分享亚马逊的美丽！分享这些宝贵的信息。';
 			case 'speciesDetails.shareAmazon': return '分享亚马逊的美丽！';
+			case 'speciesDetails.conservationStatus': return '保护状况';
+			case 'speciesDetails.extinct': return '灭绝';
+			case 'speciesDetails.extinctDescription': return '该物种已不复存在于自然界';
+			case 'speciesDetails.extinctWild': return '野外灭绝';
+			case 'speciesDetails.extinctWildDescription': return '该物种仅存在于圈养环境中';
+			case 'speciesDetails.criticallyEndangered': return '濒危';
+			case 'speciesDetails.criticallyEndangeredDescription': return '该物种在自然环境中面临极高的灭绝风险';
+			case 'speciesDetails.endangered': return '濒危';
+			case 'speciesDetails.endangeredDescription': return '该物种在自然环境中面临很高的灭绝风险';
+			case 'speciesDetails.vulnerable': return '易危';
+			case 'speciesDetails.vulnerableDescription': return '该物种在自然环境中面临较高的灭绝风险';
+			case 'speciesDetails.almostThreatened': return '濒临威胁';
+			case 'speciesDetails.almostThreatenedDescription': return '该物种目前没有受到威胁，但未来可能受到威胁';
+			case 'speciesDetails.minorConcern': return '轻度关注';
+			case 'speciesDetails.minorConcernDescription': return '该物种并未濒危';
+			case 'speciesDetails.insufficientData': return '数据不足';
+			case 'speciesDetails.insufficientDataDescription': return '没有足够的信息来评估该物种的灭绝风险';
+			case 'speciesDetails.notRated': return '未评定';
+			case 'speciesDetails.notRatedDescription': return '该物种尚未被IUCN评定';
+			case 'speciesDetails.appendix1': return '附录 I';
+			case 'speciesDetails.appendix1Description': return '所有濒危物种。这些物种的标本交易仅在特殊情况下允许';
+			case 'speciesDetails.appendix2': return '附录 II';
+			case 'speciesDetails.appendix2Description': return '非必然濒危的物种，但其交易必须受到控制，以避免与其生存不相容的使用';
+			case 'speciesDetails.appendix3': return '附录 III';
+			case 'speciesDetails.appendix3Description': return '在至少一个国家受到保护的物种，该国家请求CITES其他缔约方协助控制该物种的贸易';
+			case 'speciesDetailsPage.download': return '下载';
+			case 'speciesDetailsPage.errorDownload': return '无法下载';
+			case 'speciesDetailsPage.downloadImage': return '下载图片';
+			case 'speciesDetailsPage.downloadAudio': return '下载音频';
+			case 'speciesDetailsPage.share': return '分享';
+			case 'speciesDetailsPage.generatePdf': return '生成 PDF';
+			case 'speciesDetailsPage.attractiveMessage': return '分享亚马逊的美丽！分享这条有价值的信息';
+			case 'speciesDetailsPage.conservationStates': return '保护状态';
+			case 'speciesDetailsPage.noInformation': return '没有信息';
+			case 'speciesDetailsPage.nameNotAvailable': return '名称不可用';
+			case 'speciesDetailsPage.scientificNameNotAvailable': return '学名不可用';
+			case 'speciesDetailsPage.year': return '年';
+			case 'staff.title': return '工作团队';
+			case 'staff.coordinationTeam': return '协调团队';
+			case 'staff.editorialCoordination': return '编辑协调';
+			case 'staff.reviewCommittee': return '审查委员会';
+			case 'staff.textReview': return '文本审查：';
+			case 'staff.birdReview': return '鸟类审查：';
+			case 'staff.fishReview': return '鱼类审查：';
+			case 'staff.insectReview': return '昆虫审查：';
+			case 'staff.plantReview': return '植物审查：';
+			case 'staff.mapMaking': return '地图制作：';
+			case 'staff.illustrations': return '插图：';
+			case 'staff.sounds': return '声音';
+			case 'staff.birds': return '鸟类';
+			case 'staff.monkeys': return '猴子';
+			case 'staff.amphibians': return '两栖动物';
+			case 'staff.developmentTeam': return '开发团队';
+			case 'staff.technicalLeader': return '技术负责人';
+			case 'staff.mobileDeveloper': return '移动开发人员';
+			case 'staff.developmentFrontend': return '前端开发人员';
+			case 'staff.developmentBackend': return '后端开发人员';
+			case 'staff.briefcase': return '作品集';
 			case 'userCredentialFailure.network': return '检查您的网络连接';
 			case 'userCredentialFailure.credential': return '凭证不正确';
 			case 'userCredentialFailure.disable': return '此帐户已被禁用，请稍后再试';

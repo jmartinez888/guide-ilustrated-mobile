@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
+import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/pageStorage/page_storage_bucket.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/species/top_tabs/amphibians_tab/amphibians_tab_page.dart';
@@ -111,58 +112,54 @@ class _SpeciesPageState extends State<SpeciesPage>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final textTheme = Theme.of(context).textTheme;
-    final tabBar = TabBar(
-      physics: const BouncingScrollPhysics(),
-      controller: _tabController,
-      splashBorderRadius: BorderRadius.circular(16.0),
-      indicatorColor: _tabIndicatorColor[_tabController.index],
-      labelColor: _tabIndicatorColor[_tabController.index],
-      isScrollable: true,
-      onTap: (index) => setState(() => _tabController.index = index),
-      tabs: _tabs,
-    );
-    return DefaultTabController(
-      length: _pageData.length,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 56.0),
-            height: 56.0,
-            width: double.infinity,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    texts.species.title,
-                    style: textTheme.titleLarge,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (size.height < size.width + 32.0) Expanded(child: tabBar),
-              ],
-            ),
-          ),
-          if (size.height > size.width + 32.0)
-            Align(
-              alignment: Alignment.center,
-              child: tabBar,
-            ),
-          Expanded(
-            child: PageStorage(
-              bucket: PersistenScrollPosition.bucketGlobal,
-              child: TabBarView(
-                key: const PageStorageKey('specieTabs'),
-                physics: const BouncingScrollPhysics(),
-                controller: _tabController,
-                children: _pages,
-              ),
-            ),
-          ),
-        ],
+    final tabBar = ClipRRect(
+      borderRadius: BorderRadius.circular(16.0),
+      child: TabBar(
+        padding: PaddingConfig.symetrictHorizontalL,
+        physics: const BouncingScrollPhysics(),
+        controller: _tabController,
+        splashBorderRadius: BorderRadius.circular(16.0),
+        indicatorColor: _tabIndicatorColor[_tabController.index],
+        labelColor: _tabIndicatorColor[_tabController.index],
+        isScrollable: true,
+        onTap: (index) => setState(() => _tabController.index = index),
+        tabs: _tabs,
       ),
     );
+    return DefaultTabController(
+        length: _pageData.length,
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: size.height < size.width + 32.0 ? 96.0 : null,
+            leading: const SizedBox(),
+            title: Row(
+              children: [
+                Text(texts.species.title),
+                if (size.height < size.width + 32.0)
+                  Expanded(
+                    child: Padding(
+                      padding: PaddingConfig.onlyLeft,
+                      child: tabBar,
+                    ),
+                  ),
+              ],
+            ),
+            bottom: size.height < size.width + 32.0
+                ? null
+                : PreferredSize(
+                    preferredSize: const Size(double.infinity, 56.0),
+                    child: tabBar,
+                  ),
+          ),
+          body: PageStorage(
+            bucket: PersistenScrollPosition.bucketGlobal,
+            child: TabBarView(
+              key: const PageStorageKey('specieTabs'),
+              physics: const BouncingScrollPhysics(),
+              controller: _tabController,
+              children: _pages,
+            ),
+          ),
+        ));
   }
 }

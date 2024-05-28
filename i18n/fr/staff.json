@@ -1,0 +1,23 @@
+{
+    "title": "Équipe de travail",
+    "coordinationTeam": "Équipe de coordination",
+    "editorialCoordination": "Coordination éditoriale",
+    "reviewCommittee": "Comité de révision",
+    "textReview": "Révision de textes :",
+    "birdReview": "Révision des oiseaux :",
+    "fishReview": "Révision des poissons :",
+    "insectReview": "Révision des insectes :",
+    "plantReview": "Révision des plantes :",
+    "mapMaking": "Élaboration des cartes :",
+    "illustrations": "Illustrations :",
+    "sounds": "Sons",
+    "birds": "Oiseaux",
+    "monkeys": "Singes",
+    "amphibians": "Amphibiens",
+    "developmentTeam": "Équipe de développement",
+    "technicalLeader": "Responsable technique",
+    "mobileDeveloper": "Développeur mobile",
+    "developmentFrontend": "Développeur frontend",
+    "developmentBackend": "Développeur backend",
+    "briefcase": "Portefeuille"
+}

@@ -1,8 +1,12 @@
 {
     "title": "收藏夹",
-    "hintText": "查找您的收藏",
-    "close": "关闭",
-    "search": "搜索",
+    "hintText": "搜索你的收藏",
     "exceptionText": "这里还没有物种",
-    "deleteFavorite": "从收藏夹中删除"
+    "deleteFavorite": "从收藏夹中删除",
+    "empty": "开始将物种标记为收藏，以便在此查看",
+    "error": "我们进行了重大更改，点击“恢复物种”以更新信息，请确保你已连接到互联网",
+    "canNot": "无法执行此操作",
+    "reestoreSpecies": "恢复物种",
+    "withoutSpecies": "你还没有收藏的物种，可以从物种部分添加",
+    "yeah": "你的所有收藏物种都已恢复！"
 }

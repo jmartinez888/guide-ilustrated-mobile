@@ -35,5 +35,7 @@
     "notResultsContent": "Nenhum resultado encontrado. Tente outra pesquisa",
     "errorFetchingSpecies": "Nenhuma espécie encontrada relacionada à sua busca. Por favor, tente novamente com outra classe, ordem ou família.",
     "acceptText": "Aceitar",
-    "updateText": "Atualizar"
+    "updateText": "Atualizar",
+    "aToZ": "A-Z",
+    "zToA": "Z-A"
 }

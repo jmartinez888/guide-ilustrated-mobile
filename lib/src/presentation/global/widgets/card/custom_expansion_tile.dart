@@ -14,7 +14,6 @@ class CustomExpansionTile extends StatefulWidget {
     this.initialElevation = 0.0,
     this.initiallyExpanded = false,
     this.initialPadding = EdgeInsets.zero,
-    this.finalPadding = const EdgeInsets.only(bottom: 6.0),
     this.contentPadding,
     this.baseColor,
     this.expandedColor,
@@ -48,7 +47,6 @@ class CustomExpansionTile extends StatefulWidget {
   final Color shadowColor;
   final bool initiallyExpanded;
   final EdgeInsetsGeometry initialPadding;
-  final EdgeInsetsGeometry finalPadding;
   final EdgeInsetsGeometry? contentPadding;
   final Color? baseColor;
   final Color? expandedColor;
@@ -68,11 +66,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _heightFactor;
-  late Animation<double> _elevation;
-  late Animation<Color?> _headerColor;
-  late Animation<Color?> _iconColor;
-  late Animation<Color?> _materialColor;
-  late Animation<EdgeInsets> _padding;
   late Animation<double> _iconTurns;
   bool _isExpanded = false;
 
@@ -82,19 +75,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     _controller = AnimationController(duration: widget.duration, vsync: this);
     _heightFactor =
         _controller.drive(CurveTween(curve: widget.heightFactorCurve));
-    _headerColor = _controller
-        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
-    _iconColor = _controller
-        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
-    _materialColor = _controller
-        .drive(ColorTween(begin: Colors.transparent, end: Colors.transparent));
-    _elevation = _controller.drive(
-        Tween<double>(begin: widget.initialElevation, end: widget.elevation));
-    _padding = _controller.drive(
-      EdgeInsetsTween(
-          begin: widget.initialPadding as EdgeInsets?,
-          end: widget.finalPadding as EdgeInsets?),
-    );
     _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(
         CurvedAnimation(parent: _controller, curve: widget.turnsCurve));
     _isExpanded = widget.initiallyExpanded;
@@ -136,63 +116,48 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
     _setExpansion(!_isExpanded);
   }
 
+  static const Color white = Colors.white;
+
   Widget _buildChildren(BuildContext context, Widget? child) {
-    return Padding(
-      padding: _padding.value,
-      child: Material(
-        type: MaterialType.card,
-        color: _materialColor.value,
-        borderRadius: widget.borderRadius,
-        elevation: _elevation.value,
-        shadowColor: widget.shadowColor,
-        child: Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.0),
-            border: Border.all(
-              color: widget.sideColor,
-              width: 2.0,
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0),
+        border: Border.all(
+          color: widget.sideColor,
+          width: 2.0,
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTileTheme.merge(
+            iconColor: white,
+            textColor: white,
+            child: Material(
+              color: widget.titleBackgroundColor,
+              child: ListTile(
+                onTap: toggleExpansion,
+                isThreeLine: widget.isThreeLine,
+                contentPadding: widget.contentPadding,
+                leading: widget.leading,
+                title: widget.title,
+                subtitle: widget.subtitle,
+                trailing: RotationTransition(
+                  turns: _iconTurns,
+                  child:
+                      widget.trailing ?? const Icon(Icons.expand_more_rounded),
+                ),
+              ),
             ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              InkWell(
-                customBorder:
-                    RoundedRectangleBorder(borderRadius: widget.borderRadius),
-                onTap: toggleExpansion,
-                child: ListTileTheme.merge(
-                  iconColor: Colors.white,
-                  textColor: Colors.white,
-                  child: Material(
-                    color: widget.titleBackgroundColor,
-                    child: ListTile(
-                      isThreeLine: widget.isThreeLine,
-                      contentPadding: widget.contentPadding,
-                      leading: widget.leading,
-                      title: widget.title,
-                      subtitle: widget.subtitle,
-                      trailing: RotationTransition(
-                        turns: _iconTurns,
-                        child: widget.trailing ??
-                            const Icon(
-                              Icons.expand_more,
-                              color: Colors.white,
-                            ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              ClipRect(
-                child: Align(
-                  heightFactor: _heightFactor.value,
-                  child: child,
-                ),
-              ),
-            ],
+          ClipRect(
+            child: Align(
+              heightFactor: _heightFactor.value,
+              child: child,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

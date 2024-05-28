@@ -1,0 +1,14 @@
+{
+    "download": "Download",
+    "errorDownload": "Could not download",
+    "downloadImage": "Download image",
+    "downloadAudio": "Download audio",
+    "share": "Share",
+    "generatePdf": "Generate PDF",
+    "attractiveMessage": "Share the beauty of the Amazon! Share this valuable information about",
+    "conservationStates": "Conservation statuses",
+    "noInformation": "No information",
+    "nameNotAvailable": "Name not available",
+    "scientificNameNotAvailable": "Scientific name not available",
+    "year": "Year"
+}

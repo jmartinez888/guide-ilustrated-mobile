@@ -57,6 +57,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
+    _focusNode.requestFocus();
     _pagingController.addPageRequestListener((pageKey) {
       specieRepository.filterSpecies(
         numberOfPostsPerRequest: numberOfPostsPerRequest,
@@ -103,28 +104,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    /* return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (isMobile) _appBar(context),
-        if (isMobile) _listFilterOptions(context),
-        if (!isMobile)
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(left: 56),
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: _searchTextField(),
-              ),
-              const SizedBox(width: 8.0),
-              if (_isFiltered()) _removeFilters(context),
-              Expanded(child: _listFilterOptions(context)),
-            ],
-          ),
-        
-      ],
-    ); */
-
     return RefreshIndicator(
       onRefresh: () => Future.sync(() => _pagingController.refresh()),
       child: CustomScrollView(
@@ -134,6 +113,9 @@ class _SearchPageState extends State<SearchPage> {
             title: _searchTextField(),
             subtitle: _listFilterOptions(context),
             landscape: width <= 640 ? false : true,
+            action: _isFiltered()
+                ? _removeFilters(Theme.of(context).colorScheme.surface)
+                : null,
           ),
           SliverPadding(
             padding: PaddingConfig.allBottomSafeL,
@@ -328,7 +310,7 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  AppBar _appBar(BuildContext context) {
+  /*  AppBar _appBar(BuildContext context) {
     return AppBar(
       centerTitle: true,
       title: _searchTextField(),
@@ -337,12 +319,11 @@ class _SearchPageState extends State<SearchPage> {
         const SizedBox(width: 16.0),
       ],
     );
-  }
+  } */
 
-  Widget _removeFilters(BuildContext context) {
+  Widget _removeFilters(Color opaqueColor) {
     return CustomIconButton(
-        backgroundColor:
-            Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+        backgroundColor: opaqueColor,
         tooltip: texts.searchPage.cleanFilters,
         onPressed: () => setState(
               () {
@@ -525,7 +506,7 @@ class _SearchPageState extends State<SearchPage> {
                   });
                 },
                 onDialogClosed: () {
-                  Navigator.pop(context);
+                  Navigator.maybePop(context);
                 },
                 classes: classes,
               );
@@ -739,6 +720,7 @@ Widget _customSliverAppBar({
   required Widget title,
   required Widget subtitle,
   required bool landscape,
+  Widget? action,
 }) {
   const minHeight = 56.0;
   const maxHeight = 112.0;
@@ -758,8 +740,18 @@ Widget _customSliverAppBar({
         crossAxisCount: landscape ? 2 : 1,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 56.0, right: !landscape ? 16.0 : 0.0),
-            child: title,
+            padding:
+                EdgeInsets.only(left: 56.0, right: !landscape ? 16.0 : 0.0),
+            child: Row(
+              children: [
+                Expanded(child: title),
+                if (action != null)
+                  Padding(
+                    padding: PaddingConfig.onlyLeft,
+                    child: action,
+                  )
+              ],
+            ),
           ),
           subtitle,
         ],

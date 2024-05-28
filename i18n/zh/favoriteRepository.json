@@ -1,0 +1,7 @@
+{
+    "getSpeciesNetworkError": "获取你收藏的物种时网络错误",
+    "getSpeciesUnknownError": "获取你收藏的物种时未知错误",
+    "getSpeciesEmptyError": "没有找到你收藏的某些物种",
+    "updateSpeciesNetworkError": "更新你收藏的物种时网络错误",
+    "updateSpeciesUnknownError": "更新你收藏的物种时未知错误"
+}

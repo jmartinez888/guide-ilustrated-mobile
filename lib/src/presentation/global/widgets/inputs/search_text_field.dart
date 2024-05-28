@@ -30,8 +30,6 @@ class SearchTextField extends StatelessWidget {
         controller: controller,
         textInputAction: textInputAction,
         decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
           fillColor: Theme.of(context).colorScheme.outline.withOpacity(0.5),
           filled: true,
           border: OutlineInputBorder(
@@ -47,24 +45,3 @@ class SearchTextField extends StatelessWidget {
     );
   }
 }
-
-/* SizedBox(
-          height: 56.0,
-          child: TextFormField(
-            controller: searchController,
-            decoration: InputDecoration(
-              fillColor:
-                  Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(32.0),
-                borderSide: BorderSide.none,
-              ),
-              hintText: 'Buscar autor',
-            ),
-            onChanged: (value) => setState(() {
-              searchController.text = value;
-              _pagingController.refresh();
-            }),
-          ),
-        ) */

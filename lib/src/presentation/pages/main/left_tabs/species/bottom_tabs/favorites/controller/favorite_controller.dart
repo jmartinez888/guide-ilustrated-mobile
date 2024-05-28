@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:species/src/domain/entities/specie/specie.dart';
-import 'package:species/src/domain/entities/specie_error/specie_error.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/presentation/global/state_notifier.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tabs/favorites/controller/state/favories_state.dart';
@@ -32,7 +31,4 @@ class FavoriteController extends StateNotifier<FavoritesState> {
     return _favoriteRepository.getFavoritesSpecies(userId);
   }
 
-  Stream<List<SpecieError>> getFavoritesSpeciesError(String userId) {
-    return _favoriteRepository.getFavoritesSpeciesError(userId);
-  }
 }

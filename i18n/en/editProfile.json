@@ -1,7 +1,9 @@
 {
     "errorSnack": "Error loading user data",
-    "title": "Edit profile",
+    "title": "Edit Profile",
     "save": "Save",
     "saving": "Saving...",
-    "errorSaving": "Error saving profile data"
+    "errorSaving": "Error saving profile data",
+    "selectImage": "Select a profile picture",
+    "errorSave": "Error saving profile"
 }

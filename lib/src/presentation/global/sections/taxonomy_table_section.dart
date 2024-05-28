@@ -4,6 +4,7 @@ import 'package:species/src/domain/entities/family/family.dart';
 import 'package:species/src/domain/entities/kindom/kindom.dart';
 import 'package:species/src/domain/entities/order/order.dart';
 import 'package:species/src/domain/entities/phylum/phylum.dart';
+import 'package:species/src/generated/translations.g.dart';
 
 class TaxonomyTableSection extends StatelessWidget {
   final Color mainColor;
@@ -91,7 +92,7 @@ class TaxonomyTableSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           doubleListTile(
-            firstText: 'Información taxonómica',
+            firstText: texts.speciesDetails.taxonomicInfo,
             backgroundColor: opaqueColor,
             style: textTheme.titleLarge?.copyWith(
               color: mainColor,
@@ -103,35 +104,35 @@ class TaxonomyTableSection extends StatelessWidget {
             color: mainColor,
           ),
           doubleListTile(
-            firstText: 'Reino',
+            firstText: texts.speciesDetails.kingdom,
             secondText: kingdom?.name ?? '-',
             divideColor: mainColor,
             style: textTheme.labelLarge,
           ),
           customDivider,
           doubleListTile(
-            firstText: 'Filo',
+            firstText: texts.speciesDetails.phylum,
             secondText: phylum?.name ?? '-',
             divideColor: mainColor,
             style: textTheme.labelLarge,
           ),
           customDivider,
           doubleListTile(
-            firstText: 'Clase',
+            firstText: texts.speciesDetails.classes,
             secondText: classC?.name ?? '-',
             divideColor: mainColor,
             style: textTheme.labelLarge,
           ),
           customDivider,
           doubleListTile(
-            firstText: 'Orden',
+            firstText: texts.speciesDetails.order,
             secondText: order?.name ?? '-',
             divideColor: mainColor,
             style: textTheme.labelLarge,
           ),
           customDivider,
           doubleListTile(
-            firstText: 'Familia',
+            firstText: texts.speciesDetails.family,
             secondText: family?.name ?? '-',
             divideColor: mainColor,
             style: textTheme.labelLarge,

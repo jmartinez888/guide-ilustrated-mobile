@@ -145,7 +145,9 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     ),
                     if (!enabled)
                       const SizedBox(
-                          height: 16.0, child: CircularProgressIndicator()),
+                        height: 16.0,
+                        child: CircularProgressIndicator(),
+                      ),
                   ],
                 ),
               );
