@@ -7,6 +7,7 @@ import 'package:species/src/domain/repositories/auth/auth_repository.dart';
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
+import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 class SplashPage extends StatefulWidget {
@@ -70,35 +71,41 @@ class _SplashPageState extends State<SplashPage> {
         children: [
           Positioned(
             top: 8.0,
+            left: 16.0,
+            right: 16.0,
             child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    texts.general.title,
-                    style: textTheme.displayMedium?.copyWith(color: Colors.white),
-                  )
-                      .animate(delay: num800.ms)
-                      .fadeIn(duration: num1600.ms)
-                      .moveY(
-                        duration: num1600.ms,
-                        curve: Curves.easeInOutBack,
-                      ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      texts.general.subtitle,
-                      style:
-                          textTheme.displaySmall?.copyWith(color: Colors.white),
+              child: Extend(
+                min: true,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      texts.general.title,
+                      style: textTheme.displayMedium
+                          ?.copyWith(color: Colors.white),
                     )
-                        .animate(delay: num1600.ms)
+                        .animate(delay: num800.ms)
                         .fadeIn(duration: num1600.ms)
-                        .moveX(
+                        .moveY(
                           duration: num1600.ms,
-                          curve: Curves.decelerate,
+                          curve: Curves.easeInOutBack,
                         ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        texts.general.subtitle,
+                        style: textTheme.displaySmall
+                            ?.copyWith(color: Colors.white),
+                      )
+                          .animate(delay: num1600.ms)
+                          .fadeIn(duration: num1600.ms)
+                          .moveX(
+                            duration: num1600.ms,
+                            curve: Curves.decelerate,
+                          ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
