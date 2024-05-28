@@ -3,53 +3,53 @@
 <plist version="1.0">
 	<dict>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true />
+		<true/>
 		<key>CFBundleDevelopmentRegion</key>
-		<string> $(DEVELOPMENT_LANGUAGE)</string>
+		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
 		<string>Species</string>
-		<key> CFBundleExecutable</key>
+		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
-		<string> $(PRODUCT_BUNDLE_IDENTIFIER)</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
-		<key> CFBundleName</key>
+		<key>CFBundleName</key>
 		<string>species</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
-		<key> CFBundleShortVersionString</key>
+		<key>CFBundleShortVersionString</key>
 		<string>$(FLUTTER_BUILD_NAME)</string>
 		<key>CFBundleSignature</key>
-		<string> ????</string>
+		<string>????</string>
 		<key>CFBundleVersion</key>
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
-		<key> LSRequiresIPhoneOS</key>
-		<true />
+		<key>LSRequiresIPhoneOS</key>
+		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true />
-		<key> UILaunchStoryboardName</key>
+		<true/>
+		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
-		<string> Main</string>
+		<string>Main</string>
 		<key>UIStatusBarHidden</key>
-		<false />
+		<false/>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<key> UISupportedInterfaceOrientations~ipad</key>
+		<key>UISupportedInterfaceOrientations~ipad</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationPortraitUpsideDown</string>
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<key> NSPhotoLibraryUsageDescription</key>
+		<key>NSPhotoLibraryUsageDescription</key>
 		<string>Photo Library Usage</string>
-		<key> NSCameraUsageDescription</key>
+		<key>NSCameraUsageDescription</key>
 		<string>Camera Usage</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>Microphone Usage</string>

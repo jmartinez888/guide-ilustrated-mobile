@@ -1,4 +1,6 @@
 {
+    "title": "Amazonía",
+    "subtitle": "Guía Ilustrada de Flora y Fauna",
     "back": "Atrás",
     "close": "Cerrar",
     "clear": "Limpiar",
@@ -8,5 +10,7 @@
     "error404Again": "Algo salió mal, inténtalo de nuevo",
     "nameNotAvailable": "Nombre no disponible",
     "lastnameNotAvailable": "Apellidos no disponibles",
-    "descriptionNotAvailable": "Descripción no disponible"
+    "descriptionNotAvailable": "Descripción no disponible",
+    "somethingWentWrong": "Algo salió mal, inténtalo de nuevo",
+    "refresh": "Actualizar"
 }
