@@ -20,7 +20,6 @@ class _SplashPageState extends State<SplashPage> {
   AuthRepository get authRepository => context.read();
   SessionController get sessionController => context.read();
   late Timer _timer;
-  //int time = 6;
   int time = 4;
 
   @override
