@@ -70,7 +70,6 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       canPop: enabled,
       child: Scaffold(
@@ -148,13 +147,13 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
             ],
           ),
         ),
-        if(enabled)
-        const SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(left: 8.0, top: 8.0),
-            child: CustomBackButton(),
+        if (enabled)
+          const SafeArea(
+            child: Padding(
+              padding: EdgeInsets.only(left: 8.0, top: 8.0),
+              child: CustomBackButton(),
+            ),
           ),
-        ),
       ],
     );
   }
@@ -248,7 +247,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   void _validateCredentials({
     required BuildContext context,
   }) async {
-    if(!_hidePassword) {
+    if (!_hidePassword) {
       _hidePassword = true;
     }
     if (validateInInput == false) {
@@ -323,6 +322,11 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
             },
             (uid) {
               if (mounted) {
+                accountRepository.createUser(
+                  userId: right.user!.uid,
+                  email: email,
+                );
+
                 sessionController.setUser(uid);
                 context.goNamed(Routes.species);
               }

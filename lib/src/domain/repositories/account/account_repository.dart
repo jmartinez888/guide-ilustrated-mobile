@@ -1,13 +1,16 @@
 import 'dart:typed_data';
 
+import 'package:species/src/domain/either.dart';
+import 'package:species/src/domain/entities/user/user.dart';
+import 'package:species/src/domain/failures/firebase_request/firebase_request_failure.dart';
+
 abstract class AccountRepository {
   Future createUser({
     required String userId,
     required String email,
   });
 
-  Future<Map<String, dynamic>> getUserData(String userId);
-
+  Future<Either<FirebaseRequestFailure, UserC>> getUserData(String userId);
 
   Future<String> uploadProfilePicture(
     String folderName,
@@ -32,7 +35,10 @@ abstract class AccountRepository {
     required String email,
   });
 
-  Future<void> deleteUserAccount(String password);
+  Future<void> deleteUserAccount({
+    required String email,
+    required String password,
+  });
 
   Future<Map<String, dynamic>> getUserInfo();
 

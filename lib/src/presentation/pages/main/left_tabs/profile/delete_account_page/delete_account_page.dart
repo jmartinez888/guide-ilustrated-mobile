@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
+import 'package:species/src/presentation/global/controller/session_controller.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/messages/custom_snack_bar.dart';
 import 'package:species/src/presentation/router/routes.dart';
@@ -25,6 +26,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   AccountRepository get accountRepository => context.read();
 
   late Future<Map<String, dynamic>> _getUserInfo;
+
+  SessionController get sessionController => context.read();
 
   @override
   void initState() {
@@ -105,7 +108,10 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           OutlinedButton(
             onPressed: () {
               final currentContext = context;
-              _handleConfirmation(currentContext);
+              _handleConfirmation(
+                currentContext,
+                email: email,
+              );
             },
             child: Text(texts.deleteAccount.title),
           ),
@@ -114,7 +120,10 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
     );
   }
 
-  Future<dynamic> _handleConfirmation(BuildContext currentContext) {
+  Future<dynamic> _handleConfirmation(
+    BuildContext currentContext, {
+    required String email,
+  }) {
     return showDialog(
       context: currentContext,
       builder: (BuildContext context) {
@@ -187,8 +196,12 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       });
 
                       // Realizar la operación de eliminación
-                      await accountRepository.deleteUserAccount(password);
+                      await accountRepository.deleteUserAccount(
+                        email: email,
+                        password: password,
+                      );
 
+                      sessionController.signOut();
                       // Navegar a la pantalla deseada
                       if (mounted) {
                         context.goNamed(Routes.species);
@@ -214,9 +227,11 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     } finally {
                       _passwordController.clear();
                       // Ocultar indicador de carga después de la operación
-                      setState(() {
-                        enabled = true;
-                      });
+                      if (mounted) {
+                        setState(() {
+                          enabled = true;
+                        });
+                      }
                     }
                   }
                 }

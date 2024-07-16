@@ -2,6 +2,9 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:species/src/data/services/remote/account_api.dart';
+import 'package:species/src/domain/either.dart';
+import 'package:species/src/domain/entities/user/user.dart';
+import 'package:species/src/domain/failures/firebase_request/firebase_request_failure.dart';
 import 'package:species/src/domain/repositories/account/account_repository.dart';
 
 class AccountRepositoryImpl extends AccountRepository {
@@ -23,7 +26,7 @@ class AccountRepositoryImpl extends AccountRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> getUserData(String userId) {
+  Future<Either<FirebaseRequestFailure, UserC>> getUserData(String userId) {
     return _accountApi.getUserData(userId);
   }
 
@@ -78,8 +81,14 @@ class AccountRepositoryImpl extends AccountRepository {
   }
 
   @override
-  Future<void> deleteUserAccount(String password) {
-    return _accountApi.deleteUserAccount(password);
+  Future<void> deleteUserAccount({
+    required String email,
+    required String password,
+  }) {
+    return _accountApi.deleteUserAccount(
+      email: email,
+      password: password,
+    );
   }
 
   @override

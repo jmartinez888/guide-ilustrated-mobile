@@ -1,0 +1,14 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore: depend_on_referenced_packages
+import 'package:json_annotation/json_annotation.dart';
+
+class TimestampSerializer implements JsonConverter<DateTime, dynamic> {
+  const TimestampSerializer();
+
+  @override
+  DateTime fromJson(dynamic timestamp) => timestamp.toDate();
+
+  @override
+  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
+}

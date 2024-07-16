@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
@@ -18,7 +17,8 @@ class FavoriteApi {
           await firebaseInstance.doc(userId).collection('favorites').get();
 
       if (querySnapshot.docs.isEmpty) {
-        return Either.left(FirebaseRequestFailure.empty('No se econtraron tus especies favoritas'));
+        return Either.left(FirebaseRequestFailure.empty(
+            'No se econtraron tus especies favoritas'));
       }
 
       final speciesErrors = querySnapshot.docs.map((doc) {
@@ -30,18 +30,24 @@ class FavoriteApi {
       if (e is FirebaseException) {
         switch (e.code) {
           case 'unavailable':
-            return Either.left(FirebaseRequestFailure.network('Error de conexión al obtener tus especies favoritas'));
+            return Either.left(FirebaseRequestFailure.network(
+                'Error de conexión al obtener tus especies favoritas'));
           case 'permission-denied':
-            return Either.left(FirebaseRequestFailure.denied('Permiso denegado obtener tus especies favoritas'));
+            return Either.left(FirebaseRequestFailure.denied(
+                'Permiso denegado obtener tus especies favoritas'));
           case 'not-found':
-            return Either.left(FirebaseRequestFailure.empty('No se encontraron tus especies favoritas'));
+            return Either.left(FirebaseRequestFailure.empty(
+                'No se encontraron tus especies favoritas'));
           default:
-            return Either.left(FirebaseRequestFailure.unknown('Error desconocido al obtener tus especies favoritas'));
+            return Either.left(FirebaseRequestFailure.unknown(
+                'Error desconocido al obtener tus especies favoritas'));
         }
       } else if (e is TimeoutException) {
-        return Either.left(FirebaseRequestFailure.timeout('Tu solicitud ha tardado mucho'));
+        return Either.left(
+            FirebaseRequestFailure.timeout('Tu solicitud ha tardado mucho'));
       } else {
-        return Either.left(FirebaseRequestFailure.unknown('Error desconocido al obtener tus especies favoritas'));
+        return Either.left(FirebaseRequestFailure.unknown(
+            'Error desconocido al obtener tus especies favoritas'));
       }
     }
   }
@@ -61,24 +67,31 @@ class FavoriteApi {
         final specieError = SpecieError.fromJson(data!);
         return Either.right(specieError);
       } else {
-        return Either.left(FirebaseRequestFailure.empty('No se encontró tu especie favorita'));
+        return Either.left(
+            FirebaseRequestFailure.empty('No se encontró tu especie favorita'));
       }
     } catch (e) {
       if (e is FirebaseException) {
         switch (e.code) {
           case 'unavailable':
-            return Either.left(FirebaseRequestFailure.network('Error de conexión al obtener tu especie favorita'));
+            return Either.left(FirebaseRequestFailure.network(
+                'Error de conexión al obtener tu especie favorita'));
           case 'permission-denied':
-            return Either.left(FirebaseRequestFailure.denied('Permiso denegado obtener tu especie favorita'));
+            return Either.left(FirebaseRequestFailure.denied(
+                'Permiso denegado obtener tu especie favorita'));
           case 'not-found':
-            return Either.left(FirebaseRequestFailure.empty( 'No se encontró tu especie favorita'));
+            return Either.left(FirebaseRequestFailure.empty(
+                'No se encontró tu especie favorita'));
           default:
-            return Either.left(FirebaseRequestFailure.unknown('Error desconocido al obtener tu especie favorita'));
+            return Either.left(FirebaseRequestFailure.unknown(
+                'Error desconocido al obtener tu especie favorita'));
         }
       } else if (e is TimeoutException) {
-        return Either.left(FirebaseRequestFailure.timeout('Tu solicitud ha tardado mucho'));
+        return Either.left(
+            FirebaseRequestFailure.timeout('Tu solicitud ha tardado mucho'));
       } else {
-        return Either.left(FirebaseRequestFailure.unknown('Error desconocido al obtener tu especie favorita'));
+        return Either.left(FirebaseRequestFailure.unknown(
+            'Error desconocido al obtener tu especie favorita'));
       }
     }
   }

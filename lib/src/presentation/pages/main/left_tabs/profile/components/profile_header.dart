@@ -14,6 +14,16 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
+
+  late Future<Map<String, dynamic>> _getUserData;
+  
+  
+  @override
+  void initState() {
+    _getUserData = getUserData();
+    super.initState();
+  }
+
   Future<Map<String, dynamic>> getUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -31,7 +41,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
-      future: getUserData(),
+      future: _getUserData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SizedBox(

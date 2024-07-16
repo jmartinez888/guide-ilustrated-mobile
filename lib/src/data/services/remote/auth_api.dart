@@ -76,6 +76,7 @@ class AuthApi {
           break;
         case 'user-not-found':
           sessionRequestFailure = SessionRequestFailure.notRegistered();
+          print('Aquì');
           break;
         case 'wrong-password':
           sessionRequestFailure = SessionRequestFailure.password();

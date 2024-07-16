@@ -44,12 +44,11 @@ class _MainLeftNavState extends State<MainLeftNav> {
         onDestinationSelected: (index) {
           switch (index) {
             case 0:
-              if (sessionController.state != null) {
-                context.goNamed(
-                  Routes.profile,
-                );
-                leftTabController.changeTab(index);
-              }
+              context.goNamed(
+                Routes.profile,
+              );
+              leftTabController.changeTab(index);
+
               break;
             case 1:
               context.goNamed(

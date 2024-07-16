@@ -25,6 +25,7 @@ mixin _$UserC {
   String? get name => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
+  @TimestampSerializer()
   DateTime? get created => throw _privateConstructorUsedError;
   String? get profilePicture => throw _privateConstructorUsedError;
 
@@ -44,7 +45,7 @@ abstract class $UserCCopyWith<$Res> {
       String? name,
       String? lastName,
       String? phone,
-      DateTime? created,
+      @TimestampSerializer() DateTime? created,
       String? profilePicture});
 }
 
@@ -115,7 +116,7 @@ abstract class _$$UserCImplCopyWith<$Res> implements $UserCCopyWith<$Res> {
       String? name,
       String? lastName,
       String? phone,
-      DateTime? created,
+      @TimestampSerializer() DateTime? created,
       String? profilePicture});
 }
 
@@ -180,7 +181,7 @@ class _$UserCImpl implements _UserC {
       this.name,
       this.lastName,
       this.phone,
-      this.created,
+      @TimestampSerializer() this.created = null,
       this.profilePicture});
 
   factory _$UserCImpl.fromJson(Map<String, dynamic> json) =>
@@ -197,6 +198,8 @@ class _$UserCImpl implements _UserC {
   @override
   final String? phone;
   @override
+  @JsonKey()
+  @TimestampSerializer()
   final DateTime? created;
   @override
   final String? profilePicture;
@@ -248,7 +251,7 @@ abstract class _UserC implements UserC {
       final String? name,
       final String? lastName,
       final String? phone,
-      final DateTime? created,
+      @TimestampSerializer() final DateTime? created,
       final String? profilePicture}) = _$UserCImpl;
 
   factory _UserC.fromJson(Map<String, dynamic> json) = _$UserCImpl.fromJson;
@@ -264,6 +267,7 @@ abstract class _UserC implements UserC {
   @override
   String? get phone;
   @override
+  @TimestampSerializer()
   DateTime? get created;
   @override
   String? get profilePicture;

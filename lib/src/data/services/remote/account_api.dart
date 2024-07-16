@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:species/src/domain/entities/user/user.dart';
+import 'package:species/src/domain/either.dart';
+import 'package:species/src/domain/failures/firebase_request/firebase_request_failure.dart';
 
 class AccountApi {
   FirebaseAuth get _firebaseAuth => FirebaseAuth.instance;
@@ -18,9 +22,7 @@ class AccountApi {
     final existingDoc = await docUser.get();
 
     DateTime now = DateTime.now();
-    final created = existingDoc.exists
-        ? existingDoc.data()!['created']
-        : Timestamp.fromDate(now);
+    final created = existingDoc.exists ? existingDoc.data()!['created'] : now;
     final user = UserC(
       id: userId,
       email: email,
@@ -32,13 +34,44 @@ class AccountApi {
     await docUser.set(json);
   }
 
-  Future<Map<String, dynamic>> getUserData(String userId) async {
-    final docSnapshot = await firebaseFirestoreInstance.doc(userId).get();
+  Future<Either<FirebaseRequestFailure, UserC>> getUserData(
+      String userId) async {
+    try {
+      final response = await firebaseFirestoreInstance.doc(userId).get();
 
-    if (docSnapshot.exists) {
-      return docSnapshot.data() as Map<String, dynamic>;
-    } else {
-      return {};
+      if (response.exists) {
+        final data = response.data();
+        final user = UserC.fromJson(data!);
+        return Either.right(user);
+      } else {
+        return Either.left(
+            FirebaseRequestFailure.empty('No se encontró al usuario'));
+      }
+    } catch (e) {
+      if (e is FirebaseException) {
+        switch (e.code) {
+          case 'unavailable':
+            return Either.left(FirebaseRequestFailure.network(
+                'Error de conexión al obtener el usuario'));
+          case 'permission-denied':
+            return Either.left(FirebaseRequestFailure.denied(
+                'Permiso denegado obtener al usuario'));
+          case 'not-found':
+            return Either.left(
+                FirebaseRequestFailure.empty('No se encontró al usuario'));
+          default:
+            return Either.left(FirebaseRequestFailure.unknown(
+                'Error desconocido al obtener al usuario'));
+        }
+      } else if (e is TimeoutException) {
+        return Either.left(
+            FirebaseRequestFailure.timeout('Tu solicitud ha tardado mucho'));
+      } else {
+        return Either.left(
+          FirebaseRequestFailure.unknown(
+              'Error desconocido al obtener al usuario'),
+        );
+      }
     }
   }
 
@@ -178,7 +211,7 @@ class AccountApi {
     }
   }
 
-  Future<void> _deleteUserFiles() async {
+  /* Future<void> _deleteUserFiles() async {
     try {
       final user = _firebaseAuth.currentUser;
 
@@ -199,16 +232,19 @@ class AccountApi {
     } catch (e) {
       throw Exception('Error al borrar archivos del usuario: $e');
     }
-  }
+  } */
 
-  Future<void> deleteUserAccount(String password) async {
+  Future<void> deleteUserAccount({
+    required String email,
+    required String password,
+  }) async {
     try {
       final user = _firebaseAuth.currentUser;
 
       if (user != null) {
         // Reautenticar al usuario con la contraseña ingresada
         final credential = EmailAuthProvider.credential(
-          email: user.email ?? '',
+          email: email,
           password: password,
         );
 
@@ -218,7 +254,7 @@ class AccountApi {
         await _deleteFavoritesSubfolder(user.uid);
 
         // Eliminar los archivos del usuario en Firebase Storage
-        await _deleteUserFiles();
+        //  await _deleteUserFiles(); -----
 
         // Eliminar los datos relacionados con el usuario en Firestore
         await FirebaseFirestore.instance

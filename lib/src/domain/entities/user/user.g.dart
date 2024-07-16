@@ -14,7 +14,7 @@ _$UserCImpl _$$UserCImplFromJson(Map<String, dynamic> json) => _$UserCImpl(
       phone: json['phone'] as String?,
       created: json['created'] == null
           ? null
-          : DateTime.parse(json['created'] as String),
+          : const TimestampSerializer().fromJson(json['created']),
       profilePicture: json['profilePicture'] as String?,
     );
 
@@ -25,6 +25,13 @@ Map<String, dynamic> _$$UserCImplToJson(_$UserCImpl instance) =>
       'name': instance.name,
       'lastName': instance.lastName,
       'phone': instance.phone,
-      'created': instance.created?.toIso8601String(),
+      'created': _$JsonConverterToJson<dynamic, DateTime>(
+          instance.created, const TimestampSerializer().toJson),
       'profilePicture': instance.profilePicture,
     };
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

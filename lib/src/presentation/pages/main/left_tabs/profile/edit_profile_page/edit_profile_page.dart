@@ -13,7 +13,23 @@ import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profi
 import 'package:species/src/presentation/pages/main/left_tabs/profile/widgets/success_modal.dart';
 import 'package:species/src/generated/translations.g.dart';
 
-class EditProfile extends StatefulWidget {
+class EditProfile extends StatelessWidget {
+  final String userId;
+
+  const EditProfile({super.key, required this.userId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: const CustomBackButton(),
+        title: const Text('Edita tu perfil'),
+      ),
+    );
+  }
+}
+
+/* class EditProfile extends StatefulWidget {
   final String userId;
 
   const EditProfile({super.key, required this.userId});
@@ -223,3 +239,4 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     }
   }
 }
+ */
