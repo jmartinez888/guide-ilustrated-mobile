@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,6 +10,11 @@ import 'package:species/src/domain/repositories/account/account_repository.dart'
 
 class AccountRepositoryImpl extends AccountRepository {
   final AccountApi _accountApi;
+
+  final _controller = StreamController<UserC>.broadcast();
+
+  late UserC _userData;
+  StreamSubscription? _subscription;
 
   final firebaseFirestoreInstance =
       FirebaseFirestore.instance.collection('users');
@@ -100,4 +106,26 @@ class AccountRepositoryImpl extends AccountRepository {
   bool acces() {
     return _accountApi.acces();
   }
+
+  @override
+  Future<void> getStreamUserData(String userId) async {
+    _subscription?.cancel();
+    _subscription = firebaseFirestoreInstance.doc(userId).snapshots().listen(
+      (DocumentSnapshot documentSnapshot) {
+        if (_controller.hasListener && !_controller.isClosed) {
+          if (documentSnapshot.exists) {
+            _userData =
+                UserC.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+            _controller.add(_userData);
+          }
+        }
+      },
+    );
+  }
+
+  @override
+  UserC get userData => _userData;
+
+  @override
+  Stream<UserC> get onUserDataChanged => _controller.stream;
 }

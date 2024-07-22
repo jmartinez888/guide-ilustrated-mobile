@@ -43,4 +43,11 @@ abstract class AccountRepository {
   Future<Map<String, dynamic>> getUserInfo();
 
   bool acces();
+
+  Future<void> getStreamUserData(String userId);
+
+  UserC get userData;
+
+  Stream<UserC> get onUserDataChanged;
+
 }
