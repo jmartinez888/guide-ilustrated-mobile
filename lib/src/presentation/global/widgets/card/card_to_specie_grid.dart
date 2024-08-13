@@ -26,7 +26,7 @@ class CardToSpeciesGrid extends StatelessWidget {
       maxLines: 2,
       onTap: onTap,
       mainColor: mainColor,
-      opaqueColor: opaqueColor, 
+      opaqueColor: mainColor.withOpacity(0.125),
       image: Stack(
         children: [
           Container(

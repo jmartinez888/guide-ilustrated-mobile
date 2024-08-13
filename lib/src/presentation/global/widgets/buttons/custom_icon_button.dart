@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:species/src/presentation/global/colors.dart';
+
 class CustomIconButton extends StatelessWidget {
   const CustomIconButton({
     super.key,
@@ -16,14 +17,21 @@ class CustomIconButton extends StatelessWidget {
   final Color? iconColor;
   final void Function()? onPressed;
 
-
   @override
   Widget build(BuildContext context) {
-  const double heightIcon = 40.0;
+    const double heightIcon = 40.0;
+    final ThemeData theme = Theme.of(context);
+    final Color defaultBackgroundColor = theme.brightness == Brightness.dark
+        ? CustomColors.white
+        : CustomColors.white;
+
     return Container(
       height: heightIcon,
       width: heightIcon,
-      decoration: BoxDecoration(color: backgroundColor ?? CustomColors.whiteOpacity, shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? defaultBackgroundColor,
+        shape: BoxShape.circle,
+      ),
       child: IconButton(
         tooltip: tooltip,
         onPressed: onPressed,

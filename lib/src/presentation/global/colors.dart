@@ -56,4 +56,34 @@ class CustomColors {
   static const whiteOpacity = Color(0xBBFFFFFF);
 
   static const background = Color(0xFFFAFAFA);
+  
+  // Colores para el tema oscuro
+  static const darkPrimary = Color(0xFF8BC34A);
+  static const darkPrimaryContainer = Color(0xFF1E5128);
+  static const darkPrimaryOnContainer = Color(0xFFCDE8CE);
+
+  static const darkSecondary = Color(0xFFB85E00);
+  static const darkSecondaryContainer = Color(0xFF4C2F00);
+  static const darkSecondaryOnContainer = Color(0xFFFFD7A3);
+
+  static const darkTertiary = Color(0xFF006B8E);
+  static const darkTertiaryContainer = Color(0xFF00425A);
+  static const darkTertiaryOnContainer = Color(0xFFB2EBF7);
+
+  static const darkError = Color(0xFFD32F2F);
+  static const darkErrorContainer = Color(0xFF601410);
+  static const darkErrorOnContainer = Color(0xFFFFDAD4);
+
+  static const darkGrey = Color(0xFFE0E0E0); //Color(0xFF00A3D7);
+  static const darkGreyText = Color(0xFFE0E0E0);//color de texto de la barra de navegacion
+  static const darkGreyContainer = Color(0xFF616161);
+  static const darkGreyOnContainer = Color(0xFFF5F5F5);
+
+  static const blackOpacity = Color(0xBB000000);
+
+  static const darkBackground = Color(0xFF121212);
+  static const darkSurface = Color(0xFF1E1E1E);
+  static const transparent = Color(0x00000000);
+  static const blackLight = Color(0xFF121212); //Color(0x3DFFFFFF);
+
 }

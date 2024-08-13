@@ -18,6 +18,7 @@ import 'package:species/src/presentation/global/widgets/skeleton/skeleton_contai
 import 'package:species/src/presentation/pages/main/left_tabs/indigenous_community/controller/community_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:species/src/presentation/global/colors.dart';
 
 class IndigenousCommunityPage extends StatefulWidget {
   const IndigenousCommunityPage({super.key});
@@ -34,6 +35,12 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    
+    // Configuración de colores según el tema actual
+    final bool isDarkMode = colorScheme.brightness == Brightness.dark;
+    final Color iconColor = isDarkMode ? CustomColors.white : CustomColors.black;
+    final Color backgroundColor = isDarkMode ? CustomColors.darkSurface : CustomColors.white;
+
     return Scaffold(
       appBar: AppBar(
         leading: const SizedBox(),
@@ -42,9 +49,11 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
           CustomIconButton(
             tooltip: texts.general.search,
             icon: Icons.search_rounded,
+            iconColor: iconColor,
             onPressed: () {
               context.pushNamed(Routes.communitySearch);
             },
+            backgroundColor: backgroundColor,
           ),
           const SizedBox(width: 8.0),
         ],

@@ -8,6 +8,9 @@ import 'package:species/src/presentation/global/icons/custom_icons.dart';
 import 'package:species/src/presentation/global/widgets/buttons/custom_icon_button.dart';
 import 'package:species/src/presentation/pages/main/main_left_nav/controller/main_left_nav_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
+import 'package:species/src/presentation/global/colors.dart';
+import 'package:species/src/presentation/global/widgets/buttons/button_dark_mode.dart'; // Importar el nuevo botón
+import 'package:species/src/presentation/global/widgets/buttons/ThemeNotifier.dart';// Importar ThemeNotifier
 
 class MainLeftNav extends StatefulWidget {
   final Widget child;
@@ -27,8 +30,15 @@ class _MainLeftNavState extends State<MainLeftNav> {
 
   @override
   void initState() {
-    leftTabController.changeTab(1);
     super.initState();
+    // Mover cualquier lógica que dependa del contexto a didChangeDependencies
+    leftTabController.changeTab(1);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Acceso a ThemeNotifier aquí es seguro
   }
 
   @override
@@ -36,90 +46,106 @@ class _MainLeftNavState extends State<MainLeftNav> {
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final LeftTabController controller = context.watch();
     final position = controller.state.position;
+    final theme = Theme.of(context);
+
+    // Configuración de colores según el tema actual
+    final Color iconColor = theme.brightness == Brightness.dark 
+        ? CustomColors.white 
+        : CustomColors.black;
+    final Color backgroundColor = theme.brightness == Brightness.dark 
+        ? CustomColors.darkSurface 
+        : CustomColors.white;
 
     return Scaffold(
       key: scaffoldKey,
-      drawer: NavigationDrawer(
-        selectedIndex: position,
-        onDestinationSelected: (index) {
-          switch (index) {
-            case 0:
-              context.goNamed(
-                Routes.profile,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 1:
-              context.goNamed(
-                Routes.species,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 2:
-              context.goNamed(
-                Routes.communities,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 3:
-              context.goNamed(
-                Routes.authors,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 4:
-              context.goNamed(
-                Routes.staff,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 5:
-              context.goNamed(
-                Routes.about,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-          }
-          scaffoldKey.currentState?.openEndDrawer();
+      drawer: Consumer<ThemeNotifier>(
+        builder: (context, themeNotifier, _) {
+          return NavigationDrawer(
+            selectedIndex: position,
+            onDestinationSelected: (index) {
+              switch (index) {
+                case 0:
+                  context.goNamed(
+                    Routes.profile,
+                  );
+                  leftTabController.changeTab(index);
+                  break;
+                case 1:
+                  context.goNamed(
+                    Routes.species,
+                  );
+                  leftTabController.changeTab(index);
+                  break;
+                case 2:
+                  context.goNamed(
+                    Routes.communities,
+                  );
+                  leftTabController.changeTab(index);
+                  break;
+                case 3:
+                  context.goNamed(
+                    Routes.authors,
+                  );
+                  leftTabController.changeTab(index);
+                  break;
+                case 4:
+                  context.goNamed(
+                    Routes.staff,
+                  );
+                  leftTabController.changeTab(index);
+                  break;
+                case 5:
+                  context.goNamed(
+                    Routes.about,
+                  );
+                  leftTabController.changeTab(index);
+                  break;
+              }
+              scaffoldKey.currentState?.openEndDrawer();
+            },
+            children: [
+              _title(texts.drawer.account),
+              NavigationDrawerDestination(
+                selectedIcon: const Icon(Icons.account_circle_rounded),
+                label: Text(texts.drawer.profile),
+                icon: const Icon(Icons.account_circle_outlined), 
+              ),
+               const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 11.0),
+                child: ButtonDarkMode(), //  Usar el nuevo botón 
+                ),
+              _title(texts.drawer.content),
+              NavigationDrawerDestination(
+                label: Text(texts.drawer.species),
+                icon: const Icon(CustomIcons.mono),
+              ),
+              NavigationDrawerDestination(
+                label: Text(texts.drawer.communities),
+                icon: const Icon(CustomIcons.choza),
+              ),
+              NavigationDrawerDestination(
+                label: Text(texts.drawer.authors),
+                icon: const Icon(Icons.group_rounded),
+              ),
+              _title(texts.drawer.about),
+              NavigationDrawerDestination(
+                selectedIcon: const Icon(Icons.groups_rounded),
+                label: Text(texts.drawer.staff),
+                icon: const Icon(Icons.groups_outlined),
+              ),
+              NavigationDrawerDestination(
+                selectedIcon: const Icon(Icons.info_rounded),
+                label: Text(texts.drawer.aboutGuide),
+                icon: const Icon(Icons.info_outlined),
+              ),
+             // _title(texts.drawer.menu),
+             // const Padding(
+                //padding: EdgeInsets.symmetric(horizontal: 16.0),
+                //child: ButtonDarkMode(), //  Usar el nuevo botón
+              //),
+            ],
+          );
         },
-        children: [
-          _title(texts.drawer.account),
-          NavigationDrawerDestination(
-            selectedIcon: const Icon(Icons.account_circle_rounded),
-            label: Text(texts.drawer.profile),
-            icon: const Icon(Icons.account_circle_outlined),
-          ),
-          _title(texts.drawer.content),
-          NavigationDrawerDestination(
-            label: Text(texts.drawer.species),
-            icon: const Icon(CustomIcons.mono),
-          ),
-          NavigationDrawerDestination(
-            label: Text(texts.drawer.communities),
-            icon: const Icon(CustomIcons.choza),
-          ),
-          NavigationDrawerDestination(
-            label: Text(texts.drawer.authors),
-            icon: const Icon(Icons.group_rounded),
-          ),
-          _title(texts.drawer.about),
-          NavigationDrawerDestination(
-            selectedIcon: const Icon(Icons.groups_rounded),
-            label: Text(texts.drawer.staff),
-            icon: const Icon(Icons.groups_outlined),
-          ),
-          NavigationDrawerDestination(
-            selectedIcon: const Icon(Icons.info_rounded),
-            label: Text(texts.drawer.aboutGuide),
-            icon: const Icon(Icons.info_outlined),
-          ),
-        ],
       ),
       body: SafeArea(
         child: Stack(
@@ -130,7 +156,9 @@ class _MainLeftNavState extends State<MainLeftNav> {
               child: CustomIconButton(
                 tooltip: texts.drawer.menu,
                 icon: Icons.menu_rounded,
+                iconColor: iconColor,
                 onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                backgroundColor: backgroundColor,
               ),
             ),
           ],

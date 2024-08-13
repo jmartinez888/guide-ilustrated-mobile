@@ -396,17 +396,22 @@ class _PortraitAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
+    final backgroundColor = theme.brightness == Brightness.dark
+        ? CustomColors.blackOpacity
+        : CustomColors.background;
+
     return SliverAppBar(
       expandedHeight: size.height * 0.2,
       toolbarHeight: 0.0,
       flexibleSpace: FlexibleSpaceBar(
         background: ShaderMask(
-          shaderCallback: (Rect bounds) => const LinearGradient(
+          shaderCallback: (Rect bounds) => LinearGradient(
             begin: Alignment.center,
             end: Alignment.bottomCenter,
             colors: [
               Colors.transparent,
-              CustomColors.background,
+              backgroundColor,
             ],
           ).createShader(bounds),
           blendMode: BlendMode.srcATop,

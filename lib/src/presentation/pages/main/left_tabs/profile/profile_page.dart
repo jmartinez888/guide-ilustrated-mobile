@@ -13,6 +13,7 @@ import 'package:species/src/presentation/global/widgets/buttons/custom_icon_butt
 import 'package:species/src/presentation/global/widgets/card/custom_list_tile.dart';
 import 'package:species/src/presentation/router/routes.dart';
 import 'package:species/src/generated/translations.g.dart';
+import 'package:species/src/presentation/global/colors.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -92,6 +93,7 @@ class ProfilePage extends StatelessWidget {
                                   CustomIconButton(
                                     tooltip: 'Editar',
                                     icon: Icons.edit_rounded,
+                                    iconColor: CustomColors.black,
                                     onPressed: () => context.pushNamed(
                                         Routes.editProfile,
                                         pathParameters: {

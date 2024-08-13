@@ -136,7 +136,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
           final specie = Specie.fromJson(json);
           final getMainColors = getMainColorByInt(specie.type?.id ?? 0);
           final mainColor = getMainColors['main'];
-          final opaqueColor = getMainColors['opaque'];
           return Extend(
             min: true,
             child: FlexibleCard(
@@ -161,26 +160,29 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 },
               ),
               mainColor: mainColor,
-              opaqueColor: opaqueColor,
+              opaqueColor: mainColor.withOpacity(0.125), 
               image: specie.images != null &&
-                      specie.images!.isNotEmpty &&
-                      specie.images!.isNotEmpty
-                  ? Container(
-                      width: double.infinity,
-                      height: 256.0,
-                      color: Colors.white,
-                      child: CustomImageContainer(
-                        mainColor: mainColor,
-                        imageUrl: specie.images!.first,
-                        heightImage: 232.0,
-                      ),
-                    )
-                  : Center(
-                      child: Padding(
-                        padding: PaddingConfig.allL,
-                        child: const Icon(Icons.error_rounded),
-                      ),
+                  specie.images!.isNotEmpty &&
+                  specie.images!.isNotEmpty
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0), // Ajusta el radio según tu necesidad
+                  child: Container(
+                    width: double.infinity,
+                    height: 256.0,
+                    color: Colors.white,
+                    child: CustomImageContainer(
+                      mainColor: mainColor,
+                      imageUrl: specie.images!.first,
+                      heightImage: 232.0,
                     ),
+                  ),
+                )
+              : Center(
+                  child: Padding(
+                    padding: PaddingConfig.allL,
+                    child: const Icon(Icons.error_rounded),
+                  ),
+                ),
               title: specie.name,
               subtitle: specie.scientificName,
               description:

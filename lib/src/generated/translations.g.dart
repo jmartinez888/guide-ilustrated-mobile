@@ -210,6 +210,11 @@ class _TranslationsAuthorsEn {
 	String get professionNotAvailable => 'Profession not available';
 }
 
+class General {
+  String get darkMode => 'Modo Oscuro';
+  String get lightMode => 'Modo Claro';
+}
+
 // Path: bottomBar
 class _TranslationsBottomBarEn {
 	_TranslationsBottomBarEn._(this._root);

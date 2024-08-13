@@ -152,13 +152,17 @@ class _SearchPageState extends State<SearchPage> {
             Routes.specieDetails,
             pathParameters: {'id': item.id.toString()},
           ),
-          leading: CustomImageContainer(
-            imageUrl: item.images != null && item.images!.isNotEmpty
-                ? item.images!.first
-                : null,
-            heightImage: 56.0,
-            width: 56.0,
-            fitImage: false,
+          leading: Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.0),
+            child: CustomImageContainer(
+              imageUrl: item.images != null && item.images!.isNotEmpty
+                  ? item.images!.first
+                  : null,
+              heightImage: 56.0,
+              width: 56.0,
+              fitImage: false,
+            ),
           ),
           title: item.name != null && item.name!.isNotEmpty
               ? Text(item.name!)
@@ -167,8 +171,11 @@ class _SearchPageState extends State<SearchPage> {
               item.scientificName != null && item.scientificName!.isNotEmpty
                   ? Text(
                       item.scientificName!,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontStyle: FontStyle.italic,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Theme.of(context).colorScheme.primary
+                            : null,
                       ),
                     )
                   : null,
