@@ -11,11 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ThemeNotifier(),
-      child: Consumer<ThemeNotifier>(
-        builder: (context, themeNotifier, _) {
-          return MaterialApp.router(
+
+    final ThemeNotifier themeNotifier = context.watch();
+    return  MaterialApp.router(
             title: 'Guía Ilustrada de Flora y Fauna IIAP',
             debugShowCheckedModeBanner: false,
             supportedLocales: LocaleSettings.instance.supportedLocales,
@@ -29,9 +27,6 @@ class MyApp extends StatelessWidget {
             darkTheme: CustomTheme.darkTheme,
             themeMode: themeNotifier.themeMode,
             routerConfig: appRouter,
-          );
-        },
-      ),
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:species/src/data/mappers/conservation_state_mapper.dart';
 import 'package:species/src/data/mappers/family_mapper.dart';
 import 'package:species/src/data/mappers/kindom_mapper.dart';
 import 'package:species/src/data/mappers/order_mapper.dart';
+import 'package:species/src/presentation/global/widgets/buttons/ThemeNotifier.dart';
 import 'package:species/src/data/mappers/phylum_mapper.dart';
 import 'package:species/src/data/mappers/specie_for_author_mapper.dart';
 import 'package:species/src/data/mappers/specie_mapper.dart';
@@ -287,6 +288,10 @@ void main() async {
           create: (_) => SpeciesTabsUpController(
             SpeciesTabsUpState(),
           ),
+        ),
+
+        ChangeNotifierProvider<ThemeNotifier>(
+          create: (_) => ThemeNotifier(),
         ),
       ],
       child: TranslationProvider(child: const MyApp()),

@@ -13,10 +13,10 @@ class ButtonDarkMode extends StatelessWidget {
       leading: Icon(
         themeNotifier.themeMode == ThemeMode.dark ? Icons.brightness_6_outlined : Icons.dark_mode,
       ),
-      title: Text(
-        themeNotifier.themeMode == ThemeMode.dark ?  'Modo Claro' : 'Modo Oscuro', //el texto ponlo con el mismo estilo de letra que que las letras del menu
-       style: Theme.of(context).textTheme.titleSmall 
-      ),
+      // title: Text(
+      //   themeNotifier.themeMode == ThemeMode.dark ?  'Modo Claro' : 'Modo Oscuro', //el texto ponlo con el mismo estilo de letra que que las letras del menu
+      //  style: Theme.of(context).textTheme.titleSmall 
+      // ),
       onTap: () {
         themeNotifier.toggleTheme(); // Cambia el tema globalmente
       },
