@@ -12,5 +12,8 @@
     "lastnameNotAvailable": "Nom de famille non disponible",
     "descriptionNotAvailable": "Description non disponible",
     "somethingWentWrong": "Quelque chose a mal tourné, veuillez réessayer",
-    "refresh": "Actualiser"
+    "refresh": "Actualiser",
+    "darkMode": "Mode sombre",
+    "lightMode": "Mode clair"
+
 }

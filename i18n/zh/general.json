@@ -12,5 +12,7 @@
     "lastnameNotAvailable": "姓氏不可用",
     "descriptionNotAvailable": "描述不可用",
     "somethingWentWrong": "出错了，请再试一次",
-    "refresh": "刷新"
+    "refresh": "刷新",
+    "darkMode": "深色模式",
+    "lightMode": "浅色模式"
 }

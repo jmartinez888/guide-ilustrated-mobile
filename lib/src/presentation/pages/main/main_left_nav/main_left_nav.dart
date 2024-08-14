@@ -9,8 +9,9 @@ import 'package:species/src/presentation/global/widgets/buttons/custom_icon_butt
 import 'package:species/src/presentation/pages/main/main_left_nav/controller/main_left_nav_controller.dart';
 import 'package:species/src/presentation/router/routes.dart';
 import 'package:species/src/presentation/global/colors.dart';
-import 'package:species/src/presentation/global/widgets/buttons/button_dark_mode.dart'; // Importar el nuevo botón
-import 'package:species/src/presentation/global/widgets/buttons/ThemeNotifier.dart';// Importar ThemeNotifier
+import 'package:species/src/presentation/global/widgets/buttons/ThemeNotifier.dart'; // Importar ThemeNotifier
+
+
 
 class MainLeftNav extends StatefulWidget {
   final Widget child;
@@ -49,11 +50,11 @@ class _MainLeftNavState extends State<MainLeftNav> {
     final theme = Theme.of(context);
 
     // Configuración de colores según el tema actual
-    final Color iconColor = theme.brightness == Brightness.dark 
-        ? CustomColors.white 
+    final Color iconColor = theme.brightness == Brightness.dark
+        ? CustomColors.white
         : CustomColors.black;
-    final Color backgroundColor = theme.brightness == Brightness.dark 
-        ? CustomColors.darkSurface 
+    final Color backgroundColor = theme.brightness == Brightness.dark
+        ? CustomColors.darkSurface
         : CustomColors.white;
 
     return Scaffold(
@@ -103,17 +104,38 @@ class _MainLeftNavState extends State<MainLeftNav> {
               }
               scaffoldKey.currentState?.openEndDrawer();
             },
-            children: [
+           children: [
+  Align(
+    alignment: Alignment.centerRight,
+    child: IconButton(
+      tooltip: themeNotifier.themeMode == ThemeMode.dark 
+                ? texts.general.darkMode: texts.general.lightMode,// Cambia según el modo actual
+      onPressed: () {
+        final themeNotifier = context.read<ThemeNotifier>();
+
+        themeNotifier.toggleTheme();
+      },
+      icon: Icon(
+        themeNotifier.themeMode == ThemeMode.dark
+            ? Icons.light_mode_rounded
+            : Icons.dark_mode_rounded,
+      ),
+    ),
+  ),
+
+
               _title(texts.drawer.account),
               NavigationDrawerDestination(
                 selectedIcon: const Icon(Icons.account_circle_rounded),
                 label: Text(texts.drawer.profile),
-                icon: const Icon(Icons.account_circle_outlined), 
+                icon: const Icon(Icons.account_circle_outlined),
               ),
-               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 11.0),
-                child: ButtonDarkMode(), //  Usar el nuevo botón 
-                ),
+              
+
+              //  const Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 11.0),
+              //   child: ButtonDarkMode(), //  Usar el nuevo botón
+              //   ),
               _title(texts.drawer.content),
               NavigationDrawerDestination(
                 label: Text(texts.drawer.species),
@@ -138,10 +160,10 @@ class _MainLeftNavState extends State<MainLeftNav> {
                 label: Text(texts.drawer.aboutGuide),
                 icon: const Icon(Icons.info_outlined),
               ),
-             // _title(texts.drawer.menu),
-             // const Padding(
-                //padding: EdgeInsets.symmetric(horizontal: 16.0),
-                //child: ButtonDarkMode(), //  Usar el nuevo botón
+              // _title(texts.drawer.menu),
+              // const Padding(
+              //padding: EdgeInsets.symmetric(horizontal: 16.0),
+              //child: ButtonDarkMode(), //  Usar el nuevo botón
               //),
             ],
           );

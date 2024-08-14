@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 5
-/// Strings: 1560 (312 per locale)
+/// Strings: 1570 (314 per locale)
 ///
-/// Built on 2024-05-28 at 02:27 UTC
+/// Built on 2024-08-14 at 21:28 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -210,11 +210,6 @@ class _TranslationsAuthorsEn {
 	String get professionNotAvailable => 'Profession not available';
 }
 
-class General {
-  String get darkMode => 'Modo Oscuro';
-  String get lightMode => 'Modo Claro';
-}
-
 // Path: bottomBar
 class _TranslationsBottomBarEn {
 	_TranslationsBottomBarEn._(this._root);
@@ -397,6 +392,8 @@ class _TranslationsGeneralEn {
 	String get descriptionNotAvailable => 'Description not available';
 	String get somethingWentWrong => 'Something went wrong, please try again';
 	String get refresh => 'Refresh';
+	String get darkMode => 'Dark Mode';
+	String get lightMode => 'Light Mode';
 }
 
 // Path: pdfPreviewPage
@@ -1095,6 +1092,8 @@ class _TranslationsGeneralEs implements _TranslationsGeneralEn {
 	@override String get descriptionNotAvailable => 'Descripción no disponible';
 	@override String get somethingWentWrong => 'Algo salió mal, inténtalo de nuevo';
 	@override String get refresh => 'Actualizar';
+	@override String get darkMode => 'Modo oscuro';
+	@override String get lightMode => 'Modo claro';
 }
 
 // Path: pdfPreviewPage
@@ -1793,6 +1792,8 @@ class _TranslationsGeneralFr implements _TranslationsGeneralEn {
 	@override String get descriptionNotAvailable => 'Description non disponible';
 	@override String get somethingWentWrong => 'Quelque chose a mal tourné, veuillez réessayer';
 	@override String get refresh => 'Actualiser';
+	@override String get darkMode => 'Mode sombre';
+	@override String get lightMode => 'Mode clair';
 }
 
 // Path: pdfPreviewPage
@@ -2491,6 +2492,8 @@ class _TranslationsGeneralPt implements _TranslationsGeneralEn {
 	@override String get descriptionNotAvailable => 'Descrição não disponível';
 	@override String get somethingWentWrong => 'Algo deu errado, por favor tente novamente';
 	@override String get refresh => 'Atualizar';
+	@override String get darkMode => 'Modo escuro';
+	@override String get lightMode => 'Modo claro';
 }
 
 // Path: pdfPreviewPage
@@ -3189,6 +3192,8 @@ class _TranslationsGeneralZh implements _TranslationsGeneralEn {
 	@override String get descriptionNotAvailable => '描述不可用';
 	@override String get somethingWentWrong => '出错了，请再试一次';
 	@override String get refresh => '刷新';
+	@override String get darkMode => '深色模式';
+	@override String get lightMode => '浅色模式';
 }
 
 // Path: pdfPreviewPage
@@ -3732,6 +3737,8 @@ extension on Translations {
 			case 'general.descriptionNotAvailable': return 'Description not available';
 			case 'general.somethingWentWrong': return 'Something went wrong, please try again';
 			case 'general.refresh': return 'Refresh';
+			case 'general.darkMode': return 'Dark Mode';
+			case 'general.lightMode': return 'Light Mode';
 			case 'pdfPreviewPage.amazon': return 'Amazon';
 			case 'pdfPreviewPage.institute': return 'Research Institute of the Peruvian Amazon';
 			case 'pdfPreviewPage.title': return 'Illustrated Guide to Flora and Fauna';
@@ -4052,6 +4059,8 @@ extension on _TranslationsEs {
 			case 'general.descriptionNotAvailable': return 'Descripción no disponible';
 			case 'general.somethingWentWrong': return 'Algo salió mal, inténtalo de nuevo';
 			case 'general.refresh': return 'Actualizar';
+			case 'general.darkMode': return 'Modo oscuro';
+			case 'general.lightMode': return 'Modo claro';
 			case 'pdfPreviewPage.amazon': return 'Amazonía';
 			case 'pdfPreviewPage.institute': return 'Instituto de Investigación de la Amazonía Peruana';
 			case 'pdfPreviewPage.title': return 'Guía ilustrada de flora y fauna';
@@ -4372,6 +4381,8 @@ extension on _TranslationsFr {
 			case 'general.descriptionNotAvailable': return 'Description non disponible';
 			case 'general.somethingWentWrong': return 'Quelque chose a mal tourné, veuillez réessayer';
 			case 'general.refresh': return 'Actualiser';
+			case 'general.darkMode': return 'Mode sombre';
+			case 'general.lightMode': return 'Mode clair';
 			case 'pdfPreviewPage.amazon': return 'Amazone';
 			case 'pdfPreviewPage.institute': return 'Institut de Recherche de l\'Amazonie Péruvienne';
 			case 'pdfPreviewPage.title': return 'Guide illustré de la flore et de la faune';
@@ -4692,6 +4703,8 @@ extension on _TranslationsPt {
 			case 'general.descriptionNotAvailable': return 'Descrição não disponível';
 			case 'general.somethingWentWrong': return 'Algo deu errado, por favor tente novamente';
 			case 'general.refresh': return 'Atualizar';
+			case 'general.darkMode': return 'Modo escuro';
+			case 'general.lightMode': return 'Modo claro';
 			case 'pdfPreviewPage.amazon': return 'Amazonas';
 			case 'pdfPreviewPage.institute': return 'Instituto de Pesquisa da Amazônia Peruana';
 			case 'pdfPreviewPage.title': return 'Guia Ilustrado de Flora e Fauna';
@@ -5012,6 +5025,8 @@ extension on _TranslationsZh {
 			case 'general.descriptionNotAvailable': return '描述不可用';
 			case 'general.somethingWentWrong': return '出错了，请再试一次';
 			case 'general.refresh': return '刷新';
+			case 'general.darkMode': return '深色模式';
+			case 'general.lightMode': return '浅色模式';
 			case 'pdfPreviewPage.amazon': return '亚马逊';
 			case 'pdfPreviewPage.institute': return '秘鲁亚马逊研究所';
 			case 'pdfPreviewPage.title': return '动植物图鉴';

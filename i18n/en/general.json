@@ -12,5 +12,7 @@
     "lastnameNotAvailable": "Last name not available",
     "descriptionNotAvailable": "Description not available",
     "somethingWentWrong": "Something went wrong, please try again",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
 }
