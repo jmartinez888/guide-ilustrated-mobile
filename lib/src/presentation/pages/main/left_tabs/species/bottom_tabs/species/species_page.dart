@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import necesario
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/colors.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
@@ -109,6 +110,27 @@ class _SpeciesPageState extends State<SpeciesPage>
     });
   }
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    final shouldPop = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('¿Salir de la app?'),
+        content: const Text('¿Estás seguro que quieres salir?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false), // No salir
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () => SystemNavigator.pop(), // Salir de la app
+            child: const Text('Sí'),
+          ),
+        ],
+      ),
+    );
+    return shouldPop ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -126,7 +148,10 @@ class _SpeciesPageState extends State<SpeciesPage>
         tabs: _tabs,
       ),
     );
-    return DefaultTabController(
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: DefaultTabController(
         length: _pageData.length,
         child: Scaffold(
           appBar: AppBar(
@@ -160,6 +185,8 @@ class _SpeciesPageState extends State<SpeciesPage>
               children: _pages,
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

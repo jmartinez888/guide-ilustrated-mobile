@@ -13,23 +13,7 @@ import 'package:species/src/presentation/pages/main/left_tabs/profile/edit_profi
 import 'package:species/src/presentation/pages/main/left_tabs/profile/widgets/success_modal.dart';
 import 'package:species/src/generated/translations.g.dart';
 
-class EditProfile extends StatelessWidget {
-  final String userId;
-
-  const EditProfile({super.key, required this.userId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const CustomBackButton(),
-        title: const Text('Edita tu perfil'),
-      ),
-    );
-  }
-}
-
-/* class EditProfile extends StatefulWidget {
+class EditProfile extends StatefulWidget {
   final String userId;
 
   const EditProfile({super.key, required this.userId});
@@ -47,64 +31,17 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
   final FocusNode _lastnameFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
 
-  AccountRepository get _userIiapRepositoryImpl => context.read();
+  late final AccountRepository _userIiapRepositoryImpl;
 
   bool enabled = true;
-
   Uint8List? _image;
-
   String? _imageUrl;
-
-  void _selectImage() async {
-    Uint8List? img = await pickImage(ImageSource.gallery);
-    if (img != null) {
-      setState(() {
-        _image = img;
-      });
-    }
-  }
-
-  void _loadUserData() async {
-    try {
-      final userId = widget.userId;
-      final userData = await _userIiapRepositoryImpl.getUserData(userId);
-
-      _nameController.text = userData['name'] ?? '';
-      _lastnameController.text = userData['lastName'] ?? '';
-      _phoneController.text = userData['phone'] ?? '';
-
-      final profilePicture = userData['profilePicture'];
-      if (profilePicture != null) {
-        setState(() {
-          _imageUrl = profilePicture; // Almacena la URL de la imagen
-        });
-      }
-    } catch (error) {
-      if (mounted) {
-        customSnackBar(
-          context: context,
-          title: texts.editProfile.errorSnack,
-          error: true,
-        );
-      }
-    }
-  }
-
-  Future<bool> doesImageExist(String imageUrl) async {
-    final storage = FirebaseStorage.instance;
-    try {
-      final ref = storage.refFromURL(imageUrl);
-      await ref.getMetadata();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
 
   @override
   void initState() {
-    _loadUserData();
     super.initState();
+    _userIiapRepositoryImpl = context.read<AccountRepository>();
+    _loadUserData();
   }
 
   @override
@@ -116,6 +53,53 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     _lastnameFocusNode.dispose();
     _phoneFocusNode.dispose();
     super.dispose();
+  }
+
+  void _selectImage() async {
+    Uint8List? img = await pickImage(ImageSource.gallery);
+    if (img != null) {
+      setState(() {
+        _image = img;
+      });
+    }
+  }
+
+  void _loadUserData() async {
+    final userId = widget.userId;
+    final userData = await _userIiapRepositoryImpl.getUserData(userId);
+
+    userData.when(
+      (failure) {
+        customSnackBar(
+          context: context,
+          title: texts.editProfile.errorSnack,
+          error: true,
+        );
+      },
+      (user) {
+        _nameController.text = user.name ?? '';
+        _lastnameController.text = user.lastName ?? '';
+        _phoneController.text = user.phone ?? '';
+
+        final profilePicture = user.profilePicture;
+        if (profilePicture != null) {
+          setState(() {
+            _imageUrl = profilePicture;
+          });
+        }
+      },
+    );
+  }
+
+  Future<bool> doesImageExist(String imageUrl) async {
+    final storage = FirebaseStorage.instance;
+    try {
+      final ref = storage.refFromURL(imageUrl);
+      await ref.getMetadata();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
@@ -164,79 +148,95 @@ class _EditProfileState extends State<EditProfile> with FormMixin {
     );
   }
 
-  void _saveProfile({
-    required BuildContext context,
-  }) async {
-    if (_formKey.currentState!.validate()) {
+  void _saveProfile({required BuildContext context}) async {
+  if (_formKey.currentState!.validate()) {
+    setState(() {
       enabled = false;
-      setState(() {});
-      final name = _nameController.text;
-      final lastName = _lastnameController.text;
-      final phone = _phoneController.text;
+    });
 
-      final Map<String, dynamic> arguments =
-          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      final userId = arguments['userId'] as String;
+    final name = _nameController.text;
+    final lastName = _lastnameController.text;
+    final phone = _phoneController.text;
 
-      try {
-        // Obtén los datos actuales del usuario antes de actualizar
-        final currentUserData =
-            await _userIiapRepositoryImpl.getUserData(userId);
+    try {
+      final currentUserData = await _userIiapRepositoryImpl.getUserData(widget.userId);
 
-        // Asegúrate de que el campo 'email' no sea nulo
-        final email = currentUserData['email'] ?? '';
+      currentUserData.when(
+        (failure) {
+          if (mounted) {
+            handleFailure(context);
+          }
+        },
+        (user) async {
+          final email = user.email ?? '';
 
-        if (_image == null) {
-          // Si la imagen es nula, simplemente guarda el perfil sin la imagen
-          await _userIiapRepositoryImpl.saveProfileWithoutImage(
-            userId: userId,
-            name: name,
-            lastName: lastName,
-            phone: phone,
-            email: email,
-          );
-        } else {
-          // Si la imagen no es nula, guarda el perfil con la imagen
-          await _userIiapRepositoryImpl.saveProfile(
-            userId: userId,
-            name: name,
-            lastName: lastName,
-            phone: phone,
-            email: email,
-            profilePicture: _image!,
-          );
-        }
+          try {
+            if (_image == null) {
+              // Solo guardar los datos del perfil sin imagen
+              final result = await _userIiapRepositoryImpl.saveProfileWithoutImage(
+                userId: widget.userId,
+                name: name,
+                lastName: lastName,
+                phone: phone,
+                email: email,
+              );
 
-        // Muestra un mensaje de éxito
-        if (mounted) {
-          profileSuccessModal(context);
-        }
+              // Asumimos que `result` es un `String` (mensaje de éxito)
+              // ignore: use_build_context_synchronously
+              handleSuccess(context);
+            } else {
+              // Guardar los datos del perfil junto con la imagen
+              final result = await _userIiapRepositoryImpl.saveProfile(
+                userId: widget.userId,
+                name: name,
+                lastName: lastName,
+                phone: phone,
+                email: email,
+                profilePicture: _image!,
+              );
 
-        // Limpiar el formulario
-        _nameController.clear();
-        _lastnameController.clear();
-        _phoneController.clear();
-        setState(() {
-          _image = null;
-        });
-
-        // Habilitar el botón de guardar
-        enabled = true;
-        setState(() {});
-      } catch (error) {
-        if (mounted) {
-          customSnackBar(
-            context: context,
-            title: texts.editProfile.errorSave,
-            error: true,
-          );
-        }
-
-        // Habilitar el botón de guardar
-        enabled = true;
-        setState(() {});
+              // Asumimos que `result` es un `String` (mensaje de éxito)
+              // ignore: use_build_context_synchronously
+              handleSuccess(context);
+            }
+          } catch (e) {
+            if (mounted) {
+              handleFailure(context);
+            }
+          }
+        },
+      );
+    } catch (e) {
+      if (mounted) {
+        handleFailure(context);
       }
     }
   }
 }
- */
+
+
+  void handleFailure(BuildContext context) {
+    customSnackBar(
+      context: context,
+      title: texts.editProfile.errorSave,
+      error: true,
+    );
+    setState(() {
+      enabled = true;
+    });
+  }
+
+  void handleSuccess(BuildContext context) {
+    if (mounted) {
+      profileSuccessModal(context);
+      setState(() {
+        _nameController.clear();
+        _lastnameController.clear();
+        _phoneController.clear();
+        _image = null;
+        enabled = true;
+      });
+    }
+  }
+}
+

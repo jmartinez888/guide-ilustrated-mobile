@@ -32,112 +32,113 @@ class _MainLeftNavState extends State<MainLeftNav> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final scaffoldKey = GlobalKey<ScaffoldState>();
-    final LeftTabController controller = context.watch();
-    final position = controller.state.position;
+Widget build(BuildContext context) {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final LeftTabController controller = context.watch();
+  
+  // Obtener la ubicación actual
+  final currentLocation = GoRouter.of(context).location;
+  
+  // Actualizar la pestaña seleccionada en función de la ruta
+  if (currentLocation.startsWith('/profile')) {
+    controller.changeTab(0);
+  } else if (currentLocation.startsWith('/species')) {
+    controller.changeTab(1);
+  } else if (currentLocation.startsWith('/communities')) {
+    controller.changeTab(2);
+  } else if (currentLocation.startsWith('/authors')) {
+    controller.changeTab(3);
+  } else if (currentLocation.startsWith('/staff')) {
+    controller.changeTab(4);
+  } else if (currentLocation.startsWith('/about')) {
+    controller.changeTab(5);
+  }
 
-    return Scaffold(
-      key: scaffoldKey,
-      drawer: NavigationDrawer(
-        selectedIndex: position,
-        onDestinationSelected: (index) {
-          switch (index) {
-            case 0:
-              context.goNamed(
-                Routes.profile,
-              );
-              leftTabController.changeTab(index);
+  final position = controller.state.position;
 
-              break;
-            case 1:
-              context.goNamed(
-                Routes.species,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 2:
-              context.goNamed(
-                Routes.communities,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 3:
-              context.goNamed(
-                Routes.authors,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 4:
-              context.goNamed(
-                Routes.staff,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-            case 5:
-              context.goNamed(
-                Routes.about,
-              );
-              leftTabController.changeTab(index);
-
-              break;
-          }
-          scaffoldKey.currentState?.openEndDrawer();
-        },
+  return Scaffold(
+    key: scaffoldKey,
+    drawer: NavigationDrawer(
+      selectedIndex: position,
+      onDestinationSelected: (index) {
+        switch (index) {
+          case 0:
+            context.goNamed(Routes.profile);
+            leftTabController.changeTab(index);
+            break;
+          case 1:
+            context.goNamed(Routes.species);
+            leftTabController.changeTab(index);
+            break;
+          case 2:
+            context.goNamed(Routes.communities);
+            leftTabController.changeTab(index);
+            break;
+          case 3:
+            context.goNamed(Routes.authors);
+            leftTabController.changeTab(index);
+            break;
+          case 4:
+            context.goNamed(Routes.staff);
+            leftTabController.changeTab(index);
+            break;
+          case 5:
+            context.goNamed(Routes.about);
+            leftTabController.changeTab(index);
+            break;
+        }
+        scaffoldKey.currentState?.openEndDrawer();
+      },
+      children: [
+        _title(texts.drawer.account),
+        NavigationDrawerDestination(
+          selectedIcon: const Icon(Icons.account_circle_rounded),
+          label: Text(texts.drawer.profile),
+          icon: const Icon(Icons.account_circle_outlined),
+        ),
+        _title(texts.drawer.content),
+        NavigationDrawerDestination(
+          label: Text(texts.drawer.species),
+          icon: const Icon(CustomIcons.mono),
+        ),
+        NavigationDrawerDestination(
+          label: Text(texts.drawer.communities),
+          icon: const Icon(CustomIcons.choza),
+        ),
+        NavigationDrawerDestination(
+          label: Text(texts.drawer.authors),
+          icon: const Icon(Icons.group_rounded),
+        ),
+        _title(texts.drawer.about),
+        NavigationDrawerDestination(
+          selectedIcon: const Icon(Icons.groups_rounded),
+          label: Text(texts.drawer.staff),
+          icon: const Icon(Icons.groups_outlined),
+        ),
+        NavigationDrawerDestination(
+          selectedIcon: const Icon(Icons.info_rounded),
+          label: Text(texts.drawer.aboutGuide),
+          icon: const Icon(Icons.info_outlined),
+        ),
+      ],
+    ),
+    body: SafeArea(
+      child: Stack(
         children: [
-          _title(texts.drawer.account),
-          NavigationDrawerDestination(
-            selectedIcon: const Icon(Icons.account_circle_rounded),
-            label: Text(texts.drawer.profile),
-            icon: const Icon(Icons.account_circle_outlined),
-          ),
-          _title(texts.drawer.content),
-          NavigationDrawerDestination(
-            label: Text(texts.drawer.species),
-            icon: const Icon(CustomIcons.mono),
-          ),
-          NavigationDrawerDestination(
-            label: Text(texts.drawer.communities),
-            icon: const Icon(CustomIcons.choza),
-          ),
-          NavigationDrawerDestination(
-            label: Text(texts.drawer.authors),
-            icon: const Icon(Icons.group_rounded),
-          ),
-          _title(texts.drawer.about),
-          NavigationDrawerDestination(
-            selectedIcon: const Icon(Icons.groups_rounded),
-            label: Text(texts.drawer.staff),
-            icon: const Icon(Icons.groups_outlined),
-          ),
-          NavigationDrawerDestination(
-            selectedIcon: const Icon(Icons.info_rounded),
-            label: Text(texts.drawer.aboutGuide),
-            icon: const Icon(Icons.info_outlined),
+          widget.child,
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+            child: CustomIconButton(
+              tooltip: texts.drawer.menu,
+              icon: Icons.menu_rounded,
+              onPressed: () => scaffoldKey.currentState?.openDrawer(),
+            ),
           ),
         ],
       ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            widget.child,
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-              child: CustomIconButton(
-                tooltip: texts.drawer.menu,
-                icon: Icons.menu_rounded,
-                onPressed: () => scaffoldKey.currentState?.openDrawer(),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _title(String title) {
     return Padding(
