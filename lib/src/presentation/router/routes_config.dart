@@ -30,6 +30,14 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/splash/splash_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
+// Importación de la página del juego
+import 'package:species/src/presentation/pages/main/left_tabs/game/game_page.dart';
+//import 'package:species/src/presentation/pages/main/left_tabs/game/puzzle_page.dart';
+//import 'package:species/src/presentation/pages/main/left_tabs/game/word_search_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/memory_game_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/relationship_game_page.dart';
+
+
 final parentNavigatorKey = GlobalKey<NavigatorState>();
 final parentLeftNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -245,42 +253,11 @@ final appRouter = GoRouter(
             ),
             GoRoute(
               name: Routes.communityImage,
-              path: '${Routes.image}/:images',
+              path: '${Routes.communityImage}/:images',
               parentNavigatorKey: parentNavigatorKey,
               builder: (_, state) {
                 final images = state.pathParameters['images'];
-                return ImageDetailsPage(images: images!.toString());
-              },
-            ),
-          ],
-        ),
-        GoRoute(
-          path: Routes.authors,
-          name: Routes.authors,
-          builder: (_, __) => const AuthorsPage(),
-          routes: [
-            GoRoute(
-              path: Routes.authorSearch,
-              name: Routes.authorSearch,
-              parentNavigatorKey: parentNavigatorKey,
-              builder: (_, __) => const AuthorSearchPage(),
-              //builder: (_, __) => const IndigenousCommunitySearchPage(),
-            ),
-            GoRoute(
-              path: ':id',
-              name: Routes.authorDetails,
-              builder: (_, state) {
-                final id = state.pathParameters['id'];
-                return AuthorDetailsPage(id: id.toString());
-              },
-            ),
-            GoRoute(
-              name: Routes.authorImage,
-              path: '${Routes.image}/:images',
-              parentNavigatorKey: parentNavigatorKey,
-              builder: (_, state) {
-                final images = state.pathParameters['images'];
-                return ImageDetailsPage(images: images!.toString());
+                return ImageDetailsPage(images: images.toString());
               },
             ),
           ],
@@ -294,6 +271,61 @@ final appRouter = GoRouter(
           path: Routes.about,
           name: Routes.about,
           builder: (_, __) => const AboutPage(),
+        ),
+        GoRoute(
+          path: Routes.authors,
+          name: Routes.authors,
+          builder: (_, __) => const AuthorsPage(),
+          routes: [
+            GoRoute(
+              path: Routes.authorSearch,
+              name: Routes.authorSearch,
+              parentNavigatorKey: parentNavigatorKey,
+              builder: (_, __) => const AuthorSearchPage(),
+            ),
+            GoRoute(
+              path: ':id',
+              name: Routes.authorDetails,
+              builder: (_, state) {
+                final id = state.pathParameters['id'];
+                return AuthorDetailsPage(id: id.toString());
+              },
+            ),
+            GoRoute(
+              name: Routes.authorImage,
+              path: '${Routes.authorImage}/:images',
+              parentNavigatorKey: parentNavigatorKey,
+              builder: (_, state) {
+                final images = state.pathParameters['images'];
+                return ImageDetailsPage(images: images.toString());
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: Routes.game, // Ruta del juego
+          name: Routes.game,
+          builder: (_, __) => GamePage(), // Página del juego
+        ),
+        /*GoRoute(
+          path: Routes.puzzle, // Ruta para el rompecabezas
+          name: Routes.puzzle,
+          builder: (_, __) => PuzzlePage(), // Página del rompecabezas
+        ),
+        GoRoute(
+          path: Routes.wordSearch, // Ruta para la sopa de letras
+          name: Routes.wordSearch,
+          builder: (_, __) => WordSearchPage(), // Página de la sopa de letras
+        ),*/
+        GoRoute(
+          path: Routes.memory,
+          name: Routes.memory,
+          builder: (_, __) => MemoryGamePage(),
+        ),
+        GoRoute(
+          path: Routes.relationship,
+          name: Routes.relationship,
+          builder: (_, __) => RelationshipGamePage(),
         ),
       ],
     ),

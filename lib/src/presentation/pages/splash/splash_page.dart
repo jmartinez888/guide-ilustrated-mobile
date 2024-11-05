@@ -17,11 +17,16 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   AuthRepository get authRepository => context.read();
   SessionController get sessionController => context.read();
   late Timer _timer;
-  int time = 4;
+  int time = 5;
+  bool _showGif = true;
+  bool _showImage = false;
+
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -29,6 +34,33 @@ class _SplashPageState extends State<SplashPage> {
 
     getUserData();
 
+    // Inicializar el controlador de la animación para el Fade
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800), // Duración del fade
+    );
+
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeInOut,
+    );
+
+    // Mostrar la imagen justo antes de que termine el GIF (1 milisegundo antes)
+    Future.delayed(const Duration(milliseconds: 3470), () {
+      setState(() {
+        _showImage = true;  // Mostrar la imagen justo antes de terminar el GIF
+        _fadeController.forward();  // Iniciar la animación de Fade
+      });
+    });
+
+    // Mostrar el GIF por 4.2 segundos y luego continuar con la transición
+    Future.delayed(const Duration(milliseconds: 3480), () {
+      setState(() {
+        _showGif = false;
+      });
+    });
+
+    // Cambiar de pantalla después de 5 segundos
     _timer = Timer(Duration(seconds: time), () {
       goApp();
     });
@@ -41,6 +73,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void dispose() {
     _timer.cancel();
+    _fadeController.dispose();
     super.dispose();
   }
 
@@ -64,6 +97,21 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    // Ajustar el tamaño del GIF e imagen en función de la orientación
+    final gifHeight = isLandscape
+        ? MediaQuery.of(context).size.height * 3.8 // Más grande en horizontal
+        : MediaQuery.of(context).size.height * 1.6;
+    final gifWidth = isLandscape
+        ? MediaQuery.of(context).size.width * 4.0 // Más grande en horizontal
+        : MediaQuery.of(context).size.width * 1.8;
+
+    // Ajustar el tamaño de los logos en función de la orientación
+    final logoWidth = isLandscape ? num256 * 0.7 : num256;
+    final logoHeight = isLandscape ? num64 * 0.7 : num64;
+
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Stack(
@@ -121,19 +169,27 @@ class _SplashPageState extends State<SplashPage> {
                 curve: Curves.ease,
               ),
           Center(
-            child: Image.asset(
-              'assets/images/logo.png',
-              height: 128.0,
-            )
-                .animate(
-                  delay: num800.ms,
-                )
-                .fadeIn(duration: num800.milliseconds)
-                .scale(
-                  begin: const Offset(0.0, 0.0),
-                  duration: num800.ms,
-                  curve: Curves.easeInOut,
-                ),
+            child: Stack(
+              children: [
+                // Mostrar el GIF
+                if (_showGif)
+                  Image.asset(
+                    'assets/gifs/ISOTIPO-amazonia (1).gif',
+                    height: gifHeight,
+                    width: gifWidth,
+                  ),
+                // Mostrar la imagen con FadeTransition justo antes de que termine el GIF
+                if (_showImage)
+                  FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: Image.asset(
+                      'assets/images/AMAZONÍA-ISOTIPO.png',
+                      height: gifHeight,
+                      width: gifWidth,
+                    ),
+                  ),
+              ],
+            ),
           ),
           Padding(
             padding: PaddingConfig.allL,
@@ -147,18 +203,18 @@ class _SplashPageState extends State<SplashPage> {
                 children: [
                   _spandImage(
                     'assets/images/logo_minam.png',
-                    width: num256,
-                    height: num64,
+                    width: logoWidth,  // Ajustado para la orientación
+                    height: logoHeight, // Ajustado para la orientación
                   ),
                   _spandImage(
                     'assets/images/logoIIAP.jpg',
-                    width: num64,
-                    height: num64,
+                    width: logoHeight,  // Ajustado para la orientación
+                    height: logoHeight, // Ajustado para la orientación
                   ),
                   _spandImage(
                     'assets/images/logo_spain.png',
-                    width: num256,
-                    height: num64,
+                    width: logoWidth,  // Ajustado para la orientación
+                    height: logoHeight, // Ajustado para la orientación
                   ),
                 ],
               ),
