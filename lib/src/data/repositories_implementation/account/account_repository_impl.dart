@@ -10,7 +10,6 @@ import 'package:species/src/domain/repositories/account/account_repository.dart'
 
 class AccountRepositoryImpl extends AccountRepository {
   final AccountApi _accountApi;
-
   final _controller = StreamController<UserC>.broadcast();
 
   late UserC _userData;
@@ -37,21 +36,25 @@ class AccountRepositoryImpl extends AccountRepository {
   }
 
   @override
-  Future<String> uploadProfilePicture(
+  Future<Either<FirebaseRequestFailure, String>> uploadProfilePicture(
     String folderName,
     String fileName,
     Uint8List file,
   ) async {
-    Reference ref =
-        firebaseStorageInstance.ref().child(folderName).child(fileName);
-    UploadTask uploadTask = ref.putData(file);
-    TaskSnapshot snapshot = await uploadTask;
-    String downloadUrl = await snapshot.ref.getDownloadURL();
-    return downloadUrl;
+    try {
+      Reference ref =
+          firebaseStorageInstance.ref().child(folderName).child(fileName);
+      UploadTask uploadTask = ref.putData(file);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return Either.right(downloadUrl);
+    } catch (e) {
+      return Either.left(FirebaseRequestFailure.unknown(e.toString()));
+    }
   }
 
   @override
-  Future<String> saveProfile({
+  Future<Either<FirebaseRequestFailure, void>> saveProfile({
     required String userId,
     required String name,
     required String lastName,
@@ -59,31 +62,49 @@ class AccountRepositoryImpl extends AccountRepository {
     required String email,
     required Uint8List profilePicture,
   }) async {
-    return _accountApi.saveProfile(
-      userId: userId,
-      name: name,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      profilePicture: profilePicture,
-    );
+    try {
+      final result = await uploadProfilePicture(
+        'profilePictures',
+        userId,
+        profilePicture,
+      );
+      return result.when(
+        (failure) => Either.left(failure),
+        (downloadUrl) async {
+          await firebaseFirestoreInstance.doc(userId).update({
+            'name': name,
+            'lastName': lastName,
+            'phone': phone,
+            'email': email,
+            'profilePicture': downloadUrl,
+          });
+          return Either.right(null);
+        },
+      );
+    } catch (e) {
+      return Either.left(FirebaseRequestFailure.unknown(e.toString()));
+    }
   }
 
   @override
-  Future<String> saveProfileWithoutImage({
+  Future<Either<FirebaseRequestFailure, void>> saveProfileWithoutImage({
     required String userId,
     required String name,
     required String lastName,
     required String phone,
     required String email,
   }) async {
-    return _accountApi.saveProfileWithoutImage(
-      userId: userId,
-      name: name,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-    );
+    try {
+      await firebaseFirestoreInstance.doc(userId).update({
+        'name': name,
+        'lastName': lastName,
+        'phone': phone,
+        'email': email,
+      });
+      return Either.right(null);
+    } catch (e) {
+      return Either.left(FirebaseRequestFailure.unknown(e.toString()));
+    }
   }
 
   @override
