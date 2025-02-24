@@ -10,4 +10,12 @@ class FirebaseRequestFailure with _$FirebaseRequestFailure {
   factory FirebaseRequestFailure.empty(String message) = _FirebaseRequestFailureEmpty;
   factory FirebaseRequestFailure.denied(String message) = _FirebaseRequestFailureDenied;
   factory FirebaseRequestFailure.timeout(String message) = _FirebaseRequestFailureTimeout;
+
+  static FirebaseRequestFailure userNotFound() {
+    return FirebaseRequestFailure.unknown("User not found");
+  }
+
+  static FirebaseRequestFailure serverError() {
+    return FirebaseRequestFailure.unknown("Server error occurred");
+  }
 }

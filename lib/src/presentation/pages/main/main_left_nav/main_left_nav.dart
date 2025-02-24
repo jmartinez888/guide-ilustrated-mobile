@@ -35,6 +35,35 @@ class _MainLeftNavState extends State<MainLeftNav> {
   Widget build(BuildContext context) {
     final scaffoldKey = GlobalKey<ScaffoldState>();
     final LeftTabController controller = context.watch();
+
+    // Obtener la ubicación actual
+    final currentLocation = GoRouter.of(context).location;
+
+    // Actualizar la pestaña seleccionada en función de la ruta
+    if (currentLocation.startsWith('/profile')) {
+      controller.changeTab(0);
+    } else if (currentLocation.startsWith('/species')) {
+      controller.changeTab(1);
+    } else if (currentLocation.startsWith('/communities')) {
+      controller.changeTab(2);
+    } else if (currentLocation.startsWith('/authors')) {
+      controller.changeTab(3);
+    } else if (currentLocation.startsWith('/staff')) {
+      controller.changeTab(4);
+    } else if (currentLocation.startsWith('/about')) {
+      controller.changeTab(5);
+    } else if (currentLocation.startsWith('/game')) {
+      controller.changeTab(6); // Nueva pestaña para el juego de trivia
+    } /*else if (currentLocation.startsWith('/puzzle')) {
+      controller.changeTab(7); // Nueva pestaña para el juego de rompecabezas
+    } else if (currentLocation.startsWith('/wordsearch')) {
+      controller.changeTab(8); // Nueva pestaña para el juego de sopa de letras
+    }*/ else if (currentLocation.startsWith('/memory')) { 
+      controller.changeTab(7); // Nueva ruta para el juego de memoria
+    } else if (currentLocation.startsWith('/relationship')) { 
+      controller.changeTab(8); // Nueva ruta para el juego de relación de palabras
+    }
+
     final position = controller.state.position;
 
     return Scaffold(
@@ -44,46 +73,48 @@ class _MainLeftNavState extends State<MainLeftNav> {
         onDestinationSelected: (index) {
           switch (index) {
             case 0:
-              context.goNamed(
-                Routes.profile,
-              );
+              context.goNamed(Routes.profile);
               leftTabController.changeTab(index);
-
               break;
             case 1:
-              context.goNamed(
-                Routes.species,
-              );
+              context.goNamed(Routes.species);
               leftTabController.changeTab(index);
-
               break;
             case 2:
-              context.goNamed(
-                Routes.communities,
-              );
+              context.goNamed(Routes.communities);
               leftTabController.changeTab(index);
-
               break;
             case 3:
-              context.goNamed(
-                Routes.authors,
-              );
+              context.goNamed(Routes.authors);
               leftTabController.changeTab(index);
-
               break;
             case 4:
-              context.goNamed(
-                Routes.staff,
-              );
+              context.goNamed(Routes.staff);
               leftTabController.changeTab(index);
-
               break;
             case 5:
-              context.goNamed(
-                Routes.about,
-              );
+              context.goNamed(Routes.about);
               leftTabController.changeTab(index);
-
+              break;
+            case 6:
+              context.goNamed(Routes.game); // Redirigir a la página del juego de trivia
+              leftTabController.changeTab(index);
+              break;
+            /*case 7:
+              context.goNamed(Routes.puzzle); // Redirigir a la página del juego de rompecabezas
+              leftTabController.changeTab(index);
+              break;
+            case 8:
+              context.goNamed(Routes.wordSearch); // Nueva ruta para el juego de sopa de letras
+              leftTabController.changeTab(index);
+              break;*/
+            case 7:
+              context.goNamed(Routes.memory); // Nueva ruta para el juego de memoria
+              leftTabController.changeTab(index);
+              break;
+            case 8:
+              context.goNamed(Routes.relationship); // Nueva ruta para el juego de relación de palabras
+              leftTabController.changeTab(index);
               break;
           }
           scaffoldKey.currentState?.openEndDrawer();
@@ -118,6 +149,32 @@ class _MainLeftNavState extends State<MainLeftNav> {
             selectedIcon: const Icon(Icons.info_rounded),
             label: Text(texts.drawer.aboutGuide),
             icon: const Icon(Icons.info_outlined),
+          ),
+          _title('Juegos Interactivos'), // Sección para los juegos
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.videogame_asset_rounded),
+            label: Text('Trivia de Especies'),
+            icon: Icon(Icons.videogame_asset_outlined),
+          ),
+          /*const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.extension_rounded),
+            label: Text('Juego de Rompecabezas'), // Nueva opción para el juego de rompecabezas
+            icon: Icon(Icons.extension_outlined),
+          ),
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.grid_on_rounded), // Icono para la sopa de letras
+            label: Text('Sopa de Letras'), // Nueva opción para la sopa de letras
+            icon: Icon(Icons.grid_on_outlined),
+          ),*/
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.memory_rounded), // Icono para el juego de memoria
+            label: Text('Juego de Memoria'), // Nueva opción para el juego de memoria
+            icon: Icon(Icons.memory_outlined),
+          ),
+          const NavigationDrawerDestination(
+            selectedIcon: Icon(Icons.link), // Icono para el juego de relación de palabras
+            label: Text('Relaciona las Especies'), // Nueva opción para el juego de relación de palabras
+            icon: Icon(Icons.link_outlined),
           ),
         ],
       ),

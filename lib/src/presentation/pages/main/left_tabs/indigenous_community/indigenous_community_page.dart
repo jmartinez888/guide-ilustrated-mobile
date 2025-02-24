@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import necesario para cerrar la app
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:lottie/lottie.dart';
@@ -34,97 +35,123 @@ class _IndigenousCommunityPageState extends State<IndigenousCommunityPage> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        leading: const SizedBox(),
-        title: Text(texts.community.title),
-        actions: [
-          CustomIconButton(
-            tooltip: texts.general.search,
-            icon: Icons.search_rounded,
-            onPressed: () {
-              context.pushNamed(Routes.communitySearch);
-            },
-          ),
-          const SizedBox(width: 8.0),
-        ],
-      ),
-      body: Extend(
-        child: RefreshIndicator(
-          onRefresh: () =>
-              Future.sync(() => controllerRead.pagingController.refresh()),
-          child: PageStorage(
-            bucket: PersistenScrollPosition.bucketGlobal,
-            child: PagedMasonryGridView<int, Community>(
-              padding: const EdgeInsets.all(16.0),
-              pagingController: controllerRead.pagingController,
-              key: const PageStorageKey('c'),
-              crossAxisSpacing: 8.0,
-              mainAxisSpacing: 8.0,
-              gridDelegateBuilder: (int childCount) {
-                return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: buildMultiGridsLarge(width),
-                );
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const SizedBox(),
+          title: Text(texts.community.title),
+          actions: [
+            CustomIconButton(
+              tooltip: texts.general.search,
+              icon: Icons.search_rounded,
+              onPressed: () {
+                context.pushNamed(Routes.communitySearch);
               },
-              physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
-              builderDelegate: PagedChildBuilderDelegate<Community>(
-                animateTransitions: true,
-                transitionDuration: const Duration(milliseconds: 400),
-                newPageProgressIndicatorBuilder: (_) =>
-                    const SkeletonConatiner(height: 320.0),
-                firstPageErrorIndicatorBuilder: (context) => _errorIndicator(
-                  onPressed: controllerRead.pagingController.refresh,
-                ),
-                noItemsFoundIndicatorBuilder: (context) => _errorIndicator(
-                  onPressed: controllerRead.pagingController.refresh,
-                  text: texts.community.withoutCommunities,
-                  lottie: 'assets/lotties/without_data.json',
-                ),
-                newPageErrorIndicatorBuilder: (context) => CustomGridCard(
-                  onTap: controllerRead.pagingController.retryLastFailedRequest,
-                  title: texts.general.error404Again,
-                  image: Padding(
-                    padding: PaddingConfig.allWithoutBottomL,
-                    child: Lottie.asset('assets/lotties/error_data.json'),
-                  ),
-                ),
-                firstPageProgressIndicatorBuilder: (_) =>
-                    GridLoading(padding: PaddingConfig.allL),
-                itemBuilder: (context, community, index) {
-                  return CustomGridCard(
-                    onTap: () => context.pushNamed(
-                      Routes.communityDetails,
-                      pathParameters: {'id': community.id.toString()},
-                    ),
-                    mainColor: colorScheme.primary,
-                    opaqueColor: colorScheme.primaryContainer,
-                    image: CustomImageContainer(
-                      mainColor: colorScheme.primary,
-                      imageUrl: community.images != null &&
-                              community.images!.isNotEmpty
-                          ? community.images!.first
-                          : null,
-                      heightImage: 232.0,
-                      fitImage: true,
-                    ),
-                    title: community.name,
-                    subtitle: community.description != null &&
-                            community.description!.isNotEmpty &&
-                            !community.description!.startsWith('NA') &&
-                            !community.description!.startsWith('-') &&
-                            !community.description!.startsWith('N/A')
-                        ? community.description!.replaceAll('\t', '')
-                        : texts.general.nameNotAvailable,
-                    maxLines: 2,
+            ),
+            const SizedBox(width: 8.0),
+          ],
+        ),
+        body: Extend(
+          child: RefreshIndicator(
+            onRefresh: () =>
+                Future.sync(() => controllerRead.pagingController.refresh()),
+            child: PageStorage(
+              bucket: PersistenScrollPosition.bucketGlobal,
+              child: PagedMasonryGridView<int, Community>(
+                padding: const EdgeInsets.all(16.0),
+                pagingController: controllerRead.pagingController,
+                key: const PageStorageKey('c'),
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+                gridDelegateBuilder: (int childCount) {
+                  return SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: buildMultiGridsLarge(width),
                   );
                 },
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                builderDelegate: PagedChildBuilderDelegate<Community>(
+                  animateTransitions: true,
+                  transitionDuration: const Duration(milliseconds: 400),
+                  newPageProgressIndicatorBuilder: (_) =>
+                      const SkeletonConatiner(height: 320.0),
+                  firstPageErrorIndicatorBuilder: (context) =>
+                      _errorIndicator(
+                    onPressed: controllerRead.pagingController.refresh,
+                  ),
+                  noItemsFoundIndicatorBuilder: (context) => _errorIndicator(
+                    onPressed: controllerRead.pagingController.refresh,
+                    text: texts.community.withoutCommunities,
+                    lottie: 'assets/lotties/without_data.json',
+                  ),
+                  newPageErrorIndicatorBuilder: (context) => CustomGridCard(
+                    onTap: controllerRead.pagingController
+                        .retryLastFailedRequest,
+                    title: texts.general.error404Again,
+                    image: Padding(
+                      padding: PaddingConfig.allWithoutBottomL,
+                      child: Lottie.asset('assets/lotties/error_data.json'),
+                    ),
+                  ),
+                  firstPageProgressIndicatorBuilder: (_) =>
+                      GridLoading(padding: PaddingConfig.allL),
+                  itemBuilder: (context, community, index) {
+                    return CustomGridCard(
+                      onTap: () => context.pushNamed(
+                        Routes.communityDetails,
+                        pathParameters: {'id': community.id.toString()},
+                      ),
+                      mainColor: colorScheme.primary,
+                      opaqueColor: colorScheme.primaryContainer,
+                      image: CustomImageContainer(
+                        mainColor: colorScheme.primary,
+                        imageUrl: community.images != null &&
+                                community.images!.isNotEmpty
+                            ? community.images!.first
+                            : null,
+                        heightImage: 232.0,
+                        fitImage: true,
+                      ),
+                      title: community.name,
+                      subtitle: community.description != null &&
+                              community.description!.isNotEmpty &&
+                              !community.description!.startsWith('NA') &&
+                              !community.description!.startsWith('-') &&
+                              !community.description!.startsWith('N/A')
+                          ? community.description!.replaceAll('\t', '')
+                          : texts.general.nameNotAvailable,
+                      maxLines: 2,
+                    );
+                  },
+                ),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop(BuildContext context) async {
+    final shouldPop = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('¿Salir de la app?'),
+        content: Text('¿Estás seguro que quieres salir?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false), // No salir
+            child: Text('No'),
+          ),
+          TextButton(
+            onPressed: () => SystemNavigator.pop(), // Salir de la app
+            child: Text('Sí'),
+          ),
+        ],
+      ),
+    );
+    return shouldPop ?? false;
   }
 
   Widget _errorIndicator({
