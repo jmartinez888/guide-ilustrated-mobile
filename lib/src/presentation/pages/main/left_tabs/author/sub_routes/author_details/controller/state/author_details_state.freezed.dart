@@ -19,7 +19,9 @@ mixin _$AuthorDetailsState {
   Map<String, Author> get mapOfId => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthorDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthorDetailsStateCopyWith<AuthorDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,6 +45,8 @@ class _$AuthorDetailsStateCopyWithImpl<$Res, $Val extends AuthorDetailsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AuthorDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +85,8 @@ class __$$AuthorDetailsStateImplCopyWithImpl<$Res>
       $Res Function(_$AuthorDetailsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuthorDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,7 +144,9 @@ class _$AuthorDetailsStateImpl implements _AuthorDetailsState {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_mapOfId), loading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthorDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthorDetailsStateImplCopyWith<_$AuthorDetailsStateImpl> get copyWith =>
@@ -155,8 +163,11 @@ abstract class _AuthorDetailsState implements AuthorDetailsState {
   Map<String, Author> get mapOfId;
   @override
   bool get loading;
+
+  /// Create a copy of AuthorDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthorDetailsStateImplCopyWith<_$AuthorDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

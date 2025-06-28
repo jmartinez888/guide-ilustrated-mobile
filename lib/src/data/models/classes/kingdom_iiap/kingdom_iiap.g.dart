@@ -8,7 +8,7 @@ part of 'kingdom_iiap.dart';
 
 _$KingdomIiapImpl _$$KingdomIiapImplFromJson(Map<String, dynamic> json) =>
     _$KingdomIiapImpl(
-      id: json['id_reino'] as int,
+      id: (json['id_reino'] as num).toInt(),
       name: json['vc_nombre'] as String?,
     );
 

@@ -37,68 +37,72 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.3
-  firebase_core: ^2.22.0
-  cloud_firestore: ^4.13.0
-  firebase_auth: ^4.13.0
-  go_router: ^7.1.0
+  firebase_core: ^2.32.0
+  cloud_firestore: ^4.17.5
+  firebase_auth: ^4.16.0
+  firebase_storage: ^11.6.5
+  firebase_app_check: ^0.2.2
+  go_router: ^15.2.4
   cached_network_image: ^3.3.0
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
   staggered_grid_view_flutter: ^0.0.4
   http: ^1.1.0
   infinite_scroll_pagination: ^4.0.0
-  rxdart: ^0.27.7
-  just_audio: ^0.9.35
+  rxdart: ^0.28.0
+  just_audio: 0.9.46  # Versión compatible con just_audio_cache
   just_audio_cache: ^0.1.2
   audio_video_progress_bar: ^2.0.1
-  share_plus: ^7.2.1
-  flutter_file_downloader: ^1.2.1
-  permission_handler: ^11.0.1
+  share_plus: ^11.0.0
+  flutter_file_downloader: ^2.1.0
+  permission_handler: ^12.0.0+1
   pdf: ^3.10.4
   printing: ^5.11.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.4
   flutter_animate: ^4.2.0+1
   flutter_svg: ^2.0.9
-  animated_custom_dropdown: ^2.0.0
-  lottie: ^2.7.0
+  animated_custom_dropdown: ^3.1.1
+  lottie: ^3.3.1
   image_picker: ^1.0.4
-  firebase_storage: ^11.4.1
-  firebase_app_check: ^0.2.1+3
   flutter_multi_formatter: ^2.11.16
   url_launcher: ^6.2.1
   provider: ^6.1.1
   freezed: ^2.4.7
   build_runner: ^2.4.8
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^2.4.4
+  flutterflow_paginate_firestore: ^1.0.0
   json_serializable: ^6.7.1
-  persistent_bottom_nav_bar: ^5.0.2
-  slang: ^3.30.1
-  slang_flutter: ^3.30.0
-  slang_build_runner: ^3.30.0
-  intl: ^0.18.1
+  persistent_bottom_nav_bar: ^6.2.1
+  slang: ^4.7.2
+  flutter_bloc: ^8.1.6
+  slang_flutter: ^4.7.0
+  slang_build_runner: ^4.7.0
+  intl: ^0.20.2
   remove_diacritic: ^0.9.0
   cloudinary: ^1.2.0
-  syncfusion_flutter_pdf: ^25.1.40
-  flutter_map: ^6.1.0
+  syncfusion_flutter_pdf: ^30.1.37
+  flutter_map: ^8.1.1
   path_provider: ^2.1.3
-  flutterflow_paginate_firestore: ^1.0.3+1
   dartz: ^0.10.1
   intl_phone_field: ^3.2.0
   flutter_fortune_wheel: ^1.3.1
   word_search_safety: ^0.1.2-nullsafety.1
-  audioplayers: ^5.2.1
-  
+  audioplayers: ^6.5.0
 
-  
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.0.0
+  freezed: ^2.4.7
+  json_serializable: ^6.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
 
 flutter_native_splash:
   color: "#2196F3"
@@ -146,7 +150,7 @@ flutter:
     - assets/memory/
     - assets/relacionaEspecie/
     - assets/sounds/
-    
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

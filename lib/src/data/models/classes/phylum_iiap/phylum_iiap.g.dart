@@ -8,7 +8,7 @@ part of 'phylum_iiap.dart';
 
 _$PhylumIiapImpl _$$PhylumIiapImplFromJson(Map<String, dynamic> json) =>
     _$PhylumIiapImpl(
-      id: json['id_filo'] as int,
+      id: (json['id_filo'] as num).toInt(),
       name: json['vc_nombre'] as String?,
     );
 

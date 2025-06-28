@@ -35,8 +35,12 @@ mixin _$CommunityIiap {
   @JsonKey(name: 'ch_estado')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this CommunityIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommunityIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CommunityIiapCopyWith<CommunityIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -67,6 +71,8 @@ class _$CommunityIiapCopyWithImpl<$Res, $Val extends CommunityIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CommunityIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,6 +143,8 @@ class __$$CommunityIiapImplCopyWithImpl<$Res>
       _$CommunityIiapImpl _value, $Res Function(_$CommunityIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommunityIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -240,12 +248,14 @@ class _$CommunityIiapImpl implements _CommunityIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, description, longitude, latitude, image, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommunityIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommunityIiapImplCopyWith<_$CommunityIiapImpl> get copyWith =>
@@ -293,8 +303,11 @@ abstract class _CommunityIiap implements CommunityIiap {
   @override
   @JsonKey(name: 'ch_estado')
   String? get state;
+
+  /// Create a copy of CommunityIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommunityIiapImplCopyWith<_$CommunityIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

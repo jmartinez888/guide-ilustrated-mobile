@@ -7,9 +7,9 @@ part of 'family.dart';
 // **************************************************************************
 
 _$FamilyImpl _$$FamilyImplFromJson(Map<String, dynamic> json) => _$FamilyImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
-      idOrder: json['id_order'] as int?,
+      idOrder: (json['id_order'] as num?)?.toInt(),
       state: json['state'] as String?,
     );
 

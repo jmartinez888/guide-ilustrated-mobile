@@ -8,7 +8,7 @@ part of 'specie_error.dart';
 
 _$SpecieErrorImpl _$$SpecieErrorImplFromJson(Map<String, dynamic> json) =>
     _$SpecieErrorImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$SpecieErrorImplToJson(_$SpecieErrorImpl instance) =>

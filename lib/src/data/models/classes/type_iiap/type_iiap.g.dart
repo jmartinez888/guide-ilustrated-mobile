@@ -8,7 +8,7 @@ part of 'type_iiap.dart';
 
 _$TypeIiapImpl _$$TypeIiapImplFromJson(Map<String, dynamic> json) =>
     _$TypeIiapImpl(
-      id: json['id_taxa'] as int,
+      id: (json['id_taxa'] as num).toInt(),
       name: json['vc_nombre'] as String?,
       primaryColor: json['vc_color_primario'] as String?,
       secondaryColor: json['vc_color_secundario'] as String?,

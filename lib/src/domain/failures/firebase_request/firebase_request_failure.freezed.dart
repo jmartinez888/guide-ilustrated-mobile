@@ -74,7 +74,9 @@ mixin _$FirebaseRequestFailure {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FirebaseRequestFailureCopyWith<FirebaseRequestFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -99,6 +101,8 @@ class _$FirebaseRequestFailureCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -135,6 +139,8 @@ class __$$FirebaseRequestFailureNetworkImplCopyWithImpl<$Res>
       $Res Function(_$FirebaseRequestFailureNetworkImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -174,7 +180,9 @@ class _$FirebaseRequestFailureNetworkImpl
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FirebaseRequestFailureNetworkImplCopyWith<
@@ -270,8 +278,11 @@ abstract class _FirebaseRequestFailureNetwork
 
   @override
   String get message;
+
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FirebaseRequestFailureNetworkImplCopyWith<
           _$FirebaseRequestFailureNetworkImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -299,6 +310,8 @@ class __$$FirebaseRequestFailureUnknownImplCopyWithImpl<$Res>
       $Res Function(_$FirebaseRequestFailureUnknownImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -338,7 +351,9 @@ class _$FirebaseRequestFailureUnknownImpl
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FirebaseRequestFailureUnknownImplCopyWith<
@@ -434,8 +449,11 @@ abstract class _FirebaseRequestFailureUnknown
 
   @override
   String get message;
+
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FirebaseRequestFailureUnknownImplCopyWith<
           _$FirebaseRequestFailureUnknownImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -463,6 +481,8 @@ class __$$FirebaseRequestFailureEmptyImplCopyWithImpl<$Res>
       $Res Function(_$FirebaseRequestFailureEmptyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -502,7 +522,9 @@ class _$FirebaseRequestFailureEmptyImpl
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FirebaseRequestFailureEmptyImplCopyWith<_$FirebaseRequestFailureEmptyImpl>
@@ -596,8 +618,11 @@ abstract class _FirebaseRequestFailureEmpty implements FirebaseRequestFailure {
 
   @override
   String get message;
+
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FirebaseRequestFailureEmptyImplCopyWith<_$FirebaseRequestFailureEmptyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -624,6 +649,8 @@ class __$$FirebaseRequestFailureDeniedImplCopyWithImpl<$Res>
       $Res Function(_$FirebaseRequestFailureDeniedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -663,7 +690,9 @@ class _$FirebaseRequestFailureDeniedImpl
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FirebaseRequestFailureDeniedImplCopyWith<
@@ -758,8 +787,11 @@ abstract class _FirebaseRequestFailureDenied implements FirebaseRequestFailure {
 
   @override
   String get message;
+
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FirebaseRequestFailureDeniedImplCopyWith<
           _$FirebaseRequestFailureDeniedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -787,6 +819,8 @@ class __$$FirebaseRequestFailureTimeoutImplCopyWithImpl<$Res>
       $Res Function(_$FirebaseRequestFailureTimeoutImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -826,7 +860,9 @@ class _$FirebaseRequestFailureTimeoutImpl
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FirebaseRequestFailureTimeoutImplCopyWith<
@@ -922,8 +958,11 @@ abstract class _FirebaseRequestFailureTimeout
 
   @override
   String get message;
+
+  /// Create a copy of FirebaseRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FirebaseRequestFailureTimeoutImplCopyWith<
           _$FirebaseRequestFailureTimeoutImpl>
       get copyWith => throw _privateConstructorUsedError;

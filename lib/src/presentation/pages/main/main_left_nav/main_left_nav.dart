@@ -37,7 +37,7 @@ class _MainLeftNavState extends State<MainLeftNav> {
     final LeftTabController controller = context.watch();
 
     // Obtener la ubicación actual
-    final currentLocation = GoRouter.of(context).location;
+    final currentLocation = GoRouterState.of(context).uri.toString();
 
     // Actualizar la pestaña seleccionada en función de la ruta
     if (currentLocation.startsWith('/profile')) {

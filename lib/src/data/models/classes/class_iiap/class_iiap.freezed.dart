@@ -29,8 +29,12 @@ mixin _$ClassIiap {
   @JsonKey(name: 'ch_estado')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this ClassIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ClassIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ClassIiapCopyWith<ClassIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +61,8 @@ class _$ClassIiapCopyWithImpl<$Res, $Val extends ClassIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ClassIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +115,8 @@ class __$$ClassIiapImplCopyWithImpl<$Res>
       _$ClassIiapImpl _value, $Res Function(_$ClassIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ClassIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,11 +188,13 @@ class _$ClassIiapImpl implements _ClassIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, idPhylum, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ClassIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ClassIiapImplCopyWith<_$ClassIiapImpl> get copyWith =>
@@ -220,8 +230,11 @@ abstract class _ClassIiap implements ClassIiap {
   @override
   @JsonKey(name: 'ch_estado')
   String? get state;
+
+  /// Create a copy of ClassIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClassIiapImplCopyWith<_$ClassIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

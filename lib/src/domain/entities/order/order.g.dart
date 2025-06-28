@@ -7,9 +7,9 @@ part of 'order.dart';
 // **************************************************************************
 
 _$OrderCImpl _$$OrderCImplFromJson(Map<String, dynamic> json) => _$OrderCImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
-      idClass: json['id_class'] as int?,
+      idClass: (json['id_class'] as num?)?.toInt(),
       state: json['state'] as String?,
     );
 

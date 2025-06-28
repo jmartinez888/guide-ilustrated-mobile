@@ -29,8 +29,12 @@ mixin _$FamilyIiap {
   @JsonKey(name: 'ch_estado')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this FamilyIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FamilyIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FamilyIiapCopyWith<FamilyIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$FamilyIiapCopyWithImpl<$Res, $Val extends FamilyIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FamilyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -110,6 +116,8 @@ class __$$FamilyIiapImplCopyWithImpl<$Res>
       _$FamilyIiapImpl _value, $Res Function(_$FamilyIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FamilyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,11 +188,13 @@ class _$FamilyIiapImpl implements _FamilyIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, idOrder, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FamilyIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FamilyIiapImplCopyWith<_$FamilyIiapImpl> get copyWith =>
@@ -220,8 +230,11 @@ abstract class _FamilyIiap implements FamilyIiap {
   @override
   @JsonKey(name: 'ch_estado')
   String? get state;
+
+  /// Create a copy of FamilyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FamilyIiapImplCopyWith<_$FamilyIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

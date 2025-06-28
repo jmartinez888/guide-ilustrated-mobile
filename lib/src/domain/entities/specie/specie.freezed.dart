@@ -54,8 +54,12 @@ mixin _$Specie {
   String? get state => throw _privateConstructorUsedError;
   List<String> get search => throw _privateConstructorUsedError;
 
+  /// Serializes this Specie to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SpecieCopyWith<Specie> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -105,6 +109,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -208,6 +214,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     ) as $Val);
   }
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TypeCCopyWith<$Res>? get type {
@@ -220,6 +228,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     });
   }
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $KingdomCopyWith<$Res>? get kingdom {
@@ -232,6 +242,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     });
   }
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PhylumCopyWith<$Res>? get phylum {
@@ -244,6 +256,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     });
   }
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ClassCCopyWith<$Res>? get classC {
@@ -256,6 +270,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     });
   }
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $OrderCCopyWith<$Res>? get order {
@@ -268,6 +284,8 @@ class _$SpecieCopyWithImpl<$Res, $Val extends Specie>
     });
   }
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FamilyCopyWith<$Res>? get family {
@@ -333,6 +351,8 @@ class __$$SpecieImplCopyWithImpl<$Res>
       _$SpecieImpl _value, $Res Function(_$SpecieImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -595,7 +615,7 @@ class _$SpecieImpl implements _Specie {
             const DeepCollectionEquality().equals(other._search, _search));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -620,7 +640,9 @@ class _$SpecieImpl implements _Specie {
         const DeepCollectionEquality().hash(_search)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SpecieImplCopyWith<_$SpecieImpl> get copyWith =>
@@ -711,8 +733,11 @@ abstract class _Specie implements Specie {
   String? get state;
   @override
   List<String> get search;
+
+  /// Create a copy of Specie
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SpecieImplCopyWith<_$SpecieImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

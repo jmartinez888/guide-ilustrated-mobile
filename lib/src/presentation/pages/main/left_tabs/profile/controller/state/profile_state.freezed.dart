@@ -78,6 +78,9 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -94,6 +97,9 @@ class __$$ProfileStateLoadingImplCopyWithImpl<$Res>
   __$$ProfileStateLoadingImplCopyWithImpl(_$ProfileStateLoadingImpl _value,
       $Res Function(_$ProfileStateLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -208,6 +214,8 @@ class __$$ProfileStateFailedImplCopyWithImpl<$Res>
       $Res Function(_$ProfileStateFailedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -221,6 +229,8 @@ class __$$ProfileStateFailedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FirebaseRequestFailureCopyWith<$Res> get firebaseError {
@@ -255,7 +265,9 @@ class _$ProfileStateFailedImpl implements _ProfileStateFailed {
   @override
   int get hashCode => Object.hash(runtimeType, firebaseError);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProfileStateFailedImplCopyWith<_$ProfileStateFailedImpl> get copyWith =>
@@ -336,7 +348,10 @@ abstract class _ProfileStateFailed implements ProfileState {
       _$ProfileStateFailedImpl;
 
   FirebaseRequestFailure get firebaseError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProfileStateFailedImplCopyWith<_$ProfileStateFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -360,6 +375,8 @@ class __$$ProfileStateLoadedImplCopyWithImpl<$Res>
       $Res Function(_$ProfileStateLoadedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -373,6 +390,8 @@ class __$$ProfileStateLoadedImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserCCopyWith<$Res> get user {
@@ -406,7 +425,9 @@ class _$ProfileStateLoadedImpl implements _ProfileStateLoaded {
   @override
   int get hashCode => Object.hash(runtimeType, user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProfileStateLoadedImplCopyWith<_$ProfileStateLoadedImpl> get copyWith =>
@@ -486,7 +507,10 @@ abstract class _ProfileStateLoaded implements ProfileState {
   factory _ProfileStateLoaded(final UserC user) = _$ProfileStateLoadedImpl;
 
   UserC get user;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProfileStateLoadedImplCopyWith<_$ProfileStateLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

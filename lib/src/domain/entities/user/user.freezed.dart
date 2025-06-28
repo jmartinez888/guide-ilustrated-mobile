@@ -29,8 +29,12 @@ mixin _$UserC {
   DateTime? get created => throw _privateConstructorUsedError;
   String? get profilePicture => throw _privateConstructorUsedError;
 
+  /// Serializes this UserC to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserCCopyWith<UserC> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -59,6 +63,8 @@ class _$UserCCopyWithImpl<$Res, $Val extends UserC>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,6 +134,8 @@ class __$$UserCImplCopyWithImpl<$Res>
       _$UserCImpl _value, $Res Function(_$UserCImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,12 +233,14 @@ class _$UserCImpl implements _UserC {
                 other.profilePicture == profilePicture));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, email, name, lastName, phone, created, profilePicture);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserCImplCopyWith<_$UserCImpl> get copyWith =>
@@ -271,8 +281,11 @@ abstract class _UserC implements UserC {
   DateTime? get created;
   @override
   String? get profilePicture;
+
+  /// Create a copy of UserC
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserCImplCopyWith<_$UserCImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

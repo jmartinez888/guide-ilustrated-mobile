@@ -9,7 +9,7 @@ part of 'conservation_states.dart';
 _$ConservationStatesImpl _$$ConservationStatesImplFromJson(
         Map<String, dynamic> json) =>
     _$ConservationStatesImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
       description: json['description'] as String?,
       initState: json['init_state'] as String?,

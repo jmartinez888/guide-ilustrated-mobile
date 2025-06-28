@@ -7,7 +7,7 @@ part of 'type.dart';
 // **************************************************************************
 
 _$TypeCImpl _$$TypeCImplFromJson(Map<String, dynamic> json) => _$TypeCImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
       primaryColor: json['primary_color'] as String?,
       secondaryColor: json['secondary_color'] as String?,

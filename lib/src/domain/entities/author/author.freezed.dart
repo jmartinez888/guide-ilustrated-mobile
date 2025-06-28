@@ -35,8 +35,12 @@ mixin _$Author {
   List<Specie>? get species => throw _privateConstructorUsedError;
   List<String> get search => throw _privateConstructorUsedError;
 
+  /// Serializes this Author to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Author
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthorCopyWith<Author> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -69,6 +73,8 @@ class _$AuthorCopyWithImpl<$Res, $Val extends Author>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Author
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,6 +168,8 @@ class __$$AuthorImplCopyWithImpl<$Res>
       _$AuthorImpl _value, $Res Function(_$AuthorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Author
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -325,7 +333,7 @@ class _$AuthorImpl implements _Author {
             const DeepCollectionEquality().equals(other._search, _search));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -341,7 +349,9 @@ class _$AuthorImpl implements _Author {
       const DeepCollectionEquality().hash(_species),
       const DeepCollectionEquality().hash(_search));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Author
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthorImplCopyWith<_$AuthorImpl> get copyWith =>
@@ -396,8 +406,11 @@ abstract class _Author implements Author {
   List<Specie>? get species;
   @override
   List<String> get search;
+
+  /// Create a copy of Author
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthorImplCopyWith<_$AuthorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -161,7 +161,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 _emailController.clear();
-                final currentRoute = GoRouter.of(context).location;
+                final currentRoute = GoRouterState.of(context).uri.toString();
 
                 if (currentRoute == '/profile/${Routes.forgotPassword}') {
                   Navigator.of(context).pop();

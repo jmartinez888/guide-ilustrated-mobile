@@ -36,8 +36,12 @@ mixin _$ConservationStatesIiap {
   @JsonKey(name: 'estado', readValue: readStateValue)
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this ConservationStatesIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ConservationStatesIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConservationStatesIiapCopyWith<ConservationStatesIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -71,6 +75,8 @@ class _$ConservationStatesIiapCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ConservationStatesIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -146,6 +152,8 @@ class __$$ConservationStatesIiapImplCopyWithImpl<$Res>
       $Res Function(_$ConservationStatesIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ConservationStatesIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -251,12 +259,14 @@ class _$ConservationStatesIiapImpl implements _ConservationStatesIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, description, initState, institution, image, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ConservationStatesIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ConservationStatesIiapImplCopyWith<_$ConservationStatesIiapImpl>
@@ -310,8 +320,11 @@ abstract class _ConservationStatesIiap implements ConservationStatesIiap {
   @override
   @JsonKey(name: 'estado', readValue: readStateValue)
   String? get state;
+
+  /// Create a copy of ConservationStatesIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ConservationStatesIiapImplCopyWith<_$ConservationStatesIiapImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

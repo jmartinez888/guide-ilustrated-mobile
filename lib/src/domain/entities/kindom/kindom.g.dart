@@ -8,7 +8,7 @@ part of 'kindom.dart';
 
 _$KingdomImpl _$$KingdomImplFromJson(Map<String, dynamic> json) =>
     _$KingdomImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
     );
 

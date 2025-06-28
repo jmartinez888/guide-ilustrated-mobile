@@ -36,8 +36,12 @@ mixin _$TaxonomyIiap {
   @JsonKey(name: 'familia')
   FamilyIiap? get family => throw _privateConstructorUsedError;
 
+  /// Serializes this TaxonomyIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TaxonomyIiapCopyWith<TaxonomyIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,6 +76,8 @@ class _$TaxonomyIiapCopyWithImpl<$Res, $Val extends TaxonomyIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -105,6 +111,8 @@ class _$TaxonomyIiapCopyWithImpl<$Res, $Val extends TaxonomyIiap>
     ) as $Val);
   }
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $KingdomIiapCopyWith<$Res>? get kingdom {
@@ -117,6 +125,8 @@ class _$TaxonomyIiapCopyWithImpl<$Res, $Val extends TaxonomyIiap>
     });
   }
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PhylumIiapCopyWith<$Res>? get phylum {
@@ -129,6 +139,8 @@ class _$TaxonomyIiapCopyWithImpl<$Res, $Val extends TaxonomyIiap>
     });
   }
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ClassIiapCopyWith<$Res>? get classC {
@@ -141,6 +153,8 @@ class _$TaxonomyIiapCopyWithImpl<$Res, $Val extends TaxonomyIiap>
     });
   }
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $OrderIiapCopyWith<$Res>? get order {
@@ -153,6 +167,8 @@ class _$TaxonomyIiapCopyWithImpl<$Res, $Val extends TaxonomyIiap>
     });
   }
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FamilyIiapCopyWith<$Res>? get family {
@@ -201,6 +217,8 @@ class __$$TaxonomyIiapImplCopyWithImpl<$Res>
       _$TaxonomyIiapImpl _value, $Res Function(_$TaxonomyIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -286,12 +304,14 @@ class _$TaxonomyIiapImpl implements _TaxonomyIiap {
             (identical(other.family, family) || other.family == family));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, kingdom, phylum, classC, order, family);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TaxonomyIiapImplCopyWith<_$TaxonomyIiapImpl> get copyWith =>
@@ -340,8 +360,11 @@ abstract class _TaxonomyIiap implements TaxonomyIiap {
   @FamilyIiapMapIntoClass()
   @JsonKey(name: 'familia')
   FamilyIiap? get family;
+
+  /// Create a copy of TaxonomyIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TaxonomyIiapImplCopyWith<_$TaxonomyIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

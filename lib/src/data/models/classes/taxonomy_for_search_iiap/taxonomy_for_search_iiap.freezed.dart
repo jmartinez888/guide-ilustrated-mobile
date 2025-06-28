@@ -30,8 +30,12 @@ mixin _$TaxonomyForSearchIiap {
   @JsonKey(name: 'ch_estado')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this TaxonomyForSearchIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TaxonomyForSearchIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TaxonomyForSearchIiapCopyWith<TaxonomyForSearchIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$TaxonomyForSearchIiapCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TaxonomyForSearchIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,6 +120,8 @@ class __$$TaxonomyForSearchIiapImplCopyWithImpl<$Res>
       $Res Function(_$TaxonomyForSearchIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TaxonomyForSearchIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -184,11 +192,13 @@ class _$TaxonomyForSearchIiapImpl implements _TaxonomyForSearchIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, image, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TaxonomyForSearchIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TaxonomyForSearchIiapImplCopyWith<_$TaxonomyForSearchIiapImpl>
@@ -226,8 +236,11 @@ abstract class _TaxonomyForSearchIiap implements TaxonomyForSearchIiap {
   @override
   @JsonKey(name: 'ch_estado')
   String? get state;
+
+  /// Create a copy of TaxonomyForSearchIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TaxonomyForSearchIiapImplCopyWith<_$TaxonomyForSearchIiapImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
