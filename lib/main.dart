@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,15 +85,13 @@ void main() async {
   ));
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
-  // if (Platform.isIOS) {
-  //   await Firebase.initializeApp(
-  //       options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
-  // } else if (Platform.isAndroid) {
-  //   await Firebase.initializeApp(
-  //       options: DefaultFirebaseOptions.currentPlatform);
-  // }
-
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (Platform.isIOS) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
+  } else if (Platform.isAndroid) {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  }
 
   const String baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
 
