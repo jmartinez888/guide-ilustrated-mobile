@@ -1,0 +1,58 @@
+{
+  "level_1": [
+    {"path": "assets/memory/fruit/Aguaje.webp", "name": "Aguaje"},
+    {"path": "assets/memory/fruit/Araza.webp", "name": "Araza"},
+    {"path": "assets/memory/fruit/Bolsa mullaca 2.webp", "name": "Bolsa mullaca 2"},
+    {"path": "assets/memory/fruit/Cashu.webp", "name": "Cashu"},
+    {"path": "assets/memory/fruit/Chambira 2.webp", "name": "Chambira 2"},
+    {"path": "assets/memory/fruit/Cocona 2.webp", "name": "Cocona 2"},
+    {"path": "assets/memory/fruit/Guaba.webp", "name": "Guaba"},
+    {"path": "assets/memory/fruit/Huito.webp", "name": "Huito"},
+    {"path": "assets/memory/fruit/Humarf.webp", "name": "Humarf"},
+    {"path": "assets/memory/fruit/P1010088.webp", "name": "P1010088"},
+    {"path": "assets/memory/fruit/PB170085.webp", "name": "PB170085"},
+    {"path": "assets/memory/fruit/PB210032.webp", "name": "PB210032"}
+  ],
+  "level_2": [
+    {"path": "assets/memory/fruit/PB210066.webp", "name": "PB210066"},
+    {"path": "assets/memory/fruit/PB210073.webp", "name": "PB210073"},
+    {"path": "assets/memory/fruit/Pijuayo.webp", "name": "Pijuayo"},
+    {"path": "assets/memory/fruit/Piña.webp", "name": "Piña"},
+    {"path": "assets/memory/fruit/Sacha mangua1.webp", "name": "Sacha mangua1"},
+    {"path": "assets/memory/fruit/Supay ocote 2.webp", "name": "Supay ocote 2"},
+    {"path": "assets/memory/fruit/Ubos.webp", "name": "Ubos"},
+    {"path": "assets/memory/fruit/Ungurhui.webp", "name": "Ungurhui"},
+    {"path": "assets/memory/fruit/Yarina1.webp", "name": "Yarina1"},
+    {"path": "assets/memory/fruit/Aguaje.webp", "name": "Aguaje"},
+    {"path": "assets/memory/fruit/Araza.webp", "name": "Araza"},
+    {"path": "assets/memory/fruit/Bolsa mullaca 2.webp", "name": "Bolsa mullaca 2"}
+  ],
+  "level_3": [
+    {"path": "assets/memory/fruit/Cashu.webp", "name": "Cashu"},
+    {"path": "assets/memory/fruit/Chambira 2.webp", "name": "Chambira 2"},
+    {"path": "assets/memory/fruit/Cocona 2.webp", "name": "Cocona 2"},
+    {"path": "assets/memory/fruit/Guaba.webp", "name": "Guaba"},
+    {"path": "assets/memory/fruit/Huito.webp", "name": "Huito"},
+    {"path": "assets/memory/fruit/Humarf.webp", "name": "Humarf"},
+    {"path": "assets/memory/fruit/P1010088.webp", "name": "P1010088"},
+    {"path": "assets/memory/fruit/PB170085.webp", "name": "PB170085"},
+    {"path": "assets/memory/fruit/PB210032.webp", "name": "PB210032"},
+    {"path": "assets/memory/fruit/PB210066.webp", "name": "PB210066"},
+    {"path": "assets/memory/fruit/PB210073.webp", "name": "PB210073"},
+    {"path": "assets/memory/fruit/Pijuayo.webp", "name": "Pijuayo"}
+  ],
+  "level_4": [
+    {"path": "assets/memory/fruit/Piña.webp", "name": "Piña"},
+    {"path": "assets/memory/fruit/Sacha mangua1.webp", "name": "Sacha mangua1"},
+    {"path": "assets/memory/fruit/Supay ocote 2.webp", "name": "Supay ocote 2"},
+    {"path": "assets/memory/fruit/Ubos.webp", "name": "Ubos"},
+    {"path": "assets/memory/fruit/Ungurhui.webp", "name": "Ungurhui"},
+    {"path": "assets/memory/fruit/Yarina1.webp", "name": "Yarina1"},
+    {"path": "assets/memory/fruit/Aguaje.webp", "name": "Aguaje"},
+    {"path": "assets/memory/fruit/Araza.webp", "name": "Araza"},
+    {"path": "assets/memory/fruit/Bolsa mullaca 2.webp", "name": "Bolsa mullaca 2"},
+    {"path": "assets/memory/fruit/Cashu.webp", "name": "Cashu"},
+    {"path": "assets/memory/fruit/Chambira 2.webp", "name": "Chambira 2"},
+    {"path": "assets/memory/fruit/Cocona 2.webp", "name": "Cocona 2"}
+  ]
+}
