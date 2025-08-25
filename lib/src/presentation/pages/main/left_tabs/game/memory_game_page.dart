@@ -37,7 +37,7 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
             'Juego de Memoria',
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.height * 0.025,
-              fontWeight: FontWeight.bold,
+             
             ),
           ),
         ),

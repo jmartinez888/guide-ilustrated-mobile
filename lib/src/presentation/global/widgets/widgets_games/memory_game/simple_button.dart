@@ -23,7 +23,7 @@ class SimpleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed, // 🔹 acción al presionar
       child: Container(
-        width: screenWidth * 0.9,
+        width: screenWidth * 0.7,
         height: screenHeight * 0.05,
         decoration: BoxDecoration(
           color: backgroundColor ?? Theme.of(context).colorScheme.primary,

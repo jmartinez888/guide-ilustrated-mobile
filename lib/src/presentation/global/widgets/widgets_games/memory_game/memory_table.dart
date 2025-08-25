@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/card_little.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/simple_button.dart';
+import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/progress_bar.dart';
 
 class MemoryCardData {
   final String imagePath;
@@ -31,9 +32,16 @@ class MemoryTable extends StatefulWidget {
 
 class _MemoryTableState extends State<MemoryTable> {
   late List<_CardStateData> _cardStates;
-  bool _gameStarted = false; 
+  bool _gameStarted = false;
   _CardStateData? _firstSelected;
-  bool _lockBoard = true; 
+  bool _lockBoard = true;
+
+  // ⏱️ Timers y contadores
+  Timer? _revealTimer;
+  Timer? _elapsedTimer;
+  int _revealSeconds = 5;   // cuenta regresiva de memorización
+  int _elapsedSeconds = 0;  // tiempo desde que termina la memorización
+  bool _gameCompleted = false;
 
   @override
   void initState() {
@@ -41,43 +49,73 @@ class _MemoryTableState extends State<MemoryTable> {
     _initializeBoard();
   }
 
+  @override
+  void dispose() {
+    _revealTimer?.cancel();
+    _elapsedTimer?.cancel();
+    super.dispose();
+  }
+
   void _initializeBoard() {
-    List<MemoryCardData> allCards = [];
-    allCards.addAll(widget.cards);
-    allCards.addAll(widget.cards); 
+    final allCards = <MemoryCardData>[
+      ...widget.cards,
+      ...widget.cards,
+    ]..shuffle(Random());
 
-    allCards.shuffle(Random());
-
-  
     _cardStates = allCards
         .map((c) => _CardStateData(card: c, revealed: false, matched: false))
         .toList();
   }
 
   void _startGame() {
+    // reset de estado de timers y contadores
+    _revealTimer?.cancel();
+    _elapsedTimer?.cancel();
+    _revealSeconds = 5;
+    _elapsedSeconds = 0;
+    _gameCompleted = false;
+
     setState(() {
       _gameStarted = true;
-      _lockBoard = true; 
+      _lockBoard = true;
       for (var c in _cardStates) {
-        c.revealed = true;
+        c.revealed = true; // mostrar todas para memorización
       }
     });
 
-   
-    Future.delayed(const Duration(seconds: 5), () {
+    // ⏳ Inicia cuenta regresiva de memorización (5s)
+    _revealTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (!mounted) return;
       setState(() {
-        for (var c in _cardStates) {
-          if (!c.matched) {
-            c.revealed = false;
-          }
-        }
-        _lockBoard = false; 
+        _revealSeconds--;
+      });
+      if (_revealSeconds <= 0) {
+        _revealTimer?.cancel();
+        _endRevealPhaseAndStartElapsed();
+      }
+    });
+  }
+
+  void _endRevealPhaseAndStartElapsed() {
+    if (!mounted) return;
+    setState(() {
+      for (var c in _cardStates) {
+        if (!c.matched) c.revealed = false; // ocultar no emparejadas
+      }
+      _lockBoard = false;
+    });
+
+    // ▶️ Inicia cronómetro ascendente
+    _elapsedTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (!mounted) return;
+      setState(() {
+        _elapsedSeconds++;
       });
     });
   }
 
   void _onCardTap(int index) {
-    if (_lockBoard) return;
+    if (_lockBoard || _gameCompleted) return;
     if (_cardStates[index].matched || _cardStates[index].revealed) return;
 
     setState(() {
@@ -98,9 +136,13 @@ class _MemoryTableState extends State<MemoryTable> {
           secondSelected.matched = true;
         });
         _resetSelection();
+
+        // ¿Ya ganó?
+        _checkIfCompleted();
       } else {
-       
+        // ❌ No coincide → ocultar ambas tras un breve delay
         Future.delayed(const Duration(milliseconds: 500), () {
+          if (!mounted) return;
           setState(() {
             _firstSelected!.revealed = false;
             secondSelected.revealed = false;
@@ -111,52 +153,122 @@ class _MemoryTableState extends State<MemoryTable> {
     }
   }
 
+  void _checkIfCompleted() {
+    final allMatched = _cardStates.every((c) => c.matched);
+    if (allMatched) {
+      _elapsedTimer?.cancel();
+      setState(() {
+        _gameCompleted = true;
+        _lockBoard = true;
+      });
+    }
+  }
+
   void _resetSelection() {
     _firstSelected = null;
     _lockBoard = false;
   }
 
+  String _formatTime(int secs) {
+    final m = secs ~/ 60;
+    final s = secs % 60;
+    final mm = m.toString().padLeft(2, '0');
+    final ss = s.toString().padLeft(2, '0');
+    return '$mm:$ss';
+  }
+
   @override
   Widget build(BuildContext context) {
-    int totalCards = widget.rows * widget.columns;
+    final int totalCards = widget.rows * widget.columns;
     if (_cardStates.length < totalCards) {
       return const Center(child: Text("No hay suficientes cartas para el tablero"));
     }
 
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
+    final double screenHeight = size.height;
+    final double screenWidth = size.width;
+
+    // Teléfono vs pantalla ancha
+    final bool isWide =
+        size.shortestSide >= 500 || (screenWidth / screenHeight) >= 0.75;
+    final double horizontalInset =
+        isWide ? screenWidth * 0.15 : screenWidth * 0.10;
+
+    // ProgressBar
+    final int totalPairs = totalCards ~/ 2;
+    final int matchedPairs = _cardStates.where((c) => c.matched).length ~/ 2;
+    int currentLevel = matchedPairs + 1;
+    if (currentLevel < 1) currentLevel = 1;
+    if (currentLevel > totalPairs) currentLevel = totalPairs;
 
     return Stack(
-       children: [
-
-      Positioned(
-        top: screenHeight * 0.08,   
-        left: screenWidth * 0.02,  
-        right: screenWidth * 0.02,
-        bottom: screenHeight * 0.0,
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: widget.columns,
+      children: [
+        Positioned(
+          top: screenHeight * 0.08,
+          left: horizontalInset,
+          right: horizontalInset,
+          bottom: screenHeight * 0.0,
+          child: GridView.builder(
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            primary: false,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: widget.columns,
+              crossAxisSpacing: screenHeight * 0.01,
+              mainAxisSpacing: screenHeight * 0.01,
+            ),
+            itemCount: totalCards,
+            itemBuilder: (context, index) {
+              final card = _cardStates[index];
+              return GestureDetector(
+                onTap: () => _onCardTap(index),
+                child: CardLittle(
+                  imagePath: card.card.imagePath,
+                  title: card.card.title,
+                  revealed: card.revealed || card.matched,
+                ),
+              );
+            },
           ),
-          itemCount: totalCards,
-          itemBuilder: (context, index) {
-            final card = _cardStates[index];
-            return GestureDetector(
-              onTap: () => _onCardTap(index),
-              child: CardLittle(
-                imagePath: card.card.imagePath,
-                title: card.card.title,
-                revealed: card.revealed || card.matched,
-              ),
-            );
-          },
         ),
-      ),
 
-   
+        // ⏱️ Contador (debajo del grid, encima de la ProgressBar)
+        if (_gameStarted)
+          Positioned(
+            bottom: screenHeight * 0.2,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                // durante memorización muestra countdown de 5→0; luego cronómetro ascendente
+                _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_elapsedSeconds),
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: screenHeight * 0.02, // 2% del alto
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+
+        // Barra de progreso (parejas)
+        Positioned(
+          bottom: screenHeight * 0.13,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+            child: ProgressBar(
+              totalLevels: totalPairs,
+              currentLevel: currentLevel,
+            ),
+          ),
+        ),
+
+        // Botón iniciar
         if (!_gameStarted)
           Positioned(
-            bottom: screenHeight * 0.02, 
+            bottom: screenHeight * 0.02,
             left: 0,
             right: 0,
             child: Center(
