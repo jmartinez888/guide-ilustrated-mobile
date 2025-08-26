@@ -119,6 +119,7 @@ flutter:
     - assets/memory/
     - assets/memory/fruit/
     - assets/memory/icon/
+    - assets/memory/animation/
     - assets/relacionaEspecie/
     - assets/sounds/
     - assets/json/
