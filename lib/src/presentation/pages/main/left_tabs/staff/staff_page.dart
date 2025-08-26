@@ -6,6 +6,18 @@ import 'package:url_launcher/url_launcher.dart';
 class StaffPage extends StatelessWidget {
   const StaffPage({super.key});
 
+   String _iconForUrl(Uri url) {
+    final host = url.host.toLowerCase();
+    if (host == 'github.com' || host.endsWith('.github.com')) {
+      return 'assets/icons/github.png';
+    }
+    if (host == 'behance.net' || host == 'www.behance.net' || host.endsWith('.behance.net')) {
+      return 'assets/icons/behance.png';
+    }
+    // Fallback (elige el que prefieras tener disponible en assets)
+    return 'assets/icons/github.png';
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -210,6 +222,20 @@ class StaffPage extends StatelessWidget {
                     ),
                     _staffProfile(
                       context,
+                      role: texts.staff.mobileDeveloper,
+                      name: 'Tercer David Ahuite Murayari',
+                      image: 'assets/staff/david.jpeg',
+                      github: 'https://github.com/TerDavid',
+                    ),
+                     _staffProfile(
+                      context,
+                      role: texts.staff.mobileDeveloper,
+                      name: 'Jose Sergio Siguas Salas',
+                      image: 'assets/staff/sergio.webp',
+                      github: 'https://github.com/SergioSiguas',
+                    ),
+                    _staffProfile(
+                      context,
                       role: texts.staff.developmentFrontend,
                       name: 'Santos Panaifo José Jefferson',
                       image: 'assets/staff/santos.png',
@@ -242,6 +268,13 @@ class StaffPage extends StatelessWidget {
                       name: 'Anthony Scott Ramirez Sias',
                       image: 'assets/staff/scott.png',
                       github: 'https://github.com/Scott-Ramirez',
+                    ),
+                      _staffProfile(
+                      context,
+                      role: texts.staff.graphicDesigner,
+                      name: 'Jener Ronald Canayo Nashnate',
+                      image: 'assets/staff/jener.webp',
+                      github: 'https://www.behance.net/jhenerronald1',
                     ),
                   ],
                 ),
@@ -329,55 +362,57 @@ class StaffPage extends StatelessWidget {
   }) {
     final Uri url = Uri.parse(github);
     return Material(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+     child: Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Padding(
+      padding: PaddingConfig.onlyBottom,
+      child: CircleAvatar(
+        radius: 50,
+        backgroundImage: image != null ? Image.asset(image).image : null,
+        child: image == null ? const Icon(Icons.person, size: 64.0) : null,
+      ),
+    ),
+    _reviewerTitle(context, role),
+    Text(
+      name,
+      textAlign: TextAlign.center,
+      style: const TextStyle(fontWeight: FontWeight.w400),
+    ),
+    ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: PaddingConfig.symetrictHorizontal,
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: Colors.black),
+        ),
+      ),
+      onPressed: () async {
+        if (!await launchUrl(url)) {
+          throw Exception('Could not launch $url');
+        }
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: PaddingConfig.onlyBottom,
-            child: CircleAvatar(
-              radius: 50,
-              backgroundImage: image != null ? Image.asset(image).image : null,
-              child:
-                  image == null ? const Icon(Icons.person, size: 64.0) : null,
-            ),
-          ),
-          _reviewerTitle(context, role),
+          // ⬇️ Icono según el dominio
+          Image.asset(_iconForUrl(url), width: 24),
+          const SizedBox(width: 8),
           Text(
-            name,
-            textAlign: TextAlign.center,
+            texts.staff.briefcase,
             style: const TextStyle(
+              color: Colors.black,
               fontWeight: FontWeight.w400,
+              fontSize: 12,
             ),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: PaddingConfig.symetrictHorizontal,
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-                side: const BorderSide(color: Colors.black),
-              ),
-            ),
-            onPressed: () async {
-              if (!await launchUrl(url)) {
-                throw Exception('Could not launch $url');
-              }
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset('assets/icons/github.png', width: 24),
-                const SizedBox(width: 8),
-                Text(texts.staff.briefcase,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12)),
-              ],
-            ),
-          )
         ],
       ),
+    ),
+  ],
+)
+
     );
   }
 }
