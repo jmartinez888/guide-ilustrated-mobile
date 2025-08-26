@@ -19,11 +19,23 @@ class MemoryTable extends StatefulWidget {
   final int columns;
   final List<MemoryCardData> cards;
 
+  /// NUEVO: callback cuando se emparejaron todas las parejas del tablero.
+  final VoidCallback? onAllPairsMatched;
+
+  /// NUEVO: progreso externo por nivel (opcional).
+  /// Si ambos vienen, la ProgressBar muestra nivel actual vs total de niveles del JSON.
+  /// Si no vienen, la ProgressBar sigue mostrando el avance de PAREJAS del tablero (comportamiento anterior).
+  final int? currentLevel;
+  final int? totalLevels;
+
   const MemoryTable({
     Key? key,
     required this.rows,
     required this.columns,
     required this.cards,
+    this.onAllPairsMatched,
+    this.currentLevel,
+    this.totalLevels,
   }) : super(key: key);
 
   @override
@@ -39,7 +51,7 @@ class _MemoryTableState extends State<MemoryTable> {
   // ⏱️ Timers y contadores
   Timer? _revealTimer;
   Timer? _elapsedTimer;
-  int _revealSeconds = 5;   // cuenta regresiva de memorización
+  int _revealSeconds = 3;   // cuenta regresiva de memorización
   int _elapsedSeconds = 0;  // tiempo desde que termina la memorización
   bool _gameCompleted = false;
 
@@ -71,7 +83,7 @@ class _MemoryTableState extends State<MemoryTable> {
     // reset de estado de timers y contadores
     _revealTimer?.cancel();
     _elapsedTimer?.cancel();
-    _revealSeconds = 5;
+    _revealSeconds = 3;
     _elapsedSeconds = 0;
     _gameCompleted = false;
 
@@ -141,7 +153,7 @@ class _MemoryTableState extends State<MemoryTable> {
         _checkIfCompleted();
       } else {
         // ❌ No coincide → ocultar ambas tras un breve delay
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 300), () {
           if (!mounted) return;
           setState(() {
             _firstSelected!.revealed = false;
@@ -160,7 +172,11 @@ class _MemoryTableState extends State<MemoryTable> {
       setState(() {
         _gameCompleted = true;
         _lockBoard = true;
+        _gameStarted = false; 
       });
+
+  
+      widget.onAllPairsMatched?.call();
     }
   }
 
@@ -188,18 +204,26 @@ class _MemoryTableState extends State<MemoryTable> {
     final double screenHeight = size.height;
     final double screenWidth = size.width;
 
-    // Teléfono vs pantalla ancha
+
     final bool isWide =
         size.shortestSide >= 500 || (screenWidth / screenHeight) >= 0.75;
     final double horizontalInset =
         isWide ? screenWidth * 0.15 : screenWidth * 0.10;
 
-    // ProgressBar
-    final int totalPairs = totalCards ~/ 2;
-    final int matchedPairs = _cardStates.where((c) => c.matched).length ~/ 2;
-    int currentLevel = matchedPairs + 1;
-    if (currentLevel < 1) currentLevel = 1;
-    if (currentLevel > totalPairs) currentLevel = totalPairs;
+    final int boardTotalPairs = totalCards ~/ 2;
+    final int boardMatchedPairs = _cardStates.where((c) => c.matched).length ~/ 2;
+    int boardCurrentPairStep = boardMatchedPairs + 1;
+    if (boardCurrentPairStep < 1) boardCurrentPairStep = 1;
+    if (boardCurrentPairStep > boardTotalPairs) boardCurrentPairStep = boardTotalPairs;
+
+    final bool useExternalLevelProgress =
+        (widget.totalLevels != null && widget.currentLevel != null);
+
+    final int progressTotal =
+        useExternalLevelProgress ? widget.totalLevels!.clamp(1, 999) : boardTotalPairs;
+    final int progressCurrent = useExternalLevelProgress
+        ? widget.currentLevel!.clamp(1, progressTotal)
+        : boardCurrentPairStep;
 
     return Stack(
       children: [
@@ -232,7 +256,7 @@ class _MemoryTableState extends State<MemoryTable> {
           ),
         ),
 
-        // ⏱️ Contador (debajo del grid, encima de la ProgressBar)
+
         if (_gameStarted)
           Positioned(
             bottom: screenHeight * 0.2,
@@ -240,18 +264,18 @@ class _MemoryTableState extends State<MemoryTable> {
             right: 0,
             child: Center(
               child: Text(
-                // durante memorización muestra countdown de 5→0; luego cronómetro ascendente
+     
                 _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_elapsedSeconds),
                 style: TextStyle(
-                  color: Colors.red,
-                  fontSize: screenHeight * 0.02, // 2% del alto
+                  color: Theme.of(context).colorScheme.onErrorContainer,
+                  fontSize: screenHeight * 0.02, 
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
 
-        // Barra de progreso (parejas)
+
         Positioned(
           bottom: screenHeight * 0.13,
           left: 0,
@@ -259,8 +283,8 @@ class _MemoryTableState extends State<MemoryTable> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
             child: ProgressBar(
-              totalLevels: totalPairs,
-              currentLevel: currentLevel,
+              totalLevels: progressTotal,
+              currentLevel: progressCurrent,
             ),
           ),
         ),

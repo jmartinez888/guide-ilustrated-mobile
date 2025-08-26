@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:stroke_text/stroke_text.dart';
 
 class CardLittle extends StatelessWidget {
   final String? imagePath;
   final String? title;
-  final bool revealed; // Depende de MemoryTable
+  final bool revealed;
 
   const CardLittle({
     Key? key,
@@ -23,6 +24,7 @@ class CardLittle extends StatelessWidget {
 
     final double cardWidth = screenWidth * 0.1;
     final double cardHeight = screenHeight * 0.1;
+    
 
     Widget _buildAssetExpanded() {
       if (imagePath == null) {
@@ -74,13 +76,13 @@ class CardLittle extends StatelessWidget {
           // Contorno de 2 px negro al contenedor principal
           border: Border.all(color: Colors.black, width: 3),
         ),
-        // ❌ Sin padding para que el contenido llene exactamente el contenedor
+    
         child: ClipRRect(
-          // ✅ Mismo radio que el contenedor principal para alinear esquinas
+    
           borderRadius: BorderRadius.circular(12),
           child: Stack(
             children: [
-              // Reverso o Imagen/Animación a tamaño completo
+   
               if (!revealed)
                 const Positioned.fill(
                   child: _CardBack(),
@@ -88,28 +90,29 @@ class CardLittle extends StatelessWidget {
               else
                 Positioned.fill(child: _buildAssetExpanded()),
 
-              // Título (solo cuando está revelada), dentro del mismo ClipRRect
+       
               if (revealed)
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(
-                      vertical: cardHeight * 0.02,
+                      vertical: cardHeight * 0.15,
                       horizontal: screenWidth * 0.01,
                     ),
-                    // Fondo sutil opcional para legibilidad (puedes quitarlo)
+                 
               
-                    child: Text(
-                      title ?? 'No disponible',
-                      style: TextStyle(
+                         child: StrokeText(
+                      text: title ?? 'No disponible',
+                      strokeWidth: 4,
+                      strokeColor: Theme.of(context).colorScheme. onSurface,
+                      textStyle: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: screenHeight * 0.022,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),

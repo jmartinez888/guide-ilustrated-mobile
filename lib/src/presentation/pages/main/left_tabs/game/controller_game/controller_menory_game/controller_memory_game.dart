@@ -3,29 +3,19 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
-// Usa el mismo modelo que ya utilizas en MemoryTable
+
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/memory_table.dart';
 
-/// Controlador para el juego de memoria.
-/// - Carga el JSON desde assets (una sola vez) y expone un método para
-///   obtener las cartas por nivel.
-/// - Incluye un caché en memoria para evitar volver a parsear/armar listas
-///   cuando se pide el mismo nivel.
+
 class MemoryGameController {
-  /// Ruta por defecto del JSON. (Respeta tu archivo 'leves.json')
+
   static const String defaultAssetPath = 'assets/json/leves.json';
-
-  /// Cantidad por defecto de cartas únicas a tomar (se duplican en el grid).
   static const int defaultUniqueCards = 6;
-
-  /// Cache del JSON crudo (mapa de niveles).
   static Map<String, dynamic>? _jsonCache;
-
-  /// Cache de listas de cartas por combinación (asset + nivel + cantidad).
   static final Map<String, List<MemoryCardData>> _levelCache = {};
+  static List<String>? _orderedLevelKeys;
 
-  /// Carga las cartas de un [levelKey] desde el JSON de [assetPath].
-  /// Devuelve exactamente [uniqueCards] (o menos si el nivel no alcanza).
+
   static Future<List<MemoryCardData>> loadCards({
     String levelKey = 'level_1',
     String assetPath = defaultAssetPath,
@@ -61,13 +51,42 @@ class MemoryGameController {
     return cards;
   }
 
-  /// Fuerza limpiar caché (por si actualizas el JSON en caliente).
+  static Future<List<String>> loadLevelKeys({String assetPath = defaultAssetPath}) async {
+    if (_orderedLevelKeys != null) return _orderedLevelKeys!;
+    await _ensureJsonLoaded(assetPath);
+
+    final keys = _jsonCache!.keys
+        .where((k) => k.toString().startsWith('level_'))
+        .map((k) => k.toString())
+        .toList();
+
+    keys.sort((a, b) {
+      int pa = int.tryParse(a.split('_').last) ?? 0;
+      int pb = int.tryParse(b.split('_').last) ?? 0;
+      return pa.compareTo(pb);
+    });
+
+    _orderedLevelKeys = keys;
+    return _orderedLevelKeys!;
+  }
+
+  static Future<int> indexOfLevelKey(String levelKey, {String assetPath = defaultAssetPath}) async {
+    final keys = await loadLevelKeys(assetPath: assetPath);
+    final idx = keys.indexOf(levelKey);
+    return idx >= 0 ? idx : 0;
+  }
+
+  static Future<int> levelCount({String assetPath = defaultAssetPath}) async {
+    final keys = await loadLevelKeys(assetPath: assetPath);
+    return keys.length;
+  }
+
   static void clearCache() {
     _jsonCache = null;
     _levelCache.clear();
+    _orderedLevelKeys = null;
   }
 
-  /// Carga el JSON una única vez en memoria.
   static Future<void> _ensureJsonLoaded(String assetPath) async {
     if (_jsonCache != null) return;
     final String raw = await rootBundle.loadString(assetPath);
