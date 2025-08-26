@@ -1,11 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, unused_field
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/memory_table.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/controller_game/controller_menory_game/controller_memory_game.dart';
 
 class MemoryGamePage extends StatefulWidget {
   /// Claves válidas: "level_1", "level_2", "level_3", "level_4"
@@ -27,34 +26,7 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   @override
   void initState() {
     super.initState();
-    _cardsFuture = _loadCards(widget.levelKey);
-  }
-
-  Future<List<MemoryCardData>> _loadCards(String levelKey) async {
-    // Lee el JSON desde assets (asegúrate de declararlo en pubspec.yaml)
-    final String raw = await rootBundle.loadString('assets/json/leves.json');
-    final Map<String, dynamic> jsonMap = json.decode(raw) as Map<String, dynamic>;
-
-    if (!jsonMap.containsKey(levelKey)) {
-      throw Exception('Nivel no encontrado: $levelKey');
-    }
-
-    final List<dynamic> items = jsonMap[levelKey] as List<dynamic>;
-    // Toma exactamente 6 (o menos si no alcanzan)
-    final int take = items.length >= 6 ? 6 : items.length;
-
-    final List<MemoryCardData> cards = items.take(take).map((e) {
-      final map = e as Map<String, dynamic>;
-      return MemoryCardData(
-        imagePath: (map['path'] ?? '').toString(),
-        title: (map['name'] ?? '').toString(),
-      );
-    }).toList();
-
-    if (cards.isEmpty) {
-      throw Exception('El nivel $levelKey no tiene imágenes disponibles.');
-    }
-    return cards;
+    _cardsFuture = MemoryGameController.loadCards(levelKey: widget.levelKey);
   }
 
   @override
@@ -69,6 +41,7 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
             'Juego de Memoria',
             style: TextStyle(
               fontSize: size.height * 0.025,
+     
             ),
           ),
         ),
@@ -77,9 +50,7 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
         future: _cardsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Center(
