@@ -6,8 +6,11 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/memory_table.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/game/controller_game/controller_menory_game/controller_memory_game.dart';
 
+// ⬇️ Importa tu overlay (usa forward slashes)
+import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/overley.dart'
+    as intro_overlay;
+
 class MemoryGamePage extends StatefulWidget {
-  /// Claves válidas: "level_1", "level_2", "level_3", "level_4" (o las que existan en tu JSON)
   final String levelKey;
 
   const MemoryGamePage({
@@ -28,6 +31,9 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   List<String> _levelKeys = [];
   int _currentLevelIndex = 0;
 
+  // Flag para mostrar el overlay solo una vez
+  bool _introOverlayShown = false;
+
   int get _totalLevels => _levelKeys.length;
   String get _currentLevelKey => _levelKeys[_currentLevelIndex];
 
@@ -35,17 +41,29 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   void initState() {
     super.initState();
     _bootstrapFuture = _bootstrap();
+
+    // Mostrar overlay al entrar (primer frame)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _introOverlayShown) return;
+      _introOverlayShown = true;
+
+      // Llama a tu overlay. Si en overley.dart el nombre es distinto,
+      // cambia esta línea por la función/clase que exportes.
+    intro_overlay.showMemoryIntroOverlay(
+          context,
+          message: 'Bienvenido al juego de memoria, te deseo mucha suerte para completar el desafío',
+        );
+    });
   }
 
   Future<void> _bootstrap() async {
     _levelKeys = await MemoryGameController.loadLevelKeys();
-    _currentLevelIndex = await MemoryGameController.indexOfLevelKey(widget.levelKey);
-    _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+    _currentLevelIndex =
+        await MemoryGameController.indexOfLevelKey(widget.levelKey);
+    _cardsFuture =
+        MemoryGameController.loadCards(levelKey: _currentLevelKey);
   }
 
-  /// Llamado cuando se emparejan todas las parejas del nivel actual.
-  /// Dejamos el tablero listo para que, al presionar "Iniciar" nuevamente,
-  /// arranque el siguiente nivel (con su vista previa y ocultado, como ya tienes).
   void _handleLevelCompleted() {
     final bool hasMore = _currentLevelIndex + 1 < _totalLevels;
 
@@ -53,11 +71,11 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
       if (hasMore) {
         _currentLevelIndex++;
       } else {
-        // Si ya terminó el último, te quedas en el último nivel listo para repetir.
-        // (Si prefieres reiniciar al level_1, descomenta la línea siguiente)
+        // Si deseas reiniciar al terminar todos los niveles:
         // _currentLevelIndex = 0;
       }
-      _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+      _cardsFuture =
+          MemoryGameController.loadCards(levelKey: _currentLevelKey);
     });
   }
 
@@ -99,7 +117,6 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
                 'Juego de Memoria',
                 style: TextStyle(
                   fontSize: size.height * 0.025,
-                  // NO tocamos estilos visuales existentes
                 ),
               ),
             ),
@@ -130,13 +147,11 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
               return Padding(
                 padding: EdgeInsets.zero,
                 child: MemoryTable(
-                  key: ValueKey('level_${_currentLevelIndex}'), // fuerza reset limpio del tablero
-                  rows: 4,                   // 4 x 3 = 12 espacios
-                  columns: 3,                // 6 cartas únicas → 12 tras duplicación
-                  cards: cards,              // rutas + títulos del JSON
-                  // 👇 Lógica nueva (solo comportamiento):
+                  key: ValueKey('level_${_currentLevelIndex}'),
+                  rows: 4,
+                  columns: 3,
+                  cards: cards,
                   onAllPairsMatched: _handleLevelCompleted,
-                  // Si tu UI ya tiene un indicador de progreso, con esto tendrá los valores:
                   currentLevel: _currentLevelIndex + 1,
                   totalLevels: _totalLevels,
                 ),
