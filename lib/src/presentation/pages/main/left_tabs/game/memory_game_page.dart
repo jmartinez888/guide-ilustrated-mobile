@@ -106,20 +106,35 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   // ✅ Avance de nivel o trofeo + reset a level_1
-  void _handleLevelCompleted() {
-    final bool hasMore = _currentLevelIndex + 1 < _totalLevels;
+// Reemplaza tu método actual
+void _handleLevelCompleted() async {
+  final bool isLast = (_currentLevelIndex + 1) >= _totalLevels;
 
-    if (hasMore) {
-      setState(() {
-        _currentLevelIndex++;
-        _cardsFuture =
-            MemoryGameController.loadCards(levelKey: _currentLevelKey);
-      });
-    } else {
-      // Último nivel → muestra trofeo y resetea
-      _showTrophyAndReset();
-    }
+  if (!isLast) {
+    final completed = _currentLevelIndex + 1;
+    final next = _currentLevelIndex + 2;
+
+    // 1) Mostrar overlay de felicitación (esperamos a que se cierre)
+    await intro_overlay.showMemoryIntroOverlay(
+      context,
+      message: '¡Nivel $completed completado! ¡Vamos por el nivel $next!',
+      // opcional: puedes pasar otro Lottie si quieres
+      // lottieAsset: 'assets/memory/animation/NIO-ANIMACION 2.json',
+    );
+
+    if (!mounted) return;
+
+    // 2) Avanzar al siguiente nivel y recargar cartas
+    setState(() {
+      _currentLevelIndex++;
+      _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+    });
+  } else {
+    // Último nivel → trofeo y reset a nivel 1
+    _showTrophyAndReset();
   }
+}
+
 
 Future<void> _showTrophyAndReset() async {
   if (!mounted) return;
