@@ -639,6 +639,7 @@ class _TranslationsStaffEn {
 	String get mobileDeveloper => 'Mobile developer';
 	String get developmentFrontend => 'Frontend developer';
 	String get developmentBackend => 'Backend developer';
+  String get graphicDesigner => 'Graphic designer';
 	String get briefcase => 'Portfolio';
 }
 
@@ -1337,6 +1338,7 @@ class _TranslationsStaffEs implements _TranslationsStaffEn {
 	@override String get mobileDeveloper => 'Mobile developer';
 	@override String get developmentFrontend => 'Frontend developer';
 	@override String get developmentBackend => 'Backend developer';
+  @override String get graphicDesigner => 'Graphic designer';
 	@override String get briefcase => 'Portfolio';
 }
 
@@ -2035,6 +2037,7 @@ class _TranslationsStaffFr implements _TranslationsStaffEn {
 	@override String get mobileDeveloper => 'Développeur mobile';
 	@override String get developmentFrontend => 'Développeur frontend';
 	@override String get developmentBackend => 'Développeur backend';
+  @override String get graphicDesigner => 'Designer graphique';
 	@override String get briefcase => 'Portefeuille';
 }
 
@@ -2733,6 +2736,7 @@ class _TranslationsStaffPt implements _TranslationsStaffEn {
 	@override String get mobileDeveloper => 'Desenvolvedor móvel';
 	@override String get developmentFrontend => 'Desenvolvedor frontend';
 	@override String get developmentBackend => 'Desenvolvedor backend';
+  @override String get graphicDesigner => 'Designer gráfico';
 	@override String get briefcase => 'Portfólio';
 }
 
@@ -3431,6 +3435,7 @@ class _TranslationsStaffZh implements _TranslationsStaffEn {
 	@override String get mobileDeveloper => '移动开发人员';
 	@override String get developmentFrontend => '前端开发人员';
 	@override String get developmentBackend => '后端开发人员';
+  @override String get graphicDesigner => '平面设计师';
 	@override String get briefcase => '作品集';
 }
 
