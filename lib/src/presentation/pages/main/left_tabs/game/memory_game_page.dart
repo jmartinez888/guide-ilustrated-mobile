@@ -6,7 +6,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/memory_table.dart';
 import 'package:species/src/presentation/pages/main/left_tabs/game/controller_game/controller_menory_game/controller_memory_game.dart';
 
-// ⬇️ Importa tu overlay (usa forward slashes)
+// Overlay
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/overley.dart'
     as intro_overlay;
 
@@ -22,7 +22,8 @@ class MemoryGamePage extends StatefulWidget {
   _MemoryGamePageState createState() => _MemoryGamePageState();
 }
 
-class _MemoryGamePageState extends State<MemoryGamePage> {
+class _MemoryGamePageState extends State<MemoryGamePage>
+    with WidgetsBindingObserver {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   late Future<void> _bootstrapFuture;
@@ -31,7 +32,6 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   List<String> _levelKeys = [];
   int _currentLevelIndex = 0;
 
-  // Flag para mostrar el overlay solo una vez
   bool _introOverlayShown = false;
 
   int get _totalLevels => _levelKeys.length;
@@ -40,19 +40,22 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     _bootstrapFuture = _bootstrap();
 
-    // Mostrar overlay al entrar (primer frame)
+    // 🔊 Arranca BGM en loop
+    _startLoopingBgm();
+
+    // Muestra overlay una sola vez
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || _introOverlayShown) return;
       _introOverlayShown = true;
-
-      // Llama a tu overlay. Si en overley.dart el nombre es distinto,
-      // cambia esta línea por la función/clase que exportes.
-    intro_overlay.showMemoryIntroOverlay(
-          context,
-          message: 'Bienvenido al juego de memoria, te deseo mucha suerte para completar el desafío',
-        );
+      intro_overlay.showMemoryIntroOverlay(
+        context,
+        message:
+            'Bienvenido al juego de memoria, te deseo mucha suerte para completar el desafío',
+      );
     });
   }
 
@@ -64,6 +67,55 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
         MemoryGameController.loadCards(levelKey: _currentLevelKey);
   }
 
+  /// 🔊 Configura y reproduce el BGM en bucle.
+  Future<void> _startLoopingBgm() async {
+    // Opcional: optimiza el contexto de audio para reproducción continua
+    // (no es obligatorio, pero ayuda a evitar cortes por enfoque de audio).
+    try {
+      await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+      await _audioPlayer.setVolume(1.0);
+
+      // Usa la ruta EXACTA del asset declarada en pubspec.yaml
+      await _audioPlayer.play(
+        AssetSource(
+            'assets/memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+      );
+    } catch (_) {
+      // en caso de diferencia de versión del plugin, intenta sin el prefijo 'assets/'
+      try {
+        await _audioPlayer.play(
+          AssetSource(
+              'memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+        );
+      } catch (_) {
+        // evita crashear; el juego sigue sin música
+      }
+    }
+  }
+
+  /// 🛑 Detiene el BGM cuando sales de la vista.
+  Future<void> _stopBgm() async {
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.release();
+    } catch (_) {}
+  }
+
+  @override
+  void dispose() {
+    _stopBgm();
+    WidgetsBinding.instance.removeObserver(this);
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  // (Opcional) si quieres que al minimizar la app siga sonando mientras no salgas de la vista,
+  // NO pares aquí. Sólo se detiene en dispose al abandonar la pantalla.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // intencionalmente vacío: no pausamos el audio mientras esta vista esté montada
+  }
+
   void _handleLevelCompleted() {
     final bool hasMore = _currentLevelIndex + 1 < _totalLevels;
 
@@ -71,8 +123,7 @@ class _MemoryGamePageState extends State<MemoryGamePage> {
       if (hasMore) {
         _currentLevelIndex++;
       } else {
-        // Si deseas reiniciar al terminar todos los niveles:
-        // _currentLevelIndex = 0;
+        // _currentLevelIndex = 0; // si quisieras reiniciar
       }
       _cardsFuture =
           MemoryGameController.loadCards(levelKey: _currentLevelKey);

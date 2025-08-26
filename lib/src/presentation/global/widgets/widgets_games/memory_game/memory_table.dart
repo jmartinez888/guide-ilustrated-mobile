@@ -268,7 +268,7 @@ class _MemoryTableState extends State<MemoryTable> {
                 _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_elapsedSeconds),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onErrorContainer,
-                  fontSize: screenHeight * 0.02, 
+                  fontSize: screenHeight * 0.04, 
                   fontWeight: FontWeight.bold,
                 ),
               ),
