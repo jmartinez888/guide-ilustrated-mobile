@@ -118,7 +118,10 @@ flutter:
     - assets/icons/species/images_icons/
     - assets/gifs/
     - assets/memory/
-    - assets/memory/fruit/
+    - assets/memory/fruit/Nivel 1/
+    - assets/memory/fruit/Nivel 2/
+    - assets/memory/fruit/Nivel 3/
+    - assets/memory/fruit/Nivel 4/
     - assets/memory/icon/
     - assets/memory/animation/
     - assets/memory/sounds/

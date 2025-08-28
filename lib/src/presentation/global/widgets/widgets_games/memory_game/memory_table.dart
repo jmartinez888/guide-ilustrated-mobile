@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/card_little.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/simple_button.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/progress_bar.dart';
@@ -91,11 +92,11 @@ class _MemoryTableState extends State<MemoryTable> {
       _gameStarted = true;
       _lockBoard = true;
       for (var c in _cardStates) {
-        c.revealed = true; // mostrar todas para memorización
+        c.revealed = true; // mostrar todas para memorización (solo imagen)
       }
     });
 
-    // ⏳ Inicia cuenta regresiva de memorización (5s)
+    // ⏳ Inicia cuenta regresiva de memorización (3s)
     _revealTimer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
       setState(() {
@@ -142,7 +143,7 @@ class _MemoryTableState extends State<MemoryTable> {
 
       if (_firstSelected!.card.imagePath == secondSelected.card.imagePath &&
           _firstSelected!.card.title == secondSelected.card.title) {
-        // ✅ Par correcto
+        // ✅ Par correcto: marcar ambas como emparejadas
         setState(() {
           _firstSelected!.matched = true;
           secondSelected.matched = true;
@@ -175,7 +176,6 @@ class _MemoryTableState extends State<MemoryTable> {
         _gameStarted = false; 
       });
 
-  
       widget.onAllPairsMatched?.call();
     }
   }
@@ -203,7 +203,6 @@ class _MemoryTableState extends State<MemoryTable> {
     final size = MediaQuery.of(context).size;
     final double screenHeight = size.height;
     final double screenWidth = size.width;
-
 
     final bool isWide =
         size.shortestSide >= 500 || (screenWidth / screenHeight) >= 0.75;
@@ -249,22 +248,24 @@ class _MemoryTableState extends State<MemoryTable> {
                 child: CardLittle(
                   imagePath: card.card.imagePath,
                   title: card.card.title,
+                  // La carta se muestra (imagen) si está revelada o emparejada:
                   revealed: card.revealed || card.matched,
+                  // 👇 MOSTRAR NOMBRE SOLO CUANDO EL PAR ESTÉ EMPAREJADO:
+                  showTitle: card.matched,
                 ),
               );
             },
           ),
         ),
 
-
+        // Temporizador (cuenta atrás de memorización o cronómetro de juego)
         if (_gameStarted)
           Positioned(
-            bottom: screenHeight * 0.2,
+            bottom: screenHeight * 0.18,
             left: 0,
             right: 0,
             child: Center(
               child: Text(
-     
                 _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_elapsedSeconds),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onErrorContainer,
@@ -275,7 +276,7 @@ class _MemoryTableState extends State<MemoryTable> {
             ),
           ),
 
-
+        // Barra de progreso (parejas o niveles)
         Positioned(
           bottom: screenHeight * 0.13,
           left: 0,
@@ -299,6 +300,15 @@ class _MemoryTableState extends State<MemoryTable> {
               child: SimpleButton(
                 text: "Iniciar",
                 onPressed: _startGame,
+                coachmarkEnabled: true,
+                lottieDelegates: LottieDelegates(
+                  values: [
+                    ValueDelegate.colorFilter(
+                      const ['**'],
+                      value: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -10,11 +10,16 @@ class CardLittle extends StatelessWidget {
   final String? title;
   final bool revealed;
 
+  /// Nuevo: controla si se muestra el título (nombre) encima de la imagen.
+  /// - Debe ser true solo cuando la carta ya fue emparejada.
+  final bool showTitle;
+
   const CardLittle({
     Key? key,
     this.imagePath,
     this.title,
     required this.revealed,
+    this.showTitle = false, // por defecto no muestra el título
   }) : super(key: key);
 
   @override
@@ -24,7 +29,6 @@ class CardLittle extends StatelessWidget {
 
     final double cardWidth = screenWidth * 0.1;
     final double cardHeight = screenHeight * 0.1;
-    
 
     Widget _buildAssetExpanded() {
       if (imagePath == null) {
@@ -73,46 +77,48 @@ class CardLittle extends StatelessWidget {
         height: cardHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          // Contorno de 2 px negro al contenedor principal
+          // Contorno de 3 px negro al contenedor principal
           border: Border.all(color: Colors.black, width: 3),
         ),
-    
         child: ClipRRect(
-    
           borderRadius: BorderRadius.circular(12),
           child: Stack(
             children: [
-   
+              // Dorso cuando NO está revelada
               if (!revealed)
                 const Positioned.fill(
                   child: _CardBack(),
                 )
               else
+                // Frente (imagen) cuando está revelada
                 Positioned.fill(child: _buildAssetExpanded()),
 
-       
-              if (revealed)
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    width: double.infinity,
+              // TÍTULO (nombre) SOLO CUANDO EL PAR FUE EMPAREJADO
+              // (antes se mostraba siempre que estuviera "revealed")
+              if (showTitle)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Padding(
+                    // Pegado al borde inferior y con padding mínimo
                     padding: EdgeInsets.symmetric(
-                      vertical: cardHeight * 0.15,
                       horizontal: screenWidth * 0.01,
+                      vertical: cardHeight * 0.02,
                     ),
-                 
-              
-                         child: StrokeText(
+                    child: StrokeText(
                       text: title ?? 'No disponible',
-                      strokeWidth: 4,
-                      strokeColor: Theme.of(context).colorScheme. onSurface,
+                      // trazo un poco más sutil para no tapar imagen
+                      strokeWidth: 3,
+                      strokeColor: Theme.of(context).colorScheme.onSurface,
                       textStyle: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
-                        fontSize: screenHeight * 0.022,
+                        // MÁS PEQUEÑO que antes (antes ~0.022)
+                        fontSize: screenHeight * 0.016,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
-                      maxLines: 2,
+                      maxLines: 1, // una línea para no cubrir imagen
                     ),
                   ),
                 ),
