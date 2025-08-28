@@ -1,307 +1,276 @@
+// ignore_for_file: library_private_types_in_public_api, unused_field
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
-import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 
+import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/memory_table.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/controller_game/controller_menory_game/controller_memory_game.dart';
+import 'package:lottie/lottie.dart';
+// Overlay
+import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/overley.dart'
+    as intro_overlay;
+
 class MemoryGamePage extends StatefulWidget {
-  const MemoryGamePage({Key? key}) : super(key: key);
+  final String levelKey;
+
+  const MemoryGamePage({
+    Key? key,
+    this.levelKey = 'level_1',
+  }) : super(key: key);
 
   @override
   _MemoryGamePageState createState() => _MemoryGamePageState();
 }
 
-class _MemoryGamePageState extends State<MemoryGamePage> {
-  final AudioPlayer audioPlayer = AudioPlayer();
-  final int totalSeconds = 50;
-  Timer? timer;
-  int secondsRemaining = 50;
-  bool showImages = false;
-  bool gameStarted = false;
-  bool gameOver = false;
+class _MemoryGamePageState extends State<MemoryGamePage>
+    with WidgetsBindingObserver {
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
-  List<String> images = [
-    'assets/memory/image1.png',
-    'assets/memory/image2.png',
-    'assets/memory/image3.png',
-    'assets/memory/image4.png',
-    'assets/memory/image5.png',
-    'assets/memory/image6.png',
-    'assets/memory/image7.png',
-    'assets/memory/image8.png',
-    'assets/memory/image9.png',
-    'assets/memory/image0.png',
-    'assets/memory/image1.png',
-    'assets/memory/image2.png',
-    'assets/memory/image3.png',
-    'assets/memory/image4.png',
-    'assets/memory/image5.png',
-    'assets/memory/image6.png',
-    'assets/memory/image7.png',
-    'assets/memory/image8.png',
-    'assets/memory/image9.png',
-    'assets/memory/image0.png',
-  ];
+  late Future<void> _bootstrapFuture;
+  late Future<List<MemoryCardData>> _cardsFuture;
 
-  late List<bool> revealedImages;
-  int firstSelectedIndex = -1;
-  int secondSelectedIndex = -1;
+  List<String> _levelKeys = [];
+  int _currentLevelIndex = 0;
+
+  bool _introOverlayShown = false;
+
+  int get _totalLevels => _levelKeys.length;
+  String get _currentLevelKey => _levelKeys[_currentLevelIndex];
 
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    images.shuffle();
-    revealedImages = List.generate(images.length, (_) => false);
-    _showWelcomeMessage();
-  }
+    WidgetsBinding.instance.addObserver(this);
 
-  void _showWelcomeMessage() {
-    Future.delayed(Duration.zero, () {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('¡Bienvenido al Juego de Memoria!'),
-          content: const Text(
-            'Encuentra todos los pares antes de que se acabe el tiempo. '
-            'Pulsa en cada tarjeta para descubrir su imagen y trata de recordar su posición. '
-            '¡Buena suerte!',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Entendido'),
-            ),
-          ],
-        ),
+    _bootstrapFuture = _bootstrap();
+
+    // 🔊 BGM loop
+    _startLoopingBgm();
+
+    // Overlay de bienvenida una sola vez
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _introOverlayShown) return;
+      _introOverlayShown = true;
+      intro_overlay.showMemoryIntroOverlay(
+        context,
+        message:
+            'Bienvenido al juego de memoria, te deseo mucha suerte para completar el desafío',
       );
     });
   }
 
-  void startGame() {
-    setState(() {
-      showImages = true;
-      gameStarted = true;
-      gameOver = false;
-      secondsRemaining = totalSeconds;
-      revealedImages = List.generate(images.length, (_) => false);
-      firstSelectedIndex = -1;
-      secondSelectedIndex = -1;
-    });
-
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      setState(() {
-        showImages = false;
-      });
-      startCountdown();
-    });
+  Future<void> _bootstrap() async {
+    _levelKeys = await MemoryGameController.loadLevelKeys();
+    _currentLevelIndex =
+        await MemoryGameController.indexOfLevelKey(widget.levelKey);
+    _cardsFuture =
+        MemoryGameController.loadCards(levelKey: _currentLevelKey);
   }
 
-  void startCountdown() {
-    audioPlayer.setReleaseMode(ReleaseMode.loop);
-    audioPlayer.play(AssetSource('sounds/clock.mp3'));
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (secondsRemaining > 0) {
-        setState(() {
-          secondsRemaining--;
-        });
-      } else {
-        timer.cancel();
-        endGame();
-      }
-    });
-  }
-
-  void revealImage(int index) {
-    if (!gameStarted || showImages || revealedImages[index]) return;
-
-    setState(() {
-      if (firstSelectedIndex == -1) {
-        firstSelectedIndex = index;
-        revealedImages[index] = true;
-      } else if (secondSelectedIndex == -1 && index != firstSelectedIndex) {
-        secondSelectedIndex = index;
-        revealedImages[index] = true;
-
-        Future.delayed(const Duration(milliseconds: 800), () {
-          checkMatch();
-        });
-      }
-    });
-  }
-
-  void checkMatch() {
-    if (images[firstSelectedIndex] == images[secondSelectedIndex]) {
-      if (revealedImages.every((revealed) => revealed)) {
-        showCongratulations();
-      }
-    } else {
-      setState(() {
-        revealedImages[firstSelectedIndex] = false;
-        revealedImages[secondSelectedIndex] = false;
-      });
+  /// 🔊 Configura y reproduce el BGM en bucle.
+  Future<void> _startLoopingBgm() async {
+    try {
+      await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+      await _audioPlayer.setVolume(1.0);
+      await _audioPlayer.play(
+         AssetSource('assets/memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+      );
+    } catch (_) {
+      try {
+        await _audioPlayer.play(
+           AssetSource('memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+        );
+      } catch (_) {}
     }
-    firstSelectedIndex = -1;
-    secondSelectedIndex = -1;
   }
 
-  void resetGame() {
-    timer?.cancel();
-    audioPlayer.stop();
-    setState(() {
-      gameStarted = false;
-      showImages = false;
-      gameOver = false;
-      secondsRemaining = totalSeconds;
-      revealedImages = List.generate(images.length, (_) => false);
-      images.shuffle();
-    });
-  }
-
-  void endGame() {
-    if (timer!.isActive) {
-      timer?.cancel();
-    }
-    audioPlayer.stop();
-    audioPlayer.setReleaseMode(ReleaseMode.stop);
-    audioPlayer.play(AssetSource('sounds/incorrect.mp3'));
-    setState(() {
-      gameStarted = false;
-      gameOver = true;
-    });
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('¡Tiempo agotado!'),
-        content: const Text('El juego ha terminado. Precione reiniciar'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              audioPlayer.stop();
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void showCongratulations() {
-    audioPlayer.setReleaseMode(ReleaseMode.stop);
-    audioPlayer.play(AssetSource('sounds/correct.mp3'));
-    timer?.cancel();
-    setState(() {
-      gameStarted = false;
-    });
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('¡Felicidades!'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Has encontrado todos los pares antes de que termine el tiempo.'),
-            const SizedBox(height: 20),
-            Lottie.asset('assets/lotties/Trofeo - green.json', width: 150, height: 150),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              audioPlayer.stop();
-            },
-            child: const Text('Aceptar'),
-          ),
-        ],
-      ),
-    );
+  /// 🛑 Detiene el BGM cuando sales de la vista.
+  Future<void> _stopBgm() async {
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.release();
+    } catch (_) {}
   }
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    timer?.cancel();
-    audioPlayer.dispose();
+    _stopBgm();
+    WidgetsBinding.instance.removeObserver(this);
+    _audioPlayer.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 40.0),
-          child: Text('Juego de Memoria'),
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // intencionalmente vacío: mantenemos el audio mientras la vista esté montada
+  }
+
+  // ✅ Avance de nivel o trofeo + reset a level_1
+// Reemplaza tu método actual
+void _handleLevelCompleted() async {
+  final bool isLast = (_currentLevelIndex + 1) >= _totalLevels;
+
+  if (!isLast) {
+    final completed = _currentLevelIndex + 1;
+    final next = _currentLevelIndex + 2;
+
+    // 1) Mostrar overlay de felicitación (esperamos a que se cierre)
+    await intro_overlay.showMemoryIntroOverlay(
+      context,
+      message: '¡Nivel $completed completado! ¡Vamos por el nivel $next!',
+      // opcional: puedes pasar otro Lottie si quieres
+      // lottieAsset: 'assets/memory/animation/NIO-ANIMACION 2.json',
+    );
+
+    if (!mounted) return;
+
+    // 2) Avanzar al siguiente nivel y recargar cartas
+    setState(() {
+      _currentLevelIndex++;
+      _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+    });
+  } else {
+    // Último nivel → trofeo y reset a nivel 1
+    _showTrophyAndReset();
+  }
+}
+
+
+Future<void> _showTrophyAndReset() async {
+  if (!mounted) return;
+  final size = MediaQuery.of(context).size;
+  final h = size.height;
+  final w = size.width;
+
+  final nav = Navigator.of(context, rootNavigator: true);
+
+await showGeneralDialog(
+  context: context,
+  barrierDismissible: false,
+  barrierLabel: 'trophy-overlay',
+  barrierColor: Colors.black54,
+  transitionDuration: const Duration(milliseconds: 200),
+  pageBuilder: (_, __, ___) {
+    return Center(
+      child: Container(
+        width: w * 0.60,
+        height: h * 0.40,
+        decoration: BoxDecoration(
+          color: Colors.white,                 // ⬅️ fondo blanco
+          borderRadius: BorderRadius.circular(16),
+        ),
+        padding: EdgeInsets.all(h * 0.02),     // opcional
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Lottie.asset(
+            'assets/lotties/Trofeo - green.json',
+            fit: BoxFit.contain,
+            repeat: false,
+            onLoaded: (composition) {
+              Future.delayed(composition.duration, () {
+                if (nav.canPop()) nav.pop();
+              });
+            },
+          ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Tiempo restante: ${secondsRemaining}s',
-            style: const TextStyle(fontSize: 24),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                childAspectRatio: 1.0,
+    );
+  },
+  transitionBuilder: (context, anim, _, child) {
+    final curved = CurvedAnimation(parent: anim, curve: Curves.easeOut);
+    return FadeTransition(opacity: curved, child: child);
+  },
+);
+
+
+  if (!mounted) return;
+  setState(() {
+    _currentLevelIndex = 0; // volver a level_1
+    _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+  });
+}
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return FutureBuilder<void>(
+      future: _bootstrapFuture,
+      builder: (context, snapBoot) {
+        if (snapBoot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (snapBoot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Padding(
+                padding: EdgeInsets.all(size.width * 0.06),
+                child: Text(
+                  'Error iniciando niveles:\n${snapBoot.error}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: size.height * 0.02,
+                  ),
+                ),
               ),
-              itemCount: images.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () => revealImage(index),
-                  child: Container(
-                    margin: const EdgeInsets.all(4.0),
-                    decoration: BoxDecoration(
-                      color: Colors.blueAccent,
-                      borderRadius: BorderRadius.circular(8),
+            ),
+          );
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Padding(
+              padding: EdgeInsets.only(left: size.width * 0.10),
+              child: Text(
+                'Juego de Memoria',
+                style: TextStyle(
+                  fontSize: size.height * 0.025,
+                ),
+              ),
+            ),
+          ),
+          body: FutureBuilder<List<MemoryCardData>>(
+            future: _cardsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(size.width * 0.06),
+                    child: Text(
+                      'Error al cargar el nivel:\n${snapshot.error}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: size.height * 0.02,
+                      ),
                     ),
-                    child: (showImages || revealedImages[index])
-                        ? Image.asset(
-                            images[index],
-                            fit: BoxFit.cover,
-                          )
-                        : Container(),
                   ),
                 );
-              },
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              if (gameOver) {
-                resetGame(); // Jugar de nuevo
-              } else if (gameStarted) {
-                resetGame(); // Reiniciar juego
-              } else {
-                startGame(); // Iniciar juego
               }
+
+              final cards = snapshot.data!;
+              return Padding(
+                padding: EdgeInsets.zero,
+                child: MemoryTable(
+                  key: ValueKey('level_${_currentLevelIndex}'),
+                  rows: 4,
+                  columns: 3,
+                  cards: cards,
+                  onAllPairsMatched: _handleLevelCompleted,
+                  currentLevel: _currentLevelIndex + 1,
+                  totalLevels: _totalLevels,
+                ),
+              );
             },
-            child: Text(
-              gameOver
-                  ? 'Jugar de nuevo'
-                  : gameStarted
-                      ? 'Comenzar otra vez'
-                      : 'Iniciar juego',
-            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
