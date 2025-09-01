@@ -6,7 +6,6 @@ class SimpleButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final VoidCallback onPressed;
-  final LottieDelegates? lottieDelegates;
 
   /// 🔹 Coachmark / animación de guía (desactivada por defecto para no romper usos).
   final bool coachmarkEnabled;
@@ -34,9 +33,8 @@ class SimpleButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     required this.onPressed,
-    this.lottieDelegates,
     this.coachmarkEnabled = false,
-    this.coachmarkAsset = 'assets/memory/animation/touchmeeiiap.json',
+    this.coachmarkAsset = 'assets/touchmeeiiap.json',
     this.coachmarkScale = 0.9,
     this.coachmarkRightInsetFactor,
     this.coachmarkVerticalAlign = 0.0,
@@ -110,7 +108,6 @@ class SimpleButton extends StatelessWidget {
                             coachmarkAsset,
                             repeat: true,
                             animate: true,
-                            delegates: lottieDelegates,
                           ),
                         ),
                       ),

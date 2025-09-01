@@ -67,24 +67,22 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         MemoryGameController.loadCards(levelKey: _currentLevelKey);
   }
 
-  /// 🔊 Configura y reproduce el BGM en bucle.
   Future<void> _startLoopingBgm() async {
     try {
       await _audioPlayer.setReleaseMode(ReleaseMode.loop);
       await _audioPlayer.setVolume(1.0);
       await _audioPlayer.play(
-         AssetSource('assets/memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+        AssetSource('assets/memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
       );
     } catch (_) {
       try {
         await _audioPlayer.play(
-           AssetSource('memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+          AssetSource('memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
         );
       } catch (_) {}
     }
   }
 
-  /// 🛑 Detiene el BGM cuando sales de la vista.
   Future<void> _stopBgm() async {
     try {
       await _audioPlayer.stop();
@@ -101,94 +99,117 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // intencionalmente vacío: mantenemos el audio mientras la vista esté montada
+  void didChangeAppLifecycleState(AppLifecycleState state) {}
+
+  void _handleLevelCompleted() async {
+    final bool isLast = (_currentLevelIndex + 1) >= _totalLevels;
+
+    if (!isLast) {
+      final completed = _currentLevelIndex + 1;
+      final next = _currentLevelIndex + 2;
+
+      await intro_overlay.showMemoryIntroOverlay(
+        context,
+        message: '¡Nivel $completed completado! ¡Vamos por el nivel $next!',
+      );
+
+      if (!mounted) return;
+
+      setState(() {
+        _currentLevelIndex++;
+        _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+      });
+    } else {
+      _showTrophyAndReset();
+    }
   }
 
-  // ✅ Avance de nivel o trofeo + reset a level_1
-// Reemplaza tu método actual
-void _handleLevelCompleted() async {
-  final bool isLast = (_currentLevelIndex + 1) >= _totalLevels;
+  Future<void> _showTrophyAndReset() async {
+    if (!mounted) return;
+    final size = MediaQuery.of(context).size;
+    final h = size.height;
+    final w = size.width;
 
-  if (!isLast) {
-    final completed = _currentLevelIndex + 1;
-    final next = _currentLevelIndex + 2;
+    final nav = Navigator.of(context, rootNavigator: true);
 
-    // 1) Mostrar overlay de felicitación (esperamos a que se cierre)
-    await intro_overlay.showMemoryIntroOverlay(
-      context,
-      message: '¡Nivel $completed completado! ¡Vamos por el nivel $next!',
-      // opcional: puedes pasar otro Lottie si quieres
-      // lottieAsset: 'assets/memory/animation/NIO-ANIMACION 2.json',
+    await showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierLabel: 'trophy-overlay',
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (_, __, ___) {
+        return Center(
+          child: Container(
+            width: w * 0.60,
+            height: h * 0.40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            padding: EdgeInsets.all(h * 0.02),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Lottie.asset(
+                'assets/lotties/Trofeo - green.json',
+                fit: BoxFit.contain,
+                repeat: false,
+                onLoaded: (composition) {
+                  Future.delayed(composition.duration, () {
+                    if (nav.canPop()) nav.pop();
+                  });
+                },
+              ),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, anim, _, child) {
+        final curved = CurvedAnimation(parent: anim, curve: Curves.easeOut);
+        return FadeTransition(opacity: curved, child: child);
+      },
     );
 
     if (!mounted) return;
-
-    // 2) Avanzar al siguiente nivel y recargar cartas
     setState(() {
-      _currentLevelIndex++;
+      _currentLevelIndex = 0;
       _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
     });
-  } else {
-    // Último nivel → trofeo y reset a nivel 1
-    _showTrophyAndReset();
+  }
+
+  int _secondsForLevel(int levelNumber) {
+  // Define lo que quieras: por ejemplo
+  switch (levelNumber) {
+    case 1: return 45;
+    case 2: return 40;
+    case 3: return 35;
+    default: return 30; // niveles siguientes
   }
 }
 
+  // Header superpuesto: solo el título centrado (sin logo)
+  Widget _Header(BuildContext context, Size size) {
+    final h = size.height;
+    final w = size.width;
 
-Future<void> _showTrophyAndReset() async {
-  if (!mounted) return;
-  final size = MediaQuery.of(context).size;
-  final h = size.height;
-  final w = size.width;
+    final double headerHeight = (h * 0.10).clamp(56.0, 120.0);
 
-  final nav = Navigator.of(context, rootNavigator: true);
-
-await showGeneralDialog(
-  context: context,
-  barrierDismissible: false,
-  barrierLabel: 'trophy-overlay',
-  barrierColor: Colors.black54,
-  transitionDuration: const Duration(milliseconds: 200),
-  pageBuilder: (_, __, ___) {
-    return Center(
-      child: Container(
-        width: w * 0.60,
-        height: h * 0.40,
-        decoration: BoxDecoration(
-          color: Colors.white,                 // ⬅️ fondo blanco
-          borderRadius: BorderRadius.circular(16),
-        ),
-        padding: EdgeInsets.all(h * 0.02),     // opcional
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Lottie.asset(
-            'assets/lotties/Trofeo - green.json',
-            fit: BoxFit.contain,
-            repeat: false,
-            onLoaded: (composition) {
-              Future.delayed(composition.duration, () {
-                if (nav.canPop()) nav.pop();
-              });
-            },
+    return Container(
+      height: headerHeight,
+      padding: EdgeInsets.symmetric(horizontal: w * 0.04),
+      child: Center(
+        child: Text(
+          'Frutas Amazonicas Nativas',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: (headerHeight * 0.32).clamp(14.0, 24.0),
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ),
     );
-  },
-  transitionBuilder: (context, anim, _, child) {
-    final curved = CurvedAnimation(parent: anim, curve: Curves.easeOut);
-    return FadeTransition(opacity: curved, child: child);
-  },
-);
-
-
-  if (!mounted) return;
-  setState(() {
-    _currentLevelIndex = 0; // volver a level_1
-    _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
-  });
-}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -255,17 +276,45 @@ await showGeneralDialog(
               }
 
               final cards = snapshot.data!;
-              return Padding(
-                padding: EdgeInsets.zero,
-                child: MemoryTable(
-                  key: ValueKey('level_${_currentLevelIndex}'),
-                  rows: 4,
-                  columns: 3,
-                  cards: cards,
-                  onAllPairsMatched: _handleLevelCompleted,
-                  currentLevel: _currentLevelIndex + 1,
-                  totalLevels: _totalLevels,
-                ),
+              return Stack(
+                children: [
+                  // Contenido original intacto
+                  Padding(
+                    padding: EdgeInsets.zero,
+                    child: MemoryTable(
+                      key: ValueKey('level_${_currentLevelIndex}'),
+                      rows: 4,
+                      columns: 3,
+                      cards: cards,
+                      onAllPairsMatched: _handleLevelCompleted,
+                      currentLevel: _currentLevelIndex + 1,
+                      totalLevels: _totalLevels,
+                      // ⬅️ NUEVO: tiempo por nivel (cuenta regresiva)
+                      levelTotalSeconds: _secondsForLevel(_currentLevelIndex + 1),
+
+                      // ⬅️ NUEVO: qué hacer si se agota el tiempo
+                      onTimeUp: () async {
+                        // Ejemplo: muestra overlay y reinicia el mismo nivel
+                        await intro_overlay.showMemoryIntroOverlay(
+                          context,
+                          message: '¡Se acabó el tiempo! Inténtalo de nuevo.',
+                        );
+                        if (!mounted) return;
+                        setState(() {
+                          // recargar cartas del mismo nivel
+                          _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+                        });
+                      },
+                    ),
+                  ),
+                  // Header superpuesto (solo título)
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: _Header(context, size),
+                  ),
+                ],
               );
             },
           ),
