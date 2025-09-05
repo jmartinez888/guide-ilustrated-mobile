@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/card_little.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/simple_button.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/progress_bar.dart';
@@ -29,6 +28,9 @@ class MemoryTable extends StatefulWidget {
   final int? currentLevel;
   final int? totalLevels;
 
+  final int? levelTotalSeconds;
+  final VoidCallback? onTimeUp;
+
   const MemoryTable({
     Key? key,
     required this.rows,
@@ -37,6 +39,8 @@ class MemoryTable extends StatefulWidget {
     this.onAllPairsMatched,
     this.currentLevel,
     this.totalLevels,
+    this.levelTotalSeconds,
+    this.onTimeUp,
   }) : super(key: key);
 
   @override
@@ -51,9 +55,9 @@ class _MemoryTableState extends State<MemoryTable> {
 
   // ⏱️ Timers y contadores
   Timer? _revealTimer;
-  Timer? _elapsedTimer;
+  Timer? _levelTimer; 
   int _revealSeconds = 3;   // cuenta regresiva de memorización
-  int _elapsedSeconds = 0;  // tiempo desde que termina la memorización
+  int _levelSecondsLeft = 0;  // tiempo desde que termina la memorización
   bool _gameCompleted = false;
 
   @override
@@ -65,7 +69,7 @@ class _MemoryTableState extends State<MemoryTable> {
   @override
   void dispose() {
     _revealTimer?.cancel();
-    _elapsedTimer?.cancel();
+    _levelTimer?.cancel();
     super.dispose();
   }
 
@@ -83,9 +87,9 @@ class _MemoryTableState extends State<MemoryTable> {
   void _startGame() {
     // reset de estado de timers y contadores
     _revealTimer?.cancel();
-    _elapsedTimer?.cancel();
+    _levelTimer?.cancel();
     _revealSeconds = 3;
-    _elapsedSeconds = 0;
+    _levelSecondsLeft  = 0;
     _gameCompleted = false;
 
     setState(() {
@@ -113,17 +117,30 @@ class _MemoryTableState extends State<MemoryTable> {
     if (!mounted) return;
     setState(() {
       for (var c in _cardStates) {
-        if (!c.matched) c.revealed = false; // ocultar no emparejadas
+        if (!c.matched) c.revealed = false;
       }
       _lockBoard = false;
+
+      // ⬅️ INICIO COUNTDOWN DEL NIVEL
+      _levelSecondsLeft = (widget.levelTotalSeconds ?? 60).clamp(1, 3600);
     });
 
-    // ▶️ Inicia cronómetro ascendente
-    _elapsedTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+    _levelTimer?.cancel();
+    _levelTimer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
       setState(() {
-        _elapsedSeconds++;
+        _levelSecondsLeft--;
       });
+      if (_levelSecondsLeft <= 0) {
+        _levelTimer?.cancel();
+        // tiempo agotado → bloquear el tablero y avisar
+        setState(() {
+          _gameCompleted = true;
+          _lockBoard = true;
+          _gameStarted = false;
+        });
+        widget.onTimeUp?.call(); // ⬅️ notifica a la página
+      }
     });
   }
 
@@ -169,7 +186,7 @@ class _MemoryTableState extends State<MemoryTable> {
   void _checkIfCompleted() {
     final allMatched = _cardStates.every((c) => c.matched);
     if (allMatched) {
-      _elapsedTimer?.cancel();
+      _levelTimer?.cancel();
       setState(() {
         _gameCompleted = true;
         _lockBoard = true;
@@ -266,7 +283,7 @@ class _MemoryTableState extends State<MemoryTable> {
             right: 0,
             child: Center(
               child: Text(
-                _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_elapsedSeconds),
+                _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_levelSecondsLeft),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onErrorContainer,
                   fontSize: screenHeight * 0.04, 
@@ -301,14 +318,6 @@ class _MemoryTableState extends State<MemoryTable> {
                 text: "Iniciar",
                 onPressed: _startGame,
                 coachmarkEnabled: true,
-                lottieDelegates: LottieDelegates(
-                  values: [
-                    ValueDelegate.colorFilter(
-                      const ['**'],
-                      value: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                    ),
-                  ],
-                ),
               ),
             ),
           ),
