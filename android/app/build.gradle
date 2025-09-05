@@ -52,7 +52,7 @@ android {
          release {
             keyAlias "my-key-alias"
             keyPassword "pollofrito2025"
-            storeFile file("D:/guia mobil/guide-ilustrated-mobile/my-release-key.jks")
+           storeFile file("C:/xampp/htdocs/new-guia-2025/guide-ilustrated-mobile/my-release-key.jks")
             storePassword "pollofrito2025"
         }
     }
