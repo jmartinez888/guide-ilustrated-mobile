@@ -199,10 +199,10 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       padding: EdgeInsets.symmetric(horizontal: w * 0.04),
       child: Center(
         child: Text(
-          'Frutas Amazonicas Nativas',
+          'Frutas Amazónicas Nativas',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: (headerHeight * 0.32).clamp(14.0, 24.0),
+             fontSize: MediaQuery.of(context).size.height * 0.025,
             fontWeight: FontWeight.w700,
             color: Theme.of(context).colorScheme.onSurface,
           ),

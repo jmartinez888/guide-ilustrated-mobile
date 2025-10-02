@@ -10,21 +10,24 @@ class SimpleButton extends StatelessWidget {
   /// 🔹 Coachmark / animación de guía (desactivada por defecto para no romper usos).
   final bool coachmarkEnabled;
 
-  /// Ruta del asset Lottie. Si no envías nada, usa un valor por defecto.
-  /// Asegúrate de registrar el asset en pubspec.yaml (ver abajo).
+  /// Ruta del asset Lottie.
   final String coachmarkAsset;
 
-  /// Escala de la animación respecto a la altura del botón (0.0–1.5 aprox).
-  /// 1.0 ≈ alto del botón. Default: 0.9
-  final double coachmarkScale;
+  /// 🔹 Nuevo: ancho de la animación respecto al ancho de la pantalla.
+  /// Ejemplo: 0.1 → 10% del ancho de pantalla.
+  final double coachmarkWidthFactor;
 
-  /// Desplazamiento horizontal extra desde el borde derecho (en px, relativo).
-  /// Se calcula sobre la altura del botón para mantener la respuesta.
-  /// Default: 0.06 * altura del botón (ligero padding hacia adentro).
-  final double? coachmarkRightInsetFactor;
+  /// 🔹 Nuevo: alto de la animación respecto al alto de la pantalla.
+  /// Ejemplo: 0.05 → 5% del alto de pantalla.
+  final double coachmarkHeightFactor;
 
-  /// Alineación vertical de la animación: -1 (arriba) a 1 (abajo). 0 = centrado.
-  final double coachmarkVerticalAlign;
+  /// 🔹 Nuevo: desplazamiento horizontal en porcentaje del ancho de pantalla.
+  /// Ejemplo: 0.02 → se mueve 2% del ancho de pantalla a la izquierda/derecha.
+  final double coachmarkOffsetX;
+
+  /// 🔹 Nuevo: desplazamiento vertical en porcentaje del alto de pantalla.
+  /// Ejemplo: 0.01 → se mueve 1% del alto de pantalla hacia arriba/abajo.
+  final double coachmarkOffsetY;
 
   // ignore: prefer_const_constructors_in_immutables
   SimpleButton({
@@ -34,11 +37,12 @@ class SimpleButton extends StatelessWidget {
     this.textColor,
     required this.onPressed,
     this.coachmarkEnabled = false,
-    this.coachmarkAsset = 'assets/touchmeeiiap.json',
-    this.coachmarkScale = 0.9,
-    this.coachmarkRightInsetFactor,
-    this.coachmarkVerticalAlign = 0.0,
-  }) : assert(coachmarkScale > 0, 'coachmarkScale debe ser > 0');
+    this.coachmarkAsset = 'assets/lotties/touchmeeiiap.json',
+    this.coachmarkWidthFactor = 0.08,
+    this.coachmarkHeightFactor = 0.05,
+    this.coachmarkOffsetX = 0.0,
+    this.coachmarkOffsetY = 0.0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +52,6 @@ class SimpleButton extends StatelessWidget {
 
     final buttonWidth = screenWidth * 0.7;
     final buttonHeight = screenHeight * 0.05;
-
-    // Inset derecho responsivo en función de la altura del botón.
-    final rightInsetPx =
-        (coachmarkRightInsetFactor != null && coachmarkRightInsetFactor! >= 0)
-            ? (coachmarkRightInsetFactor! * buttonHeight)
-            : (0.06 * buttonHeight); // default: ~6% de la altura del botón
-
-    // Tamaño del coachmark basado en la altura del botón.
-    final coachmarkSize = buttonHeight * coachmarkScale;
 
     final buttonCore = Container(
       width: buttonWidth,
@@ -86,31 +81,22 @@ class SimpleButton extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Capa base: el botón
+            // Botón base
             Positioned.fill(child: buttonCore),
 
-            // Capa superior: coachmark (opcional y no bloquea toques)
+            // Animación Lottie controlada con porcentaje de pantalla
             if (coachmarkEnabled)
-              Positioned.fill(
-                child: IgnorePointer(
-                  child: Align(
-                    // Alineado al borde derecho, con ajuste vertical configurable
-                    alignment: Alignment(1.0, coachmarkVerticalAlign.clamp(-1.0, 1.0)),
-                    child: Padding(
-                      // Inset hacia adentro para no cortar la animación
-                      padding: EdgeInsets.only(right: rightInsetPx),
-                      child: SizedBox(
-                        width: coachmarkSize,
-                        height: coachmarkSize,
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: Lottie.asset(
-                            coachmarkAsset,
-                            repeat: true,
-                            animate: true,
-                          ),
-                        ),
-                      ),
+              Positioned(
+                left: (screenWidth * coachmarkOffsetX),
+                top: (screenHeight * coachmarkOffsetY),
+                child: SizedBox(
+                  width: screenWidth * coachmarkWidthFactor,
+                  height: screenHeight * coachmarkHeightFactor,
+                  child: IgnorePointer(
+                    child: Lottie.asset(
+                      coachmarkAsset,
+                      repeat: true,
+                      animate: true,
                     ),
                   ),
                 ),
