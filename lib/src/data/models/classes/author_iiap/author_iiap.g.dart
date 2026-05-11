@@ -8,7 +8,7 @@ part of 'author_iiap.dart';
 
 _$AuthorIiapImpl _$$AuthorIiapImplFromJson(Map<String, dynamic> json) =>
     _$AuthorIiapImpl(
-      id: json['id_autor'] as int,
+      id: (json['id_autor'] as num).toInt(),
       name: json['vc_nombre'] as String?,
       lastname: json['vc_apellido'] as String?,
       biography: readBiographyValue(json, 'biografia_autor') as String?,

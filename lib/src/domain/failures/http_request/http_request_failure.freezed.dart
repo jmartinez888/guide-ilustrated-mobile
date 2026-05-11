@@ -78,6 +78,9 @@ class _$HttpRequestFailureCopyWithImpl<$Res, $Val extends HttpRequestFailure>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of HttpRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -97,6 +100,9 @@ class __$$HttpRequestFailureNetworkImplCopyWithImpl<$Res>
       _$HttpRequestFailureNetworkImpl _value,
       $Res Function(_$HttpRequestFailureNetworkImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of HttpRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -209,6 +215,9 @@ class __$$HttpRequestFailureUnknownImplCopyWithImpl<$Res>
       _$HttpRequestFailureUnknownImpl _value,
       $Res Function(_$HttpRequestFailureUnknownImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of HttpRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -321,6 +330,9 @@ class __$$HttpRequestFailureNotFoundImplCopyWithImpl<$Res>
       _$HttpRequestFailureNotFoundImpl _value,
       $Res Function(_$HttpRequestFailureNotFoundImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of HttpRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

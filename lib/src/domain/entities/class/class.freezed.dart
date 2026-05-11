@@ -26,8 +26,12 @@ mixin _$ClassC {
   int? get idPhylum => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this ClassC to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ClassC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ClassCCopyWith<ClassC> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -53,6 +57,8 @@ class _$ClassCCopyWithImpl<$Res, $Val extends ClassC>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ClassC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,6 +110,8 @@ class __$$ClassCImplCopyWithImpl<$Res>
       _$ClassCImpl _value, $Res Function(_$ClassCImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ClassC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,11 +180,13 @@ class _$ClassCImpl implements _ClassC {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, idPhylum, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ClassC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ClassCImplCopyWith<_$ClassCImpl> get copyWith =>
@@ -208,8 +218,11 @@ abstract class _ClassC implements ClassC {
   int? get idPhylum;
   @override
   String? get state;
+
+  /// Create a copy of ClassC
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClassCImplCopyWith<_$ClassCImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

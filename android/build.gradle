@@ -1,13 +1,13 @@
 buildscript {
-    ext.kotlin_version = '1.8.0'
+    ext.kotlin_version = '2.1.0'
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:8.6.0'
         classpath 'com.google.gms:google-services:4.4.0'
     }
 }
@@ -16,6 +16,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
     }
 }
 
@@ -29,4 +30,48 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
+}
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy {
+            force 'androidx.browser:browser:1.5.0'
+            force 'androidx.core:core:1.10.1'
+            force 'androidx.core:core-ktx:1.10.1'
+            force 'androidx.activity:activity:1.8.0'
+            force 'androidx.activity:activity-ktx:1.8.0'
+        }
+    }
+
+    def configureManifest = { p ->
+        if (p.hasProperty("android")) {
+            try {
+                def manifestFile = file("${p.projectDir}/src/main/AndroidManifest.xml")
+                if (manifestFile.exists()) {
+                    def text = manifestFile.text
+                    def matcher = text =~ /package="([^"]+)"/
+                    if (matcher.find()) {
+                        def packageName = matcher.group(1)
+                        println "Patching ${p.name}: Setting namespace to '$packageName' and removing package attribute."
+                        
+                        p.android.namespace = packageName
+                        
+                        // Remove package attribute from file
+                        def newText = text.replaceAll(/package="[^"]+"/, "")
+                        manifestFile.write(newText)
+                    }
+                }
+            } catch (Exception e) {
+                println "Failed to patch manifest for ${p.name}: ${e.message}"
+            }
+        }
+    }
+
+    if (project.state.executed) {
+        configureManifest(project)
+    } else {
+        afterEvaluate { p ->
+            configureManifest(p)
+        }
+    }
 }

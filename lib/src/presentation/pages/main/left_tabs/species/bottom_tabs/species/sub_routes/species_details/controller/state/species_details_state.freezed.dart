@@ -20,7 +20,9 @@ mixin _$SpeciesDetailsState {
   bool get expanded => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpeciesDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SpeciesDetailsStateCopyWith<SpeciesDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$SpeciesDetailsStateCopyWithImpl<$Res, $Val extends SpeciesDetailsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SpeciesDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$SpeciesDetailsStateImplCopyWithImpl<$Res>
       $Res Function(_$SpeciesDetailsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SpeciesDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,7 +162,9 @@ class _$SpeciesDetailsStateImpl implements _SpeciesDetailsState {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_mapOfId), expanded, loading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpeciesDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SpeciesDetailsStateImplCopyWith<_$SpeciesDetailsStateImpl> get copyWith =>
@@ -176,8 +184,11 @@ abstract class _SpeciesDetailsState implements SpeciesDetailsState {
   bool get expanded;
   @override
   bool get loading;
+
+  /// Create a copy of SpeciesDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SpeciesDetailsStateImplCopyWith<_$SpeciesDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

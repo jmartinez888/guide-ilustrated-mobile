@@ -26,8 +26,12 @@ mixin _$OrderC {
   int? get idClass => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this OrderC to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OrderC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OrderCCopyWith<OrderC> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -53,6 +57,8 @@ class _$OrderCCopyWithImpl<$Res, $Val extends OrderC>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OrderC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,6 +110,8 @@ class __$$OrderCImplCopyWithImpl<$Res>
       _$OrderCImpl _value, $Res Function(_$OrderCImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OrderC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,11 +179,13 @@ class _$OrderCImpl implements _OrderC {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, idClass, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OrderC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OrderCImplCopyWith<_$OrderCImpl> get copyWith =>
@@ -207,8 +217,11 @@ abstract class _OrderC implements OrderC {
   int? get idClass;
   @override
   String? get state;
+
+  /// Create a copy of OrderC
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OrderCImplCopyWith<_$OrderCImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

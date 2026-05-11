@@ -1,4 +1,11 @@
+import groovy.json.JsonSlurper
+
 pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
     def flutterSdkPath = {
         def properties = new Properties()
         file("local.properties").withInputStream { properties.load(it) }
@@ -10,11 +17,27 @@ pluginManagement {
 
     includeBuild("${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle")
 
-    plugins {
-        id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
+}
+
+// plugins {
+//     id "dev.flutter.flutter-gradle-plugin"
+// }
+
+def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
+def pluginsFile = new File(flutterProjectRoot.toFile(), ".flutter-plugins-dependencies")
+
+if (pluginsFile.exists()) {
+    def object = new groovy.json.JsonSlurper().parseText(pluginsFile.text)
+    if (object.plugins.android) {
+        object.plugins.android.each { plugin ->
+            def name = plugin.name
+            def path = plugin.path
+            include ":$name"
+            project(":$name").projectDir = new File(path, "android")
+        }
     }
 }
 
 include ":app"
 
-apply from: "${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+

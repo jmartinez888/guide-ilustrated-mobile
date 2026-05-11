@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:species/src/data/mappers/specie_mapper.dart';
@@ -8,6 +9,15 @@ import 'package:species/src/data/models/classes/specie_iiap/specie_iiap.dart';
 import 'package:species/src/domain/either.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/failures/http_request/http_request_failure.dart';
+
+List<SpecieIiap> _parseSpeciesList(String responseBody) {
+  final responseList = jsonDecode(responseBody) as Map<String, dynamic>;
+  return getSpecieIiapList(responseList['species']);
+}
+
+SpecieIiap _parseSpecie(String responseBody) {
+  return SpecieIiap.fromJson(jsonDecode(responseBody));
+}
 
 class SpecieApi {
   final String _baseUrl;
@@ -36,15 +46,15 @@ class SpecieApi {
           '$_baseUrl/species/search/type/$type/$pageNumber/$numberOfPostsPerRequest/$orderByNameValue/$orderAscValue'));
 
       if (response.statusCode == 200) {
-        final responseList = jsonDecode(response.body) as Map<String, dynamic>;
-
-        final speciesIiap = getSpecieIiapList(responseList['species']);
+        final speciesIiap = await compute(_parseSpeciesList, response.body);
 
         final species = speciesIiap
             .map((specieIiap) => _specieMapper.specieIiapToSpecie(specieIiap))
             .toList();
 
         return Either.right(species);
+      } else if (response.statusCode == 404) {
+        return Either.right([]);
       } else {
         return Either.left(HttpRequestFailure.notFound());
       }
@@ -89,14 +99,16 @@ class SpecieApi {
         }),
       );
 
-      final responseList = jsonDecode(response.body) as Map<String, dynamic>;
+      if (response.statusCode == 404) {
+        pagingController.appendLastPage([]);
+        return;
+      }
 
-      List<SpecieIiap> postList = getSpecieIiapList(responseList['species']);
+      final postList = await compute(_parseSpeciesList, response.body);
 
       final species = postList
           .map((specie) => _specieMapper.specieIiapToSpecie(specie))
           .toList();
-
 
       final isLatPage = species.length < numberOfPostsPerRequest;
 
@@ -148,7 +160,7 @@ class SpecieApi {
       if (response.statusCode != 200) {
         return Either.left(HttpRequestFailure.notFound());
       }
-      final specieIiap = SpecieIiap.fromJson(jsonDecode(response.body));
+      final specieIiap = await compute(_parseSpecie, response.body);
 
       final specie = _specieMapper.specieIiapToSpecie(specieIiap);
 

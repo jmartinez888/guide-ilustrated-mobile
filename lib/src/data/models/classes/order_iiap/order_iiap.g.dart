@@ -8,9 +8,9 @@ part of 'order_iiap.dart';
 
 _$OrderIiapImpl _$$OrderIiapImplFromJson(Map<String, dynamic> json) =>
     _$OrderIiapImpl(
-      id: json['id_orden'] as int,
+      id: (json['id_orden'] as num).toInt(),
       name: json['vc_nombre'] as String?,
-      idClass: json['id_clase'] as int?,
+      idClass: (json['id_clase'] as num?)?.toInt(),
       state: json['ch_estado'] as String?,
     );
 

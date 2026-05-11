@@ -29,39 +29,43 @@ class MessageException extends StatelessWidget {
     return Extend(
       min: true,
       child: Center(
-        child: ListView(
-          padding: padding ?? EdgeInsets.zero,
-          physics: const BouncingScrollPhysics(),
-          shrinkWrap: true,
-          children: [
-            Padding(
-              padding: PaddingConfig.onlyBottomL,
-              child: Text(
-                text ?? texts.general.somethingWentWrong,
-                style: textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Lottie.asset(
-              lottie,
-              width: 256.0,
-              height: 256.0,
-            ),
-            if (onPressed != null)
-              Padding(
-                padding: PaddingConfig.onlyTopL,
-                child: Center(
-                  child: FilledButton.icon(
-                    onPressed: onPressed,
-                    icon: Icon(icon ?? Icons.refresh_rounded),
-                    label: Text(buttonText ?? texts.general.refresh),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(mainColor),
-                    ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: padding ?? EdgeInsets.zero,
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: PaddingConfig.onlyBottomL,
+                  child: Text(
+                    text ?? texts.general.somethingWentWrong,
+                    style: textTheme.titleLarge,
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ),
-          ],
+                Lottie.asset(
+                  lottie,
+                  width: 256.0,
+                  height: 256.0,
+                ),
+                if (onPressed != null)
+                  Padding(
+                    padding: PaddingConfig.onlyTopL,
+                    child: Center(
+                      child: FilledButton.icon(
+                        onPressed: onPressed,
+                        icon: Icon(icon ?? Icons.refresh_rounded),
+                        label: Text(buttonText ?? texts.general.refresh),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(mainColor),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );

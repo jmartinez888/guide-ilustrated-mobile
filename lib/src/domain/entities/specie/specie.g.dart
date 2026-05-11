@@ -7,12 +7,12 @@ part of 'specie.dart';
 // **************************************************************************
 
 _$SpecieImpl _$$SpecieImplFromJson(Map<String, dynamic> json) => _$SpecieImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
       scientificName: json['scientific_name'] as String?,
       englishName: json['english_name'] as String?,
       year: json['year'] as String?,
-      idFamily: json['id_family'] as int?,
+      idFamily: (json['id_family'] as num?)?.toInt(),
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       type: json['type'] == null

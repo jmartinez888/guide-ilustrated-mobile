@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/card_little.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/simple_button.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/progress_bar.dart';
+import 'package:species/src/presentation/global/utils/responsive.dart';
 
 class MemoryCardData {
   final String imagePath;
@@ -55,9 +56,9 @@ class _MemoryTableState extends State<MemoryTable> {
 
   // ⏱️ Timers y contadores
   Timer? _revealTimer;
-  Timer? _levelTimer; 
-  int _revealSeconds = 3;   // cuenta regresiva de memorización
-  int _levelSecondsLeft = 0;  // tiempo desde que termina la memorización
+  Timer? _levelTimer;
+  int _revealSeconds = 3; // cuenta regresiva de memorización
+  int _levelSecondsLeft = 0; // tiempo desde que termina la memorización
   bool _gameCompleted = false;
 
   @override
@@ -89,7 +90,7 @@ class _MemoryTableState extends State<MemoryTable> {
     _revealTimer?.cancel();
     _levelTimer?.cancel();
     _revealSeconds = 3;
-    _levelSecondsLeft  = 0;
+    _levelSecondsLeft = 0;
     _gameCompleted = false;
 
     setState(() {
@@ -190,7 +191,7 @@ class _MemoryTableState extends State<MemoryTable> {
       setState(() {
         _gameCompleted = true;
         _lockBoard = true;
-        _gameStarted = false; 
+        _gameStarted = false;
       });
 
       widget.onAllPairsMatched?.call();
@@ -214,29 +215,30 @@ class _MemoryTableState extends State<MemoryTable> {
   Widget build(BuildContext context) {
     final int totalCards = widget.rows * widget.columns;
     if (_cardStates.length < totalCards) {
-      return const Center(child: Text("No hay suficientes cartas para el tablero"));
+      return const Center(
+          child: Text("No hay suficientes cartas para el tablero"));
     }
 
-    final size = MediaQuery.of(context).size;
-    final double screenHeight = size.height;
-    final double screenWidth = size.width;
-
-    final bool isWide =
-        size.shortestSide >= 500 || (screenWidth / screenHeight) >= 0.75;
+    final responsive = Responsive.of(context);
+    final isWide =
+        responsive.isTablet || (responsive.width / responsive.height) >= 0.75;
     final double horizontalInset =
-        isWide ? screenWidth * 0.15 : screenWidth * 0.10;
+        isWide ? responsive.wp(15) : responsive.wp(10);
 
     final int boardTotalPairs = totalCards ~/ 2;
-    final int boardMatchedPairs = _cardStates.where((c) => c.matched).length ~/ 2;
+    final int boardMatchedPairs =
+        _cardStates.where((c) => c.matched).length ~/ 2;
     int boardCurrentPairStep = boardMatchedPairs + 1;
     if (boardCurrentPairStep < 1) boardCurrentPairStep = 1;
-    if (boardCurrentPairStep > boardTotalPairs) boardCurrentPairStep = boardTotalPairs;
+    if (boardCurrentPairStep > boardTotalPairs)
+      boardCurrentPairStep = boardTotalPairs;
 
     final bool useExternalLevelProgress =
         (widget.totalLevels != null && widget.currentLevel != null);
 
-    final int progressTotal =
-        useExternalLevelProgress ? widget.totalLevels!.clamp(1, 999) : boardTotalPairs;
+    final int progressTotal = useExternalLevelProgress
+        ? widget.totalLevels!.clamp(1, 999)
+        : boardTotalPairs;
     final int progressCurrent = useExternalLevelProgress
         ? widget.currentLevel!.clamp(1, progressTotal)
         : boardCurrentPairStep;
@@ -244,18 +246,18 @@ class _MemoryTableState extends State<MemoryTable> {
     return Stack(
       children: [
         Positioned(
-          top: screenHeight * 0.08,
+          top: responsive.hp(8),
           left: horizontalInset,
           right: horizontalInset,
-          bottom: screenHeight * 0.0,
+          bottom: 0,
           child: GridView.builder(
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
             primary: false,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: widget.columns,
-              crossAxisSpacing: screenHeight * 0.01,
-              mainAxisSpacing: screenHeight * 0.01,
+              crossAxisSpacing: responsive.hp(1),
+              mainAxisSpacing: responsive.hp(1),
             ),
             itemCount: totalCards,
             itemBuilder: (context, index) {
@@ -278,15 +280,17 @@ class _MemoryTableState extends State<MemoryTable> {
         // Temporizador (cuenta atrás de memorización o cronómetro de juego)
         if (_gameStarted)
           Positioned(
-            bottom: screenHeight * 0.18,
+            bottom: responsive.hp(18),
             left: 0,
             right: 0,
             child: Center(
               child: Text(
-                _revealSeconds > 0 ? '$_revealSeconds' : _formatTime(_levelSecondsLeft),
+                _revealSeconds > 0
+                    ? '$_revealSeconds'
+                    : _formatTime(_levelSecondsLeft),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onErrorContainer,
-                  fontSize: screenHeight * 0.04, 
+                  fontSize: responsive.dp(responsive.isTablet ? 3 : 4),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -295,11 +299,11 @@ class _MemoryTableState extends State<MemoryTable> {
 
         // Barra de progreso (parejas o niveles)
         Positioned(
-          bottom: screenHeight * 0.13,
+          bottom: responsive.hp(13),
           left: 0,
           right: 0,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+            padding: EdgeInsets.symmetric(horizontal: responsive.wp(4)),
             child: ProgressBar(
               totalLevels: progressTotal,
               currentLevel: progressCurrent,
@@ -310,7 +314,7 @@ class _MemoryTableState extends State<MemoryTable> {
         // Botón iniciar
         if (!_gameStarted)
           Positioned(
-            bottom: screenHeight * 0.02,
+            bottom: responsive.hp(2),
             left: 0,
             right: 0,
             child: Center(

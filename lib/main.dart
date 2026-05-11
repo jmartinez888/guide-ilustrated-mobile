@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:species/firebase_options.dart';
@@ -77,12 +79,23 @@ import 'package:species/src/presentation/pages/main/left_tabs/species/bottom_tab
 import 'package:species/src/presentation/pages/main/left_tabs/species/main_species/controller/bottom_tab_position_controller.dart';
 import 'package:species/src/presentation/pages/main/main_left_nav/controller/main_left_nav_controller.dart';
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   LocaleSettings.useDeviceLocale();
   // if (Platform.isIOS) {
   //   await Firebase.initializeApp(
@@ -94,7 +107,7 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  const String baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
+  final String? baseUrl = dotenv.env['API_BASE_URL'];
 
   runApp(
     MultiProvider(
@@ -111,13 +124,13 @@ void main() async {
         ),
         Provider<SpecieRepository>(
           create: (_) => SpecieRepositoryImpl(
-            specieApi: specieApi(baseUrl),
+            specieApi: specieApi(baseUrl!),
           ),
         ),
         Provider<ClassRepository>(
           create: (_) => ClassRepositoryImpl(
             classApi: ClassApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
               classMapper: ClassMapper(),
             ),
           ),
@@ -125,7 +138,7 @@ void main() async {
         Provider<OrderRepository>(
           create: (_) => OrderRepositoryImpl(
             orderApi: OrderApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
               orderMapper: OrderMapper(),
             ),
           ),
@@ -133,7 +146,7 @@ void main() async {
         Provider<FamilyRepository>(
           create: (_) => FamilyRepositoryImpl(
             familyApi: FamilyApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
               familyMapper: FamilyMapper(),
             ),
           ),
@@ -141,27 +154,27 @@ void main() async {
         Provider<ConservationStatesRepository>(
           create: (_) => ConservationStatesRepositoryImpl(
             conservationStatesApi: ConservationStatesApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
             ),
           ),
         ),
         Provider<TaxonomyRepository>(
           create: (_) => TaxonomyRepositoryImpl(
             taxonomyApi: TaxonomyApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
             ),
           ),
         ),
         Provider<FavoriteRepository>(
           create: (_) => FavoriteRepositoryImpl(
             favoriteApi: FavoriteApi(),
-            specieApi: specieApi(baseUrl),
+            specieApi: specieApi(baseUrl!),
           ),
         ),
         Provider<CommunityRository>(
           create: (_) => CommunityRositoryImpl(
             communityApi: CommunityApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
               communityMapper: CommunityMapper(),
             ),
           ),
@@ -169,7 +182,7 @@ void main() async {
         Provider<AuthorRepository>(
           create: (_) => AuthorRepositoryImpl(
             authorApi: AuthorApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
               authorMapper: AuthorMapper(
                 specieForAuthorMapper: SpecieForAuthorMapper(),
               ),
@@ -179,7 +192,7 @@ void main() async {
         Provider<AuthorRepository>(
           create: (_) => AuthorRepositoryImpl(
             authorApi: AuthorApi(
-              baseUrl: baseUrl,
+              baseUrl: baseUrl!,
               authorMapper: AuthorMapper(
                 specieForAuthorMapper: SpecieForAuthorMapper(),
               ),

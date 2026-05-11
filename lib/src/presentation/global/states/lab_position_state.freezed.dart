@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TabPositionState {
   int get position => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TabPositionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TabPositionStateCopyWith<TabPositionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$TabPositionStateCopyWithImpl<$Res, $Val extends TabPositionState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TabPositionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$TabPositionStateImplCopyWithImpl<$Res>
       $Res Function(_$TabPositionStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TabPositionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -115,7 +121,9 @@ class _$TabPositionStateImpl implements _TabPositionState {
   @override
   int get hashCode => Object.hash(runtimeType, position);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TabPositionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TabPositionStateImplCopyWith<_$TabPositionStateImpl> get copyWith =>
@@ -128,8 +136,11 @@ abstract class _TabPositionState implements TabPositionState {
 
   @override
   int get position;
+
+  /// Create a copy of TabPositionState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TabPositionStateImplCopyWith<_$TabPositionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

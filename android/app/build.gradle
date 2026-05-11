@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
     id 'com.google.gms.google-services'
 }
@@ -32,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "pe.gob.iiap.species"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -40,9 +39,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+    // kotlinOptions {
+    //    jvmTarget = '1.8'
+    // }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -52,7 +51,7 @@ android {
          release {
             keyAlias "my-key-alias"
             keyPassword "pollofrito2025"
-            storeFile file("D:/guia mobil/guide-ilustrated-mobile/my-release-key.jks")
+            storeFile file("C:/Users/LENOVO/Desktop/IIAP/guide-ilustrated-mobile/my-release-key.jks")
             storePassword "pollofrito2025"
         }
     }
@@ -63,8 +62,8 @@ android {
         applicationId "pe.gob.iiap.guiailustrada"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 19
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

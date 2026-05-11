@@ -9,7 +9,7 @@ part of 'taxonomy_for_search_iiap.dart';
 _$TaxonomyForSearchIiapImpl _$$TaxonomyForSearchIiapImplFromJson(
         Map<String, dynamic> json) =>
     _$TaxonomyForSearchIiapImpl(
-      id: json['id_taxonomia'] as int,
+      id: (json['id_taxonomia'] as num).toInt(),
       name: json['vc_nombre'] as String?,
       image: json['vc_imagen'] as String?,
       state: json['ch_estado'] as String?,

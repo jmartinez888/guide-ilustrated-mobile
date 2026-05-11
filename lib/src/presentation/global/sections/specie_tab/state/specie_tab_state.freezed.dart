@@ -20,7 +20,9 @@ mixin _$SpecieTabState {
   bool get orderByName => throw _privateConstructorUsedError;
   bool get orderAsc => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpecieTabState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SpecieTabStateCopyWith<SpecieTabState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$SpecieTabStateCopyWithImpl<$Res, $Val extends SpecieTabState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SpecieTabState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$SpecieTabStateImplCopyWithImpl<$Res>
       _$SpecieTabStateImpl _value, $Res Function(_$SpecieTabStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SpecieTabState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -157,7 +163,9 @@ class _$SpecieTabStateImpl implements _SpecieTabState {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_species), orderByName, orderAsc);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpecieTabState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SpecieTabStateImplCopyWith<_$SpecieTabStateImpl> get copyWith =>
@@ -177,8 +185,11 @@ abstract class _SpecieTabState implements SpecieTabState {
   bool get orderByName;
   @override
   bool get orderAsc;
+
+  /// Create a copy of SpecieTabState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SpecieTabStateImplCopyWith<_$SpecieTabStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
