@@ -29,8 +29,12 @@ mixin _$ConservationStates {
   String? get image => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this ConservationStates to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ConservationStates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConservationStatesCopyWith<ConservationStates> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$ConservationStatesCopyWithImpl<$Res, $Val extends ConservationStates>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ConservationStates
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +137,8 @@ class __$$ConservationStatesImplCopyWithImpl<$Res>
       $Res Function(_$ConservationStatesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ConservationStates
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -228,12 +236,14 @@ class _$ConservationStatesImpl implements _ConservationStates {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, description, initState, institution, image, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ConservationStates
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ConservationStatesImplCopyWith<_$ConservationStatesImpl> get copyWith =>
@@ -276,8 +286,11 @@ abstract class _ConservationStates implements ConservationStates {
   String? get image;
   @override
   String? get state;
+
+  /// Create a copy of ConservationStates
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ConservationStatesImplCopyWith<_$ConservationStatesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

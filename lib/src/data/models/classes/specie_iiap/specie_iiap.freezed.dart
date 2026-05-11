@@ -54,8 +54,12 @@ mixin _$SpecieIiap {
   @JsonKey(name: 'ch_estado')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this SpecieIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SpecieIiapCopyWith<SpecieIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -102,6 +106,8 @@ class _$SpecieIiapCopyWithImpl<$Res, $Val extends SpecieIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,6 +186,8 @@ class _$SpecieIiapCopyWithImpl<$Res, $Val extends SpecieIiap>
     ) as $Val);
   }
 
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TypeIiapCopyWith<$Res>? get type {
@@ -192,6 +200,8 @@ class _$SpecieIiapCopyWithImpl<$Res, $Val extends SpecieIiap>
     });
   }
 
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TaxonomyIiapCopyWith<$Res>? get taxonomy {
@@ -249,6 +259,8 @@ class __$$SpecieIiapImplCopyWithImpl<$Res>
       _$SpecieIiapImpl _value, $Res Function(_$SpecieIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -454,7 +466,7 @@ class _$SpecieIiapImpl implements _SpecieIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -473,7 +485,9 @@ class _$SpecieIiapImpl implements _SpecieIiap {
       taxonomy,
       state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SpecieIiapImplCopyWith<_$SpecieIiapImpl> get copyWith =>
@@ -559,8 +573,11 @@ abstract class _SpecieIiap implements SpecieIiap {
   @override
   @JsonKey(name: 'ch_estado')
   String? get state;
+
+  /// Create a copy of SpecieIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SpecieIiapImplCopyWith<_$SpecieIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

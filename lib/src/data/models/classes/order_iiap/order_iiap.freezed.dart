@@ -29,8 +29,12 @@ mixin _$OrderIiap {
   @JsonKey(name: 'ch_estado')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this OrderIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OrderIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OrderIiapCopyWith<OrderIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +61,8 @@ class _$OrderIiapCopyWithImpl<$Res, $Val extends OrderIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OrderIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +115,8 @@ class __$$OrderIiapImplCopyWithImpl<$Res>
       _$OrderIiapImpl _value, $Res Function(_$OrderIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OrderIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -179,11 +187,13 @@ class _$OrderIiapImpl implements _OrderIiap {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, idClass, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OrderIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OrderIiapImplCopyWith<_$OrderIiapImpl> get copyWith =>
@@ -219,8 +229,11 @@ abstract class _OrderIiap implements OrderIiap {
   @override
   @JsonKey(name: 'ch_estado')
   String? get state;
+
+  /// Create a copy of OrderIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OrderIiapImplCopyWith<_$OrderIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

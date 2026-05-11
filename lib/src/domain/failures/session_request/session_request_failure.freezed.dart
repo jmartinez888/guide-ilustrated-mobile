@@ -98,6 +98,9 @@ class _$SessionRequestFailureCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -117,6 +120,9 @@ class __$$SessionRequestFailureCredentialImplCopyWithImpl<$Res>
       _$SessionRequestFailureCredentialImpl _value,
       $Res Function(_$SessionRequestFailureCredentialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -251,6 +257,9 @@ class __$$SessionRequestFailureNotRegisteredImplCopyWithImpl<$Res>
       _$SessionRequestFailureNotRegisteredImpl _value,
       $Res Function(_$SessionRequestFailureNotRegisteredImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -385,6 +394,9 @@ class __$$SessionRequestFailurePasswordImplCopyWithImpl<$Res>
       _$SessionRequestFailurePasswordImpl _value,
       $Res Function(_$SessionRequestFailurePasswordImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -517,6 +529,9 @@ class __$$SessionRequestFailureDisableImplCopyWithImpl<$Res>
       _$SessionRequestFailureDisableImpl _value,
       $Res Function(_$SessionRequestFailureDisableImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -649,6 +664,9 @@ class __$$SessionRequestFailureNetworkImplCopyWithImpl<$Res>
       _$SessionRequestFailureNetworkImpl _value,
       $Res Function(_$SessionRequestFailureNetworkImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -781,6 +799,9 @@ class __$$SessionRequestFailureUnknownImplCopyWithImpl<$Res>
       _$SessionRequestFailureUnknownImpl _value,
       $Res Function(_$SessionRequestFailureUnknownImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SessionRequestFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

@@ -26,8 +26,12 @@ mixin _$Family {
   int? get idOrder => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this Family to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Family
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FamilyCopyWith<Family> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -53,6 +57,8 @@ class _$FamilyCopyWithImpl<$Res, $Val extends Family>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Family
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,6 +110,8 @@ class __$$FamilyImplCopyWithImpl<$Res>
       _$FamilyImpl _value, $Res Function(_$FamilyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Family
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,11 +179,13 @@ class _$FamilyImpl implements _Family {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, idOrder, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Family
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FamilyImplCopyWith<_$FamilyImpl> get copyWith =>
@@ -207,8 +217,11 @@ abstract class _Family implements Family {
   int? get idOrder;
   @override
   String? get state;
+
+  /// Create a copy of Family
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FamilyImplCopyWith<_$FamilyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

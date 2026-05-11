@@ -8,6 +8,7 @@ import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 import 'package:species/src/presentation/global/functions/get_main_color_by_int.dart';
 import 'package:species/src/presentation/global/widgets/custom_back_button.dart';
 import 'package:species/src/presentation/global/widgets/responsives/extend.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class PdfPreviewPage extends StatefulWidget {
   final String specie;
@@ -27,7 +28,8 @@ class _PdfPreviewPageState extends State<PdfPreviewPage> {
   late Map<String, dynamic> color;
   late String pathIcon;
   SpecieRepository get specieRepository => context.read();
-  String baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
+  String baseUrl =
+      dotenv.env['API_BASE_URL'] ?? 'https://api-amazonia.iiap.gob.pe/api/v1';
   final pdfService = PdfService();
 
   @override

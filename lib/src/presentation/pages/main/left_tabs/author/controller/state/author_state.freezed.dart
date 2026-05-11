@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthorState {
   List<Author> get authors => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthorState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthorStateCopyWith<AuthorState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$AuthorStateCopyWithImpl<$Res, $Val extends AuthorState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AuthorState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$AuthorStateImplCopyWithImpl<$Res>
       _$AuthorStateImpl _value, $Res Function(_$AuthorStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuthorState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,7 +127,9 @@ class _$AuthorStateImpl implements _AuthorState {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_authors));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthorState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthorStateImplCopyWith<_$AuthorStateImpl> get copyWith =>
@@ -133,8 +141,11 @@ abstract class _AuthorState implements AuthorState {
 
   @override
   List<Author> get authors;
+
+  /// Create a copy of AuthorState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthorStateImplCopyWith<_$AuthorStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

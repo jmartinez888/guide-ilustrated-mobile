@@ -53,7 +53,6 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
   late Color mainColor;
   late Color opaqueColor;
   SessionController get sessionController => context.read();
-  
 
   @override
   void initState() {
@@ -86,14 +85,13 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
               mainAxisSpacing: 8.0,
               gridDelegateBuilder: (int childCount) {
                 return SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: buildMultiGrids(width)
-                );
+                    crossAxisCount: buildMultiGrids(width));
               },
               pagingController: widget.pagingController,
               physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics()),
               builderDelegate: PagedChildBuilderDelegate<Specie>(
-                animateTransitions: true,
+                animateTransitions: false,
                 transitionDuration: const Duration(milliseconds: 400),
                 newPageProgressIndicatorBuilder: (_) =>
                     const SkeletonConatiner(height: 320.0),
@@ -114,8 +112,7 @@ class _SpeciesTabSectionState extends State<SpeciesTabSection> {
                   onTap: widget.retryLastFailedRequest,
                   title: 'Algo salió mal, inténtalo de nuevo',
                   image: Padding(
-                    padding:
-                        PaddingConfig.allWithoutBottomL,
+                    padding: PaddingConfig.allWithoutBottomL,
                     child: Lottie.asset('assets/lotties/error_data.json'),
                   ),
                 ),

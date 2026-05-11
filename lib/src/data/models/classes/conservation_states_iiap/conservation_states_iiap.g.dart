@@ -9,7 +9,7 @@ part of 'conservation_states_iiap.dart';
 _$ConservationStatesIiapImpl _$$ConservationStatesIiapImplFromJson(
         Map<String, dynamic> json) =>
     _$ConservationStatesIiapImpl(
-      id: readIdValue(json, 'id_estado') as int,
+      id: (readIdValue(json, 'id_estado') as num).toInt(),
       name: json['vc_nombre'] as String?,
       description: json['te_descripcion'] as String?,
       initState: readInitStateValue(json, 'iniciales_estado') as String?,

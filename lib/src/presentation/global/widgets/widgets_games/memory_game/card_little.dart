@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stroke_text/stroke_text.dart';
+import 'package:species/src/presentation/global/utils/responsive.dart';
 
 class CardLittle extends StatelessWidget {
   final String? imagePath;
@@ -24,11 +25,15 @@ class CardLittle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+    final responsive = Responsive.of(context);
 
-    final double cardWidth = screenWidth * 0.1;
-    final double cardHeight = screenHeight * 0.1;
+    // Antes era: screenWidth * 0.1 y screenHeight * 0.1
+    // Usamos wp/hp para mantener consistencia.
+    // Además, en tablet esto podría ser muy pequeño si se mantiene el 10% del ancho (que es grande)
+    // pero 10% del alto (que es grande).
+    // De momento mantenemos la lógica pero con responsive util.
+    final double cardWidth = responsive.wp(10);
+    final double cardHeight = responsive.hp(10);
 
     Widget _buildAssetExpanded() {
       if (imagePath == null) {
@@ -38,7 +43,7 @@ class CardLittle extends StatelessWidget {
               'No disponible',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
-                fontSize: screenHeight * 0.018,
+                fontSize: responsive.dp(1.8),
               ),
             ),
           ),
@@ -103,7 +108,7 @@ class CardLittle extends StatelessWidget {
                   child: Padding(
                     // Pegado al borde inferior y con padding mínimo
                     padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.01,
+                      horizontal: responsive.wp(1),
                       vertical: cardHeight * 0.02,
                     ),
                     child: StrokeText(
@@ -114,7 +119,7 @@ class CardLittle extends StatelessWidget {
                       textStyle: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary,
                         // MÁS PEQUEÑO que antes (antes ~0.022)
-                        fontSize: screenHeight * 0.016,
+                        fontSize: responsive.dp(1.6),
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,

@@ -10,6 +10,8 @@ import 'package:lottie/lottie.dart';
 import 'package:species/src/presentation/global/widgets/widgets_games/memory_game/overley.dart'
     as intro_overlay;
 
+import 'package:species/src/presentation/global/utils/responsive.dart';
+
 class MemoryGamePage extends StatefulWidget {
   final String levelKey;
 
@@ -63,8 +65,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
     _levelKeys = await MemoryGameController.loadLevelKeys();
     _currentLevelIndex =
         await MemoryGameController.indexOfLevelKey(widget.levelKey);
-    _cardsFuture =
-        MemoryGameController.loadCards(levelKey: _currentLevelKey);
+    _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
   }
 
   Future<void> _startLoopingBgm() async {
@@ -72,7 +73,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       await _audioPlayer.setReleaseMode(ReleaseMode.loop);
       await _audioPlayer.setVolume(1.0);
       await _audioPlayer.play(
-        AssetSource('assets/memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
+        AssetSource(
+            'assets/memory/sounds/5-strawberry-mousse-cute-bgm-274668.mp3'),
       );
     } catch (_) {
       try {
@@ -117,7 +119,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
       setState(() {
         _currentLevelIndex++;
-        _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+        _cardsFuture =
+            MemoryGameController.loadCards(levelKey: _currentLevelKey);
       });
     } else {
       _showTrophyAndReset();
@@ -126,9 +129,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   Future<void> _showTrophyAndReset() async {
     if (!mounted) return;
-    final size = MediaQuery.of(context).size;
-    final h = size.height;
-    final w = size.width;
+    final responsive = Responsive.of(context);
 
     final nav = Navigator.of(context, rootNavigator: true);
 
@@ -141,13 +142,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
       pageBuilder: (_, __, ___) {
         return Center(
           child: Container(
-            width: w * 0.60,
-            height: h * 0.40,
+            width: responsive.wp(60),
+            height: responsive.hp(40),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
             ),
-            padding: EdgeInsets.all(h * 0.02),
+            padding: EdgeInsets.all(responsive.hp(2)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Lottie.asset(
@@ -178,31 +179,35 @@ class _MemoryGamePageState extends State<MemoryGamePage>
   }
 
   int _secondsForLevel(int levelNumber) {
-  // Define lo que quieras: por ejemplo
-  switch (levelNumber) {
-    case 1: return 45;
-    case 2: return 40;
-    case 3: return 35;
-    default: return 30; // niveles siguientes
+    // Define lo que quieras: por ejemplo
+    switch (levelNumber) {
+      case 1:
+        return 45;
+      case 2:
+        return 40;
+      case 3:
+        return 35;
+      default:
+        return 30; // niveles siguientes
+    }
   }
-}
 
   // Header superpuesto: solo el título centrado (sin logo)
-  Widget _Header(BuildContext context, Size size) {
-    final h = size.height;
-    final w = size.width;
+  Widget _Header(BuildContext context) {
+    final responsive = Responsive.of(context);
 
-    final double headerHeight = (h * 0.10).clamp(56.0, 120.0);
+    final double headerHeight = responsive.hp(10).clamp(56.0, 120.0);
 
     return Container(
       height: headerHeight,
-      padding: EdgeInsets.symmetric(horizontal: w * 0.04),
+      padding: EdgeInsets.symmetric(horizontal: responsive.wp(4)),
       child: Center(
         child: Text(
           'Frutas Amazonicas Nativas',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: (headerHeight * 0.32).clamp(14.0, 24.0),
+            fontSize:
+                responsive.dp(responsive.isTablet ? 3 : 5).clamp(14.0, 40.0),
             fontWeight: FontWeight.w700,
             color: Theme.of(context).colorScheme.onSurface,
           ),
@@ -213,7 +218,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final responsive = Responsive.of(context);
 
     return FutureBuilder<void>(
       future: _bootstrapFuture,
@@ -227,13 +232,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
           return Scaffold(
             body: Center(
               child: Padding(
-                padding: EdgeInsets.all(size.width * 0.06),
+                padding: EdgeInsets.all(responsive.wp(6)),
                 child: Text(
                   'Error iniciando niveles:\n${snapBoot.error}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.error,
-                    fontSize: size.height * 0.02,
+                    fontSize: responsive.dp(2),
                   ),
                 ),
               ),
@@ -244,11 +249,11 @@ class _MemoryGamePageState extends State<MemoryGamePage>
         return Scaffold(
           appBar: AppBar(
             title: Padding(
-              padding: EdgeInsets.only(left: size.width * 0.10),
+              padding: EdgeInsets.only(left: responsive.wp(10)),
               child: Text(
                 'Juego de Memoria',
                 style: TextStyle(
-                  fontSize: size.height * 0.025,
+                  fontSize: responsive.dp(responsive.isTablet ? 2.5 : 4),
                 ),
               ),
             ),
@@ -262,13 +267,13 @@ class _MemoryGamePageState extends State<MemoryGamePage>
               if (snapshot.hasError) {
                 return Center(
                   child: Padding(
-                    padding: EdgeInsets.all(size.width * 0.06),
+                    padding: EdgeInsets.all(responsive.wp(6)),
                     child: Text(
                       'Error al cargar el nivel:\n${snapshot.error}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.error,
-                        fontSize: size.height * 0.02,
+                        fontSize: responsive.dp(2),
                       ),
                     ),
                   ),
@@ -290,7 +295,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                       currentLevel: _currentLevelIndex + 1,
                       totalLevels: _totalLevels,
                       // ⬅️ NUEVO: tiempo por nivel (cuenta regresiva)
-                      levelTotalSeconds: _secondsForLevel(_currentLevelIndex + 1),
+                      levelTotalSeconds:
+                          _secondsForLevel(_currentLevelIndex + 1),
 
                       // ⬅️ NUEVO: qué hacer si se agota el tiempo
                       onTimeUp: () async {
@@ -302,7 +308,8 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                         if (!mounted) return;
                         setState(() {
                           // recargar cartas del mismo nivel
-                          _cardsFuture = MemoryGameController.loadCards(levelKey: _currentLevelKey);
+                          _cardsFuture = MemoryGameController.loadCards(
+                              levelKey: _currentLevelKey);
                         });
                       },
                     ),
@@ -312,7 +319,7 @@ class _MemoryGamePageState extends State<MemoryGamePage>
                     top: 0,
                     left: 0,
                     right: 0,
-                    child: _Header(context, size),
+                    child: _Header(context),
                   ),
                 ],
               );

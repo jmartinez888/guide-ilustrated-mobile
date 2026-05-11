@@ -33,8 +33,12 @@ mixin _$TypeC {
   @JsonKey(name: 'state')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this TypeC to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TypeC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TypeCCopyWith<TypeC> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -62,6 +66,8 @@ class _$TypeCCopyWithImpl<$Res, $Val extends TypeC>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TypeC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,6 +131,8 @@ class __$$TypeCImplCopyWithImpl<$Res>
       _$TypeCImpl _value, $Res Function(_$TypeCImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TypeC
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -217,12 +225,14 @@ class _$TypeCImpl implements _TypeC {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, name, primaryColor, secondaryColor, image, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TypeC
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TypeCImplCopyWith<_$TypeCImpl> get copyWith =>
@@ -265,8 +275,11 @@ abstract class _TypeC implements TypeC {
   @override
   @JsonKey(name: 'state')
   String? get state;
+
+  /// Create a copy of TypeC
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TypeCImplCopyWith<_$TypeCImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

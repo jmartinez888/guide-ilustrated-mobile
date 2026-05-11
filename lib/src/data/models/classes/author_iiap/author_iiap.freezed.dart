@@ -41,8 +41,12 @@ mixin _$AuthorIiap {
   @SpeciesIiapIntoClassToMap()
   List<SpecieIiap>? get species => throw _privateConstructorUsedError;
 
+  /// Serializes this AuthorIiap to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AuthorIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthorIiapCopyWith<AuthorIiap> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -80,6 +84,8 @@ class _$AuthorIiapCopyWithImpl<$Res, $Val extends AuthorIiap>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AuthorIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -172,6 +178,8 @@ class __$$AuthorIiapImplCopyWithImpl<$Res>
       _$AuthorIiapImpl _value, $Res Function(_$AuthorIiapImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuthorIiap
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -320,7 +328,7 @@ class _$AuthorIiapImpl implements _AuthorIiap {
             const DeepCollectionEquality().equals(other._species, _species));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -335,7 +343,9 @@ class _$AuthorIiapImpl implements _AuthorIiap {
       state,
       const DeepCollectionEquality().hash(_species));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuthorIiap
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthorIiapImplCopyWith<_$AuthorIiapImpl> get copyWith =>
@@ -400,8 +410,11 @@ abstract class _AuthorIiap implements AuthorIiap {
   @override
   @SpeciesIiapIntoClassToMap()
   List<SpecieIiap>? get species;
+
+  /// Create a copy of AuthorIiap
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthorIiapImplCopyWith<_$AuthorIiapImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

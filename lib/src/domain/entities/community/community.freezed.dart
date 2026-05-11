@@ -29,8 +29,12 @@ mixin _$Community {
   String? get state => throw _privateConstructorUsedError;
   List<String> get search => throw _privateConstructorUsedError;
 
+  /// Serializes this Community to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CommunityCopyWith<Community> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$CommunityCopyWithImpl<$Res, $Val extends Community>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,6 +143,8 @@ class __$$CommunityImplCopyWithImpl<$Res>
       _$CommunityImpl _value, $Res Function(_$CommunityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,7 +266,7 @@ class _$CommunityImpl implements _Community {
             const DeepCollectionEquality().equals(other._search, _search));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -271,7 +279,9 @@ class _$CommunityImpl implements _Community {
       state,
       const DeepCollectionEquality().hash(_search));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>
@@ -315,8 +325,11 @@ abstract class _Community implements Community {
   String? get state;
   @override
   List<String> get search;
+
+  /// Create a copy of Community
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommunityImplCopyWith<_$CommunityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

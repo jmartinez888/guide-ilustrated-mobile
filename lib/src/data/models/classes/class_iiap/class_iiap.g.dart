@@ -8,9 +8,9 @@ part of 'class_iiap.dart';
 
 _$ClassIiapImpl _$$ClassIiapImplFromJson(Map<String, dynamic> json) =>
     _$ClassIiapImpl(
-      id: json['id_clase'] as int,
+      id: (json['id_clase'] as num).toInt(),
       name: json['vc_nombre'] as String?,
-      idPhylum: json['id_filo'] as int?,
+      idPhylum: (json['id_filo'] as num?)?.toInt(),
       state: json['ch_estado'] as String?,
     );
 

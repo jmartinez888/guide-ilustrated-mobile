@@ -8,12 +8,12 @@ part of 'specie_iiap.dart';
 
 _$SpecieIiapImpl _$$SpecieIiapImplFromJson(Map<String, dynamic> json) =>
     _$SpecieIiapImpl(
-      id: json['id_especie'] as int,
+      id: (json['id_especie'] as num).toInt(),
       name: json['vc_nombre'] as String?,
       scientificName: json['vc_nombre_cientifico'] as String?,
       englishName: json['vc_nombre_ingles'] as String?,
       year: json['vc_ano'] as String?,
-      idFamily: json['id_familia'] as int?,
+      idFamily: (json['id_familia'] as num?)?.toInt(),
       image: json['vc_imagen'] as String?,
       type: json['taxa'] == null
           ? null

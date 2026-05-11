@@ -8,9 +8,9 @@ part of 'family_iiap.dart';
 
 _$FamilyIiapImpl _$$FamilyIiapImplFromJson(Map<String, dynamic> json) =>
     _$FamilyIiapImpl(
-      id: json['id_familia'] as int,
+      id: (json['id_familia'] as num).toInt(),
       name: json['vc_nombre'] as String?,
-      idOrder: json['id_orden'] as int?,
+      idOrder: (json['id_orden'] as num?)?.toInt(),
       state: json['ch_estado'] as String?,
     );
 

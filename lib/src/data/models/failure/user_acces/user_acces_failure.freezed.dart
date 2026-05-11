@@ -75,6 +75,9 @@ class _$UserAccesFailureCopyWithImpl<$Res, $Val extends UserAccesFailure>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of UserAccesFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -94,6 +97,9 @@ class __$$UserAccesFailureEmailIsNotVerifiedImplCopyWithImpl<$Res>
       _$UserAccesFailureEmailIsNotVerifiedImpl _value,
       $Res Function(_$UserAccesFailureEmailIsNotVerifiedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of UserAccesFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -203,6 +209,9 @@ class __$$UserAccesFailureEmptyImplCopyWithImpl<$Res>
   __$$UserAccesFailureEmptyImplCopyWithImpl(_$UserAccesFailureEmptyImpl _value,
       $Res Function(_$UserAccesFailureEmptyImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of UserAccesFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

@@ -7,7 +7,7 @@ part of 'phylum.dart';
 // **************************************************************************
 
 _$PhylumImpl _$$PhylumImplFromJson(Map<String, dynamic> json) => _$PhylumImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
     );
 

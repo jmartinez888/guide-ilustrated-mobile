@@ -8,7 +8,7 @@ part of 'community_iiap.dart';
 
 _$CommunityIiapImpl _$$CommunityIiapImplFromJson(Map<String, dynamic> json) =>
     _$CommunityIiapImpl(
-      id: json['id_pueblo_indigena'] as int,
+      id: (json['id_pueblo_indigena'] as num).toInt(),
       name: json['vc_nombre'] as String?,
       description: json['te_descripcion'] as String?,
       longitude: (json['de_longitud'] as num?)?.toDouble(),

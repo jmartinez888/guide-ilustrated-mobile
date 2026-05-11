@@ -76,6 +76,9 @@ class _$UploadDataForFirstTimeFailureCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of UploadDataForFirstTimeFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -95,6 +98,9 @@ class __$$UploadDataForFirstTimeFailureNetworkImplCopyWithImpl<$Res>
       _$UploadDataForFirstTimeFailureNetworkImpl _value,
       $Res Function(_$UploadDataForFirstTimeFailureNetworkImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of UploadDataForFirstTimeFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -205,6 +211,9 @@ class __$$UploadDataForFirstTimeFailureUnknowImplCopyWithImpl<$Res>
       _$UploadDataForFirstTimeFailureUnknowImpl _value,
       $Res Function(_$UploadDataForFirstTimeFailureUnknowImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of UploadDataForFirstTimeFailure
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

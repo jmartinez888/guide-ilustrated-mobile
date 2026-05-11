@@ -8,7 +8,7 @@ part of 'community.dart';
 
 _$CommunityImpl _$$CommunityImplFromJson(Map<String, dynamic> json) =>
     _$CommunityImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
       description: json['description'] as String?,
       longitude: (json['longitude'] as num?)?.toDouble(),
