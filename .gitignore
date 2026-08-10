@@ -1,5 +1,16 @@
-# Miscellaneous
+# Secrets and signing material
 .env
+.env.*
+!.env.example
+/key.properties
+/android/key.properties
+*.jks
+*.keystore
+*.p12
+*.p8
+*.mobileprovision
+
+# Miscellaneous
 *.class
 *.log
 *.pyc
@@ -45,3 +56,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/build_log_*.txt
