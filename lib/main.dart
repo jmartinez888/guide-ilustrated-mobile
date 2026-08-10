@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:species/src/data/services/analytics_service.dart';
 import 'package:provider/provider.dart';
 import 'package:species/firebase_options.dart';
 import 'package:species/src/data/mappers/author_mapper.dart';
@@ -95,23 +97,24 @@ void main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint("Failed to load .env file: $e");
+  }
+
   LocaleSettings.useDeviceLocale();
-  // if (Platform.isIOS) {
-  //   await Firebase.initializeApp(
-  //       options: DefaultFirebaseOptions.currentPlatform, name: 'iOSApp');
-  // } else if (Platform.isAndroid) {
-  //   await Firebase.initializeApp(
-  //       options: DefaultFirebaseOptions.currentPlatform);
-  // }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  final analyticsService = AnalyticsService(analytics: analytics);
 
-  final String? baseUrl = dotenv.env['API_BASE_URL'];
+  final String baseUrl = dotenv.env['API_BASE_URL'] ?? 'https://api-amazonia.iiap.gob.pe/api/v1';
 
   runApp(
     MultiProvider(
       providers: [
+        Provider<AnalyticsService>.value(value: analyticsService),
         Provider<AccountRepository>(
           create: (_) => AccountRepositoryImpl(
             accountApi: AccountApi(),

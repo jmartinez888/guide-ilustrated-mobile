@@ -11,7 +11,7 @@ import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/generated/translations.g.dart';
 
 class PdfService {
-  static const String _baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
+  static const String _baseUrl = 'https://api-amazonia.iiap.gob.pe/api/v1';
 
   Future<Uint8List> makePdf({
     required Specie specie,

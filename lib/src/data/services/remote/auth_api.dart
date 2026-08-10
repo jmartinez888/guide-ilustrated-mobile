@@ -8,7 +8,7 @@ import 'package:species/src/domain/failures/session_request/session_request_fail
 class AuthApi {
   FirebaseAuth get _firebaseAuthInstance => FirebaseAuth.instance;
 
-  Future<Either<SessionRequestFailure, UserCredential>> signUp({
+  Future<Either<SessionRequestFailure, User?>> signUp({
     required String email,
     required String password,
   }) async {
@@ -18,7 +18,7 @@ class AuthApi {
         password: password.replaceAll(' ', ''),
       );
 
-      return Either.right(value);
+      return Either.right(value.user);
     } on FirebaseAuthException catch (e) {
       late SessionRequestFailure sessionRequestFailure;
       switch (e.code) {
@@ -34,10 +34,27 @@ class AuthApi {
         case 'network-request-failed':
           sessionRequestFailure = SessionRequestFailure.network();
           break;
+        case 'email-already-in-use':
+          sessionRequestFailure = SessionRequestFailure.credential();
+          break;
         default:
           sessionRequestFailure = SessionRequestFailure.unknown();
       }
       return Either.left(sessionRequestFailure);
+    } on TypeError catch (_) {
+      // Workaround: firebase_auth PigeonUserDetails bug.
+      // The sign-up succeeds natively but the Dart type cast fails.
+      // currentUser is available because Firebase DID create the user.
+      final currentUser = _firebaseAuthInstance.currentUser;
+      if (currentUser != null) {
+        return Either.right(currentUser);
+      }
+      return Either.left(SessionRequestFailure.unknown());
+    } catch (e) {
+      if (e is SocketException) {
+        return Either.left(SessionRequestFailure.network());
+      }
+      return Either.left(SessionRequestFailure.unknown());
     }
   }
 
@@ -58,7 +75,7 @@ class AuthApi {
     }
   }
 
-  Future<Either<SessionRequestFailure, UserCredential>> signIn({
+  Future<Either<SessionRequestFailure, User?>> signIn({
     required String email,
     required String password,
   }) async {
@@ -67,7 +84,7 @@ class AuthApi {
         email: email.replaceAll(' ', ''),
         password: password.replaceAll(' ', ''),
       );
-      return Either.right(value);
+      return Either.right(value.user);
     } on FirebaseAuthException catch (e) {
       late SessionRequestFailure sessionRequestFailure;
       switch (e.code) {
@@ -76,7 +93,6 @@ class AuthApi {
           break;
         case 'user-not-found':
           sessionRequestFailure = SessionRequestFailure.notRegistered();
-          print('Aquì');
           break;
         case 'wrong-password':
           sessionRequestFailure = SessionRequestFailure.password();
@@ -92,8 +108,23 @@ class AuthApi {
           break;
       }
       return Either.left(sessionRequestFailure);
+    } on TypeError catch (_) {
+      // Workaround: firebase_auth PigeonUserDetails bug.
+      // The sign-in succeeds natively but the Dart type cast fails.
+      // currentUser is available because Firebase DID authenticate the user.
+      final currentUser = _firebaseAuthInstance.currentUser;
+      if (currentUser != null) {
+        return Either.right(currentUser);
+      }
+      return Either.left(SessionRequestFailure.unknown());
+    } catch (e) {
+      if (e is SocketException) {
+        return Either.left(SessionRequestFailure.network());
+      }
+      return Either.left(SessionRequestFailure.unknown());
     }
   }
+
 
   Future<void> signOut() async {
      _firebaseAuthInstance.signOut();

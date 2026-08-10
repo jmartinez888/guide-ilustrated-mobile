@@ -38,7 +38,7 @@ class Routes {
   static const String deleteAccount = 'delete-account';
 
   static const String game = '/game';
-  //static const String puzzle = '/puzzle';
+  static const String puzzle = '/puzzle';
   //static const String wordSearch = '/wordsearch';
   static const String memory = '/memory';
   static const String relationship = '/relationship';

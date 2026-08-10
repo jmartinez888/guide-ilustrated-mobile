@@ -54,14 +54,14 @@ class _MainLeftNavState extends State<MainLeftNav> {
       controller.changeTab(5);
     } else if (currentLocation.startsWith('/game')) {
       controller.changeTab(6); // Nueva pestaña para el juego de trivia
-    } /*else if (currentLocation.startsWith('/puzzle')) {
+    } else if (currentLocation.startsWith('/puzzle')) {
       controller.changeTab(7); // Nueva pestaña para el juego de rompecabezas
-    } else if (currentLocation.startsWith('/wordsearch')) {
+    } /*else if (currentLocation.startsWith('/wordsearch')) {
       controller.changeTab(8); // Nueva pestaña para el juego de sopa de letras
     }*/ else if (currentLocation.startsWith('/memory')) { 
-      controller.changeTab(7); // Nueva ruta para el juego de memoria
+      controller.changeTab(8); // Nueva ruta para el juego de memoria
     } else if (currentLocation.startsWith('/relationship')) { 
-      controller.changeTab(8); // Nueva ruta para el juego de relación de palabras
+      controller.changeTab(9); // Nueva ruta para el juego de relación de palabras
     }
 
     final position = controller.state.position;
@@ -100,19 +100,19 @@ class _MainLeftNavState extends State<MainLeftNav> {
               context.goNamed(Routes.game); // Redirigir a la página del juego de trivia
               leftTabController.changeTab(index);
               break;
-            /*case 7:
+            case 7:
               context.goNamed(Routes.puzzle); // Redirigir a la página del juego de rompecabezas
               leftTabController.changeTab(index);
               break;
-            case 8:
+            /*case 8:
               context.goNamed(Routes.wordSearch); // Nueva ruta para el juego de sopa de letras
               leftTabController.changeTab(index);
               break;*/
-            case 7:
+            case 8:
               context.goNamed(Routes.memory); // Nueva ruta para el juego de memoria
               leftTabController.changeTab(index);
               break;
-            case 8:
+            case 9:
               context.goNamed(Routes.relationship); // Nueva ruta para el juego de relación de palabras
               leftTabController.changeTab(index);
               break;
@@ -156,12 +156,12 @@ class _MainLeftNavState extends State<MainLeftNav> {
             label: Text('Trivia de Especies'),
             icon: Icon(Icons.videogame_asset_outlined),
           ),
-          /*const NavigationDrawerDestination(
+          const NavigationDrawerDestination(
             selectedIcon: Icon(Icons.extension_rounded),
             label: Text('Juego de Rompecabezas'), // Nueva opción para el juego de rompecabezas
             icon: Icon(Icons.extension_outlined),
           ),
-          const NavigationDrawerDestination(
+          /*const NavigationDrawerDestination(
             selectedIcon: Icon(Icons.grid_on_rounded), // Icono para la sopa de letras
             label: Text('Sopa de Letras'), // Nueva opción para la sopa de letras
             icon: Icon(Icons.grid_on_outlined),

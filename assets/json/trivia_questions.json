@@ -1,0 +1,242 @@
+[
+  {
+    "category": "Aves",
+    "questions": [
+      {
+        "question": "¿Cuál es el nombre común del Harpia harpyja?",
+        "correct": "Águila harpía",
+        "options": ["Águila calva", "Águila real", "Águila harpía", "Águila pescadora"]
+      },
+      {
+        "question": "¿Qué ave es conocida por su canto onomatopéyico \"tatatao\"?",
+        "correct": "Red-throated caracara",
+        "options": ["Tucán", "Colibrí", "Cacatúa", "Red-throated caracara"]
+      },
+      {
+        "question": "¿Cuántos centímetros mide aproximadamente la garza blanca grande?",
+        "correct": "85 cm",
+        "options": ["85 cm", "60 cm", "100 cm", "75 cm"]
+      },
+      {
+        "question": "¿Qué ave construye su nido en ramas sobre el agua?",
+        "correct": "Hoatzin (Shansho)",
+        "options": ["Hoatzin (Shansho)", "Martín pescador", "Águila harpía", "Garza real"]
+      },
+      {
+        "question": "¿Qué ave es conocida por tener un pico ancho que asemeja una cuchara?",
+        "correct": "Huapapa (Boat-billed heron)",
+        "options": ["Pelícano", "Huapapa (Boat-billed heron)", "Flamenco", "Cormorán"]
+      }
+    ]
+  },
+  {
+    "category": "Mamíferos",
+    "questions": [
+      {
+        "question": "¿Cuál es el mamífero más grande de la Amazonía?",
+        "correct": "Manatí",
+        "options": ["Tapir", "Jaguar", "Manatí", "Mono aullador"]
+      },
+      {
+        "question": "¿Qué mamífero tiene la capacidad de sumergirse completamente en el agua para cazar?",
+        "correct": "Nutria gigante",
+        "options": ["Capibara", "Nutria gigante", "Jaguar", "Tapir"]
+      },
+      {
+        "question": "¿Qué animal amazónico es conocido como \"el ingeniero del ecosistema\" por su capacidad de modificar el hábitat?",
+        "correct": "Castor",
+        "options": ["Nutria", "Jaguar", "Mono araña", "Castor"]
+      },
+      {
+        "question": "¿Cuál es el depredador más grande de la Amazonía?",
+        "correct": "Jaguar",
+        "options": ["Jaguar", "Puma", "Ocelote", "Caimán negro"]
+      },
+      {
+        "question": "¿Qué mamífero amazónico se caracteriza por tener una piel gruesa y arrugada?",
+        "correct": "Tapir",
+        "options": ["Tapir", "Armadillo", "Manatí", "Pecarí"]
+      }
+    ]
+  },
+  {
+    "category": "Reptiles",
+    "questions": [
+      {
+        "question": "¿Qué reptil puede llegar a medir más de 10 metros y es el más grande de la Amazonía?",
+        "correct": "Anaconda",
+        "options": ["Anaconda", "Boa constrictora", "Caimán negro", "Iguana"]
+      },
+      {
+        "question": "¿Cuál es el nombre común del Caiman crocodilus?",
+        "correct": "Caimán blanco",
+        "options": ["Caimán negro", "Caimán de hocico ancho", "Caimán blanco", "Caimán enano"]
+      },
+      {
+        "question": "¿Qué reptil amazónico es conocido por sus colores brillantes y puede escalar árboles?",
+        "correct": "Iguana",
+        "options": ["Iguana", "Tortuga de río", "Serpiente coral", "Lagarto basilisco"]
+      },
+      {
+        "question": "¿Cuál es la serpiente venenosa más conocida de la Amazonía?",
+        "correct": "Bothrops (Fer-de-lance)",
+        "options": ["Cobra", "Bothrops (Fer-de-lance)", "Serpiente coral", "Víbora"]
+      },
+      {
+        "question": "¿Qué especie de tortuga es común en los ríos amazónicos?",
+        "correct": "Tortuga Arrau",
+        "options": ["Tortuga Arrau", "Tortuga de caparazón blando", "Tortuga de orejas rojas", "Tortuga leopardo"]
+      }
+    ]
+  },
+  {
+    "category": "Anfibios",
+    "questions": [
+      {
+        "question": "¿Qué anfibio es conocido por sus colores vivos y es venenoso?",
+        "correct": "Rana dardo venenoso",
+        "options": ["Rana de árbol", "Rana dardo venenoso", "Sapo Bufo", "Salamandra"]
+      },
+      {
+        "question": "¿Cuál es la especie de anfibio más pequeña encontrada en la Amazonía?",
+        "correct": "Rana pigmea",
+        "options": ["Sapo Bufo", "Rana de cristal", "Rana pigmea", "Salamandra de río"]
+      },
+      {
+        "question": "¿Qué tipo de sapo es conocido por secretar toxinas defensivas en la Amazonía?",
+        "correct": "Sapo Bufo",
+        "options": ["Sapo Bufo", "Rana dardo venenoso", "Rana toro", "Sapo de caña"]
+      },
+      {
+        "question": "¿Qué anfibio utiliza los charcos temporales de la selva para reproducirse?",
+        "correct": "Rana de árbol",
+        "options": ["Salamandra de agua", "Sapo Bufo", "Rana de cristal", "Rana de árbol"]
+      },
+      {
+        "question": "¿Cuál es la característica distintiva de la rana de cristal amazónica?",
+        "correct": "Piel translúcida",
+        "options": ["Coloración brillante", "Secreciones venenosas", "Piel translúcida", "Ojos grandes"]
+      }
+    ]
+  },
+  {
+    "category": "Peces",
+    "questions": [
+      {
+        "question": "¿Cuál es el pez más grande de la Amazonía?",
+        "correct": "Paiche",
+        "options": ["Paiche", "Piraña", "Bagre", "Tetra"]
+      },
+      {
+        "question": "¿Qué pez amazónico es conocido por ser carnívoro y tener dientes afilados?",
+        "correct": "Piraña",
+        "options": ["Anguila eléctrica", "Dorado", "Piraña", "Paiche"]
+      },
+      {
+        "question": "¿Qué especie de pez puede respirar aire y vivir en aguas con bajo oxígeno?",
+        "correct": "Arapaima",
+        "options": ["Bagre", "Tilapia", "Piraña", "Arapaima"]
+      },
+      {
+        "question": "¿Qué pez es conocido por su habilidad de generar electricidad?",
+        "correct": "Anguila eléctrica",
+        "options": ["Anguila eléctrica", "Tetra", "Paiche", "Dorado"]
+      },
+      {
+        "question": "¿Cuál es el pez que migra durante la temporada de lluvias en la Amazonía?",
+        "correct": "Dorado",
+        "options": ["Piraña", "Dorado", "Paiche", "Anguila"]
+      }
+    ]
+  },
+  {
+    "category": "Insectos",
+    "questions": [
+      {
+        "question": "¿Qué insecto amazónico es conocido por su picadura dolorosa y agresiva?",
+        "correct": "Hormiga bala",
+        "options": ["Hormiga bala", "Termita", "Escarabajo", "Avispa"]
+      },
+      {
+        "question": "¿Cuál es el insecto que causa la mayoría de las picaduras durante la noche en la Amazonía?",
+        "correct": "Mosquito",
+        "options": ["Hormiga", "Mariposa", "Mosquito", "Avispa"]
+      },
+      {
+        "question": "¿Qué mariposa es famosa por sus alas de color azul brillante?",
+        "correct": "Mariposa Morpho",
+        "options": ["Mariposa Morpho", "Mariposa Monarca", "Mariposa Emperador", "Mariposa Atlas"]
+      },
+      {
+        "question": "¿Qué insecto puede crear túneles bajo tierra en la Amazonía?",
+        "correct": "Termita",
+        "options": ["Hormiga bala", "Termita", "Escarabajo pelotero", "Grillo"]
+      },
+      {
+        "question": "¿Cuál es el insecto que contribuye a la polinización nocturna en la selva amazónica?",
+        "correct": "Polilla Esfinge",
+        "options": ["Abeja", "Mariposa Morpho", "Avispa", "Polilla Esfinge"]
+      }
+    ]
+  },
+  {
+    "category": "Árboles",
+    "questions": [
+      {
+        "question": "¿Cuál es el árbol más alto de la Amazonía?",
+        "correct": "Ceiba",
+        "options": ["Ceiba", "Castaño de Brasil", "Palo de hierro", "Cactus epífito"]
+      },
+      {
+        "question": "¿Qué árbol amazónico produce nueces comestibles muy valoradas?",
+        "correct": "Castaño de Brasil",
+        "options": ["Castaño de Brasil", "Ceiba", "Palmera de aceite", "Árbol del caucho"]
+      },
+      {
+        "question": "¿Cuál es el árbol conocido por su madera resistente y densa en la Amazonía?",
+        "correct": "Palo de hierro",
+        "options": ["Ceiba", "Palo de hierro", "Castaño de Brasil", "Cedro"]
+      },
+      {
+        "question": "¿Qué árbol tiene flores que se abren solo por la noche y son polinizadas por murciélagos?",
+        "correct": "Cactus epífito",
+        "options": ["Ceiba", "Castaño de Brasil", "Cactus epífito", "Árbol de cacao"]
+      },
+      {
+        "question": "¿Cuál es el árbol que se utiliza para la extracción de látex?",
+        "correct": "Caucho",
+        "options": ["Ceiba", "Castaño de Brasil", "Caucho", "Cedro"]
+      }
+    ]
+  },
+  {
+    "category": "Palmeras",
+    "questions": [
+      {
+        "question": "¿Qué palma es famosa por sus frutos que producen aceite?",
+        "correct": "Palma de aceite",
+        "options": ["Palma de aceite", "Irapay", "Aguaje", "Pona"]
+      },
+      {
+        "question": "¿Cuál es el nombre de la palmera cuyos frutos son utilizados para hacer bebidas refrescantes?",
+        "correct": "Aguaje",
+        "options": ["Açai", "Palma de aceite", "Pona", "Aguaje"]
+      },
+      {
+        "question": "¿Qué palmera es conocida por tener hojas grandes que se usan para techos en la Amazonía?",
+        "correct": "Irapay",
+        "options": ["Pona", "Irapay", "Palma de aceite", "Aguaje"]
+      },
+      {
+        "question": "¿Cuál es la palmera que produce un tipo de fruta roja comestible rica en vitamina C?",
+        "correct": "Açai",
+        "options": ["Pona", "Açai", "Irapay", "Palma de aceite"]
+      },
+      {
+        "question": "¿Qué palmera es comúnmente usada en la construcción de viviendas en la Amazonía?",
+        "correct": "Pona",
+        "options": ["Irapay", "Aguaje", "Palma de aceite", "Pona"]
+      }
+    ]
+  }
+]

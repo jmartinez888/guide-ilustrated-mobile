@@ -47,11 +47,13 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       animationTimer = Timer(
         const Duration(milliseconds: 300),
         () {
-          _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
-            curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 100),
-          );
+          if (_scrollController.hasClients) {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              curve: Curves.easeInOut,
+              duration: const Duration(milliseconds: 100),
+            );
+          }
         },
       );
     });
@@ -83,19 +85,35 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
     final size = MediaQuery.of(context).size;
     final isMobile = size.width < 768;
     final isTablet = size.width < 1200 && size.width >= 768;
-    // final isDesktop = size.width >= 1200;
 
     return Stack(
       children: [
-        Center(
-          child: CustomScrollView(
-            controller: _scrollController,
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              const _PortraitAppbar(),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Padding(
+        SingleChildScrollView(
+          controller: _scrollController,
+          physics: const ClampingScrollPhysics(),
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: size.height * 0.2,
+                  width: double.infinity,
+                  child: ShaderMask(
+                    shaderCallback: (Rect bounds) => const LinearGradient(
+                      begin: Alignment.center,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        CustomColors.background,
+                      ],
+                    ).createShader(bounds),
+                    blendMode: BlendMode.srcATop,
+                    child: Image.asset(
+                      'assets/images/background.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: PaddingConfig.allL,
                   child: Column(
                     children: [
@@ -143,8 +161,8 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         if (enabled)
@@ -179,7 +197,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
   TextFormField _passwordTextFormField() {
     return TextFormField(
       focusNode: _passwordFocusNode,
-      onTapOutside: (event) => _passwordFocusNode.unfocus(),
+      autofillHints: const [AutofillHints.password],
       enabled: enabled,
       textInputAction: TextInputAction.done,
       controller: _passwordController,
@@ -212,15 +230,16 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       ),
       onChanged: (value) => setState(() {}),
       validator: passwordValidator,
-      inputFormatters: [withoutSpaces],
       keyboardType: TextInputType.visiblePassword,
+      enableSuggestions: false,
+      autocorrect: false,
     );
   }
 
   TextFormField _emailTextFormField() {
     return TextFormField(
       focusNode: _emailFocusNode,
-      onTapOutside: (event) => _emailFocusNode.unfocus(),
+      autofillHints: const [AutofillHints.email],
       controller: _emailController,
       enabled: enabled,
       textInputAction: TextInputAction.next,
@@ -239,8 +258,9 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
       ),
       onChanged: (value) => setState(() {}),
       validator: emailValidator,
-      inputFormatters: [withoutSpaces],
       keyboardType: TextInputType.emailAddress,
+      enableSuggestions: false,
+      autocorrect: false,
     );
   }
 
@@ -323,7 +343,7 @@ class _SignInPageState extends State<SignInPage> with FormMixin {
             (uid) {
               if (mounted) {
                 accountRepository.createUser(
-                  userId: right.user!.uid,
+                  userId: right!.uid,
                   email: email,
                 );
 
@@ -390,35 +410,7 @@ class _TitleApp extends StatelessWidget {
   }
 }
 
-class _PortraitAppbar extends StatelessWidget {
-  const _PortraitAppbar();
 
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return SliverAppBar(
-      expandedHeight: size.height * 0.2,
-      toolbarHeight: 0.0,
-      flexibleSpace: FlexibleSpaceBar(
-        background: ShaderMask(
-          shaderCallback: (Rect bounds) => const LinearGradient(
-            begin: Alignment.center,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.transparent,
-              CustomColors.background,
-            ],
-          ).createShader(bounds),
-          blendMode: BlendMode.srcATop,
-          child: Image.asset(
-            'assets/images/background.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _HeaderLogo extends StatelessWidget {
   const _HeaderLogo();

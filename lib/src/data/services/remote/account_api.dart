@@ -21,17 +21,18 @@ class AccountApi {
     final docUser = firebaseFirestoreInstance.doc(userId);
     final existingDoc = await docUser.get();
 
-    DateTime now = DateTime.now();
-    final created = existingDoc.exists ? existingDoc.data()!['created'] : now;
-    final user = UserC(
-      id: userId,
-      email: email,
-      created: created,
-    );
+    if (!existingDoc.exists) {
+      DateTime now = DateTime.now();
+      final user = UserC(
+        id: userId,
+        email: email,
+        created: now,
+      );
 
-    final json = user.toJson();
+      final json = user.toJson();
 
-    await docUser.set(json);
+      await docUser.set(json);
+    }
   }
 
   Future<Either<FirebaseRequestFailure, UserC>> getUserData(

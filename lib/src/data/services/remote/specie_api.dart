@@ -100,7 +100,7 @@ class SpecieApi {
       );
 
       if (response.statusCode == 404) {
-        pagingController.appendLastPage([]);
+        try { pagingController.appendLastPage([]); } catch (_) {}
         return;
       }
 
@@ -112,14 +112,23 @@ class SpecieApi {
 
       final isLatPage = species.length < numberOfPostsPerRequest;
 
-      if (isLatPage) {
-        pagingController.appendLastPage(species);
-      } else {
-        final nextPageKey = pageKey + 1;
-        pagingController.appendPage(species, nextPageKey);
+      try {
+        if (isLatPage) {
+          pagingController.appendLastPage(species);
+        } else {
+          final nextPageKey = pageKey + 1;
+          pagingController.appendPage(species, nextPageKey);
+        }
+      } catch (_) {
+        // PagingController was disposed before we could update it.
+        // This happens when the user navigates away during loading.
       }
     } catch (e) {
-      pagingController.error = e;
+      try {
+        pagingController.error = e;
+      } catch (_) {
+        // PagingController was disposed, ignore safely.
+      }
     }
   }
 

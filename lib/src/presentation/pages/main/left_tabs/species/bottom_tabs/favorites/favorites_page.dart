@@ -133,7 +133,20 @@ class _FavoritesPageState extends State<FavoritesPage> {
         itemBuilder: (context, snapshot, index) {
           final Map<String, dynamic> json =
               snapshot[index].data() as Map<String, dynamic>;
-          final specie = Specie.fromJson(json);
+          
+          final Map<String, dynamic> mutableJson = Map<String, dynamic>.from(json);
+          if (mutableJson['images'] != null && mutableJson['images'] is List) {
+            mutableJson['images'] = (mutableJson['images'] as List)
+                .map((url) => url.toString().replaceAll(
+                    'api.amazonia.iiap.gob.pe', 'api-amazonia.iiap.gob.pe'))
+                .toList();
+          }
+          if (mutableJson['sound'] != null) {
+            mutableJson['sound'] = mutableJson['sound'].toString().replaceAll(
+                'api.amazonia.iiap.gob.pe', 'api-amazonia.iiap.gob.pe');
+          }
+
+          final specie = Specie.fromJson(mutableJson);
           final getMainColors = getMainColorByInt(specie.type?.id ?? 0);
           final mainColor = getMainColors['main'];
           final opaqueColor = getMainColors['opaque'];

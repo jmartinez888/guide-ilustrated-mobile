@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:species/src/data/services/local/download_service.dart';
+import 'package:species/src/data/services/analytics_service.dart';
 import 'package:species/src/domain/entities/specie/specie.dart';
 import 'package:species/src/domain/repositories/favorite/favorite_repository.dart';
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
@@ -130,12 +131,19 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                               child: _simpleList(
                                   icon: Icons.picture_as_pdf_rounded,
                                   text: texts.speciesDetailsPage.generatePdf),
-                              onTap: () => context.pushNamed(
-                                Routes.speciePdfPreview,
-                                pathParameters: {
-                                  'specie': jsonEncode(specie.toJson()),
-                                },
-                              ),
+                              onTap: () {
+                                context.read<AnalyticsService>().logDownloadSpecies(
+                                  speciesId: specie.id,
+                                  speciesName: specie.name,
+                                  contentType: 'pdf',
+                                );
+                                context.pushNamed(
+                                  Routes.speciePdfPreview,
+                                  pathParameters: {
+                                    'specie': jsonEncode(specie.toJson()),
+                                  },
+                                );
+                              },
                             ),
                             if (specie.images != null &&
                                 specie.images!.isNotEmpty &&
@@ -153,6 +161,11 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                       customSnackBar(
                                         context: context,
                                         title: result,
+                                      );
+                                      context.read<AnalyticsService>().logDownloadSpecies(
+                                        speciesId: specie.id,
+                                        speciesName: specie.name,
+                                        contentType: 'image',
                                       );
                                       setState(() {
                                         loadingDownload = false;
@@ -190,6 +203,11 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                                       customSnackBar(
                                         context: context,
                                         title: result,
+                                      );
+                                      context.read<AnalyticsService>().logDownloadSpecies(
+                                        speciesId: specie.id,
+                                        speciesName: specie.name,
+                                        contentType: 'audio',
                                       );
                                       setState(() {
                                         loadingDownload = false;
@@ -233,8 +251,14 @@ class _SpecieDetailSectionState extends State<SpecieDetailSection> {
                     icon: Icons.share,
                     iconColor: Colors.white,
                     backgroundColor: mainColor,
-                    onPressed: () => Share.share(
-                        '¡${texts.speciesDetailsPage.attractiveMessage} ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}!'),
+                    onPressed: () {
+                      context.read<AnalyticsService>().logShareSpecies(
+                        speciesId: widget.specie.id,
+                        speciesName: widget.specie.name,
+                      );
+                      Share.share(
+                          '¡${texts.speciesDetailsPage.attractiveMessage} ${widget.specie.name}, https://amazonia.iiap.gob.pe/species/details/${widget.specie.id}!');
+                    },
                   ),
                   sessionState != null
                       ? _FavoriteIcon(
@@ -527,6 +551,10 @@ class __FavoriteIconState extends State<_FavoriteIcon> {
                     userId: widget.userId,
                     specie: speciesDetailsController
                         .state.mapOfId[idSpecie.toString()]!,
+                  );
+                  context.read<AnalyticsService>().logFavoriteSpecies(
+                    speciesId: widget.specie.id,
+                    speciesName: widget.specie.name,
                   );
                   if (mounted) {
                     setState(() => loading = false);

@@ -77,7 +77,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                 const SizedBox(height: 16.0),
                 TextFormField(
                   focusNode: _emailFocusNode,
-                  onTapOutside: (event) => _emailFocusNode.unfocus(),
+                  autofillHints: const [AutofillHints.email],
                   controller: _emailController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -97,8 +97,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                   ),
                   onChanged: (value) => setState(() {}),
                   validator: emailValidator,
-                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.emailAddress,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
                 const SizedBox(height: 16.0),
                 Text(texts.forgotPassword.message,
