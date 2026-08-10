@@ -47,12 +47,12 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Photo Library Usage</string>
-		<key>NSCameraUsageDescription</key>
-		<string>Camera Usage</string>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>Microphone Usage</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permite seleccionar una imagen de perfil desde tu fototeca.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Permite tomar una imagen para tu perfil.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Permite usar el micrófono cuando una función de la aplicación lo requiera.</string>
 		<key>CFBundleLocalizations</key>
 		<array>
 			<string>en</string>

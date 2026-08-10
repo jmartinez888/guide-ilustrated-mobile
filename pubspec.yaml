@@ -7,7 +7,7 @@ publish_to: "none"
 version: 1.0.2+6
 
 environment:
-  sdk: ">=3.1.3 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
 
 
 dependencies:
@@ -18,20 +18,20 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.3
-  firebase_core: ^2.22.0
-  cloud_firestore: ^4.13.0
-  firebase_auth: ^4.16.0
+  firebase_core: ^4.13.0
+  cloud_firestore: ^6.8.0
+  firebase_auth: ^6.5.7
   go_router: ^7.1.0
   cached_network_image: ^3.3.0
   photo_view: ^0.14.0
-  staggered_grid_view_flutter: ^0.0.4
+  flutter_staggered_grid_view: ^0.7.0
   http: ^1.1.0
   infinite_scroll_pagination: ^4.0.0
   rxdart: ^0.27.7
   just_audio: ^0.9.35
   just_audio_cache: ^0.1.2
   audio_video_progress_bar: ^2.0.1
-  share_plus: ^7.2.1
+  share_plus: ^12.0.2
   flutter_file_downloader: ^1.2.1
   permission_handler: ^11.0.1
   pdf: ^3.10.4
@@ -42,8 +42,8 @@ dependencies:
   animated_custom_dropdown: ^2.0.0
   lottie: ^2.7.0
   image_picker: ^1.0.4
-  firebase_storage: ^11.4.1
-  firebase_app_check: ^0.2.1+3
+  firebase_storage: ^13.4.6
+  firebase_app_check: ^0.4.6
   flutter_multi_formatter: ^2.11.16
   url_launcher: ^6.2.1
   provider: ^6.1.1
@@ -60,8 +60,9 @@ dependencies:
   cloudinary: ^1.2.0
   syncfusion_flutter_pdf: ^24.1.41
   flutter_map: ^6.1.0
+  latlong2: ^0.9.1
   path_provider: ^2.1.3
-  flutterflow_paginate_firestore: ^1.0.3+1
+  paginate_firestore_plus: ^1.0.3+4
   dartz: ^0.10.1
   intl_phone_field: ^3.2.0
   flutter_fortune_wheel: ^1.3.1
@@ -72,7 +73,7 @@ dependencies:
   win32: ^5.2.0
   flutter_dotenv: ^6.0.0
   shake: ^3.0.0
-  firebase_analytics: ^10.10.7
+  firebase_analytics: ^12.4.6
   
 
   

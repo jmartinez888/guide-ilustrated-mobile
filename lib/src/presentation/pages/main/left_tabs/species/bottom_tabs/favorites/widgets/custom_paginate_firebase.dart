@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
+import 'package:paginate_firestore_plus/paginate_firestore.dart';
 import 'package:species/src/generated/translations.g.dart';
 import 'package:species/src/presentation/global/functions/padding_config/padding_config.dart';
 import 'package:species/src/presentation/global/sections/favorite/favorites_section_loaging.dart';
