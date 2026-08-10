@@ -7,7 +7,7 @@ import 'package:species/src/domain/failures/http_request/http_request_failure.da
 import 'package:species/src/domain/repositories/specie/specie_repository.dart';
 
 class SpecieRepositoryImpl implements SpecieRepository {
-  final baseUrl = 'https://api.amazonia.iiap.gob.pe/api/v1';
+  final baseUrl = 'https://api-amazonia.iiap.gob.pe/api/v1';
   final firebaseInstance = FirebaseFirestore.instance.collection('users');
   final SpecieApi _specieApi;
   SpecieRepositoryImpl({

@@ -7,14 +7,14 @@ abstract class AuthRepository {
 
   Either<UserAccesFailure, String> isAcces();
   
-  Future<Either<SessionRequestFailure, UserCredential>> signUp({
+  Future<Either<SessionRequestFailure, User?>> signUp({
     required String email,
     required String password,
   });
 
   Future<Either<SessionRequestFailure, String>> sendVerificationEmail();
 
-  Future<Either<SessionRequestFailure, UserCredential>> signIn({
+  Future<Either<SessionRequestFailure, User?>> signIn({
     required String email,
     required String password,
   });

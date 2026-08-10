@@ -10,17 +10,28 @@ import 'package:species/src/domain/repositories/account/account_repository.dart'
 
 class AccountRepositoryImpl extends AccountRepository {
   final AccountApi _accountApi;
-  final _controller = StreamController<UserC>.broadcast();
+  late final StreamController<UserC> _controller;
 
-  late UserC _userData;
+  UserC? _lastUserData;
   StreamSubscription? _subscription;
+  String? _currentUserId;
 
   final firebaseFirestoreInstance =
       FirebaseFirestore.instance.collection('users');
   final firebaseStorageInstance = FirebaseStorage.instance;
 
   AccountRepositoryImpl({required AccountApi accountApi})
-      : _accountApi = accountApi;
+      : _accountApi = accountApi {
+    _controller = StreamController<UserC>.broadcast(
+      onListen: () {
+        // When a new listener subscribes, re-emit the last cached value
+        // so the StreamBuilder gets data immediately.
+        if (_lastUserData != null) {
+          _controller.add(_lastUserData!);
+        }
+      },
+    );
+  }
 
   @override
   Future createUser({
@@ -130,22 +141,32 @@ class AccountRepositoryImpl extends AccountRepository {
 
   @override
   Future<void> getStreamUserData(String userId) async {
+    // Avoid re-subscribing if already listening to the same user
+    if (_currentUserId == userId && _subscription != null) {
+      return;
+    }
+    _currentUserId = userId;
     _subscription?.cancel();
     _subscription = firebaseFirestoreInstance.doc(userId).snapshots().listen(
       (DocumentSnapshot documentSnapshot) {
-        if (_controller.hasListener && !_controller.isClosed) {
+        if (!_controller.isClosed) {
           if (documentSnapshot.exists) {
-            _userData =
+            _lastUserData =
                 UserC.fromJson(documentSnapshot.data() as Map<String, dynamic>);
-            _controller.add(_userData);
+            _controller.add(_lastUserData!);
           }
         }
+      },
+      onError: (error) {
+        print('Stream error (likely sign-out permission denied): $error');
+        _subscription?.cancel();
+        _currentUserId = null;
       },
     );
   }
 
   @override
-  UserC get userData => _userData;
+  UserC get userData => _lastUserData!;
 
   @override
   Stream<UserC> get onUserDataChanged => _controller.stream;

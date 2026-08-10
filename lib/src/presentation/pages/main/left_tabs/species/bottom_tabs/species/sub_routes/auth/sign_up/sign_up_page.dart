@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                 const SizedBox(height: 16.0),
                 TextFormField(
                   focusNode: _repeatPasswordFocusNode,
-                  onTapOutside: (event) => _repeatPasswordFocusNode.unfocus(),
+                  autofillHints: const [AutofillHints.newPassword],
                   controller: _repeatPasswordController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -121,13 +121,14 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                   onChanged: (value) => setState(() {}),
                   validator: (value) => repeatPasswordValidator(
                       _repeatPasswordController.text, _passwordController.text),
-                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.visiblePassword,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
                   focusNode: _passwordFocusNode,
-                  onTapOutside: (event) => _passwordFocusNode.unfocus(),
+                  autofillHints: const [AutofillHints.newPassword],
                   controller: _passwordController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -162,13 +163,14 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                   ),
                   onChanged: (value) => setState(() {}),
                   validator: passwordValidator,
-                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.visiblePassword,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
                 const SizedBox(height: 16.0),
                 TextFormField(
                   focusNode: _emailFocusNode,
-                  onTapOutside: (event) => _emailFocusNode.unfocus(),
+                  autofillHints: const [AutofillHints.email],
                   controller: _emailController,
                   enabled: enabled,
                   autovalidateMode: validateInInput
@@ -188,8 +190,9 @@ class _SignUpPageState extends State<SignUpPage> with FormMixin {
                   ),
                   onChanged: (value) => setState(() {}),
                   validator: emailValidator,
-                  inputFormatters: [withoutSpaces],
                   keyboardType: TextInputType.emailAddress,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
               ],
             ),

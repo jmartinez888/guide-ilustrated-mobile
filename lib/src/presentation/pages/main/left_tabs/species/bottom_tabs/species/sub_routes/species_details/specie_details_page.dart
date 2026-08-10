@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:species/src/data/services/analytics_service.dart';
 import 'package:species/src/presentation/global/sections/general_loadings/specie_details_loading.dart';
 import 'package:species/src/presentation/global/sections/message_exception.dart';
 import 'package:species/src/presentation/global/sections/species_details_section.dart';
@@ -20,6 +21,7 @@ class SpecieDetailsPage extends StatefulWidget {
 
 class _SpecieDetailsPageState extends State<SpecieDetailsPage> {
   SpeciesDetailsController get specieReadController => context.read();
+  bool _analyticsLogged = false;
 
   @override
   void initState() {
@@ -27,10 +29,25 @@ class _SpecieDetailsPageState extends State<SpecieDetailsPage> {
     super.initState();
   }
 
+  void _logViewSpeciesIfNeeded(SpeciesDetailsController controller) {
+    if (_analyticsLogged) return;
+    final specie = controller.state.mapOfId[widget.id];
+    if (specie != null) {
+      _analyticsLogged = true;
+      context.read<AnalyticsService>().logViewSpecies(
+            speciesId: specie.id,
+            speciesName: specie.name,
+            speciesScientificName: specie.scientificName,
+            speciesType: specie.type?.name,
+          );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final SpeciesDetailsController specieControllerWatch = context.watch();
     final specieState = specieControllerWatch.state;
+    _logViewSpeciesIfNeeded(specieControllerWatch);
     return Stack(
       children: [
         Scaffold(

@@ -31,11 +31,11 @@ import 'package:species/src/presentation/pages/splash/splash_page.dart';
 import 'package:species/src/presentation/router/routes.dart';
 
 // Importación de la página del juego
-import 'package:species/src/presentation/pages/main/left_tabs/game/game_page.dart';
-//import 'package:species/src/presentation/pages/main/left_tabs/game/puzzle_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/trivia/trivia_game_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/puzzle/puzzle_game_page.dart';
 //import 'package:species/src/presentation/pages/main/left_tabs/game/word_search_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/game/memory_game_page.dart';
-import 'package:species/src/presentation/pages/main/left_tabs/game/relationship_game_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/memory/memory_game_page.dart';
+import 'package:species/src/presentation/pages/main/left_tabs/game/relationship/relationship_game_page.dart';
 
 
 final parentNavigatorKey = GlobalKey<NavigatorState>();
@@ -305,14 +305,14 @@ final appRouter = GoRouter(
         GoRoute(
           path: Routes.game, // Ruta del juego
           name: Routes.game,
-          builder: (_, __) => GamePage(), // Página del juego
-        ),
-        /*GoRoute(
-          path: Routes.puzzle, // Ruta para el rompecabezas
-          name: Routes.puzzle,
-          builder: (_, __) => PuzzlePage(), // Página del rompecabezas
+          builder: (_, __) => TriviaGamePage(), // Página del juego
         ),
         GoRoute(
+          path: Routes.puzzle, // Ruta para el rompecabezas
+          name: Routes.puzzle,
+          builder: (_, __) => PuzzleGamePage(), // Página del rompecabezas
+        ),
+        /*GoRoute(
           path: Routes.wordSearch, // Ruta para la sopa de letras
           name: Routes.wordSearch,
           builder: (_, __) => WordSearchPage(), // Página de la sopa de letras

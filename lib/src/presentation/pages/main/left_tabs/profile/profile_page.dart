@@ -14,8 +14,29 @@ import 'package:species/src/presentation/global/widgets/card/custom_list_tile.da
 import 'package:species/src/presentation/router/routes.dart';
 import 'package:species/src/generated/translations.g.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool _streamInitialized = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _initStream();
+  }
+
+  void _initStream() {
+    final sessionState = context.read<SessionController>().state;
+    if (sessionState != null && !_streamInitialized) {
+      _streamInitialized = true;
+      context.read<AccountRepository>().getStreamUserData(sessionState);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +48,6 @@ class ProfilePage extends StatelessWidget {
 
     final textTheme = Theme.of(context).textTheme;
 
-    if (sessionState != null) {
-      accountRepository.getStreamUserData(sessionState);
-    }
-
     return WillPopScope( // Agregamos el WillPopScope para el mensaje de confirmación
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
@@ -38,7 +55,13 @@ class ProfilePage extends StatelessWidget {
             ? StreamBuilder<UserC>(
                 stream: accountRepository.onUserDataChanged,
                 builder: (_, snapshot) {
-                  if (snapshot.data == null) {
+                  if (snapshot.connectionState == ConnectionState.waiting &&
+                      snapshot.data == null) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError || 
+                      (snapshot.connectionState == ConnectionState.active &&
+                       snapshot.data == null)) {
                     return Center(
                       child: ListView(
                         physics: const BouncingScrollPhysics(),

@@ -118,6 +118,19 @@ class FavoriteApi {
 
         for (var doc in snapshot.docs) {
           final data = doc.data();
+          
+          // Corrección para URLs antiguas guardadas con 'api.amazonia' en lugar de 'api-amazonia'
+          if (data['images'] != null && data['images'] is List) {
+            data['images'] = (data['images'] as List)
+                .map((url) => url.toString().replaceAll(
+                    'api.amazonia.iiap.gob.pe', 'api-amazonia.iiap.gob.pe'))
+                .toList();
+          }
+          if (data['sound'] != null) {
+            data['sound'] = data['sound'].toString().replaceAll(
+                'api.amazonia.iiap.gob.pe', 'api-amazonia.iiap.gob.pe');
+          }
+
           final specie = Specie.fromJson(data);
           species.add(specie);
         }

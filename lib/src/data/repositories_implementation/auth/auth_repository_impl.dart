@@ -11,7 +11,7 @@ class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl(this._authApi);
 
   @override
-  Future<Either<SessionRequestFailure, UserCredential>> signUp({
+  Future<Either<SessionRequestFailure, User?>> signUp({
     required String email,
     required String password,
   }) {
@@ -24,7 +24,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<SessionRequestFailure, UserCredential>> signIn({
+  Future<Either<SessionRequestFailure, User?>> signIn({
     required String email,
     required String password,
   }) {
