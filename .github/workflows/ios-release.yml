@@ -94,7 +94,7 @@ jobs:
           flutter build ipa --release \
             --export-options-plist=ios/ExportOptions.plist \
             --build-name=1.0.2 \
-            --build-number=6
+            --build-number=7
 
       - name: Upload to App Store Connect
         env:
