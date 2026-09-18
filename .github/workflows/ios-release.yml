@@ -51,6 +51,8 @@ jobs:
         run: |
           echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" > .env
       - name: Build IPA
+        env:
+          FLUTTER_XCODE_SWIFT_PACKAGE_MANAGER_DISABLE: "1"
         run: |
           flutter build ipa --release \
             --export-options-plist=ios/ExportOptions.plist
