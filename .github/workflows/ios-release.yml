@@ -47,8 +47,6 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Disable Swift Package Manager
-        run: flutter config --no-enable-swift-package-manager
       - name: Create .env file
         run: |
           echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" > .env
@@ -57,7 +55,14 @@ jobs:
           FLUTTER_XCODE_SWIFT_PACKAGE_MANAGER_DISABLE: "1"
         run: |
           flutter build ipa --release \
-            --export-options-plist=ios/ExportOptions.plist
+            --export-options-plist=ios/ExportOptions.plist \
+            --build-name=1.0.2 \
+            --build-number=6 \
+            -- \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="Guia Ilustrada App Store Profile" \
+            DEVELOPMENT_TEAM=Y642XJ8BJC
 
       - name: Upload to App Store Connect
         env:
