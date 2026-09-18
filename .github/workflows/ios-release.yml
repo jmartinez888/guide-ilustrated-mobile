@@ -47,9 +47,28 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: Configure manual code signing
+        run: |
+          PBXPROJ=ios/Runner.xcodeproj/project.pbxproj
+
+          sed -i '' 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual;/g' "$PBXPROJ"
+
+          # Agrega DEVELOPMENT_TEAM si no existe, o lo actualiza si ya existe
+          if grep -q "DEVELOPMENT_TEAM" "$PBXPROJ"; then
+            sed -i '' 's/DEVELOPMENT_TEAM = "";/DEVELOPMENT_TEAM = Y642XJ8BJC;/g' "$PBXPROJ"
+          fi
+
+          # Inserta PROVISIONING_PROFILE_SPECIFIER y CODE_SIGN_IDENTITY después de cada CODE_SIGN_STYLE = Manual;
+          sed -i '' '/CODE_SIGN_STYLE = Manual;/a\
+                DEVELOPMENT_TEAM = Y642XJ8BJC;\
+                PROVISIONING_PROFILE_SPECIFIER = "Guia Ilustrada App Store Profile";\
+                CODE_SIGN_IDENTITY = "Apple Distribution";
+          ' "$PBXPROJ"
+
       - name: Create .env file
         run: |
           echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" > .env
+
       - name: Build IPA
         env:
           FLUTTER_XCODE_SWIFT_PACKAGE_MANAGER_DISABLE: "1"
@@ -57,12 +76,7 @@ jobs:
           flutter build ipa --release \
             --export-options-plist=ios/ExportOptions.plist \
             --build-name=1.0.2 \
-            --build-number=6 \
-            -- \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="Guia Ilustrada App Store Profile" \
-            DEVELOPMENT_TEAM=Y642XJ8BJC
+            --build-number=6
 
       - name: Upload to App Store Connect
         env:
