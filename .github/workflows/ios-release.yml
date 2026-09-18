@@ -46,9 +46,35 @@ jobs:
           echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-
       - name: Disable Swift Package Manager
         run: flutter config --no-enable-swift-package-manager
+      - name: Configure manual code signing
+        run: |
+          gem install xcodeproj --no-document
+
+          ruby -e '
+          require "xcodeproj"
+
+          project_path = "ios/Runner.xcodeproj"
+          project = Xcodeproj::Project.open(project_path)
+
+          project.targets.each do |target|
+            target.build_configurations.each do |config|
+              if ["Release", "Profile"].include?(config.name)
+                config.build_settings["CODE_SIGN_STYLE"] = "Manual"
+                config.build_settings["DEVELOPMENT_TEAM"] = "Y642XJ8BJC"
+                config.build_settings["PROVISIONING_PROFILE_SPECIFIER"] = "Guia Ilustrada App Store Profile"
+                config.build_settings["CODE_SIGN_IDENTITY"] = "Apple Distribution"
+                config.build_settings["CODE_SIGN_IDENTITY[sdk=iphoneos*]"] = "Apple Distribution"
+              end
+            end
+          end
+
+          project.save
+          '
+
+          echo "--- Verificación ---"
+          grep -A2 "CODE_SIGN_STYLE" ios/Runner.xcodeproj/project.pbxproj || echo "No se encontró CODE_SIGN_STYLE"
 
       - name: Create .env file
         run: |
