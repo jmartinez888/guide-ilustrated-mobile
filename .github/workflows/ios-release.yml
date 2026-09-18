@@ -16,6 +16,12 @@ jobs:
         with:
           channel: stable
 
+      - name: Clean iOS pods
+        run: |
+          rm -f ios/Podfile.lock
+          rm -rf ios/Pods
+          cd ios && pod repo update && cd ..
+
       - name: Install dependencies
         run: flutter pub get
 
